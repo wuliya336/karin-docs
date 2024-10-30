@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading">正在请求更新日志...</div>
+  <div v-if="loading">处理中......</div>
   <div v-else-if="error">获取更新日志失败，错误: {{ error }}</div>
   <div v-else v-html="compiledMarkdown"></div>
 </template>

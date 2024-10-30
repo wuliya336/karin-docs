@@ -91,11 +91,17 @@ export default defineConfig({
       // 代码组图标
       groupIconVitePlugin({
         customIcon: {
-          ts: 'logos:typescript',
+          ts: 'logos:typescript-icon',
           js: 'logos:javascript', //js图标
           md: 'logos:markdown', //markdown图标
           css: 'logos:css-3', //css图标
-          cnpm: localIconLoader(import.meta.url, '../public/cnpm.png'),
+          cnpm: 'https://npmmirror.com/cnpm.png',
+          被动事件调用: 'logos:javascript',
+          主动事件调用: 'logos:javascript',
+          请求示例: 'logos:javascript',
+          请求示例1: 'logos:javascript',
+          请求示例2: 'logos:javascript',
+          请求示例3: 'logos:javascript'
         },
       })
     ],
@@ -131,8 +137,6 @@ export default defineConfig({
     logo: {
       src: '/logo.png',
     },
-    // 深浅模式文字翻译
-    darkModeSwitchLabel: '深浅模式',
     editLink: {
       pattern: 'https://github.com/KarinJS/Karin/edit/docs/docs/:path',
       text: '在 GitHub 上编辑此页面',
@@ -144,6 +148,9 @@ export default defineConfig({
     nav: nav as [],
     sidebar: sidebar,
     search: search as any,
+    lightModeSwitchTitle: '切换到浅色模式',
+    darkModeSwitchTitle: '切换到深色模式',
+    darkModeSwitchLabel: '主题模式',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/KarinJS/Karin' },
       {
@@ -158,7 +165,10 @@ export default defineConfig({
       prev: '上一页',
       next: '下一页',
     },
-    lastUpdatedText: '最后编辑于',
+    lastUpdated: {
+      text: '最后编辑于',
+      formatOptions: { dateStyle: 'long', timeStyle: 'long', hourCycle: 'h12' }
+    },
     outlineTitle: '本页大纲',
     // 侧边栏文字更改
     sidebarMenuLabel: '目录',
