@@ -3,23 +3,21 @@ layout: home
 
 hero:
   name: Karin
-  # text: 高性能、轻量级、易扩展
-  tagline: 基于 Kritor 标准进行开发的 Node.js 机器人框架
+  tagline: 一个轻量、高效的机器人框架
   image:
     src: /logo-2.png
   prelink:
     title: '<p style="text-align: left;"><i class="fa-solid fa-bolt" style="color: #63E6BE;"></i> 快速开始</p><div style="text-align: left; font-weight: bold; word-break: break-all; overflow-wrap: break-word;">pnpm init && pnpm i node-karin && npx init && npx karin .</div>'
   actions:
     - theme: brand
-      text: 快速上手
-      link: /start/index
+      text: Github
+      link: https://github.com/KarinJS/Karin
     - theme: alt
       text: 插件索引
       link: /plugins/index
     - theme: alt
-      text: onebots
-      link: https://docs.onebots.org/
-
+      text: 快速上手
+      link: /start/index
 
 features:
   - title: 轻量 · 高效
