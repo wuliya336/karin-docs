@@ -6,123 +6,66 @@
 
 - 打开 `plugins/karin-plugin-example` 目录，在此新建一个 `index-demo.js` 文件。
 
-## 函数式语法糖示例
+## 基本用法介绍
 
-- <Badge type="warning" text="文本" />
+- `karin.command` 的第一种使用方法，直接回复字符串  
 
 ```js twoslash
-import karin, { segment } from 'node-karin'
-
-// 直接回复字符串
-export const hello = karin.command(/^#hello$/, 'hello')
-
-// 回调函数
-
-export const hello1 = karin.command(/^#你好$/, async (e) => {
-  await e.reply(segment.text('hello'))
-  return true
-})
-
+import karin from 'node-karin'
+export const test = karin.command('^文本$', '这是一段文本消息')
 ```
 
-- <Badge type="warning" text="图片" />
+- `karin.command` 的第二种使用方法，传入`segment`元素  
 
 ```js twoslash
-import karin, { segment } from 'node-karin'
-import { axios } from 'node-karin/modules.js'
-
-export const image = karin.command(/^#动漫壁纸$/, async (e) => {
-  // 来自: https://blog.jixiaob.cn/?post=93
-  await e.reply(segment.image('https://t.alcy.cc/mp'))
-  return true
-})
-
+import { karin, segment } from 'node-karin'
+export const text = karin.command(/^#文本测试$/, '这是一个文本')
 ```
 
-- <Badge type="warning" text="at" />
+- `karin.command` 的第三种使用方法，回调函数  
 
 ```js twoslash
-import karin, { segment } from 'node-karin'
-
-export const at = karin.command(/^#at$/, async (e) => {
-  await e.reply('\n这是一个at元素', { at: true })
-  return true
-})
-
-// or 上方代码等同于下方代码
-
-export const at1 = karin.command(/^#at$/, async (e) => {
+import { karin, segment } from 'node-karin'
+// 支持同步和异步函数
+export const callback = karin.command(/^#回调测试$/, async (e) => {
+  // reply 方法支持多种类型的参数
+  await e.reply('这是一个回调测试')
+  // 传入`sengment`元素
+  await e.reply(segment.text('这是一个回调测试'))
+  // 传入数组 支持各种组合的`segment`元素
   await e.reply([
-    segment.at(e.user_id),
-    '\n这是一个at元素',
+    segment.text('这是一个回调测试'),
+    segment.image('https://www.example.com/example.png')
   ])
+
+  // 返回`true`则停止执行后续插件 返回`false`则继续贪婪匹配后续插件
   return true
 })
-
 ```
 
-- <Badge type="warning" text="引用回复" />
+- `karin.command` 的第三个参数
+
+> 第三个参数是一个对象，用于设置插件的一些属性  
+> 全部参数都是可选的，不填写则使用默认值  
+> 强烈建议设置`name`属性，也就是插件的名称，方便后续查找和管理插件  
+> 参数的配置项请查看更下方
 
 ```js twoslash
-import karin, { segment } from 'node-karin'
-
-export const reply = karin.command(/^#reply$/, async (e) => {
-  await e.reply('这是一个引用回复', { reply: true })
-  return true
+export const test = karin.command('^文本$', '这是一段文本消息', {
+  event: 'message', // 监听的事件
+  name: '文本', // 插件名称
+  perm: 'all', // 触发权限
+  at: false, // 是否加上at 仅在群聊中有效
+  reply: false, // 是否加上引用回复
+  recallMsg: 0, // 发送是否撤回消息 单位秒
+  log: true, // 是否启用日志
+  rank: 10000, // 优先级
+  adapter: [], // 生效的适配器
+  dsbAdapter: [], // 禁用的适配器
+  delay: 0, // 延迟回复 单位毫秒 仅在第二个参数非函数时有效
+  stop: false, // 是否停止执行后续插件 仅在第二个参数非函数时有效
 })
-
-// or 上方代码等同于下方代码
-
-export const reply1 = karin.command(/^#reply$/, async (e) => {
-  await e.reply([
-    segment.reply(e.message_id),
-    '这是一个引用回复',
-  ])
-  return true
-})
-
 ```
-
-
-- <Badge type="warning" text="语音" />
-
-```js twoslash
-import karin, { segment } from 'node-karin'
-
-export const record = karin.command(/^#语音$/, async (e) => {
-  await e.reply(segment.record('base64://...'))
-  return true
-})
-
-```
-:::
-
-- <Badge type="warning" text="视频" />
-
-```js twoslash
-import karin, { segment } from 'node-karin'
-
-export const video = karin.command(/^#视频$/, async (e) => {
-  await e.reply(segment.video('base64://...'))
-  return true
-})
-
-```
-
-
-- <Badge type="warning" text="表情" />
-
-```js twoslash
-import karin, { segment } from 'node-karin'
-
-export const face = karin.command(/^#表情$/, async (e) => {
-  // 表情id请参考 https://bot.q.qq.com/wiki/develop/api-v2/openapi/emoji/model.html#Emoji
-  await e.reply(segment.face(1))
-  return true
-})
-
-```
-
 
 <Badge type="danger" text="待完善..." />
 
@@ -152,27 +95,17 @@ export class hello extends Plugin {
   }
 
   async hello () {
-    /** 回复纯文本 */
-    await this.reply(segment.text('你好'))
-    /** 回复图片 */
-    await this.reply(segment.image('https://www.example.com/example.png'))
-    /** 回复语音 */
-    await this.reply(segment.record('https://www.example.com/example.mp3'))
-    /** 回复视频 */
-    await this.reply(segment.video('https://www.example.com/example.mp4'))
-    /** @某人 */
-    await this.reply(segment.at('888888'))
-    /** ...更多类型请查看segment 这里只展示常用的 */
+    // 这里在this上会多一个reply方法，和函数插件的e.reply一样
+    await this.reply('你好')
 
-    /** 这里return若为false karin会继续匹配下一个插件 */
-    // return false
-    /** 若为true 则此次用户触发的事件到此结束 */
+    // e在this上也会有
+    await this.reply(segment.image('https://www.example.com/example.png'))
+    // 其他方法都和函数插件一样
     return true
   }
 }
 
 ```
-
 
 ## 更复杂的类语法糖示例
 
@@ -204,37 +137,7 @@ export class hello extends Plugin {
   }
 
   async hello () {
-    /**
-     * 将多个元素放在一起发送...
-     * 这里只是一个例子，正常情况语音和视频是不支持组合发送的。
-     */
-    const msg = [
-      segment.text('下面是一张图片：'),
-      segment.image('https://www.example.com/example.png'),
-      segment.text('下面是一段语音：'),
-      segment.record('https://www.example.com/example.mp3'),
-      segment.text('下面是一个视频：'),
-      segment.video('https://www.example.com/example.mp4'),
-      segment.text('下面是一个AT：'),
-      segment.at('888888')
-    ]
-
-    /**
-     * 这里是快捷操作方法
-     * 也称回复消息附加选项
-     * 以下选项，均为可选项，不填写则不会执行对应操作
-     */
-    const options = {
-      /** 设置为true 则会在发送消息的时候自动在前方加上AT 对象是消息的触发者 */
-      at: true,
-      /** 设置为true 则会在发送消息的时候自动附加一个引用回复 对象是消息触发者 */
-      reply: true,
-      /** 这里需要是数字，代表消息发送成功后，多少秒后撤回消息 */
-      recallMsg: 10
-    }
-
-    await this.reply(msg, options)
-
+    // ...不再赘述
     return true
   }
 }

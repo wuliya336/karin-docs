@@ -80,7 +80,7 @@
 
 ---
 
-### 单个 `.js` 文件
+### App 插件
 
 > 以下为推荐规范，但非强制要求。  
 > **建议：** 除特殊需求外，不单独创建一个功能重复的 `karin-plugin-example` 文件夹。
@@ -116,6 +116,97 @@
   - 此类型在 `karin` 中无法使用，如有需求请转换为 `base64` 或 `file` 协议
 
 ## 可配置文件、数据文件规范
+
+> [!IMPORTANT] 疑问解答
+> 请重点注意这部分规范
+
+下方是`pakcage.json`的可配置项，这里我们只需要关心`files`字段
+
+- `files`：数组，指定`karin`在初始化的时候，为你插件在`/@karinjs/<plugin_name>`下创建的文件夹
+- 如`files`字段为空，则`karin`只会为你创建基本的`@karinjs/<plugin_name>`
+- 如`files`字段不存在，则默认创建`config`、`data`、`resource`三个文件夹
+
+```json
+{
+  "name": "karin-plugin-template-ts",
+  "version": "1.0.0",
+  "karin": {
+    "apps": [],
+    "ts-apps": [],
+    "static": [],
+    "files": [
+      "config",
+      "data",
+      "resources"
+    ]
+  }
+}
+
+```
+
+### `config` 文件夹
+
+> 存放插件`yaml`、`json`、`cookie`等配置文件
+
+**一般情况下，我们插件方需要一个不允许更改的默认配置文件，用户方则需要一个可供修改的**
+
+- `默认配置`：处于`<plugin_name>/config/config`文件夹下
+- `用户配置`：处于`karin/@karinjs/<plugin_name>/config`文件夹下
+  
+为了减少开发者的工作量，`karin`提供了一个内置函数，用户快速复制默认配置文件到用户配置文件夹下
+
+```js
+import { copyConfigSync } from 'node-karin'
+
+// 第一个参数为默认配置目录
+// 第二个参数为用户配置目录
+// 第三个参数为需要复制的文件后缀名
+copyConfigSync(defConfig, dirConfig, ['.yaml'])
+
+```
+
+### `data` 文件夹
+
+::: warning 警告
+这里需要强制遵守
+:::
+
+- 存放插件的数据文件，如`sqlite`、`db`、`保存的图片`等
+- 存放路径: `karin/@karinjs/<plugin_name>/data`
+
+### `resource` 文件夹
+
+- 存放插件的资源文件，如`图片`、`字体`、`样式`等
+- 此处不做强制要求，一般资源文件都会存放在插件包内
+
+<details>
+
+<summary><b>点击查看示例文件结构</b></summary>
+
+```md
+karin
+├── @karinjs
+│   ├── <plugin_name> # 插件包名称
+│   │   ├── config  # 配置文件夹
+│   │   │   ├── config.yaml # 用户配置文件
+├── <plugin_name>
+│   ├── config
+│   │   ├── config # 默认配置文件 一般这里不允许用户修改
+│   │   │   ├── config.yaml
+│   │   ├── data # 数据文件夹
+│   │   ├── json # json文件夹
+```
+
+### 临时文件  
+
+- ~~karin会在启动的时候，在 `karin/temp` 下为每一个插件包创建对应名称的文件夹~~
+- 相较于旧版本，`karin`不再为每个插件包在`temp`下创建对应的文件夹，有需求请自行创建
+- 请不要直接在`temp`下创建文件，先创建一个文件夹，再在文件夹下创建文件
+- 开发者可在该文件夹下存放临时文件，如缓存文件、日志文件等
+- 请勿对他人的文件夹进行删除、修改
+- 如无特殊需求，请不要在该文件夹下创建其他文件夹。
+
+</details>
 
 ## 结构规范
 
@@ -217,69 +308,13 @@ karin-plugin-test
 - 请在发布到npm后，不要将可配置、可修改的文件防止到插件包内，而是放到`@karinjs/<plugin_name>`下
 - 请将需要用户配置的 `json` `yaml` 等文件存放到 `@karinjs/<plugin_name>` 下的`config`文件夹下
 
-### 数据文件
-
-::: warning 警告
-**这里请必须遵守**
-:::
-
-- 对于 `数据文件` ，karin要求开发者将数据文件 `统一` 存放到 `data/` 下
-- `karin` 会在启动的时候，为每一个插件包在 `data/` 下创建 `对应名称` 的文件夹
-- 如无特殊需求，请不要在 `data` 文件夹下创建其他文件夹
-
-问：为什么要求统一存放数据文件？  
-答：方便 `karin` 统一管理，方便用户 `查找`、`迁移` 、快速 `备份` 。
-
-问：什么样的算数据文件？  
-答：如 `Cookie` 、`Token` 、`sqlite` 、`mysql` 等数据文件，不包含 `配置文件` 、`资源文件` 。
-
-### 配置文件
-
-> 无需一定遵守，但是推荐遵守
-
-- 对于配置文件，由于使用 `git` 进行管理升级，所以一般会有两种配置文件：`默认配置` 和 `用户配置`
-- `Git默认配置` ：要求统一存放在插件自身的 `karin/plugin/<plugin_name>config/` 下，由开发者进行维护修改，此处禁止用户编辑修改。
-- `Npm默认配置` ：要求统一存放在插件自身的 `karin/node_modules/<plugin_name>config/` 下，由开发者进行维护修改，此处禁止用户编辑修改。
-- `用户配置` ：要求统一存放在 `karin/config/plugin/<plugin_name>` 下，由用户进行编辑修改。
-- 如无特殊需求，请不要在 `config` 文件夹下创建其他文件夹
-
-> 对于这里，建议使用 [**`karin-plugin-template`**](#结构规范) 作为模板，进行开发
-
-### 资源文件
-
-> 任选其一即可，以下是两种常见的规范，无需一定遵守
-
-规范1:
-
-- 插件包的资源文件
-- 字体文件存放在 `resources/font/` 下
-- 图片文件存放在 `resources/image/` 下
-- 图标文件存放在 `resources/icon/` 下
-- 通用样式文件存放在 `resources/css/` 下
-- 渲染模板存放在 `resources/template/` 下，每一种模板新建一个文件夹
-
-规范2:
-
-- 每一种渲染模板都在 `resources` 下新建一个文件夹，文件夹名称为模板名称，将模板的资源文件存放在该文件夹下
-
-### 临时文件
-
-- karin会在启动的时候，在 `karin/temp` 下为每一个插件包创建对应名称的文件夹
-- 开发者可在该文件夹下存放临时文件，如缓存文件、日志文件等
-- 请勿对他人的文件夹进行删除、修改
-- 如无特殊需求，请不要在该文件夹下创建其他文件夹。
-
-### html渲染模板
-
-- karin会在启动的时候，在 `karin/temp/html` 下为每一个插件包创建对应名称的文件夹
-- 请开发者在使用渲染的时候，将 `name` 设置为 `插件包名称`
-
 ## 仓库规范
+
+> [!IMPORTANT] 疑问解答
+> 强制仓库名称是为了方便用户可以快速在`Github`或`Gitee`上快速查找
 
 - 要求插件仓库名称必须以 `karin-plugin-` 开头，必须与插件包名称一致
 - 插件仓库必须提供开源协议
-- 在仓库标签页，添加 `karin` 、`karin-plugin`
-- 对于二改的 `karin` 仓库，必须进行开源，并使用 `GPLv3+` 协议，并使用 `karin` 标签进行标记
 
 ## 多媒体资源规范
 
