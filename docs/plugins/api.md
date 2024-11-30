@@ -1408,4 +1408,30 @@ const result = await e.bot.getHttpCookies(appid, daid, jumpUrl)
 { token: number }
 ```
 
+### `sendApi`
+
+> 发送API请求 **onebot11专属**
+
+|   参数    |   类型   |   描述   | 备注  |
+| :-------: | :------: | :------: | :---: |
+| `action`  | `string` |   动作   |       |
+| `params`  | `object` | 请求参数 |       |
+| `time` | `number` | 超时时间 | 可选 默认120s  |
+
+::: code-group
+
+```js [js调用]
+const result = await e.bot.sendApi(action, params, time)
+```
+
+```ts [ts调用]
+// 多一个`!`...
+const result = await e.bot.sendApi!(action, params, time)
+```
+
+```js [返回值]
+// 返回值`karin`做了处理，协议如果返回请求成功，则会返回其中的`data`字段
+// 如果请求失败，则`karin`会抛出异常
+```
+
 :::
