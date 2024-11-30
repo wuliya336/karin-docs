@@ -1,4 +1,4 @@
-# 更新相关
+<!-- # 更新相关
 
 ```ts twoslash
 import { Update } from 'node-karin'
@@ -19,4 +19,4 @@ Update.getTime('./plugins/karin-plugin-xxxxxx')
 Update.updatePkg('node-karin', 120)
 
 Update.update('./plugins/karin-plugin-xxxxxx', 'git pull')
-```
+``` -->

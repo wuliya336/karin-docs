@@ -39,16 +39,10 @@ import { App } from 'node-karin'
 * [事件处理器](./handler.md)
 
 - ## `Cfg`
-```ts twoslash
-import { Cfg, KarinMessage } from 'node-karin'
 
-const e = {} as KarinMessage
-
-const data = Cfg.group('123456789', e)
- ```
 
 - ## `plugin`
-
+<!-- 
 ```ts twoslash
 import { Plugin, segment } from 'node-karin'
 
@@ -86,4 +80,4 @@ export class hello extends Plugin {
     return true
   }
 }
-```
+``` -->
