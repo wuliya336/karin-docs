@@ -1408,6 +1408,8 @@ const result = await e.bot.getHttpCookies(appid, daid, jumpUrl)
 { token: number }
 ```
 
+:::
+
 ### `sendApi`
 
 > 发送API请求 **onebot11专属**
