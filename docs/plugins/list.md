@@ -54,42 +54,58 @@ layout: home
 
 </details>
 
-**禁止存在任何形式的一键安装插件，如一键脚本、容器等。希望各位可以尊重每一个开发者来之不易的劳动成果。**
+**禁止未经插件作者授权将插件制作成一键安装的脚本、容器等。**
 
 ## 📖官方仓库
 
 > 请不要往这里提交插件~
 
-| 名称                  | 作者                 | 仓库地址                     | 镜像仓库 | 开源协议                 | 简介                                    |
-| --------------------- | -------------------- | ---------------------------- | -------- | ------------------------ | --------------------------------------- |
-| Karin                 | - | [Karin][Karin]               | -        | [GPL-3.0][Karin-tab]     | 基于 Kritor 进行开发的nodejs机器人框架  |
-| Karin-docs            | - | [Karin-docs][docs]           | -        | [GPL-3.0][Karin-tab]     | Kritor的文档仓库(也就是本页面)          |
-| karin-puppeteer       | - | [karin-puppeteer][puppeteer] | -        | [GPL-3.0][puppeteer-tab] | Puppeteer渲染器                         |
-| karin-plugin-template | - | [template][template]         | -        | [GPL-3.0][template-tab]  | 插件模板仓库                            |
-| karin-plugin-basic    | - | [karin-plugin-basic][pbasic] | -        | [GPL-3.0][basic-tab]     | 基础插件，`#状态`、`#更新`、`#更新日志` |
+| 名称               | 作者           | 仓库地址                     | 镜像仓库 | 开源协议                 | 简介                                    |
+| ------------------ | -------------- | ---------------------------- | -------- | ------------------------ | --------------------------------------- |
+| Karin              | [时瑾][shijin] | [Karin][Karin]               | -        | [MIT][Karin-tab]         | 高效、轻量的 Node.JS 框架               |
+| 文档仓库           | [时瑾][shijin] | [文档仓库][docs]             | -        | [GPL-3.0][Karin-tab]     | Kritor的文档仓库(也就是本页面)          |
+| puppeteer          | [时瑾][shijin] | [karin-puppeteer][puppeteer] | -        | [GPL-3.0][puppeteer-tab] | Puppeteer渲染器                         |
+| JavaScript开发模板 | [时瑾][shijin] | [template][template]         | -        | [GPL-3.0][template-tab]  | 插件模板仓库                            |
+| 基本插件           | [时瑾][shijin] | [karin-plugin-basic][pbasic] | -        | [GPL-3.0][basic-tab]     | 基础插件，`#状态`、`#更新`、`#更新日志` |
 
-## 🎨插件包列表
+## 🦄Npm插件列表
+
+::: tip
+
+> 请将下方的 `name` 替换为插件的`包名`即可
+
+```bash
+pnpm add name -w
+```
+
+:::
+
+| 名称         | 作者           | 仓库地址               | 包名                    | 开源协议                      | 简介         |
+| ------------ | -------------- | ---------------------- | ----------------------- | ----------------------------- | ------------ |
+| `icqq`适配器 | [时瑾][shijin] | [Github][adapter-icqq] | `@karinjs/adapter-icqq` | [GPL-3.0][server-watcher-tab] | `icqq适配器` |
+
+## 🎨Git插件列表
 
 > 请省略前缀哦~
 
-| 名称           | 作者                       | 仓库地址                         | 镜像仓库 | 开源协议                      | 简介                 |
-| -------------- | -------------------------- | -------------------------------- | -------- | ----------------------------- | -------------------- |
-| server-watcher | [ikechan8370][ikechan8370] | [server-watcher][server-watcher] | -        | [GPL-3.0][server-watcher-tab] | 监控服务器状态的插件 |
-| suno           | [Alcedo][HalcyonAlcedo]    | [suno][suno]                     | -        | [GPL-3.0][suno-tab]           | suno歌曲生成插件 |
+| 名称           | 作者                       | 仓库地址                         | 镜像仓库 | 开源协议                      | 简介                   |
+| -------------- | -------------------------- | -------------------------------- | -------- | ----------------------------- | ---------------------- |
+| server-watcher | [ikechan8370][ikechan8370] | [server-watcher][server-watcher] | -        | [GPL-3.0][server-watcher-tab] | 监控服务器状态的插件   |
+| suno           | [Alcedo][HalcyonAlcedo]    | [suno][suno]                     | -        | [GPL-3.0][suno-tab]           | suno歌曲生成插件       |
 | MysTool        | [babanbang][babanbang]     | [MysTool][MysTool]               | -        | [GPL-3.0][MysTool-tab]        | 原神、星穹铁道信息查询 |
-| manage         | [Alcedo][HalcyonAlcedo]    | [manage][manage]                 | -        | [GPL-3.0][manage-tab]         | karin配置面板插件 |
-| auto-command   | [Alcedo][HalcyonAlcedo]    | [auto-command][auto-command]     | -        | [GPL-3.0][auto-command-tab]   | 自动命令插件 |
+| manage         | [Alcedo][HalcyonAlcedo]    | [manage][manage]                 | -        | [GPL-3.0][manage-tab]         | karin配置面板插件      |
+| auto-command   | [Alcedo][HalcyonAlcedo]    | [auto-command][auto-command]     | -        | [GPL-3.0][auto-command-tab]   | 自动命令插件           |
 
-## 📖其他插件
+## 📖App插件列表
 
 > 可提交一些单个 `js` 插件，请省略前缀哦~  
 
-| 名称     | 作者                    | 仓库地址             | 镜像仓库 | 开源协议            | 简介                   |
-| -------- | ----------------------- | -------------------- | -------- | ------------------- | --------------------- |
-| wormhole | [Alcedo][HalcyonAlcedo] | [wormhole][wormhole] | -        | [MIT][wormhole-tab] | 用于Karin的渲染代理插件 |
-| bili-analysis | [Aliorpse][Aliorpse] | [alijs][bili] | -        | [MIT][alijs-tab] | Bilibili解析插件 |
-| fun.js | [Aliorpse][Aliorpse] | [alijs][fun_js] | -        | [MIT][alijs-tab] | 基础娱乐插件,赞我,今日运势等 |
-| MCMotd | [Aliorpse][Aliorpse] | [alijs][MCMotd] | -        | [MIT][alijs-tab] | MC服务器查询,返回图片,JE/BE支持 |
+| 名称          | 作者                    | 仓库地址             | 镜像仓库 | 开源协议            | 简介                            |
+| ------------- | ----------------------- | -------------------- | -------- | ------------------- | ------------------------------- |
+| wormhole      | [Alcedo][HalcyonAlcedo] | [wormhole][wormhole] | -        | [MIT][wormhole-tab] | 用于Karin的渲染代理插件         |
+| bili-analysis | [Aliorpse][Aliorpse]    | [alijs][bili]        | -        | [MIT][alijs-tab]    | Bilibili解析插件                |
+| fun.js        | [Aliorpse][Aliorpse]    | [alijs][fun_js]      | -        | [MIT][alijs-tab]    | 基础娱乐插件,赞我,今日运势等    |
+| MCMotd        | [Aliorpse][Aliorpse]    | [alijs][MCMotd]      | -        | [MIT][alijs-tab]    | MC服务器查询,返回图片,JE/BE支持 |
 
 ## 🌐其他
 
@@ -100,33 +116,42 @@ layout: home
 
 ---
 
+<!-- 作者 -->
 [Karin]: https://github.com/KarinJS/Karin
-[docs]: https://github.com/KarinJS/Karin/tree/docs
-[Karin-tab]: https://github.com/KarinJS/Karin?tab=GPL-3.0-1-ov-file#readme
-[pbasic]: https://github.com/KarinJS/karin-plugin-basic
-[basic-tab]: https://github.com/KarinJS/karin-plugin-basic?tab=GPL-3.0-1-ov-file#readme
-[template]: https://github.com/KarinJS/karin-plugin-template
-[template-tab]: https://github.com/KarinJS/karin-plugin-template?tab=GPL-3.0-1-ov-file#readme
-[puppeteer]: https://github.com/KarinJS/karin-puppeteer
-[puppeteer-tab]: https://github.com/KarinJS/karin-puppeteer?tab=GPL-3.0-1-ov-file#readme
-[plugins]: https://github.com/KarinJS/Karin/edit/docs/docs/plugins/index.md
 [ikechan8370]: https://github.com/ikechan8370
-[server-watcher]: https://github.com/ikechan8370/karin-plugin-server-watcher
-[server-watcher-tab]: https://github.com/ikechan8370/karin-plugin-server-watcher?tab=GPL-3.0-1-ov-file#readme
 [HalcyonAlcedo]: https://github.com/HalcyonAlcedo
-[suno]: https://github.com/HalcyonAlcedo/karin-plugin-suno
-[suno-tab]: https://github.com/HalcyonAlcedo/karin-plugin-suno?tab=GPL-3.0-1-ov-file#readme
-[wormhole]: https://github.com/HalcyonAlcedo/wormhole/blob/main/demo/karin-wormhole-client.js
-[wormhole-tab]: https://github.com/HalcyonAlcedo/wormhole?tab=MIT-1-ov-file#readme
 [babanbang]: https://github.com/babanbang
-[MysTool]: https://github.com/babanbang/karin-plugin-MysTool
-[MysTool-tab]: https://github.com/babanbang/karin-plugin-MysTool?tab=GPL-3.0-1-ov-file#readme
-[manage]: https://github.com/HalcyonAlcedo/karin-plugin-manage
-[manage-tab]: https://github.com/HalcyonAlcedo/karin-plugin-manage?tab=GPL-3.0-1-ov-file#readme
-[auto-command]: https://github.com/HalcyonAlcedo/karin-plugin-auto-command
-[auto-command-tab]: https://github.com/HalcyonAlcedo/karin-plugin-auto-command?tab=GPL-3.0-1-ov-file#readme
 [Aliorpse]: https://github.com/Aliorpse
-[alijs-tab]: https://github.com/Aliorpse/karin-plugins-alijs?tab=MIT-1-ov-file#readme
+[shijin]: https://github.com/sj817
+
+<!-- 插件主页、仓库 -->
+[docs]: https://github.com/KarinJS/Karin/tree/docs
+[pbasic]: https://github.com/KarinJS/karin-plugin-basic
+[template]: https://github.com/KarinJS/karin-plugin-template
+[puppeteer]: https://github.com/KarinJS/karin-puppeteer
+[server-watcher]: https://github.com/ikechan8370/karin-plugin-server-watcher
+[suno]: https://github.com/HalcyonAlcedo/karin-plugin-suno
+[wormhole]: https://github.com/HalcyonAlcedo/wormhole/blob/main/demo/karin-wormhole-client.js
+[MysTool]: https://github.com/babanbang/karin-plugin-MysTool
+[manage]: https://github.com/HalcyonAlcedo/karin-plugin-manage
+[auto-command]: https://github.com/HalcyonAlcedo/karin-plugin-auto-command
 [bili]: https://github.com/Aliorpse/karin-plugins-alijs/blob/main/js/bilibiliAnylasis.js
 [fun_js]: https://github.com/Aliorpse/karin-plugins-alijs/blob/main/js/fun.js
 [MCMotd]: https://github.com/Aliorpse/karin-plugins-alijs/blob/main/js/MCMotd.js
+[adapter-icqq]: https://github.com/KarinJS/karin-plugin-adapter-icqq
+
+<!-- 开源协议 -->
+[Karin-tab]: https://github.com/KarinJS/Karin?tab=GPL-3.0-1-ov-file#readme
+[basic-tab]: https://github.com/KarinJS/karin-plugin-basic?tab=GPL-3.0-1-ov-file#readme
+[template-tab]: https://github.com/KarinJS/karin-plugin-template?tab=GPL-3.0-1-ov-file#readme
+[puppeteer-tab]: https://github.com/KarinJS/karin-puppeteer?tab=GPL-3.0-1-ov-file#readme
+[server-watcher-tab]: https://github.com/ikechan8370/karin-plugin-server-watcher?tab=GPL-3.0-1-ov-file#readme
+[suno-tab]: https://github.com/HalcyonAlcedo/karin-plugin-suno?tab=GPL-3.0-1-ov-file#readme
+[wormhole-tab]: https://github.com/HalcyonAlcedo/wormhole?tab=MIT-1-ov-file#readme
+[MysTool-tab]: https://github.com/babanbang/karin-plugin-MysTool?tab=GPL-3.0-1-ov-file#readme
+[manage-tab]: https://github.com/HalcyonAlcedo/karin-plugin-manage?tab=GPL-3.0-1-ov-file#readme
+[auto-command-tab]: https://github.com/HalcyonAlcedo/karin-plugin-auto-command?tab=GPL-3.0-1-ov-file#readme
+[alijs-tab]: https://github.com/Aliorpse/karin-plugins-alijs?tab=MIT-1-ov-file#readme
+
+<!-- 其他链接 -->
+[plugins]: ./index.md

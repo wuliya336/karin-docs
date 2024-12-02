@@ -57,17 +57,6 @@ const sidebar = [
       { text: 'Renderer', link: '/utils/Renderer' }
     ]
   },
-  {
-    text: 'Api',
-    collapsed: true,
-    items: [
-      { text: '目录', link: '/api/index' },
-      { text: 'Api总览', link: '/api/standard' },
-      { text: '标准Api', link: '/api/api' },
-      { text: '联系人相关', link: '/api/contact' },
-      { text: '消息相关', link: '/api/message' }
-    ]
-  },
   { text: '更新日志', link: '/other/changelog' },
 ]
 

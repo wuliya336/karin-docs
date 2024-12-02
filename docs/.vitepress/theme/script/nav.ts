@@ -5,6 +5,7 @@ const nav = [
       { text: '总目录', link: '/start/index' },
       { text: '快速开始', link: '/start/start' },
       { text: '渲染器', link: '/start/render' },
+      { text: '配置文件', link: '/start/file' },
       { text: '疑难杂症', link: '/start/problems' },
       {
         text: '疑难杂症', items: [{
