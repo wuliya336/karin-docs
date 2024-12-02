@@ -9,6 +9,10 @@
 - 描述: 存放插件以及`karin`本身的配置、临时、数据文件等
 - 结构: 除了`config` `data` `temp`文件夹外，其余文件夹均属于插件的配置文件夹
 
+- 插件的配置文件夹一般情况会自动生成
+  - 插件包名称: 名称来源于`package.json`的`name`字段，并且`karin`会将其中的`/`替换为`-`
+  - 位置: `karin/@karinjs/<plugin_name>`
+
 ## `config` 目录
 
 - 位置: `karin/@karinjs/config`

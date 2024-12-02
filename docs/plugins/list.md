@@ -154,4 +154,4 @@ pnpm add name -w
 [alijs-tab]: https://github.com/Aliorpse/karin-plugins-alijs?tab=MIT-1-ov-file#readme
 
 <!-- 其他链接 -->
-[plugins]: ./index.md
+[plugins]: https://github.com/KarinJS/Karin/edit/docs/docs/plugins/index.md

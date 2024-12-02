@@ -122,6 +122,7 @@
 
 下方是`pakcage.json`的可配置项，这里我们只需要关心`files`字段
 
+- `plugin_name`: 名称来源于`package.json`的`name`字段，并且`karin`会将其中的`/`替换为`-`
 - `files`：数组，指定`karin`在初始化的时候，为你插件在`/@karinjs/<plugin_name>`下创建的文件夹
 - 如`files`字段为空，则`karin`只会为你创建基本的`@karinjs/<plugin_name>`
 - 如`files`字段不存在，则默认创建`config`、`data`、`resource`三个文件夹
