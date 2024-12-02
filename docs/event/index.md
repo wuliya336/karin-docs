@@ -14,8 +14,6 @@ comment: false
 
 ## 消息事件
 
-- [消息事件](./message.md)
-
 ## 通知事件
 
 - [通知事件](./notice.md)
