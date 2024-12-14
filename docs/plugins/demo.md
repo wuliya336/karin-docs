@@ -8,6 +8,7 @@
 
 ## 基本用法介绍
 
+### 命令正则处理
 - `karin.command` 的第一种使用方法，直接回复字符串  
 
 ```js twoslash
@@ -51,6 +52,8 @@ export const callback = karin.command(/^#回调测试$/, async (e) => {
 > 参数的配置项请查看更下方
 
 ```js twoslash
+import karin from 'node-karin'
+// ---cut-before---
 export const test = karin.command('^文本$', '这是一段文本消息', {
   event: 'message', // 监听的事件
   name: '文本', // 插件名称
@@ -67,6 +70,19 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 })
 ```
 
+### 监听事件处理
+<Badge type="danger" text="待完善..." />
+
+### 中间件
+<Badge type="danger" text="待完善..." />
+
+### 上下文处理
+<Badge type="danger" text="待完善..." />
+
+### 事件处理器
+<Badge type="danger" text="待完善..." />
+
+### 定时任务
 <Badge type="danger" text="待完善..." />
 
 ## 类语法糖示例

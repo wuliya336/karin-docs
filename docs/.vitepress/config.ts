@@ -101,7 +101,8 @@ export default defineConfig({
           请求示例: 'logos:javascript',
           请求示例1: 'logos:javascript',
           请求示例2: 'logos:javascript',
-          请求示例3: 'logos:javascript'
+          请求示例3: 'logos:javascript',
+          调用示例: 'logos:typescript-icon'
         },
       })
     ],

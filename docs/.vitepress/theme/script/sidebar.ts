@@ -18,6 +18,7 @@ const sidebar = [
     collapsed: true,
     items: [
       { text: '目录', link: '/event/index' },
+      { text: '所有事件', link: '/event/general-data' },
       { text: '消息事件', link: '/event/message' },
       { text: '通知事件', link: '/event/notice' },
       { text: '请求事件', link: '/event/request' }
@@ -39,15 +40,8 @@ const sidebar = [
     collapsed: true,
     items: [
       { text: '目录', link: '/utils' },
-      {
-        text: 'karin', link: '/utils/karin/index', items: [
-          { text: 'karin.command', link: '/utils/karin/command' },
-          { text: 'karin.ctx', link: '/utils/karin/ctx' },
-          { text: 'karin.accept', link: '/utils/karin/accept' },
-          { text: 'karin.use', link: '/utils/karin/use' },
-          { text: 'karin.handler', link: '/utils/karin/handler' }
-        ]
-      },
+      { text: 'Api合集', link: '/plugins/api' },
+      { text: 'karin', link: '/utils/karin' },
       { text: 'segment', link: '/utils/segment' },
       { text: 'logger', link: '/utils/logger' },
       { text: 'common', link: '/utils/common' },

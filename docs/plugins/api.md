@@ -7,7 +7,7 @@
 
 |          API 名称           |                备注                |
 | :-------------------------: | :--------------------------------: |
-|          `logger`           |       打印当前Bot的专属日志        |
+|          `logger`           |      打印当前 Bot 的专属日志       |
 |          `sendMsg`          |              发送消息              |
 |        `sendLongMsg`        |             发送长消息             |
 |      `sendForwardMsg`       |          发送合并转发消息          |
@@ -54,7 +54,7 @@
 |       `getAtAllCount`       |        获取全体艾特剩余次数        |
 |     `getGroupMuteList`      |        获取群被禁言用户列表        |
 |         `pokeUser`          |             戳一戳用户             |
-|        `getCookies`         |            获取Cookies             |
+|        `getCookies`         |            获取 Cookies            |
 |      `getCredentials`       |          获取相关接口凭证          |
 |       `getCSRFToken`        |          获取 CSRF Token           |
 |      `getHttpCookies`       |         获取 HTTP Cookies          |
@@ -95,7 +95,7 @@ const result = await bot.getAvatarUrl(selfId)
 // => 你的头像链接为: https://q.qlogo.cn/headimg_dl?dst_uin=123456789&spec=100
 ```
 
-## API参数和调用
+## API 参数和调用
 
 ::: warning 注意
 这里的调用示例默认使用`e.bot`进行调用  
@@ -105,7 +105,7 @@ const result = await bot.getAvatarUrl(selfId)
 
 ### `logger`
 
-> 打印当前Bot的专属日志
+> 打印当前 Bot 的专属日志
 
 |   参数    |   类型   |   描述   |                            备注                            |
 | :-------: | :------: | :------: | :--------------------------------------------------------: |
@@ -114,7 +114,10 @@ const result = await bot.getAvatarUrl(selfId)
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { Message } from 'node-karin'
+const e = {} as Message
+// ---cut-before---
 const result = await e.bot.logger('info', '这是一条info日志')
 ```
 
@@ -128,29 +131,33 @@ const result = await e.bot.logger('info', '这是一条info日志')
 
 > 发送消息
 
-|     参数     |       类型       |   描述   | 备注  |
-| :----------: | :--------------: | :------: | :---: |
-|  `contact`   |    `Contact`     | 目标信息 |       |
-|  `elements`  | `Array<Element>` | 消息元素 |       |
-| `retryCount` |     `number`     | 重试次数 | 可选  |
+|     参数     |       类型       |   描述   |                               备注                               |
+| :----------: | :--------------: | :------: | :--------------------------------------------------------------: |
+|  `contact`   |    `Contact`     | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+|  `elements`  | `Array<Element>` | 消息元素 |                            注意是数组                            |
+| `retryCount` |     `number`     | 重试次数 |                               可选                               |
 
 ::: code-group
 
-```js [调用示例]
-const result = await e.bot.sendMsg(contact, elements)
+```ts twoslash [调用示例]
+import karin, { Message, segment } from 'node-karin'
+const e = {} as Message
+const elements = [segment.text('Hello, world!')]
+// ---cut-before---
+const result = await e.bot.sendMsg(e.contact, elements)
 ```
 
 ```ts [返回值]
 /** 发送消息后返回的结果 */
 export interface SendMsgResults {
   /** @deprecated 已废弃 请使用 `messageId` */
-  message_id: string;
+  message_id: string
   /** 消息ID */
-  messageId: string;
+  messageId: string
   /** 消息发送时间戳 */
-  messageTime: number;
+  messageTime: number
   /** 原始结果 一般是Object、Array */
-  rawData: object | Array<any>;
+  rawData: object | Array<any>
 }
 ```
 
@@ -160,14 +167,17 @@ export interface SendMsgResults {
 
 > 发送长消息
 
-|   参数    |   类型    |   描述   | 备注  |
-| :-------: | :-------: | :------: | :---: |
-| `contact` | `Contact` | 目标信息 |       |
-|  `resId`  | `string`  |  资源ID  |       |
+|   参数    |   类型    |   描述   |                               备注                               |
+| :-------: | :-------: | :------: | :--------------------------------------------------------------: |
+| `contact` | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+|  `resId`  | `string`  | 资源 ID  |                                                                  |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, segment } from 'node-karin'
+const e = {} as Message
+// ---cut-before---
 const resId = 'abcdefg'
 const result = await e.bot.sendLongMsg(e.contact, resId)
 ```
@@ -192,25 +202,25 @@ export interface SendMsgResults {
 
 > 发送合并转发消息
 
-|    参数    |       类型       |   描述   | 备注  |
-| :--------: | :--------------: | :------: | :---: |
-| `contact`  |    `Contact`     | 目标信息 |       |
-| `elements` | `Array<Element>` | 消息元素 |       |
+|    参数    |       类型       |   描述   |                               备注                               |
+| :--------: | :--------------: | :------: | :--------------------------------------------------------------: |
+| `contact`  |    `Contact`     | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `elements` | `Array<Element>` | 消息元素 |                                                                  |
 
 ::: code-group
 
-```js [调用示例]
-const list = [
-  segment.text('1'),
-  segment.text('2'),
-  segment.text('3'),
-]
+```ts twoslash [调用示例]
+import karin, { Message, segment, common } from 'node-karin'
+const e = {} as Message
+// ---cut-before---
+const list = [segment.text('1'), segment.text('2'), segment.text('3')]
 const elements = common.makeForward(list, e.selfId, e.bot.account.name)
 const result = await e.bot.sendForwardMsg(e.contact, elements)
 ```
 
 ```ts [返回值]
 {
+  /** 消息ID */
   messageId: string
 }
 ```
@@ -221,16 +231,19 @@ const result = await e.bot.sendForwardMsg(e.contact, elements)
 
 > 撤回消息，返回值不值得信任
 
-|    参数     |   类型    |   描述   | 备注  |
-| :---------: | :-------: | :------: | :---: |
-|  `contact`  | `Contact` | 目标信息 |       |
-| `messageId` | `string`  |  消息ID  |       |
+|    参数     |   类型    |   描述   |                               备注                               |
+| :---------: | :-------: | :------: | :--------------------------------------------------------------: |
+|  `contact`  | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `messageId` | `string`  | 消息 ID  |                                                                  |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, segment, common } from 'node-karin'
+const e = {} as Message
+// ---cut-before---
 const messageId = '123456789'
-const result = await e.bot.recallMsg(contact, messageId)
+const result = await e.bot.recallMsg(e.contact, messageId)
 ```
 
 ```js [返回值]
@@ -245,12 +258,16 @@ const result = await e.bot.recallMsg(contact, messageId)
 
 |   参数   |   类型   |   描述   |  备注   |
 | :------: | :------: | :------: | :-----: |
-| `userId` | `string` |  用户ID  |         |
+| `userId` | `string` | 用户 ID  |         |
 |  `size`  | `number` | 头像大小 | 默认`0` |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, segment, common } from 'node-karin'
+const e = {} as Message
+// ---cut-before---
+const userId = '123456'
 const result = await e.bot.getAvatarUrl(userId)
 ```
 
@@ -272,7 +289,12 @@ const result = await e.bot.getAvatarUrl(userId)
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+const size = 0
+const history = 0
+// ---cut-before---
 const result = await e.bot.getGroupAvatarUrl(e.groupId, size, history)
 ```
 
@@ -286,18 +308,23 @@ const result = await e.bot.getGroupAvatarUrl(e.groupId, size, history)
 
 > 获取消息
 
-|    参数     |   类型    |   描述   | 备注  |
-| :---------: | :-------: | :------: | :---: |
-|  `contact`  | `Contact` | 目标信息 |       |
-| `messageId` | `string`  |  消息ID  |       |
+|    参数     |   类型    |   描述   |                               备注                               |
+| :---------: | :-------: | :------: | :--------------------------------------------------------------: |
+|  `contact`  | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `messageId` | `string`  | 消息 ID  |                                                                  |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+// ---cut-before---
 const result = await e.bot.getMsg(e.contact, e.messageId)
 ```
 
-```ts [返回值]
+```ts twoslash [返回值]
+import { ElementTypes, Contact, GroupSender } from 'node-karin'
+// ---cut-before---
 /** 基本消息返回值结构 */
 export interface MessageResponse {
   /** 消息发送时间 */
@@ -322,21 +349,26 @@ export interface MessageResponse {
 
 > 获取历史消息
 
-|     参数     |   类型    |   描述   |  备注   |
-| :----------: | :-------: | :------: | :-----: |
-|  `contact`   | `Contact` | 目标信息 |         |
-| `startMsgId` | `string`  | 起始消息 |         |
-|   `count`    | `number`  | 消息数量 | 默认`1` |
+|     参数     |   类型    |   描述   |                               备注                               |
+| :----------: | :-------: | :------: | :--------------------------------------------------------------: |
+|  `contact`   | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `startMsgId` | `string`  | 起始消息 |                                                                  |
+|   `count`    | `number`  | 消息数量 |                             默认`1`                              |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+// ---cut-before---
 const startMsgId = '123456789'
 const count = 10
 const result = await e.bot.getHistoryMsg(e.contact, startMsgId, count)
 ```
 
-```js [返回值]
+```ts twoslash [返回值]
+import { MessageResponse } from 'node-karin'
+// ---cut-before---
 // 此处反面返回值结构为数组`MessageResponse`
 Array<MessageResponse>
 ```
@@ -347,13 +379,17 @@ Array<MessageResponse>
 
 > 获取合并转发消息 **暂时无法使用**
 
-|  参数   |   类型   |  描述  | 备注  |
-| :-----: | :------: | :----: | :---: |
-| `resId` | `string` | 资源ID |       |
+|  参数   |   类型   |  描述   | 备注 |
+| :-----: | :------: | :-----: | :--: |
+| `resId` | `string` | 资源 ID |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+// ---cut-before---
+const resId = 'abcdefg'
 const result = await e.bot.getForwardMsg(resId)
 ```
 
@@ -367,15 +403,21 @@ const result = await e.bot.getForwardMsg(resId)
 
 > 获取群精华消息
 
-|    参数    |   类型   |   描述   | 备注  |
-| :--------: | :------: | :------: | :---: |
-| `groupId`  | `string` |   群ID   |       |
-|   `page`   | `number` |   页码   |       |
-| `pageSize` | `number` | 每页数量 |       |
+|    参数    |   类型   |   描述   | 备注 |
+| :--------: | :------: | :------: | :--: |
+| `groupId`  | `string` |  群 ID   |      |
+|   `page`   | `number` |   页码   |      |
+| `pageSize` | `number` | 每页数量 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { Message, GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const page = 1
+const pageSize = 10
+// ---cut-before---
 const result = await e.bot.getGroupHighlights(groupId, page, pageSize)
 ```
 
@@ -413,15 +455,20 @@ export interface GetGroupHighlightsResponse {
 
 > 构造资源 ID，不发送消息
 
-|    参数    |       类型       |   描述   | 备注  |
-| :--------: | :--------------: | :------: | :---: |
-| `contact`  |    `Contact`     | 目标信息 |       |
-| `elements` | `Array<Element>` | 消息元素 |       |
+|    参数    |           类型           |   描述   |                               备注                               |
+| :--------: | :----------------------: | :------: | :--------------------------------------------------------------: |
+| `contact`  |        `Contact`         | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `elements` | `Array<NodeElementType>` | 消息元素 |                                                                  |
 
 ::: code-group
 
-```js [调用示例]
-const result = await e.bot.createResId(contact, elements)
+```ts twoslash [调用示例]
+import karin, { GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+const list = [segment.text('1'), segment.text('2'), segment.text('3')]
+const elements = common.makeForward(list, e.selfId, e.bot.account.name)
+// ---cut-before---
+const result = await e.bot.createResId(e.contact, elements)
 ```
 
 ```js [返回值]
@@ -436,13 +483,19 @@ const result = await e.bot.createResId(contact, elements)
 
 |    参数     |   类型    |   描述   |    备注    |
 | :---------: | :-------: | :------: | :--------: |
-|  `groupId`  | `string`  |   群ID   |            |
-| `messageId` | `string`  |  消息ID  |            |
+|  `groupId`  | `string`  |  群 ID   |            |
+| `messageId` | `string`  | 消息 ID  |            |
 |  `create`   | `boolean` | 是否创建 | 默认`true` |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const messageId = 'abcdefg'
+const create = true
+// ---cut-before---
 const result = await e.bot.setGgroupHighlights(groupId, messageId, create)
 ```
 
@@ -458,12 +511,17 @@ const result = await e.bot.setGgroupHighlights(groupId, messageId, create)
 
 |    参数    |   类型   |   描述   |   备注   |
 | :--------: | :------: | :------: | :------: |
-| `targetId` | `string` |  目标ID  |          |
+| `targetId` | `string` | 目标 ID  |          |
 |  `count`   | `number` | 赞的次数 | 默认`10` |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+const targetId = '123456'
+const count = 10
+// ---cut-before---
 const result = await e.bot.sendLike(targetId, count)
 ```
 
@@ -479,14 +537,21 @@ const result = await e.bot.sendLike(targetId, count)
 
 |        参数        |   类型    |     描述     |    备注     |
 | :----------------: | :-------: | :----------: | :---------: |
-|     `groupId`      | `string`  |     群ID     |             |
-|     `targetId`     | `string`  |    目标ID    |             |
+|     `groupId`      | `string`  |    群 ID     |             |
+|     `targetId`     | `string`  |   目标 ID    |             |
 | `rejectAddRequest` | `boolean` | 拒绝再次申请 | 默认`false` |
 |    `kickReason`    | `string`  |   踢出原因   |    可选     |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { GroupMessage, segment, common } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const targetId = 'abcdefg'
+const rejectAddRequest = false
+const kickReason = '测试踢人'
+// ---cut-before---
 const result = await e.bot.groupKickMember(groupId, targetId, rejectAddRequest, kickReason)
 ```
 
@@ -502,13 +567,19 @@ const result = await e.bot.groupKickMember(groupId, targetId, rejectAddRequest, 
 
 |    参数    |   类型   |   描述   |  备注   |
 | :--------: | :------: | :------: | :-----: |
-| `groupId`  | `string` |   群ID   |         |
-| `targetId` | `string` |  目标ID  |         |
+| `groupId`  | `string` |  群 ID   |         |
+| `targetId` | `string` | 目标 ID  |         |
 | `duration` | `number` | 禁言时长 | 单位:秒 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import karin, { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const targetId = 'abcdefg'
+const duration = 60 * 60 * 24 // 禁言一天
+// ---cut-before---
 const result = await e.bot.setGroupMute(groupId, targetId, duration)
 ```
 
@@ -522,14 +593,19 @@ const result = await e.bot.setGroupMute(groupId, targetId, duration)
 
 > 设置全员禁言
 
-|   参数    |   类型    |   描述   | 备注  |
-| :-------: | :-------: | :------: | :---: |
-| `groupId` | `string`  |   群ID   |       |
-|  `isBan`  | `boolean` | 是否禁言 |       |
+|   参数    |   类型    |   描述   | 备注 |
+| :-------: | :-------: | :------: | :--: |
+| `groupId` | `string`  |  群 ID   |      |
+|  `isBan`  | `boolean` | 是否禁言 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const isBan = true
+// ---cut-before---
 const result = await e.bot.setGroupAllMute(groupId, isBan)
 ```
 
@@ -543,15 +619,21 @@ const result = await e.bot.setGroupAllMute(groupId, isBan)
 
 > 设置或取消群管理员
 
-|    参数    |   类型    |    描述    | 备注  |
-| :--------: | :-------: | :--------: | :---: |
-| `groupId`  | `string`  |    群ID    |       |
-| `targetId` | `string`  |   目标ID   |       |
-| `isAdmin`  | `boolean` | 是否管理员 |       |
+|    参数    |   类型    |    描述    | 备注 |
+| :--------: | :-------: | :--------: | :--: |
+| `groupId`  | `string`  |   群 ID    |      |
+| `targetId` | `string`  |  目标 ID   |      |
+| `isAdmin`  | `boolean` | 是否管理员 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const targetId = 'abcdefg'
+const isAdmin = true
+// ---cut-before---
 const result = await e.bot.setGroupAdmin(groupId, targetId, isAdmin)
 ```
 
@@ -565,15 +647,21 @@ const result = await e.bot.setGroupAdmin(groupId, targetId, isAdmin)
 
 > 设置群名片
 
-|    参数    |   类型   |  描述  | 备注  |
-| :--------: | :------: | :----: | :---: |
-| `groupId`  | `string` |  群ID  |       |
-| `targetId` | `string` | 目标ID |       |
-|   `card`   | `string` | 群名片 |       |
+|    参数    |   类型   |  描述   | 备注 |
+| :--------: | :------: | :-----: | :--: |
+| `groupId`  | `string` |  群 ID  |      |
+| `targetId` | `string` | 目标 ID |      |
+|   `card`   | `string` | 群名片  |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const targetId = 'abcdefg'
+const card = '测试群名片'
+// ---cut-before---
 const result = await e.bot.setGroupMemberCard(groupId, targetId, card)
 ```
 
@@ -587,14 +675,19 @@ const result = await e.bot.setGroupMemberCard(groupId, targetId, card)
 
 > 设置群名
 
-|    参数     |   类型   | 描述  | 备注  |
-| :---------: | :------: | :---: | :---: |
-|  `groupId`  | `string` | 群ID  |       |
-| `groupName` | `string` | 群名  |       |
+|    参数     |   类型   | 描述  | 备注 |
+| :---------: | :------: | :---: | :--: |
+|  `groupId`  | `string` | 群 ID |      |
+| `groupName` | `string` | 群名  |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const groupName = '测试群名'
+// ---cut-before---
 const result = await e.bot.setGroupName(groupId, groupName)
 ```
 
@@ -608,14 +701,19 @@ const result = await e.bot.setGroupName(groupId, groupName)
 
 > 退出群组
 
-|    参数     |   类型    |   描述   | 备注  |
-| :---------: | :-------: | :------: | :---: |
-|  `groupId`  | `string`  |   群ID   |       |
-| `isDismiss` | `boolean` | 是否解散 |       |
+|    参数     |   类型    |   描述   | 备注 |
+| :---------: | :-------: | :------: | :--: |
+|  `groupId`  | `string`  |  群 ID   |      |
+| `isDismiss` | `boolean` | 是否解散 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const isDismiss = false
+// ---cut-before---
 const result = await e.bot.setGroupQuit(groupId, isDismiss)
 ```
 
@@ -629,15 +727,21 @@ const result = await e.bot.setGroupQuit(groupId, isDismiss)
 
 > 设置群专属头衔
 
-|    参数    |   类型   |   描述   | 备注  |
-| :--------: | :------: | :------: | :---: |
-| `groupId`  | `string` |   群ID   |       |
-| `targetId` | `string` |  目标ID  |       |
-|  `title`   | `string` | 专属头衔 |       |
+|    参数    |   类型   |   描述   | 备注 |
+| :--------: | :------: | :------: | :--: |
+| `groupId`  | `string` |  群 ID   |      |
+| `targetId` | `string` | 目标 ID  |      |
+|  `title`   | `string` | 专属头衔 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const targetId = 'abcdefg'
+const title = '测试头衔'
+// ---cut-before---
 const result = await e.bot.setGroupMemberTitle(groupId, targetId, title)
 ```
 
@@ -651,13 +755,17 @@ const result = await e.bot.setGroupMemberTitle(groupId, targetId, title)
 
 > 获取陌生人信息
 
-|    参数    |   类型   |  描述  | 备注  |
-| :--------: | :------: | :----: | :---: |
-| `targetId` | `string` | 用户ID |       |
+|    参数    |   类型   |  描述   | 备注 |
+| :--------: | :------: | :-----: | :--: |
+| `targetId` | `string` | 用户 ID |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const targetId = '123456'
+// ---cut-before---
 const result = await e.bot.getStrangerInfo(targetId)
 ```
 
@@ -713,13 +821,17 @@ export interface UserInfo {
 
 > 获取好友列表
 
-|   参数    |   类型    |       描述       | 备注  |
-| :-------: | :-------: | :--------------: | :---: |
-| `refresh` | `boolean` | 是否刷新好友列表 | 可选  |
+|   参数    |   类型    |       描述       | 备注 |
+| :-------: | :-------: | :--------------: | :--: |
+| `refresh` | `boolean` | 是否刷新好友列表 | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const refresh = false
+// ---cut-before---
 const result = await e.bot.getFriendList(refresh)
 ```
 
@@ -734,14 +846,19 @@ const result = await e.bot.getFriendList(refresh)
 
 > 获取群信息
 
-|   参数    |   类型    |     描述     | 备注  |
-| :-------: | :-------: | :----------: | :---: |
-| `groupId` | `string`  |     群ID     |       |
-| `noCache` | `boolean` | 是否刷新缓存 | 可选  |
+|   参数    |   类型    |     描述     | 备注 |
+| :-------: | :-------: | :----------: | :--: |
+| `groupId` | `string`  |    群 ID     |      |
+| `noCache` | `boolean` | 是否刷新缓存 | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const noCache = true
+// ---cut-before---
 const result = await e.bot.getGroupInfo(groupId, noCache)
 ```
 
@@ -776,13 +893,17 @@ export interface GroupInfo {
 
 > 获取群列表
 
-|   参数    |   类型    |      描述      | 备注  |
-| :-------: | :-------: | :------------: | :---: |
-| `refresh` | `boolean` | 是否刷新群列表 | 可选  |
+|   参数    |   类型    |      描述      | 备注 |
+| :-------: | :-------: | :------------: | :--: |
+| `refresh` | `boolean` | 是否刷新群列表 | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const refresh = false
+// ---cut-before---
 const result = await e.bot.getGroupList(refresh)
 ```
 
@@ -797,15 +918,21 @@ const result = await e.bot.getGroupList(refresh)
 
 > 获取群成员信息
 
-|    参数    |   类型    |     描述     | 备注  |
-| :--------: | :-------: | :----------: | :---: |
-| `groupId`  | `string`  |     群ID     |       |
-| `targetId` | `string`  |  目标用户ID  |       |
-| `refresh`  | `boolean` | 是否刷新缓存 | 可选  |
+|    参数    |   类型    |     描述     | 备注 |
+| :--------: | :-------: | :----------: | :--: |
+| `groupId`  | `string`  |    群 ID     |      |
+| `targetId` | `string`  | 目标用户 ID  |      |
+| `refresh`  | `boolean` | 是否刷新缓存 | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456'
+const targetId = 'abcdefg'
+const refresh = true
+// ---cut-before---
 const result = await e.bot.getGroupMemberInfo(groupId, targetId, refresh)
 ```
 
@@ -850,14 +977,19 @@ export interface GroupMemberInfo {
 
 > 获取群成员列表
 
-|   参数    |   类型    |     描述     | 备注  |
-| :-------: | :-------: | :----------: | :---: |
-| `groupId` | `string`  |     群ID     |       |
-| `refresh` | `boolean` | 是否刷新缓存 | 可选  |
+|   参数    |   类型    |     描述     | 备注 |
+| :-------: | :-------: | :----------: | :--: |
+| `groupId` | `string`  |    群 ID     |      |
+| `refresh` | `boolean` | 是否刷新缓存 | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const refresh = true
+// ---cut-before---
 const result = await e.bot.getGroupMemberList(groupId, refresh)
 ```
 
@@ -872,13 +1004,17 @@ const result = await e.bot.getGroupMemberList(groupId, refresh)
 
 > 获取群荣誉信息
 
-|   参数    |   类型   | 描述  | 备注  |
-| :-------: | :------: | :---: | :---: |
-| `groupId` | `string` | 群ID  |       |
+|   参数    |   类型   | 描述  | 备注 |
+| :-------: | :------: | :---: | :--: |
+| `groupId` | `string` | 群 ID |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+// ---cut-before---
 const result = await e.bot.getGroupHonor(groupId)
 ```
 
@@ -910,15 +1046,21 @@ export interface QQGroupHonorInfo {
 
 > 设置好友请求结果
 
-|    参数     |   类型    |    描述    | 备注  |
-| :---------: | :-------: | :--------: | :---: |
-| `requestId` | `string`  | 请求事件ID |       |
-| `isApprove` | `boolean` |  是否同意  |       |
-|  `remark`   | `string`  |  好友备注  | 可选  |
+|    参数     |   类型    |    描述     | 备注 |
+| :---------: | :-------: | :---------: | :--: |
+| `requestId` | `string`  | 请求事件 ID |      |
+| `isApprove` | `boolean` |  是否同意   |      |
+|  `remark`   | `string`  |  好友备注   | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const requestId = '123456789'
+const isApprove = true
+const remark = '测试备注'
+// ---cut-before---
 const result = await e.bot.setFriendApplyResult(requestId, isApprove, remark)
 ```
 
@@ -932,15 +1074,21 @@ const result = await e.bot.setFriendApplyResult(requestId, isApprove, remark)
 
 > 设置申请加入群请求结果
 
-|     参数     |   类型    |    描述    | 备注  |
-| :----------: | :-------: | :--------: | :---: |
-| `requestId`  | `string`  | 请求事件ID |       |
-| `isApprove`  | `boolean` |  是否同意  |       |
-| `denyReason` | `string`  |  拒绝理由  | 可选  |
+|     参数     |   类型    |    描述     | 备注 |
+| :----------: | :-------: | :---------: | :--: |
+| `requestId`  | `string`  | 请求事件 ID |      |
+| `isApprove`  | `boolean` |  是否同意   |      |
+| `denyReason` | `string`  |  拒绝理由   | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const requestId = '123456789'
+const isApprove = true
+const denyReason = '不给你进来 ~'
+// ---cut-before---
 const result = await e.bot.setGroupApplyResult(requestId, isApprove, denyReason)
 ```
 
@@ -954,14 +1102,19 @@ const result = await e.bot.setGroupApplyResult(requestId, isApprove, denyReason)
 
 > 设置邀请加入群请求结果
 
-|    参数     |   类型    |    描述    | 备注  |
-| :---------: | :-------: | :--------: | :---: |
-| `requestId` | `string`  | 请求事件ID |       |
-| `isApprove` | `boolean` |  是否同意  |       |
+|    参数     |   类型    |    描述     | 备注 |
+| :---------: | :-------: | :---------: | :--: |
+| `requestId` | `string`  | 请求事件 ID |      |
+| `isApprove` | `boolean` |  是否同意   |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const requestId = '123456789'
+const isApprove = true
+// ---cut-before---
 const result = await e.bot.setInvitedJoinGroupResult(requestId, isApprove)
 ```
 
@@ -975,17 +1128,23 @@ const result = await e.bot.setInvitedJoinGroupResult(requestId, isApprove)
 
 > 设置消息表情回应
 
-|    参数     |   类型    |   描述   | 备注  |
-| :---------: | :-------: | :------: | :---: |
-|  `contact`  | `Contact` | 目标信息 |       |
-| `messageId` | `string`  |  消息ID  |       |
-|  `faceId`   | `number`  |  表情ID  |       |
-|   `isSet`   | `boolean` | 是否设置 |       |
+|    参数     |   类型    |   描述   |                               备注                               |
+| :---------: | :-------: | :------: | :--------------------------------------------------------------: |
+|  `contact`  | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `messageId` | `string`  | 消息 ID  |                                                                  |
+|  `faceId`   | `number`  | 表情 ID  |                                                                  |
+|   `isSet`   | `boolean` | 是否设置 |                                                                  |
 
 ::: code-group
 
-```js [调用示例]
-const result = await e.bot.setMsgReaction(contact, messageId, faceId, isSet)
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const messageId = '123456789'
+const faceId = 1
+const isSet = true
+// ---cut-before---
+const result = await e.bot.setMsgReaction(e.contact, messageId, faceId, isSet)
 ```
 
 ```js [返回值]
@@ -998,17 +1157,23 @@ const result = await e.bot.setMsgReaction(contact, messageId, faceId, isSet)
 
 > 上传群文件或私聊文件
 
-|   参数    |   类型    |     描述     | 备注  |
-| :-------: | :-------: | :----------: | :---: |
-| `contact` | `Contact` |   目标信息   |       |
-|  `file`   | `string`  | 本地文件路径 |       |
-|  `name`   | `string`  |   文件名称   |       |
-| `folder`  | `string`  |   父目录ID   | 可选  |
+|   参数    |   类型    |     描述     |                               备注                               |
+| :-------: | :-------: | :----------: | :--------------------------------------------------------------: |
+| `contact` | `Contact` |   目标信息   | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+|  `file`   | `string`  | 本地文件路径 |                                                                  |
+|  `name`   | `string`  |   文件名称   |                                                                  |
+| `folder`  | `string`  |  父目录 ID   |                               可选                               |
 
 ::: code-group
 
-```js [调用示例]
-const result = await e.bot.uploadFile(contact, file, name, folder)
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const file = 'C:/test.jpg'
+const name = 'test.jpg'
+const folder = '123456789'
+// ---cut-before---
+const result = await e.bot.uploadFile(e.contact, file, name, folder)
 ```
 
 ```js [返回值]
@@ -1021,13 +1186,19 @@ const result = await e.bot.uploadFile(contact, file, name, folder)
 
 > 下载文件到协议端本地
 
-|   参数    |         类型          |   描述   | 备注  |
-| :-------: | :-------------------: | :------: | :---: |
-| `options` | `DownloadFileOptions` | 下载选项 | 可选  |
+|   参数    |         类型          |   描述   | 备注 |
+| :-------: | :-------------------: | :------: | :--: |
+| `options` | `DownloadFileOptions` | 下载选项 | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage, DownloadFileOptions } from 'node-karin'
+const e = {} as GroupMessage
+const options: DownloadFileOptions = {
+  url: 'https://example.com/file.zip',
+}
+// ---cut-before---
 const result = await e.bot.downloadFile(options)
 ```
 
@@ -1035,7 +1206,7 @@ const result = await e.bot.downloadFile(options)
 /** 让协议端下载文件到协议端本地返回值结构 */
 export interface DownloadFileResponse {
   /** 下载后文件的绝对路径 */
-  filePath: string
+  filePath: string;
 }
 ```
 
@@ -1045,14 +1216,19 @@ export interface DownloadFileResponse {
 
 > 创建群文件夹
 
-|   参数    |   类型   |   描述   | 备注  |
-| :-------: | :------: | :------: | :---: |
-| `groupId` | `string` |   群号   |       |
-|  `name`   | `string` | 文件夹名 |       |
+|   参数    |   类型   |   描述   | 备注 |
+| :-------: | :------: | :------: | :--: |
+| `groupId` | `string` |   群号   |      |
+|  `name`   | `string` | 文件夹名 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const name = '测试文件夹'
+// ---cut-before---
 const result = await e.bot.createGroupFolder(groupId, name)
 ```
 
@@ -1072,15 +1248,21 @@ export interface CreateGroupFolderResponse {
 
 > 重命名群文件夹
 
-|    参数    |   类型   |   描述   | 备注  |
-| :--------: | :------: | :------: | :---: |
-| `groupId`  | `string` |   群号   |       |
-| `folderId` | `string` | 文件夹ID |       |
-|   `name`   | `string` | 文件夹名 |       |
+|    参数    |   类型   |   描述    | 备注 |
+| :--------: | :------: | :-------: | :--: |
+| `groupId`  | `string` |   群号    |      |
+| `folderId` | `string` | 文件夹 ID |      |
+|   `name`   | `string` | 文件夹名  |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const folderId = '1234567890'
+const name = '测试重命名文件夹'
+// ---cut-before---
 const result = await e.bot.renameGroupFolder(groupId, folderId, name)
 ```
 
@@ -1094,14 +1276,19 @@ const result = await e.bot.renameGroupFolder(groupId, folderId, name)
 
 > 删除群文件夹
 
-|    参数    |   类型   |   描述   | 备注  |
-| :--------: | :------: | :------: | :---: |
-| `groupId`  | `string` |   群号   |       |
-| `folderId` | `string` | 文件夹ID |       |
+|    参数    |   类型   |   描述    | 备注 |
+| :--------: | :------: | :-------: | :--: |
+| `groupId`  | `string` |   群号    |      |
+| `folderId` | `string` | 文件夹 ID |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const folderId = '1234567890'
+// ---cut-before---
 const result = await e.bot.delGroupFolder(groupId, folderId)
 ```
 
@@ -1115,15 +1302,21 @@ const result = await e.bot.delGroupFolder(groupId, folderId)
 
 > 上传群文件
 
-|   参数    |   类型   |   描述   | 备注  |
-| :-------: | :------: | :------: | :---: |
-| `groupId` | `string` |   群号   |       |
-|  `file`   | `string` | 文件路径 |       |
-|  `name`   | `string` |  文件名  | 可选  |
+|   参数    |   类型   |   描述   | 备注 |
+| :-------: | :------: | :------: | :--: |
+| `groupId` | `string` |   群号   |      |
+|  `file`   | `string` | 文件路径 |      |
+|  `name`   | `string` |  文件名  | 可选 |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const file = 'C:/test.jpg'
+const name = 'test.jpg'
+// ---cut-before---
 const result = await e.bot.uploadGroupFile(groupId, file, name)
 ```
 
@@ -1137,15 +1330,20 @@ const result = await e.bot.uploadGroupFile(groupId, file, name)
 
 > 删除群文件
 
-|   参数    |   类型   |    描述    | 备注  |
-| :-------: | :------: | :--------: | :---: |
-| `groupId` | `string` |    群号    |       |
-| `fileId`  | `string` |   文件ID   |       |
-|  `busId`  | `number` | 文件类型ID |       |
+|   参数    |   类型   |    描述     | 备注 |
+| :-------: | :------: | :---------: | :--: |
+| `groupId` | `string` |    群号     |      |
+| `fileId`  | `string` |   文件 ID   |      |
+|  `busId`  | `number` | 文件类型 ID |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const fileId = '1234567890'
+const busId = 1
 const result = await e.bot.delGroupFile(groupId, fileId, busId)
 ```
 
@@ -1159,13 +1357,17 @@ const result = await e.bot.delGroupFile(groupId, fileId, busId)
 
 > 获取群文件系统信息
 
-|   参数    |   类型   | 描述  | 备注  |
-| :-------: | :------: | :---: | :---: |
-| `groupId` | `string` | 群号  |       |
+|   参数    |   类型   | 描述 | 备注 |
+| :-------: | :------: | :--: | :--: |
+| `groupId` | `string` | 群号 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+// ---cut-before---
 const result = await e.bot.getGroupFileSystemInfo(groupId)
 ```
 
@@ -1189,18 +1391,25 @@ export interface GetGroupFileSystemInfoResponse {
 
 > 获取群文件夹下文件列表
 
-|    参数    |   类型   |   描述   | 备注  |
-| :--------: | :------: | :------: | :---: |
-| `groupId`  | `string` |   群号   |       |
-| `folderId` | `string` | 文件夹ID | 可选  |
+|    参数    |   类型   |   描述    | 备注 |
+| :--------: | :------: | :-------: | :--: |
+| `groupId`  | `string` |   群号    |      |
+| `folderId` | `string` | 文件夹 ID | 可选 |
 
 ::: code-group
 
-```ts [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const folderId = '1234567890'
+// ---cut-before---
 const result = await e.bot.getGroupFileList(groupId, folderId)
 ```
 
-```js [返回值]
+```ts twoslash [返回值]
+import { QQGroupFolderInfo, QQGroupFileInfo } from 'node-karin'
+// ---cut-before---
 /** 获取群文件夹下文件列表返回值结构 */
 export interface GetGroupFileListResponse {
   /** 文件列表 */
@@ -1216,14 +1425,18 @@ export interface GetGroupFileListResponse {
 
 > 设置群备注
 
-|   参数    |   类型   |   描述   | 备注  |
-| :-------: | :------: | :------: | :---: |
-| `groupId` | `string` |   群号   |       |
-| `remark`  | `string` | 新的备注 |       |
+|   参数    |   类型   |   描述   | 备注 |
+| :-------: | :------: | :------: | :--: |
+| `groupId` | `string` |   群号   |      |
+| `remark`  | `string` | 新的备注 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const remark = '测试备注群'
 const result = await e.bot.setGroupRemark(groupId, remark)
 ```
 
@@ -1237,14 +1450,17 @@ const result = await e.bot.setGroupRemark(groupId, remark)
 
 > 获取陌生群信息
 
-|   参数    |   类型   | 描述  | 备注  |
-| :-------: | :------: | :---: | :---: |
-| `groupId` | `string` | 群号  |       |
+|   参数    |   类型   | 描述 | 备注 |
+| :-------: | :------: | :--: | :--: |
+| `groupId` | `string` | 群号 |      |
 
 ::: code-group
 
-```js [调用示例]
-const result = await e.bot.getNotJoinedGroupInfo(groupId)
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
+const result = await e.bot.getNotJoinedGroupInfo!(groupId)
 ```
 
 ```js [返回值]
@@ -1257,13 +1473,16 @@ const result = await e.bot.getNotJoinedGroupInfo(groupId)
 
 > 获取全体艾特剩余次数
 
-|   参数    |   类型   | 描述  | 备注  |
-| :-------: | :------: | :---: | :---: |
-| `groupId` | `string` | 群号  |       |
+|   参数    |   类型   | 描述 | 备注 |
+| :-------: | :------: | :--: | :--: |
+| `groupId` | `string` | 群号 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
 const result = await e.bot.getAtAllCount(groupId)
 ```
 
@@ -1285,13 +1504,16 @@ export interface GetAtAllCountResponse {
 
 > 获取群被禁言用户列表
 
-|   参数    |   类型   | 描述  | 备注  |
-| :-------: | :------: | :---: | :---: |
-| `groupId` | `string` | 群号  |       |
+|   参数    |   类型   | 描述 | 备注 |
+| :-------: | :------: | :--: | :--: |
+| `groupId` | `string` | 群号 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const groupId = '123456789'
 const result = await e.bot.getGroupMuteList(groupId)
 ```
 
@@ -1311,15 +1533,19 @@ export interface GetGroupMuteListResponse {
 
 > 戳一戳用户
 
-|   参数    |   类型    |    描述    | 备注  |
-| :-------: | :-------: | :--------: | :---: |
-| `contact` | `Contact` |  目标信息  |       |
-|  `count`  | `number`  | 戳一戳次数 | 可选  |
+|   参数    |   类型    |    描述    |                               备注                               |
+| :-------: | :-------: | :--------: | :--------------------------------------------------------------: |
+| `contact` | `Contact` |  目标信息  | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+|  `count`  | `number`  | 戳一戳次数 |                               可选                               |
 
 ::: code-group
 
-```js [调用示例]
-const result = await e.bot.pokeUser(contact, count)
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const count = 1
+// ---cut-before---
+const result = await e.bot.pokeUser(e.contact, count)
 ```
 
 ```js [返回值]
@@ -1330,20 +1556,26 @@ const result = await e.bot.pokeUser(contact, count)
 
 ### `getCookies`
 
-> 获取Cookies
+> 获取 Cookies
 
-|   参数   |   类型   | 描述  | 备注  |
-| :------: | :------: | :---: | :---: |
-| `domain` | `string` | 域名  |       |
+|   参数   |   类型   | 描述 | 备注 |
+| :------: | :------: | :--: | :--: |
+| `domain` | `string` | 域名 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const domain = 'https://example.com'
+// ---cut-before---
 const result = await e.bot.getCookies(domain)
 ```
 
 ```js [返回值]
-{ cookie: string }
+{
+  cookie: string
+}
 ```
 
 :::
@@ -1352,13 +1584,17 @@ const result = await e.bot.getCookies(domain)
 
 > 获取相关接口凭证
 
-|   参数   |   类型   | 描述  | 备注  |
-| :------: | :------: | :---: | :---: |
-| `domain` | `string` | 域名  |       |
+|   参数   |   类型   | 描述 | 备注 |
+| :------: | :------: | :--: | :--: |
+| `domain` | `string` | 域名 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const domain = 'https://example.com'
+// ---cut-before---
 const result = await e.bot.getCredentials(domain)
 ```
 
@@ -1372,18 +1608,24 @@ const result = await e.bot.getCredentials(domain)
 
 > 获取 CSRF Token
 
-|   参数   |   类型   | 描述  | 备注  |
-| :------: | :------: | :---: | :---: |
-| `domain` | `string` | 域名  |       |
+|   参数   |   类型   | 描述 | 备注 |
+| :------: | :------: | :--: | :--: |
+| `domain` | `string` | 域名 |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const domain = 'https://example.com'
+// ---cut-before---
 const result = await e.bot.getCSRFToken(domain)
 ```
 
 ```js [返回值]
-{ token: number }
+{
+  token: number
+}
 ```
 
 :::
@@ -1392,33 +1634,41 @@ const result = await e.bot.getCSRFToken(domain)
 
 > 获取 HTTP Cookies
 
-|   参数    |   类型   |  描述   | 备注  |
-| :-------: | :------: | :-----: | :---: |
-|  `appid`  | `string` | 应用ID  |       |
-|  `daid`   | `string` |  DAID   |       |
-| `jumpUrl` | `string` | 跳转URL |       |
+|   参数    |   类型   |   描述   | 备注 |
+| :-------: | :------: | :------: | :--: |
+|  `appid`  | `string` | 应用 ID  |      |
+|  `daid`   | `string` |   DAID   |      |
+| `jumpUrl` | `string` | 跳转 URL |      |
 
 ::: code-group
 
-```js [调用示例]
+```ts twoslash [调用示例]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const appid = '123456789'
+const daid = '1234567890'
+const jumpUrl = 'https://example.com'
+// ---cut-before---
 const result = await e.bot.getHttpCookies(appid, daid, jumpUrl)
 ```
 
 ```js [返回值]
-{ token: number }
+{
+  token: number
+}
 ```
 
 :::
 
 ### `sendApi`
 
-> 发送API请求 **onebot11专属**
+> 发送 API 请求 **onebot11 专属**
 
-|   参数    |   类型   |   描述   | 备注  |
-| :-------: | :------: | :------: | :---: |
-| `action`  | `string` |   动作   |       |
-| `params`  | `object` | 请求参数 |       |
-| `time` | `number` | 超时时间 | 可选 默认120s  |
+|   参数   |   类型   |   描述   |      备注      |
+| :------: | :------: | :------: | :------------: |
+| `action` | `string` |   动作   |                |
+| `params` | `object` | 请求参数 |                |
+|  `time`  | `number` | 超时时间 | 可选 默认 120s |
 
 ::: code-group
 
@@ -1426,7 +1676,15 @@ const result = await e.bot.getHttpCookies(appid, daid, jumpUrl)
 const result = await e.bot.sendApi(action, params, time)
 ```
 
-```ts [ts调用]
+```ts twoslash [ts调用]
+import { GroupMessage } from 'node-karin'
+const e = {} as GroupMessage
+const action = 'get_group_list'
+const params = {
+  group_id: 123456789,
+}
+const time = 120
+// ---cut-before---
 // 多一个`!`...
 const result = await e.bot.sendApi!(action, params, time)
 ```

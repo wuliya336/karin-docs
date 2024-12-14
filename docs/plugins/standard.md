@@ -96,7 +96,7 @@
 ## 多媒体资源规范
 
 > [!IMPORTANT] 疑问解答
-> 多媒体资源规范是框架和Bot协议交互过程中最重要的一环  
+> 多媒体资源规范是框架和 Bot 协议交互过程中最重要的一环  
 > 无论是上报的事件，主动请求的数据，都必须遵守这个规范
 
 - 网络资源：
@@ -135,14 +135,9 @@
     "apps": [],
     "ts-apps": [],
     "static": [],
-    "files": [
-      "config",
-      "data",
-      "resources"
-    ]
+    "files": ["config", "data", "resources"]
   }
 }
-
 ```
 
 ### `config` 文件夹
@@ -153,17 +148,16 @@
 
 - `默认配置`：处于`<plugin_name>/config/config`文件夹下
 - `用户配置`：处于`karin/@karinjs/<plugin_name>/config`文件夹下
-  
+
 为了减少开发者的工作量，`karin`提供了一个内置函数，用户快速复制默认配置文件到用户配置文件夹下
 
-```js
+```js twoslash
 import { copyConfigSync } from 'node-karin'
 
 // 第一个参数为默认配置目录
 // 第二个参数为用户配置目录
 // 第三个参数为需要复制的文件后缀名
 copyConfigSync(defConfig, dirConfig, ['.yaml'])
-
 ```
 
 ### `data` 文件夹
@@ -188,19 +182,19 @@ copyConfigSync(defConfig, dirConfig, ['.yaml'])
 karin
 ├── @karinjs
 │   ├── <plugin_name> # 插件包名称
-│   │   ├── config  # 配置文件夹
+│   │   ├── config # 配置文件夹
 │   │   │   ├── config.yaml # 用户配置文件
 ├── <plugin_name>
 │   ├── config
 │   │   ├── config # 默认配置文件 一般这里不允许用户修改
 │   │   │   ├── config.yaml
 │   │   ├── data # 数据文件夹
-│   │   ├── json # json文件夹
+│   │   ├── json # json 文件夹
 ```
 
-### 临时文件  
+### 临时文件
 
-- ~~karin会在启动的时候，在 `karin/temp` 下为每一个插件包创建对应名称的文件夹~~
+- ~~karin 会在启动的时候，在 `karin/temp` 下为每一个插件包创建对应名称的文件夹~~
 - 相较于旧版本，`karin`不再为每个插件包在`temp`下创建对应的文件夹，有需求请自行创建
 - 请不要直接在`temp`下创建文件，先创建一个文件夹，再在文件夹下创建文件
 - 开发者可在该文件夹下存放临时文件，如缓存文件、日志文件等
@@ -215,7 +209,7 @@ karin
 目前文档所呈现的规范均为`node-karin@1.0.0+`
 :::
 
-### 完整Bot结构
+### 完整 Bot 结构
 
 <!-- 推荐使用 https://devtool.tech/tree 生成树状结构 -->
 
@@ -235,12 +229,12 @@ karin
 │   │   └── server.yaml
 │   ├── data
 │   │   └── db
-│   │       ├── level
-│   │       └── redis-level
+│   │      ├── level
+│   │      └── redis-level
 │   └── karin-plugin-example
-│       ├── config
-│       ├── data
-│       └── resource
+│      ├── config
+│      ├── data
+│      └── resource
 ├── logs
 ├── node_modules
 ├── plugins
@@ -251,7 +245,6 @@ karin
 ├── package.json
 ├── package-lock.json
 └── pnpm-workspace.yaml
-
 ```
 
 </details>
@@ -277,13 +270,13 @@ karin
 karin-plugin-test
 ├── .git
 ├── .github
-├── @karinjs  // 详细config和data请查看上方
+├── @karinjs // 详细 config 和 data 请查看上方
 │   ├── config
 │   ├── data
 │   └── karin-plugin-test
-│       ├── config
-│       ├── data
-│       └── resource
+│      ├── config
+│      ├── data
+│      └── resource
 ├── config
 ├── logs
 ├── node_modules
@@ -298,7 +291,6 @@ karin-plugin-test
 ├── package-lock.json
 ├── README.md
 └── tsconfig.json
-
 ```
 
 </details>
@@ -306,7 +298,7 @@ karin-plugin-test
 **温馨提示:**
 
 - 下方的`<plugin_name>`就是指插件包的名称
-- 请在发布到npm后，不要将可配置、可修改的文件防止到插件包内，而是放到`@karinjs/<plugin_name>`下
+- 请在发布到 npm 后，不要将可配置、可修改的文件防止到插件包内，而是放到`@karinjs/<plugin_name>`下
 - 请将需要用户配置的 `json` `yaml` 等文件存放到 `@karinjs/<plugin_name>` 下的`config`文件夹下
 
 ## 仓库规范
