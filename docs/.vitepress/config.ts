@@ -135,7 +135,7 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/Karin/logo.png' }],
   ],
   themeConfig: {
-    siteTitle: 'Karin主页',
+    siteTitle: 'Karin',
     logo: {
       src: '/logo.png',
     },

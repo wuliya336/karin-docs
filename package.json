@@ -23,7 +23,7 @@
     "@nolebase/vitepress-plugin-thumbnail-hash": "2.5.0",
     "@shikijs/twoslash": "^1.24.2",
     "@shikijs/vitepress-twoslash": "^1.24.2",
-    "@theojs/lumen": "^3.6.0",
+    "@theojs/lumen": "5.0.2",
     "@types/express": "^5.0.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vueuse/core": "^10.11.1",
