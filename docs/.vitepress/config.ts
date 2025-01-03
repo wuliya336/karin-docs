@@ -136,7 +136,7 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/logo.png' }],
   ],
   themeConfig: {
-    siteTitle: `Karin <code class="VPBadge tip">v ${karinPkg.devDependencies['node-karin'].replace('^', '')}</code>`,
+    siteTitle: `Karin <code class="VPBadge tip">v${karinPkg.devDependencies['node-karin'].replace('^', '')}</code>`,
     logo: {
       src: '/logo.png',
     },
