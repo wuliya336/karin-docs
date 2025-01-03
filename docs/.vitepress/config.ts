@@ -1,3 +1,4 @@
+import karinPkg from '../../package.json'
 import { defineConfig } from 'vitepress'
 import nav from './theme/script/nav'
 import sidebar from './theme/script/sidebar'
@@ -132,10 +133,10 @@ export default defineConfig({
   // 显示最后更新时间
   lastUpdated: true,
   head: [
-    ['link', { rel: 'icon', href: '/Karin/logo.png' }],
+    ['link', { rel: 'icon', href: '/logo.png' }],
   ],
   themeConfig: {
-    siteTitle: 'Karin',
+    siteTitle: `Karin <code class="VPBadge tip">v ${karinPkg.devDependencies['node-karin'].replace('^', '')}</code>`,
     logo: {
       src: '/logo.png',
     },
