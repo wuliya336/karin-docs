@@ -10,8 +10,8 @@
 :::
 
 ### Node.js <Badge type="danger" text="必须 " />
-
-[Node.js官网][Node.js]
+<br>
+<Pill name="Node.js官网" link="https://nodejs.org/zh-cn" />
 
 `Karin`基于`Node.js`开发，<mark>推荐使用官方稳定长期支持的`LTS`版本`v20+`</mark>。
 
@@ -25,10 +25,11 @@
 > [!IMPORTANT] 温馨提示
 > 下载速度缓慢可以尝试使用国内源：`npmmirror 提供`。
 
-- [Git官网][Git官网]
-- [32位Git (镜像源)][Git-32]
-- [64位Git (镜像源)][Git-64]
-- [ARM64位Git (镜像源)][Git-arm64]
+- <Pill name="Git官网" link="https://git-scm.com/" />
+- <Pill name="32位Git (镜像源)" link="https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-32-bit.exe" />
+- <Pill name="64位Git (镜像源)" link="https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-64-bit.exe" />
+- <Pill name="ARM64位Git (镜像源)" link="https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-arm64.exe" />
+
 
 - `Git`也是一个可选项，所有`Git插件`都可以直接下载压缩包进行安装。
 - <mark>正常使用请安装，因为较多插件还是`Git插件`的方式</mark>。
@@ -199,9 +200,3 @@ yarn init -y; yarn add @karinjs/puppeteer; npx init; node .
 - [插件索引](../plugins/index)
 
 **<mark>暂时先这样啦~ 需要开发插件请查看右上角的标签页~</mark>**
-
-[Node.js]: https://nodejs.org/en
-[Git官网]: https://git-scm.com/
-[Git-32]: https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-32-bit.exe
-[Git-64]: https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-64-bit.exe
-[Git-arm64]: https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-arm64.exe

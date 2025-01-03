@@ -14,7 +14,7 @@ import { segment, Plugin } from 'node-karin'
 ## 使用
 
 ::: tip
-文档可能会更新不及时，有一定阅读能力的可以查看 [**src/index.ts**](https://github.com/KarinJS/Karin/blob/dev/src/index.ts)
+文档可能会更新不及时，有一定阅读能力的可以查看 <Pill name="src/index.ts" link="https://github.com/KarinJS/Karin/blob/dev/src/index.ts" />
 :::
 
 - ## `karin`

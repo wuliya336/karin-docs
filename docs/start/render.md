@@ -13,8 +13,8 @@
 
 ## 简介
 
-- 国外源 (GitHub)： [Github-karin-puppeteer](https://github.com/KarinJS/karin-puppeteer)
-- 国内源 (Gitee)： [Gitee-karin-puppeteer](https://gitee.com/KarinJS/karin-puppeteer)
+<!-- - 国外源 (GitHub)： <Pill name="Github-karin-puppeteer" link="https://github.com/KarinJS/karin-puppeteer" />
+- 国内源 (Gitee)： <Pill name="Gitee-karin-puppeteer" link="https://gitee.com/KarinJS/karin-puppeteer" /> -->
 
 ::: warning 注意
 karin-puppeteer是一个单独的项目，需要单独安装运行。
@@ -40,232 +40,104 @@ karin-puppeteer是一个单独的项目，需要单独安装运行。
 > HTTP的作用在本地使用环境下，几乎和正向、反向WS无异。  
 > 如果你的局域网内有高性能的渲染服务器，推荐使用HTTP。
 
-## 克隆仓库
+## 安装渲染器
 
 ::: tip 温馨提示
-请自行安装 `Node.js` 和 `Git`。
+请自行安装 `Node.js`。
 :::
 
-> 中国大陆服务器推荐使用 [**Gitee 源**](https://gitee.com/KarinJS/karin-puppeteer)。
-
-::: code-group
-
-```bash [Github]
-git clone https://github.com/KarinJS/karin-puppeteer.git
-```
-
-```bash [Gitee]
-git clone https://gitee.com/KarinJS/karin-puppeteer.git
-```
-
-:::
-
-## 安装依赖
-
-::: tip 温馨提示
-
-这一步对无法访问npm官方源的用户来说非常困难，建议直接使用 `cnpm` 即可。
-
-:::
-
+::: details 中国大陆服务器建议先更换npm源
+终端内设置npm镜像源，加速下载依赖。
 ```bash
-cd karin-puppeteer
+npm config set registry https://registry.npmmirror.com
 ```
+:::
 
+### 安装
 ::: code-group
 
-```bash [cnpm 安装]
-# 已安装cnpm请忽略第一行
-npm --registry=https://registry.npmmirror.com install cnpm -g
-cnpm install -P
+```bash [npm]
+npm init -y && npm install @karinjs/puppeteer && npx init && node .
 ```
 
-```bash [pnpm 安装]
-# 已安装pnpm请忽略第一行
-npm --registry=https://registry.npmmirror.com install pnpm -g
-pnpm install -P
+```bash [pnpm]
+pnpm init && pnpm install @karinjs/puppeteer && npx init && node .
 ```
 
-```bash [npm 安装]
-npm install -P
+```bash [yarn]
+yarn init -y && yarn add @karinjs/puppeteer && npx init && node .
 ```
 
 :::
 
-## 启动
+执行完成以上命令后不出意外，`karin-puppeteer` 已经安装成功并且正常启动了
+
+
+## 相关命令
 
 ::: code-group
 
 ```bash [前台启动]
-node .
+npx k .
 ```
 
-```bash [后台运行]
-# 启动
-pnpm start
+```bash [后台启动]
+npx k pm2
 
-# 停止
-pnpm stop
+```
 
-# 重启
-pnpm restart
+```bash [后台重启]
+npx k rs
+```
 
-# 查看日志
-pnpm run log
+```bash [查看日志]
+npx k log
+```
+
+```bash [查看帮助]
+npx k
 ```
 
 :::
 
 ## 配置文件
 
-`karin-puppeteer` 初次启动之后，会在 `config` 目录下生成 `config` 文件夹，里面均为配置文件。
+`karin-puppeteer` 初次启动之后，会在 `跟目录` 下生成 `config.json` 配置文件。
 
-> 若无特殊需求，不建议修改。  
-> 请不要修改 `config/defSet` 目录下的文件，这些文件是默认配置文件。
 
-::: code-group
 
-```yaml [config.yaml]
-# 日志等级
-log_level: 'info'
-
-# 请求头id，反向ws 用于标识请求头
-headerId: 'puppeteer'
-
-# server 启用
-server:
-  # 是否启用HTTP服务 启用HTTP的同时也会启用WebSocket服务
-  http: true
-  # 是否启用WebSocket服务
-  ws: true
-
-# HTTP 服务配置
-http:
-  # HTTP 服务端口
-  port: 7005
-  # 令牌
-  token: 'Karin-Puppeteer'
-
-# karin 反向地址 可填写多个
-karinUrl:
-  - 'ws://localhost:7000/puppeteer'
+```json
+{
+  "logLevel": "info", // 日志级别
+  "headless": true, // 是否无头启动
+  // http服务配置
+  "http": {
+    "host": "0.0.0.0", // 监听地址
+    "port": 7005, // 监听端口
+    "token": "123456" // 鉴权token
+  },
+  // 反向WS配置
+  "ws": {
+    "enable": true, // 是否启用
+    "token": "123456", // 鉴权token
+    "path": "/ws", // WS路径
+    // 反向WS列表
+    "list": [
+      {
+        "url": "ws://127.0.0.1:7000/puppeteer", // WS地址
+        "token": "123456" // 鉴权token
+      }
+    ]
+  },
+  "browserCount": 1, // 浏览器数量
+  // 启动参数
+  "args": [
+    "--enable-gpu",
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--no-zygote",
+    "--disable-extensions",
+    "--disable-dev-shm-usage"
+  ]
+}
 ```
-
-```yaml [mime.yaml]
-# html css
-'.css': 'text/css'
-'.html': 'text/html'
-'.htm': 'text/html'
-'.js': 'application/javascript'
-
-# 图片
-'.jpg': 'image/jpeg'
-'.jpeg': 'image/jpeg'
-'.png': 'image/png'
-'.gif': 'image/gif'
-'.bmp': 'image/bmp'
-'.tiff': 'image/tiff'
-'.tif': 'image/tiff'
-'.svg': 'image/svg+xml'
-'.ico': 'image/x-icon'
-'.webp': 'image/webp'
-'.avif': 'image/avif'
-'.apng': 'image/apng'
-
-# 音频
-'.mp3': 'audio/mpeg'
-'.wav': 'audio/wav'
-'.ogg': 'audio/ogg'
-'.flac': 'audio/flac'
-'.aac': 'audio/aac'
-'.weba': 'audio/webm'
-
-# 视频
-'.mp4': 'video/mp4'
-'.webm': 'video/webm'
-
-# 字体
-'.ttf': 'font/ttf'
-'.otf': 'font/otf'
-'.eot': 'application/vnd.ms-fontobject'
-'.sfnt': 'font/sfnt'
-'.woff': 'font/woff'
-'.woff2': 'font/woff2'
-
-# 文本
-'.txt': 'text/plain'
-'.json': 'application/json'
-'.xml': 'application/xml'
-'.pdf': 'application/pdf'
-'.doc': 'application/msword'
-'.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-```
-
-```yaml [pm2.yaml]
-apps:
-  - name: 'karin-puppeteer'
-    # 入口
-    script: './index.js'
-    # 进程守护
-    autorestart: true
-    # 每分钟最大重启数量
-    max_restarts: 60
-    # 内存溢出重启，可以是“10M”、“100K”、“2G”等
-    max_memory_restart: '1G'
-    # 重启延迟 2s
-    restart_delay: 2000
-    # 避免使用进程 id 后缀日志文件
-    merge_logs: true
-    # 错误日志路径
-    error_file: './logs/pm2_error.log'
-    # 输出日志路径
-    out_file: './logs/pm2_out.log'
-```
-
-```yaml [puppeteer.yaml]
-# 调试模式 打开后不会关闭浏览器、标签页
-debug: false
-
-# chromium 地址，填写edge/chromium的绝对路径，不推荐使用，自带的 chromium 更适合作为无头浏览器使用。
-chromiumPath:
-
-# puppeteer websocket 地址，连接单独存在的chromium。'ws://browserless:3000'
-puppeteerWS:
-
-# headless 模式
-headless: true
-
-# puppeteer启动args，注意args的--前缀
-args:
-  - --disable-gpu #"禁用GPU加速"
-  - --disable-setuid-sandbox #"禁用setuid沙盒"
-  - --no-sandbox #"禁用Chrome沙盒模式"
-  - --no-zygote #"禁用zygote进程分割"
-  - --disable-extensions #"禁用所有浏览器扩展"
-  - --disable-dev-shm-usage #"避免使用/dev/shm，使用/tmp"
-
-# 页面超时时间 默认90秒
-timeout: 90000
-
-# waitUntil参数设置 以下为可选值，对于纯静态页面，可以使用false
-# load - 页面的load事件触发时，代表页面所有资源都加载完毕才进行截图
-# domcontentloaded - DOM树已经构建完毕，此时页面还在加载，如果纯静态页面，可以使用此参数
-# networkidle0 - 网络空闲时触发，即网络连接数为0时触发
-# networkidle2 - 网络空闲时触发，即500毫秒内没有网络连接时触发 时间较久(500ms)
-waitUntil: networkidle2
-
-# 默认setViewport参数设置
-setViewport:
-  # 是否启用
-  enable: true
-  # 使用body的宽高
-  useBody: true
-  # 宽度 请设置整数
-  width: 1920
-  # 高度 请设置整数
-  height: 1080
-  # 像素比 图片质量
-  deviceScaleFactor: 2
-```
-
-:::

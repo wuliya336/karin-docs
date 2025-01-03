@@ -67,6 +67,8 @@ import 'virtual:group-icons.css'
 // 切换路由页面顶部显示进度条
 import { NProgress } from 'nprogress-v2/dist/index.js'
 
+import DocPill from './components/DocPill.vue'
+
 export default {
   extends: DefaultTheme,
   enhanceApp ({ app, router }: EnhanceAppContext) {
@@ -76,7 +78,8 @@ export default {
         defaultToggle: true,
       }
     } as Options)
-    app.component('HomeUnderline', HomeUnderline)
+    app.component('Pill', DocPill),
+      app.component('HomeUnderline', HomeUnderline)
     app.component('NCard', Ncard)
     app.component('HomeFooter', HomeFooter)
     app.component('Confetti', Confetti)

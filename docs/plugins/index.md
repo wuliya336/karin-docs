@@ -17,7 +17,7 @@ comment: false
 
 ### 了解插件
 
-有关插件的基本概念，可以查看[维基百科][维基百科]自行了解，这里不再赘述。  
+有关插件的基本概念，可以查看<Pill name="维基百科" link="https://zh.wikipedia.org/wiki/%E6%8F%92%E4%BB%B6" />自行了解，这里不再赘述。  
 在karin中，插件一共有3种基本类型，分别是: `Npm插件`、`Git插件`、`App插件`。
 
 #### Npm插件
@@ -84,5 +84,3 @@ comment: false
 ## 插件列表
 
 - [插件列表](./list.md)
-
-[维基百科]: https://zh.wikipedia.org/wiki/%E6%8F%92%E4%BB%B6
