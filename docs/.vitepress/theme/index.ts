@@ -2,7 +2,7 @@ import type { EnhanceAppContext } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import mediumZoom from 'medium-zoom'
 import { type Plugin, onMounted, watch, nextTick, h } from 'vue'
-import { useData, useRoute } from 'vitepress'
+import { inBrowser, useData, useRoute } from 'vitepress'
 import 'vitepress-markdown-timeline/dist/theme/index.css'
 import './style/index.css'
 // 代码块添加折叠
@@ -64,9 +64,12 @@ import { Footer_Data } from '../data/fooertData'
 // 代码组图标样式
 import 'virtual:group-icons.css'
 
+// 切换路由页面顶部显示进度条
+import { NProgress } from 'nprogress-v2/dist/index.js'
+
 export default {
   extends: DefaultTheme,
-  enhanceApp ({ app }: EnhanceAppContext) {
+  enhanceApp ({ app, router }: EnhanceAppContext) {
     app.use(NolebaseEnhancedReadabilitiesPlugin, {
       spotlight: {
         disableHelp: true,
@@ -120,6 +123,17 @@ export default {
         ],
       },
     })
+
+    if (inBrowser) {
+      // 切换路由页面顶部显示进度条
+      NProgress.configure({ showSpinner: false, speed: 100, trickleSpeed: 5 })
+      router.onBeforeRouteChange = () => {
+        NProgress.start() // 开始进度条
+      }
+      router.onAfterRouteChanged = () => {
+        NProgress.done() // 停止进度条
+      }
+    }
   },
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
