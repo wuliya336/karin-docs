@@ -86,11 +86,11 @@ npm --registry=https://registry.npmmirror.com install pnpm -g
 ::: code-group
 
 ```bash [通用]
-pnpm init && pnpm i node-karin && npx init && npx karin .
+pnpm init && pnpm i node-karin@0.12.25-beta.pr.206.1-1735239377 && npx init && npx karin .
 ```
 
 ```powershell [powershell]
-pnpm init; pnpm i node-karin; npx init; npx karin .
+pnpm init; pnpm i node-karin@0.12.25-beta.pr.206.1-1735239377; npx init; npx karin .
 ```
 
 :::
