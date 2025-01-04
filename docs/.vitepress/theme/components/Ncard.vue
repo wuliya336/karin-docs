@@ -1,30 +1,27 @@
 <script setup lang="ts">
-// @ts-ignore: 2307
-import { withDefaults, defineProps } from 'vue'
-const props = withDefaults(
-    // @ts-ignore: 2307
-    defineProps<{
-        title: string,
-        link: string,
-        target?: string
-    }>(),
-    {
-        target: '_self'
-    }
-)
+const props = defineProps<{
+    title: string,
+    link: string,
+    target?: string
+}>()
+const defaultProps = {
+    target: '_self'
+}
 </script>
 
 <template>
-    <div class="ncard">
-        <a :href="props.link" :target="props.target">
-            <div class="ncardBody">
-                <div class="card-title text">{{ props.title }}</div>
-                <div class="card-text text">
-                    <slot></slot>
+    <ClientOnly>
+        <div class="ncard">
+            <a :href="props.link" :target="props.target || defaultProps.target">
+                <div class="ncardBody">
+                    <div class="card-title">{{ props.title }}</div>
+                    <div class="card-text">
+                        <slot></slot>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
+    </ClientOnly>
 </template>
 
 <style scoped>
