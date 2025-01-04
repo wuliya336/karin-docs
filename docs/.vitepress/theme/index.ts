@@ -1,4 +1,4 @@
-import type { EnhanceAppContext } from 'vitepress'
+import type { EnhanceAppContext, Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import mediumZoom from 'medium-zoom'
 import { type Plugin, onMounted, watch, nextTick, h } from 'vue'
@@ -19,11 +19,6 @@ import {
   NolebaseInlineLinkPreviewPlugin,
 } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 import '@nolebase/vitepress-plugin-inline-link-preview/client/style.css'
-// 顶级的阅读增强，页面右上角小书本
-import {
-  NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesScreenMenu,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
@@ -31,12 +26,6 @@ import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
 import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
-// 闪烁高亮当前目标标题
-import {
-  NolebaseHighlightTargetedHeading,
-} from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
-// 快速复制当前页的url
-import { ShareButton } from '@theojs/lumen'
 // 组件
 import Ncard from './components/Ncard.vue'
 import HomeUnderline from './components/HomeUnderline.vue'
@@ -54,8 +43,6 @@ import giscusTalk from 'vitepress-plugin-comment-with-giscus'
 // 代码块内的代码类型提示
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import '@shikijs/vitepress-twoslash/style.css'
-// 首页公告栏
-import { Announcement } from '@theojs/lumen'
 // 图标库
 import '@theojs/lumen/icon'
 // 页脚
@@ -68,18 +55,20 @@ import 'virtual:group-icons.css'
 import { NProgress } from 'nprogress-v2/dist/index.js'
 
 import DocPill from './components/DocPill.vue'
+import Layout from './components/Layout.vue'
 
 export default {
   extends: DefaultTheme,
   enhanceApp ({ app, router }: EnhanceAppContext) {
+    // app.component('ViewTransition', ViewTransition)
     app.use(NolebaseEnhancedReadabilitiesPlugin, {
       spotlight: {
         disableHelp: true,
         defaultToggle: true,
       }
     } as Options)
-    app.component('Pill', DocPill),
-      app.component('HomeUnderline', HomeUnderline)
+    app.component('Pill', DocPill)
+    app.component('HomeUnderline', HomeUnderline)
     app.component('NCard', Ncard)
     app.component('HomeFooter', HomeFooter)
     app.component('Confetti', Confetti)
@@ -138,23 +127,7 @@ export default {
       }
     }
   },
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-
-      'nav-bar-content-after': () => [
-        // 为较宽的屏幕的导航栏添加阅读增强菜单
-        h(NolebaseEnhancedReadabilitiesMenu)
-      ],
-      'aside-outline-before': () => h(ShareButton),
-      // 为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单
-      'nav-screen-content-after': () => h(NolebaseEnhancedReadabilitiesScreenMenu),
-      'layout-top': () => [
-        h(NolebaseHighlightTargetedHeading),
-      ],
-      'home-hero-info-before': () => h(Announcement),
-      'layout-bottom': () => h(HomeFooter, { Footer_Data }),
-    })
-  },
+  Layout: Layout,
 
   /** 响应式图片缩放 */
   setup () {
@@ -195,4 +168,4 @@ export default {
       () => nextTick(() => initZoom())
     )
   },
-}
+} satisfies Theme

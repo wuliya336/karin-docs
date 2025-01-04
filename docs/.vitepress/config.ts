@@ -31,6 +31,7 @@ import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/v
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 // 代码组图标
 import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
+import { head } from './theme/script/head'
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -132,9 +133,7 @@ export default defineConfig({
   cleanUrls: true,
   // 显示最后更新时间
   lastUpdated: true,
-  head: [
-    ['link', { rel: 'icon', href: '/logo.png' }],
-  ],
+  head: head,
   themeConfig: {
     siteTitle: `Karin <code class="VPBadge tip">v${karinPkg.devDependencies['node-karin'].replace('^', '')}</code>`,
     logo: {

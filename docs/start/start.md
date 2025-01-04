@@ -13,7 +13,8 @@
 <br>
 <Pill name="Node.js官网" link="https://nodejs.org/zh-cn" />
 
-`Karin`基于`Node.js`开发，<mark>推荐使用官方稳定长期支持的`LTS`版本`v20+`</mark>。
+`Karin`基于`Node.js`开发，在 <Pill name="MIT License" link="../license" /> 下开源<br />
+<mark>生产化境推荐使用官方稳定长期支持的`LTS`版本`v20+`</mark>。
 
 - 目前最低要求支持版本为`v18+`，支持版本为`v20+`。
 - `Karin`本身并未使用较新的`Node.js`特性，理论来说支持16+版本。
