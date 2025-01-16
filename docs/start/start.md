@@ -83,19 +83,14 @@ npm --registry=https://registry.npmmirror.com install pnpm -g
 
 ### 安装
 
-先新建一个空白文件夹，以下命令在文件夹里面执行，执行完成不出意外已经启动完毕了~
+- 找一个目录执行以下命令`(推荐空白目录)`
+- 根据提示选择即可，如果不知道怎么选全部默认即可。
+- 使用方向键、回车键即可选择。
+- puppeteer 是渲染器，如果不需要生成图片，可以不安装qaq。
 
-::: code-group
-
-```bash [通用]
-pnpm init && pnpm i node-karin@latest && npx init && npx karin .
+```bash
+pnpm create karin
 ```
-
-```powershell [powershell]
-pnpm init; pnpm i node-karin@latest; npx init; npx karin .
-```
-
-:::
 
 ### 基本指令
 
@@ -107,15 +102,8 @@ pnpm init; pnpm i node-karin@latest; npx init; npx karin .
 ::: code-group
 
 ```bash [初始化]
+# 使用上面create-karin创建的项目请无需重复执行
 npx karin init
-```
-
-```bash [JavaScript开发模式]
-npx karin dev
-```
-
-```bash [TypeScript开发模式]
-npx karin ts
 ```
 
 ```bash [指令列表]
@@ -152,48 +140,20 @@ npx karin log
 
 :::
 
-## 安装渲染器  <Badge type="warning" text="可选 " />
+### 温馨提示
 
-> [!IMPORTANT] 温馨提示
-> 渲染器是用来生成图片的，如果不需要生成图片，可以不安装qaq。  
-> 这里只提供快速安装方式，详细安装请查看[渲染器文档](./render.md)  
-> 这里不限制任何包管理器，只要能安装即可，因为这是一个独立的项目。
+以上所有命令，如果你不喜欢带`npx`的，可以全局安装一个`@karinjs/cli`:
 
-请新建一个文件夹，然后在文件夹内执行以下命令：
-
-::: code-group
-
-```bash [pnpm]
-pnpm init && pnpm install @karinjs/puppeteer && npx init && node .
+```bash
+npm install -g @karinjs/cli
 ```
 
-```bash [npm]
-npm init -y && npm install @karinjs/puppeteer && npx init && node .
+安装完成即可使用`karin`命令代替`npx karin`
+
+```bash
+karin
+karin pm2
 ```
-
-```bash [yarn]
-yarn init -y && yarn add @karinjs/puppeteer && npx init && node .
-```
-
-:::
-
-**powershell：**
-
-::: code-group
-
-```bash [pnpm]
-pnpm init; pnpm install @karinjs/puppeteer; npx init; node .
-```
-
-```bash [npm]
-npm init -y; npm install @karinjs/puppeteer; npx init; node .
-```
-
-```bash [yarn]
-yarn init -y; yarn add @karinjs/puppeteer; npx init; node .
-```
-
-:::
 
 ## 安装插件
 
