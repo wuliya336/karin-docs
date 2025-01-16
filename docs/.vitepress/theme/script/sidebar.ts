@@ -6,6 +6,7 @@ const sidebar = [
       { text: '目录', link: '/start/index' },
       { text: '框架', link: '/start/start' },
       { text: '渲染器', link: '/start/render' },
+      { text: '配置文件', link: '/start/file' },
       {
         text: '疑难杂症', link: '/start/problems', items: [{
           text: '常见问题解答', link: '/start/faq'
