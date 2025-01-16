@@ -8,6 +8,119 @@
 - 位置: 处于`karin`的根目录下: `karin/.env`
 - 描述: 存放`karin`的环境变量
 
+## `.env` 文件
+
+> [!IMPORTANT] 温馨提示
+> 环境变量配置文件，用于配置一些基础的运行环境参数
+
+<!-- 点击展开配置详细说明 -->
+
+<details>
+<summary>点击展开配置详细说明</summary>
+
+| 配置项 | 类型 | 描述 |
+| ----- | --- | ---- |
+| `HTTP_ENABLE` | `boolean` | 是否启用HTTP服务 |
+| `HTTP_PORT` | `number` | HTTP服务监听端口 |
+| `HTTP_HOST` | `string` | HTTP服务监听地址 |
+| `HTTP_AUTH_KEY` | `string` | HTTP服务鉴权密钥，仅用于karin自身Api |
+| `WS_SERVER_AUTH_KEY` | `string` | WebSocket服务器鉴权密钥 |
+| `REDIS_ENABLE` | `boolean` | 是否启用Redis，关闭后将使用内部虚拟Redis |
+| `PM2_RESTART` | `boolean` | 重启是否调用pm2，如果不调用则会直接关机 |
+| `LOG_LEVEL` | `string` | 日志等级，可选值: `trace` `debug` `info` `warn` `error` `fatal` |
+| `LOG_DAYS_TO_KEEP` | `number` | 日志保留天数 |
+| `LOG_MAX_LOG_SIZE` | `number` | 日志文件最大大小(字节)，如果大于0则启用日志分割 |
+| `LOG_FNC_COLOR` | `string` | logger.fnc的颜色，支持HEX格式 |
+| `FFMPEG_PATH` | `string` | ffmpeg可执行文件路径 |
+| `FFPROBE_PATH` | `string` | ffprobe可执行文件路径 |
+| `FFPLAY_PATH` | `string` | ffplay可执行文件路径 |
+| `RUNTIME` | `string` | 运行时环境，固定为`node` |
+
+</details>
+
+<!-- 点击展开默认配置 -->
+
+<details>
+<summary>点击展开默认配置</summary>
+
+```ini
+# 是否启用HTTP
+HTTP_ENABLE=true
+# HTTP监听端口
+HTTP_PORT=7777
+# HTTP监听地址
+HTTP_HOST=0.0.0.0
+# HTTP鉴权秘钥 仅用于karin自身Api
+HTTP_AUTH_KEY=default
+# ws_server鉴权秘钥
+WS_SERVER_AUTH_KEY=
+
+# 是否启用Redis 关闭后将使用内部虚拟Redis
+REDIS_ENABLE=true
+# 重启是否调用pm2 如果不调用则会直接关机 此配置适合有进程守护的程序
+PM2_RESTART=true
+
+# 日志等级
+LOG_LEVEL=info
+# 日志保留天数
+LOG_DAYS_TO_KEEP=7
+# 日志文件最大大小 如果此项大于0则启用日志分割
+LOG_MAX_LOG_SIZE=0
+# logger.fnc颜色
+LOG_FNC_COLOR="#E1D919"
+
+# ffmpeg
+FFMPEG_PATH=
+# ffprobe
+FFPROBE_PATH=
+# ffplay
+FFPLAY_PATH=
+
+# 这里请勿修改
+RUNTIME=node
+```
+
+</details>
+
+<!-- 点击展开示例配置 -->
+
+<details>
+<summary>点击展开示例配置</summary>
+
+```ini
+# 启用HTTP服务并监听所有地址的7777端口
+HTTP_ENABLE=true
+HTTP_PORT=7777
+HTTP_HOST=0.0.0.0
+# 设置API鉴权密钥
+HTTP_AUTH_KEY=your_secret_key
+# 设置WebSocket服务器鉴权密钥
+WS_SERVER_AUTH_KEY=your_ws_key
+
+# 启用Redis服务
+REDIS_ENABLE=true
+# 启用PM2重启
+PM2_RESTART=true
+
+# 设置日志级别为debug以获取更详细的日志
+LOG_LEVEL=debug
+# 保留30天的日志
+LOG_DAYS_TO_KEEP=30
+# 设置日志分割大小为10MB
+LOG_MAX_LOG_SIZE=10485760
+# 设置logger.fnc的颜色为蓝色
+LOG_FNC_COLOR="#4169E1"
+
+# 配置ffmpeg相关路径
+FFMPEG_PATH=/usr/local/bin/ffmpeg
+FFPROBE_PATH=/usr/local/bin/ffprobe
+FFPLAY_PATH=/usr/local/bin/ffplay
+
+RUNTIME=node
+```
+
+</details>
+
 `@karinjs:`
 
 - 位置: 处于`karin`的根目录下: `karin/@karinjs`
