@@ -8,8 +8,8 @@ export const Footer_Data: FooterData = {
       title: '解决方案',
       icon: 'fluent-emoji-flat:glowing-star',
       links: [
-        { name: '外置渲染器', link: 'https://github.com/KarinJS/karin-puppeteer' },
-        { name: 'Karin 渲染器核心', link: 'https://github.com/KarinJS/puppeteer-core' },
+        { name: '外置渲染器', link: 'https://github.com/KarinJS/puppeteer/tree/main/packages/puppeteer' },
+        { name: 'Karin 渲染器核心', link: 'https://github.com/KarinJS/puppeteer/tree/main/packages' },
       ]
     },
     {
