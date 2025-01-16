@@ -18,9 +18,9 @@ export const test = karin.command('^文本$', '这是一段文本消息')
 
 - `karin.command` 的第二种使用方法，传入`segment`元素  
 
-```js twoslash
-import { karin, segment } from 'node-karin'
-export const text = karin.command(/^#文本测试$/, '这是一个文本')
+```ts twoslash
+import karin, { segment } from 'node-karin'
+export const text = karin.command(/^#文本测试$/, segment.text('这是一段文本消息'))
 ```
 
 - `karin.command` 的第三种使用方法，回调函数  

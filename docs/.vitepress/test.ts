@@ -1,0 +1,1 @@
+import karin, { segment } from 'node-karin'
