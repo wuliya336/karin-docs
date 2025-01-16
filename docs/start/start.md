@@ -161,3 +161,15 @@ karin pm2
 - [插件索引](../plugins/index)
 
 **<mark>暂时先这样啦~ 需要开发插件请查看右上角的标签页~</mark>**
+
+## 鸣谢
+
+- `karin` 最开始的版本是基于[Miao-Yunzai](https://github.com/yoimiya-kokomi/Miao-Yunzai)改造而来，感谢所有`Miao-Yunzai`的贡献者~
+
+- 同时，特别感谢[喵喵大佬](https://github.com/yoimiya-kokomi)在许可证一事上对本项目的大力支持！！！
+
+- 由于原项目使用了`GPL3.0`协议，协议的限制较多，深思熟虑后，`karin`决定完全使用`TypeScript`重写、使用`MIT`协议开源。
+
+感谢以下大佬在`karin`开发过程中提供的帮助：
+
+[![贡献者](https://contributors-img.web.app/image?repo=KarinJS/Karin)](https://github.com/KarinJS/Karin/graphs/contributors)
