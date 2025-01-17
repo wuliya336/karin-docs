@@ -33,7 +33,7 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
 import { head } from './theme/script/head'
 // 面包屑导航
-import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
+// import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
 // 懒加载模糊预览图
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 
@@ -146,10 +146,10 @@ export default defineConfig({
       },
     },
   },
-  transformPageData (pageData, context) {
-    // 面包屑导航
-    generateBreadcrumbsData(pageData, context)
-  },
+  // transformPageData (pageData, context) {
+  //   // 面包屑导航
+  //   generateBreadcrumbsData(pageData, context)
+  // },
   // 移除地址的.html
   cleanUrls: true,
   // 显示最后更新时间
