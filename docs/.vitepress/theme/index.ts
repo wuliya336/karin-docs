@@ -34,7 +34,7 @@ import ChangeLogs from './components/ChangeLog.vue'
 // 页面属性
 import {
   NolebasePagePropertiesPlugin,
-} from '@nolebase/vitepress-plugin-page-properties/client'
+} from '@nolebase/vitepress-plugin-page-properties'
 import '@nolebase/vitepress-plugin-page-properties/client/style.css'
 // <mark> 元素增强
 import '@nolebase/vitepress-plugin-enhanced-mark/client/style.css'
@@ -59,7 +59,6 @@ import Layout from './components/Layout.vue'
 export default {
   extends: DefaultTheme,
   enhanceApp ({ app, router }: EnhanceAppContext) {
-    // app.component('ViewTransition', ViewTransition)
     app.use(NolebaseEnhancedReadabilitiesPlugin, {
       spotlight: {
         disableHelp: true,
@@ -82,37 +81,8 @@ export default {
       hideChangelogHeader: true
     })
     app.use(NolebaseInlineLinkPreviewPlugin as Plugin)
-    app.use(NolebasePagePropertiesPlugin<{
-      progress: number
-    }>() as Plugin, {
-      properties: {
-        'zh-CN': [
-          {
-            key: 'wordCount',
-            type: 'dynamic',
-            title: '字数',
-            options: {
-              type: 'wordsCount',
-            },
-          },
-          {
-            key: 'readingTime',
-            type: 'dynamic',
-            title: '阅读时间',
-            options: {
-              type: 'readingTime',
-              dateFnsLocaleName: 'zhCN',
-            },
-          },
-          {
-            key: 'updatedAt',
-            type: 'datetime',
-            title: '更新时间',
-            formatAsFrom: true,
-            dateFnsLocaleName: 'zhCN',
-          },
-        ],
-      },
+    app.use(NolebasePagePropertiesPlugin<{ progress: number }>() as Plugin, {
+      properties,
     })
 
     if (inBrowser) {
@@ -168,3 +138,49 @@ export default {
     )
   },
 } satisfies Theme
+
+const properties = {
+  'zh-CN': [
+    {
+      key: 'tags',
+      type: 'tags',
+      title: '标签',
+    },
+    {
+      key: 'progress',
+      type: 'progress',
+      title: '进度',
+    },
+    {
+      key: 'createdAt',
+      type: 'datetime',
+      title: '创建时间',
+      formatAsFrom: true,
+      dateFnsLocaleName: 'zhCN',
+    },
+    {
+      key: 'updatedAt',
+      type: 'datetime',
+      title: '更新时间',
+      formatAsFrom: true,
+      dateFnsLocaleName: 'zhCN',
+    },
+    {
+      key: 'wordsCount',
+      type: 'dynamic',
+      title: '字数',
+      options: {
+        type: 'wordsCount',
+      },
+    },
+    {
+      key: 'readingTime',
+      type: 'dynamic',
+      title: '阅读时间',
+      options: {
+        type: 'readingTime',
+        dateFnsLocaleName: 'zhCN',
+      },
+    },
+  ],
+}
