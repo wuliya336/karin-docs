@@ -47,7 +47,6 @@ import '@shikijs/vitepress-twoslash/style.css'
 import '@theojs/lumen/icon'
 // 页脚
 import { HomeFooter } from '@theojs/lumen'
-import { Footer_Data } from '../data/fooertData'
 // 代码组图标样式
 import 'virtual:group-icons.css'
 
@@ -153,7 +152,7 @@ export default {
       true
     )
     // 代码块添加折叠
-    codeblocksFold({ route, frontmatter }, true, 400)
+    codeblocksFold({ route, frontmatter }, false)
 
     const initZoom = () => {
       // 响应式的图片放大缩小

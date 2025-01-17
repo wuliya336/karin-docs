@@ -32,6 +32,10 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 // 代码组图标
 import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
 import { head } from './theme/script/head'
+// 面包屑导航
+import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
+// 懒加载模糊预览图
+import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -46,7 +50,7 @@ export default defineConfig({
       // 开启图片懒加载
       lazyLoading: true,
     },
-    config: (md) => {
+    config: async (md) => {
       // 时间线
       md.use(timeline)
       // 任务列表
@@ -61,12 +65,22 @@ export default defineConfig({
       md.use(InlineLinkPreviewElementTransform)
       // 代码组图标
       md.use(groupIconMdPlugin)
+      // 懒加载模糊预览图
+      md.use(UnlazyImages(), {
+        imgElementTag: 'NolebaseUnlazyImg',
+      })
     },
+    // 代码块内的代码类型提示，与代码块行号渲染冲突
     codeTransformers: [
       transformerTwoslash()
     ]
   },
   vite: {
+    optimizeDeps: {
+      exclude: [
+        '@nolebase/vitepress-plugin-breadcrumbs/client'
+      ]
+    },
     plugins: [
       ThumbnailHashImages(),
       GitChangelog({
@@ -127,7 +141,14 @@ export default defineConfig({
       compilerOptions: {
         isCustomElement: (tag) => customElements.includes(tag),
       },
+      transformAssetUrls: {
+        NolebaseUnlazyImg: ['src'],
+      },
     },
+  },
+  transformPageData (pageData, context) {
+    // 面包屑导航
+    generateBreadcrumbsData(pageData, context)
   },
   // 移除地址的.html
   cleanUrls: true,

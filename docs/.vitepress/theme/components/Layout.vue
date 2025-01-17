@@ -19,6 +19,10 @@ import {
   NolebaseHighlightTargetedHeading,
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
 
+// 面包屑导航
+import { NolebaseBreadcrumbs } from '@nolebase/vitepress-plugin-breadcrumbs/client'
+
+
 const { isDark } = useData()
 
 const enableTransitions = () =>
@@ -78,6 +82,10 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     <!-- 页脚 -->
     <template #layout-bottom>
       <HomeFooter :Footer_Data="Footer_Data" />
+    </template>
+    <!-- 面包屑导航 -->
+    <template #doc-before>
+      <NolebaseBreadcrumbs />
     </template>
 
   </DefaultTheme.Layout>

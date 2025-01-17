@@ -1,1 +1,1 @@
-<ChangeLogs src="https://raw.githubusercontent.com/KarinJS/Karin/dev/CHANGELOG.md" />
+<ChangeLogs src="https://raw.githubusercontent.com/KarinJS/Karin/main/CHANGELOG.md" />
