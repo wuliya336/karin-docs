@@ -13,15 +13,21 @@ progress: 20
 
 - 打开 `plugins/karin-plugin-example` 目录，在此新建一个 `index-demo.js` 文件。
 
-## 函数式语法糖示例
-
 ::: tip 提示
 鼠标轻扫代码块内的代码，可查看对应的类型或注释
 :::
 
-### 命令正则处理 `karin.command`
+## 函数式语法糖示例
 
-导入 `karin` 后调用 `karin.command` 注册一个插件
+以下所有示例都在 `karin` 对象中扩展出来，使用前请先导入 `karin` 对象。
+
+```js twoslash
+import karin from 'node-karin'
+```
+
+### 1. 命令正则处理 `karin.command`
+
+调用 `karin.command` 注册一个插件
 
 > [!IMPORTANT]
 >
@@ -40,7 +46,7 @@ export const test = karin.command('^文本$', '这是一段文本消息')
 
 - `command` 的第二种使用方法，传入`segment`元素
 
-```ts twoslash
+```js twoslash
 import karin, { segment } from 'node-karin'
 export const text = karin.command(/^#文本测试$/, segment.text('这是一段文本消息'))
 ```
@@ -89,25 +95,64 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 })
 ```
 
-### 监听事件处理
+### 2. 监听事件处理 <Badge type="danger" text="待完善..." />
 
-<Badge type="danger" text="待完善..." />
+### 3. 中间件 <Badge type="danger" text="待完善..." />
 
-### 中间件
+### 4. 上下文处理 `karin.ctx` <Badge type="warning" text="待完善..." />
 
-<Badge type="danger" text="待完善..." />
+调用 `karin.ctx` 注册一个上下文事件
 
-### 上下文处理
+> [!IMPORTANT]
+>
+> - `ctx` 可以在任何地方调用，它并不是插件
+> - `ctx` 的返回值是一个 `Message` 类型的对象
+> - `ctx` 的第一个参数为消息事件，也就是 `Message` 事件，第二个参数详见下方说明
 
-<Badge type="danger" text="待完善..." />
+```ts twoslash
+import { Message } from 'node-karin'
+const e = {} as Message
+// ---cut-before---
+import karin from 'node-karin'
+// context 拥有完整的消息事件对象
+const context = await karin.ctx(e, {
+  reply: true, // 超时后是否回复
+  replyMsg: '操作超时已取消', // 超时回复文本 默认为 '操作超时已取消'
+  time: 120, // 超时时间 默认120秒
+  userId: e.userId, // 指定用户id触发下文 不指定则使用默认 e.user_id
+})
+```
 
-### 事件处理器
+应用场景：
 
-<Badge type="danger" text="待完善..." />
+```js twoslash
+import karin, { logger } from 'node-karin'
 
-### 定时任务
+const ctxText = karin.command('登录', async (e) => {
+  await e.reply('6位数的验证码已发送至您的邮箱 123456789@example.com，请注意查收')
+  const ctx = await karin.ctx(e) // 120 秒内等待用户发送验证码
+  logger.mark('验证码：' + ctx.msg) // 记录日志
+  // 处理登录逻辑......
+  await e.reply(`验证成功，Welcome ${ctx.sender.name}`)
+})
+```
 
-<Badge type="danger" text="待完善..." />
+### 5. 事件处理器 <Badge type="danger" text="待完善..." />
+
+### 6. 定时任务 `karin.task` <Badge type="warning" text="待完善..." />
+
+调用 `karin.task` 注册一个插件
+
+<!-- prettier-ignore -->
+```js twoslash
+import { logger } from 'node-karin'
+// ---cut-before---
+import karin from 'node-karin'
+// 注册一个定时任务
+const task = karin.task('打印 Hello World', '*/10 * * * *', async () => {
+  logger.mark('Hello, world!') // 每十分钟打印一次 Hello, world!
+}, { log: true, name: 'test' })
+```
 
 ## 类语法糖示例
 
