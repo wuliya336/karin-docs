@@ -5,27 +5,20 @@ export const Footer_Data: FooterData = {
   author: { name: 'KarinJS', link: 'https://github.com/KarinJS' },
   group: [
     {
-      title: '解决方案',
-      icon: 'fluent-emoji-flat:glowing-star',
-      links: [
-        { name: '外置渲染器', link: 'https://github.com/KarinJS/puppeteer/tree/main/packages/puppeteer' },
-        { name: 'Karin 渲染器核心', link: 'https://github.com/KarinJS/puppeteer/tree/main/packages' },
-      ]
-    },
-    {
       title: '适配器',
       icon: 'vscode-icons:file-type-wxt',
       links: [
         { name: 'ICQQ 适配器', link: 'https://github.com/KarinJS/karin-plugin-adapter-icqq' },
         { name: 'QQBot 适配器', link: 'https://github.com/KarinJS/karin-plugin-adapter-QQBot' },
+        { name: '外置渲染器', link: 'https://github.com/KarinJS/puppeteer/tree/main/packages/puppeteer' },
       ]
     },
     {
       title: '其他',
       icon: 'fluent-color:apps-32',
       links: [
-        { name: 'JavaScript 插件开发模板', link: 'https://github.com/KarinJS/karin-plugin-template' },
-        { name: 'TypeScript 插件开发模板', link: 'https://github.com/KarinJS/karin-plugin-template-ts' },
+        { name: 'JS 插件开发模板', link: 'https://github.com/KarinJS/karin-plugin-template' },
+        { name: 'TS 插件开发模板', link: 'https://github.com/KarinJS/karin-plugin-template-ts' },
       ]
     }
   ]

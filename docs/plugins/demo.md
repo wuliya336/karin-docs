@@ -1,3 +1,10 @@
+---
+tags:
+  - 插件示例
+  - 插件开发
+progress: 20
+---
+
 # 示例
 
 > 一个简单的 `demo` 示例，直接代码展示了。
@@ -6,45 +13,57 @@
 
 - 打开 `plugins/karin-plugin-example` 目录，在此新建一个 `index-demo.js` 文件。
 
-## 基本用法介绍
+## 函数式语法糖示例
 
-### 命令正则处理
-- `karin.command` 的第一种使用方法，直接回复字符串  
+::: tip 提示
+鼠标轻扫代码块内的代码，可查看对应的类型或注释
+:::
+
+### 命令正则处理 `karin.command`
+
+导入 `karin` 后调用 `karin.command` 注册一个插件
+
+> [!IMPORTANT]
+>
+> - `command` 的第一个参数为正则表达式，匹配消息是否触发该插件。
+> - `command` 的第二个参数为命令的插件的方法函数或者或字符串、或`segment`元素类型。
+> - `command` 的第三个参数为插件的配置项，具体请查看下方详细说明。
+
+---
+
+- `command` 的第一种使用方法，直接回复字符串
 
 ```js twoslash
 import karin from 'node-karin'
 export const test = karin.command('^文本$', '这是一段文本消息')
 ```
 
-- `karin.command` 的第二种使用方法，传入`segment`元素  
+- `command` 的第二种使用方法，传入`segment`元素
 
 ```ts twoslash
 import karin, { segment } from 'node-karin'
 export const text = karin.command(/^#文本测试$/, segment.text('这是一段文本消息'))
 ```
 
-- `karin.command` 的第三种使用方法，回调函数  
+- `command` 的第三种使用方法，回调函数
 
 ```js twoslash
 import { karin, segment } from 'node-karin'
-// 支持同步和异步函数
-export const callback = karin.command(/^#回调测试$/, async (e) => {
+// 参数二支持同步和异步函数
+export const callback = karin.command(/^#回调测试$/, async (e, next) => {
+  //                                                           ^?
   // reply 方法支持多种类型的参数
   await e.reply('这是一个回调测试')
   // 传入`sengment`元素
   await e.reply(segment.text('这是一个回调测试'))
   // 传入数组 支持各种组合的`segment`元素
-  await e.reply([
-    segment.text('这是一个回调测试'),
-    segment.image('https://www.example.com/example.png')
-  ])
-
-  // 返回`true`则停止执行后续插件 返回`false`则继续贪婪匹配后续插件
-  return true
+  await e.reply([segment.text('这是一个回调测试'), segment.image('https://www.example.com/example.png')])
+  // 若要继续匹配下一个插件，请调用 next 方法（类似 return false）
+  next() // 注释该行则终止匹配
 })
 ```
 
-- `karin.command` 的第三个参数
+- `command` 的第三个参数
 
 > 第三个参数是一个对象，用于设置插件的一些属性  
 > 全部参数都是可选的，不填写则使用默认值  
@@ -71,31 +90,36 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 ```
 
 ### 监听事件处理
+
 <Badge type="danger" text="待完善..." />
 
 ### 中间件
+
 <Badge type="danger" text="待完善..." />
 
 ### 上下文处理
+
 <Badge type="danger" text="待完善..." />
 
 ### 事件处理器
+
 <Badge type="danger" text="待完善..." />
 
 ### 定时任务
+
 <Badge type="danger" text="待完善..." />
 
 ## 类语法糖示例
 
 > 该示例为消息插件示例  
 > 将下面的代码复制到 `index-demo.js` 中，保存  
->对机器人发送 `#你好` ，机器人会回复 `你好` 、图片、语音、视频、@某人
+> 对机器人发送 `#你好` ，机器人会回复 `你好` 、图片、语音、视频、@某人
 
 ```js twoslash
 import { Plugin, segment } from 'node-karin'
 
 export class hello extends Plugin {
-  constructor () {
+  constructor() {
     super({
       name: '插件名称',
       dsc: '插件描述',
@@ -104,13 +128,13 @@ export class hello extends Plugin {
           /** 命令正则匹配 */
           reg: /^#你好$/,
           /** 正则对应的执行方法 */
-          fnc: 'hello'
-        }
-      ]
+          fnc: 'hello',
+        },
+      ],
     })
   }
 
-  async hello () {
+  async hello() {
     // 这里在this上会多一个reply方法，和函数插件的e.reply一样
     await this.reply('你好')
 
@@ -120,7 +144,6 @@ export class hello extends Plugin {
     return true
   }
 }
-
 ```
 
 ## 更复杂的类语法糖示例
@@ -129,7 +152,7 @@ export class hello extends Plugin {
 import { Plugin, segment } from 'node-karin'
 
 export class hello extends Plugin {
-  constructor () {
+  constructor() {
     super({
       name: '插件名称',
       dsc: '插件描述',
@@ -146,16 +169,15 @@ export class hello extends Plugin {
           /** 是否显示操作日志 默认显示 */
           log: true,
           /** 操作权限 all | admin | master | group.admin | group.owner */
-          permission: 'all'
-        }
-      ]
+          permission: 'all',
+        },
+      ],
     })
   }
 
-  async hello () {
+  async hello() {
     // ...不再赘述
     return true
   }
 }
-
 ```

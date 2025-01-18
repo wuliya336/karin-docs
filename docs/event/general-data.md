@@ -3,7 +3,7 @@ title: 通用数据
 icon: database
 ---
 
-## 所有事件
+# 所有事件
 
 ::: tip
 `karin`是基于`kritor`标准进行开发。  
@@ -14,9 +14,9 @@ icon: database
 
 | 属性      | 类型                  | 说明                    |
 | --------- | --------------------- | ----------------------- |
-| self_id   | string                | 机器人ID                |
-| user_id   | string                | 触发用户ID              |
-| group_id  | string                | 触发群ID(`非群聊无值`)  |
+| self_id   | string                | 机器人 ID               |
+| user_id   | string                | 触发用户 ID             |
+| group_id  | string                | 触发群 ID(`非群聊无值`) |
 | time      | number                | 事件触发时间戳          |
 | event     | [object](#事件类型)   | 触发的事件类型          |
 | sub_event | [string](#事件子类型) | 触发事件子类型          |
@@ -39,12 +39,12 @@ icon: database
 在大多数协议端中，`message_sent`事件均为用户手动开启。
 :::
 
-| 事件类型     | 说明                  |
-| ------------ | --------------------- |
-| message      | 消息事件              |
-| message_sent | bot自身触发的消息事件 |
-| notice       | 通知事件              |
-| request      | 请求事件              |
+| 事件类型     | 说明                   |
+| ------------ | ---------------------- |
+| message      | 消息事件               |
+| message_sent | bot 自身触发的消息事件 |
+| notice       | 通知事件               |
+| request      | 请求事件               |
 
 ## 消息来源
 
@@ -54,11 +54,11 @@ icon: database
 const contact = {
   scene: 'group', // 场景
   peer: '123456', // 群为群ID、频道为频道ID、好友为好友ID
-  sub_peer: '123456' // 一般与`peer`相同或为空，频道场景为`channel_id`。
+  sub_peer: '123456', // 一般与`peer`相同或为空，频道场景为`channel_id`。
 }
 ```
 
-以下是scene的值：
+以下是 scene 的值：
 
 - `group`: 群聊
 - `private`: 私聊
@@ -81,11 +81,11 @@ const sender = {
   uid: '123456', // 发送者uid
   uin: '123456', // 发送者uin
   nick: '昵称', // 发送者昵称 可能为空
-  role: '群身份' // 仅在群聊生效 可能为空
+  role: '群身份', // 仅在群聊生效 可能为空
 }
 ```
 
-以下是role的值：
+以下是 role 的值：
 
 - `owner`: 群主
 - `admin`: 管理员

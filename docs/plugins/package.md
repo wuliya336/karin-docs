@@ -1,4 +1,4 @@
-## 插件包开发指南
+# 插件包开发指南
 
 本文档将指导您如何开发 karin 插件包。
 
@@ -14,7 +14,7 @@
 
 ## 克隆仓库到本地
 
-以下命令，在karin根目录执行
+以下命令，在 karin 根目录执行
 
 ```bash
 git clone https://github.com/karinjs/karin-plugin-template.git ./plugins/karin-plugin-template.
