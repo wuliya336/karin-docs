@@ -17,17 +17,27 @@ import { segment, Plugin } from 'node-karin'
 文档可能会更新不及时，有一定阅读能力的可以查看 <Pill name="src/index.ts" link="https://github.com/KarinJS/Karin/blob/dev/src/index.ts" />
 :::
 
-- ## `karin`
+## <mark>karin</mark>
 
-常用方法：
+### `command`
 
-- [命令正则处理](../plugins/demo.md#命令正则处理)
-- [监听事件](../plugins/demo.md#监听事件处理)
-- [中间件](../plugins/demo.md#中间件)
-- [上下文处理](../plugins/demo.md#上下文处理)
-- [事件处理器](../plugins/demo.md#事件处理器)
+详见 [命令正则处理](../plugins/demo.md#_1-命令正则处理)
 
-更多用法:
+### `accept`
+
+详见 [监听事件](../plugins/demo.md#_2-监听事件处理)
+
+### `use`
+
+详见 [中间件](../plugins/demo.md#_3-中间件)
+
+### `ctx`
+
+详见 [上下文处理](../plugins/demo.md#_4-上下文处理)
+
+### `handle`
+
+详见 [事件处理器](../plugins/demo.md#_5-事件处理器)
 
 ### `contactFriend`
 
@@ -94,6 +104,28 @@ export interface ContactWithoutSubPeer<T extends 'friend' | 'group' = 'friend' |
 ```
 
 :::
+
+### `contactGroup`
+
+> 构建频道 contact
+
+|   参数    |   类型   | 描述 | 备注 |
+| :-------: | :------: | :--: | :--: |
+|  `peer`   | `string` |      |      |
+| `subPeer` | `string` |      |      |
+
+<Badge type="danger" text="待完善..." />
+
+### `contactGroupTemp`
+
+> 构建临时聊天 contact
+
+|   参数    |   类型   | 描述 | 备注 |
+| :-------: | :------: | :--: | :--: |
+|  `peer`   | `string` |      |      |
+| `subPeer` | `string` |      |      |
+
+<Badge type="danger" text="待完善..." />
 
 - ## `Cfg`
 

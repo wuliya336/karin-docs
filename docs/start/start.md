@@ -1,15 +1,8 @@
 # 快速上手
 
-## 环境
+## 1. 环境准备
 
-环境说明：
-
-::: warning 温馨提示
-
-以下，除了`Node.js`，其他均为可选项，根据实际情况进行安装。
-:::
-
-### Node.js <Badge type="danger" text="必须 " />
+### Node.js <Badge type="danger" text="必须安装" />
 
 <br>
 <Pill name="Node.js官网" link="https://nodejs.org/zh-cn" />
@@ -24,6 +17,11 @@
 
 ### Git <Badge type="warning" text="可选 " />
 
+<!-- <details>
+<summary>点击展开</summary> -->
+
+::: details 点击展开
+
 > [!IMPORTANT] 温馨提示
 > 下载速度缓慢可以尝试使用国内源：`npmmirror 提供`。
 
@@ -35,11 +33,44 @@
 - `Git`也是一个可选项，所有`Git插件`都可以直接下载压缩包进行安装。
 - <mark>正常使用请安装，因为较多插件还是`Git插件`的方式</mark>。
 
-## 部署 karin
+:::
+
+<!-- </details> -->
+
+## 2. 部署 karin
+
+### 全局安装`pnpm`
+
+已安装可跳过至下一步 [安装](#安装)
+
+::: code-group
+
+```bash [官方源]
+npm install pnpm -g
+```
+
+```bash [国内源]
+npm --registry=https://registry.npmmirror.com install pnpm -g
+```
+
+:::
+
+### 安装
+
+- 找一个目录执行以下命令`(推荐空白目录)`
+- 根据提示选择即可，如果不知道怎么选全部默认即可。
+- 使用方向键、回车键即可选择。
+- puppeteer 是渲染器，如果不需要生成图片，可以不安装 qaq。
+
+```bash
+pnpm create karin
+```
 
 ::: warning 注意
 如果你是中国大陆服务器，并且无法访问 `npm` 官方源，这里请务必更换为镜像源。
 :::
+
+::: details 点击展开查看镜像源
 
 - 更换镜像源
 
@@ -67,42 +98,17 @@ npm config get registry
 
 :::
 
-### 安装`pnpm`
-
-::: code-group
-
-```bash [官方源]
-npm install pnpm -g
-```
-
-```bash [国内源]
-npm --registry=https://registry.npmmirror.com install pnpm -g
-```
-
-:::
-
-### 安装
-
-- 找一个目录执行以下命令`(推荐空白目录)`
-- 根据提示选择即可，如果不知道怎么选全部默认即可。
-- 使用方向键、回车键即可选择。
-- puppeteer 是渲染器，如果不需要生成图片，可以不安装 qaq。
-
-```bash
-pnpm create karin
-```
-
-### 基本指令
+### 3. 基本指令
 
 > [!IMPORTANT] 务必注意
-> 文档可能更新不及时，可`npx karin`查看全部指令。  
-> 前台启动后需要保持窗口开启，如需关闭请使用`Ctrl+C`。  
-> 后台托管后可以关闭窗口，使用`npx karin stop`停止服务。
+> 文档可能更新不及时，可使用 `npx karin` 查看全部指令。  
+> 前台启动后需要保持窗口开启，如需关闭请使用 `Ctrl+C`。  
+> 后台托管后可以关闭窗口，使用 `npx karin stop` 停止服务。
 
 ::: code-group
 
 ```bash [初始化]
-# 使用上面create-karin创建的项目请无需重复执行
+# 使用上面 `pnpm create karin` 创建的项目无需重复执行!
 npx karin init
 ```
 
@@ -111,18 +117,14 @@ npx karin
 ```
 
 :::
-
+常用命令：
 ::: code-group
 
 ```bash [前台启动]
 npx karin .
 ```
 
-```bash [前台启动]
-npx karin start
-```
-
-```bash [后台托管]
+```bash [后台运行]
 npx karin pm2
 ```
 
@@ -130,19 +132,27 @@ npx karin pm2
 npx karin stop
 ```
 
-```bash [重启pm2]
+```bash [后台重启]
 npx karin rs
 ```
 
-```bash [查看pm2日志]
+```bash [查看后台启动日志]
 npx karin log
+```
+
+```bash [更新所有]
+npx karin up
+```
+
+```bash [查看版本]
+npx karin -v
 ```
 
 :::
 
 ### 温馨提示
 
-以上所有命令，如果你不喜欢带`npx`的，可以全局安装一个`@karinjs/cli`:
+以上所有命令，如果你不喜欢带每次都要输入`npx`，可以全局安装一个`@karinjs/cli`:
 
 ```bash
 npm install -g @karinjs/cli

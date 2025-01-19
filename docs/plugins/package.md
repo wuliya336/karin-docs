@@ -2,6 +2,11 @@
 
 本文档将指导您如何开发 karin 插件包。
 
+::: tip 提示
+**本篇主要以开发 JavaScript 插件包为例**<br />
+karin 使用 `tsx` 运行 TypeScript ,要开发 TypeScript 插件包，请参考 [**TypeScript 插件包开发指南**](https://github.com/KarinJS/karin-plugin-template-ts)
+:::
+
 打开 [**模板仓库**](https://github.com/KarinJS/karin-plugin-template)
 
 ## 克隆模板仓库
@@ -14,20 +19,21 @@
 
 ## 克隆仓库到本地
 
-以下命令，在 karin 根目录执行
+~~以下命令，在 karin 根目录执行~~<br />
+相较于旧版本，目前不需要在 karin 目录中克隆到 plugins 了
 
 ```bash
-git clone https://github.com/karinjs/karin-plugin-template.git ./plugins/karin-plugin-template.
+git clone https://github.com/karinjs/karin-plugin-template.git
 ```
 
 ## 安装依赖
 
 ```bash
-pnpm install --filter=karin-plugin-template
+pnpm install
 ```
 
 ## 开发者模式启动
 
 ```bash
-node . --dev
+pnpm dev
 ```
