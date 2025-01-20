@@ -29,6 +29,8 @@ features:
   - title: <iconify-icon icon="logos:typescript-icon" style="margin-right:0.25rem"></iconify-icon> TypeScript · 强类型支持
     details: 基于TypeScript构建，提供完整的类型注释，确保代码可靠性和可维护性。
 
+  - title: <iconify-icon icon="icon-park-solid:web-page"></iconify-icon> Web管理 · 开箱即用
+    details: 内置 Web 管理后台，可快速管理机器人，监控机器人状态、配置插件等。
 ---
 
 <HomeUnderline />

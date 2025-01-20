@@ -283,7 +283,6 @@ RUNTIME=node
 | `master` | `string[]` | Bot主人列表 |
 | `admin` | `string[]` | Bot管理员列表 |
 | `user` | `object` | 用户管理配置 |
-| `user.enable` | `boolean` | 是否启用用户事件 |
 | `user.enable_list` | `string[]` | 用户白名单 |
 | `user.disable_list` | `string[]` | 用户黑名单 |
 | `friend` | `object` | 好友管理配置 |
@@ -741,12 +740,12 @@ RUNTIME=node
 | `apps.name`               | `string`   | `pm2`应用名称    |
 | `apps.script`             | `string`   | 入口文件         |
 | `apps.autorestart`        | `boolean`  | 自动重启         |
-| `apps.max_restarts`       | `number`   | 重启次数         |
+| `apps.max_restarts`       | `number`   | 最大重启次数     |
 | `apps.max_memory_restart` | `string`   | 最大重启内存     |
 | `apps.restart_delay`      | `number`   | 重启延迟         |
 | `apps.merge_logs`         | `boolean`  | 合并日志         |
-| `apps.error_file`         | `string`   | 错误日志         |
-| `apps.out_file`           | `string`   | 输出日志         |
+| `apps.error_file`         | `string`   | 错误日志路径     |
+| `apps.out_file`           | `string`   | 输出日志路径     |
 
 </details>
 

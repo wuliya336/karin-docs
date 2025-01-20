@@ -25,7 +25,7 @@ progress: 20
 import karin from 'node-karin'
 ```
 
-### 1. 命令正则处理 `karin.command`
+### 1. 命令正则处理
 
 调用 `karin.command` 注册一个插件
 
@@ -97,9 +97,13 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 
 ### 2. 监听事件处理 <Badge type="danger" text="待完善..." />
 
+调用 `karin.accept` 注册一个事件监听插件
+
 ### 3. 中间件 <Badge type="danger" text="待完善..." />
 
-### 4. 上下文处理 `karin.ctx` <Badge type="warning" text="待完善..." />
+调用 `karin.use` 注册一个中间件
+
+### 4. 上下文处理 <Badge type="warning" text="待完善..." />
 
 调用 `karin.ctx` 注册一个上下文事件
 
@@ -139,9 +143,11 @@ const ctxText = karin.command('登录', async (e) => {
 
 ### 5. 事件处理器 <Badge type="danger" text="待完善..." />
 
-### 6. 定时任务 `karin.task` <Badge type="warning" text="待完善..." />
+调用 `karin.handle` 注册一个事件处理器
 
-调用 `karin.task` 注册一个插件
+### 6. 定时任务 <Badge type="warning" text="待完善..." />
+
+调用 `karin.task` 注册一个定时任务插件
 
 <!-- prettier-ignore -->
 ```js twoslash

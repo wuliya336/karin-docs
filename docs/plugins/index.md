@@ -7,7 +7,7 @@ comment: false
 > [!WARNING] 温馨提示
 > 本页较长，建议使用`Ctrl + F`搜索关键字查找内容、善用右边导航栏。
 
-<mark>嗨嗨嗨，欢迎来到karin的开发文档，我们是一个开放、友好的社区，欢迎大家的加入~</mark>
+欢迎来到 karin 的开发文档，<mark>我们是一个开放、友好的社区，欢迎大家的加入~</mark>
 
 ## 框架开发
 
@@ -18,12 +18,12 @@ comment: false
 ### 了解插件
 
 有关插件的基本概念，可以查看<Pill name="维基百科" link="https://zh.wikipedia.org/wiki/%E6%8F%92%E4%BB%B6" />自行了解，这里不再赘述。  
-在karin中，插件一共有3种基本类型，分别是: `Npm插件`、`Git插件`、`App插件`。
+在 karin 中，插件一共有 3 种基本类型，分别是: `Npm插件`、`Git插件`、`App插件`。
 
-#### Npm插件
+#### Npm 插件
 
 > [!IMPORTANT] 温馨提示
-> Npm插件通常是已经发布到npm仓库的插件，所以此类插件不支持`热更新`。
+> Npm 插件通常是已经发布到 npm 仓库的插件，所以此类插件不支持`热更新`。
 
 特征:
 
@@ -31,10 +31,10 @@ comment: false
 - `package.json`中包含`karin`字段
 - `karin`字段中可能包含`ts-app`字段，这是用于在`TypeScript`环境下热开发的字段
 
-#### Git插件
+#### Git 插件
 
 > [!IMPORTANT] 温馨提示
-> Git插件通常托管在`Github`或`Gitee`上，在克隆插件时请注意自身网络环境。
+> Git 插件通常托管在`Github`或`Gitee`上，在克隆插件时请注意自身网络环境。
 
 特征:
 
@@ -44,10 +44,10 @@ comment: false
 - `package.json`中包含`karin`字段，不包含此字段仅会加载`main`入口文件
 - 还有最特殊的一种，处于开发阶段，<mark>在根目录的`package.json`中包含`karin`字段</mark>
 
-#### App插件
+#### App 插件
 
 > [!IMPORTANT] 温馨提示
-> App插件通常是指单个`js`、`ts`文件，通常处于`./plugins/karin-plugin-example`目录下
+> App 插件通常是指单个`js`、`ts`文件，通常处于`./plugins/karin-plugin-example`目录下
 
 特征:
 
@@ -64,7 +64,7 @@ comment: false
 - `accept`插件: 处理通知、请求事件
 - `task`插件: 构建定时任务
 - `handler`插件: 约定事件处理
-- `button`插件: QQBot专属，构建按钮
+- `button`插件: QQBot 专属，构建按钮
 - `use`插件: 中间件
 - `plugin`类插件: 消息插件类
 
