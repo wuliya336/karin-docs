@@ -64,6 +64,10 @@ jobs:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.DOCS_TOKEN }}
 
+      # rm CNAME
+      - name: Remove CNAME
+        run: rm -f docs/.vitepress/dist/CNAME
+
       - name: Push to hanhan0258/karin-docs
         id: push-to-hanhan
         uses: peaceiris/actions-gh-pages@v3
@@ -74,6 +78,7 @@ jobs:
           publish_branch: gh-pages
           publish_dir: docs/.vitepress/dist
           force: true
+          force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
       
@@ -93,6 +98,7 @@ jobs:
           publish_branch: gh-pages
           publish_dir: docs/.vitepress/dist
           force: true
+          force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
 
