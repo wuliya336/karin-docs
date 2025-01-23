@@ -53,3 +53,13 @@ jobs:
         env:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.DOCS_TOKEN }}
+
+      # 添加推送到另一个仓库的步骤
+      - name: Push to hanhan0258/karin-docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.HANHAN_PUSH }}
+          external_repository: hanhan0258/karin-docs
+          publish_branch: gh-pages
+          publish_dir: docs/.vitepress/dist
+          force: true
