@@ -1,7 +1,7 @@
 # karin文档
 
 ```bash
-git clone -b docs https://github.com/KarinJS/karin-docs.git
+git clone https://github.com/KarinJS/karin-docs.git
 ```
 
 ## 安装依赖
