@@ -30,7 +30,6 @@
     "@vueuse/core": "^12.5.0",
     "axios": "^1.7.9",
     "canvas-confetti": "^1.9.3",
-    "cursor-effects": "^1.0.17",
     "markdown-it-footnote": "^4.0.0",
     "markdown-it-mathjax3": "^4.3.2",
     "markdown-it-task-lists": "^2.1.1",

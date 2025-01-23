@@ -71,7 +71,6 @@ export default {
     app.component('HomeFooter', HomeFooter)
     app.component('Confetti', Confetti)
     app.component('ChangeLogs', ChangeLogs)
-    app.component('CursorEffect', CursorEffect)
     app.use(TwoslashFloatingVue as unknown as Plugin)
     app.use(NolebaseGitChangelogPlugin as Plugin)
     app.provide(InjectionKey, {
