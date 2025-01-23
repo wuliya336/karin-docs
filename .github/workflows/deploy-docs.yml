@@ -14,8 +14,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
+          # "最近更新时间" 等 git 日志相关信息，需要拉取全部提交记录
           fetch-depth: 0
+
+      # 添加缓存步骤
+      - name: Cache dependencies and build outputs
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-vitepress-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-vitepress-
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -54,12 +64,40 @@ jobs:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.DOCS_TOKEN }}
 
-      # 添加推送到另一个仓库的步骤
       - name: Push to hanhan0258/karin-docs
+        id: push-to-hanhan
         uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
         with:
           personal_token: ${{ secrets.HANHAN_PUSH }}
           external_repository: hanhan0258/karin-docs
           publish_branch: gh-pages
           publish_dir: docs/.vitepress/dist
           force: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+      
+      - name: Check hanhan0258/karin-docs push status
+        if: steps.push-to-hanhan.outcome == 'failure'
+        run: |
+          echo "::error::推送到 hanhan0258/karin-docs 仓库失败"
+          echo "错误信息: ${{ steps.push-to-hanhan.outputs.error }}"
+          
+      - name: Push to yusheng929/karin-docs
+        id: push-to-yusheng
+        uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
+        with:
+          personal_token: ${{ secrets.YUSHENG }}
+          external_repository: yusheng929/karin-docs
+          publish_branch: gh-pages
+          publish_dir: docs/.vitepress/dist
+          force: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Check yusheng929/karin-docs push status  
+        if: steps.push-to-yusheng.outcome == 'failure'
+        run: |
+          echo "::error::推送到 yusheng929/karin-docs 仓库失败"
+          echo "错误信息: ${{ steps.push-to-yusheng.outputs.error }}"

@@ -1,11 +1,11 @@
-import karinPkg from '../../package.json'
+import axios from 'axios'
 import { defineConfig } from 'vitepress'
 import nav from './theme/script/nav'
 import sidebar from './theme/script/sidebar'
 import search from './theme/script/search'
 // 时间线
 import timeline from 'vitepress-markdown-timeline'
-// 任务列表
+// @ts-ignore 任务列表
 import taskLists from "markdown-it-task-lists"
 // mathjax3公式支持
 import mathjax3 from 'markdown-it-mathjax3'
@@ -36,12 +36,16 @@ import { head } from './theme/script/head'
 // import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
 // 懒加载模糊预览图
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
+import type { Plugin } from 'vitepress'
+
+/** karin pkg */
+const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
 
 export default defineConfig({
   lang: 'zh-CN',
   base: '/',
   title: 'karin',
-  description: '基于 Kritor 进行开发的nodejs机器人框架',
+  description: '让机器人开发变得简单有趣',
   markdown: {
     math: true,
     // 全局代码块行号显示
@@ -72,6 +76,7 @@ export default defineConfig({
     },
     // 代码块内的代码类型提示，与代码块行号渲染冲突
     codeTransformers: [
+      // @ts-ignore
       transformerTwoslash()
     ]
   },
@@ -84,8 +89,7 @@ export default defineConfig({
     plugins: [
       ThumbnailHashImages(),
       GitChangelog({
-        maxGitLogCount: 2000,
-        // 要获取git日志的仓库
+        maxGitLogCount: 500,
         repoURL: () => 'https://github.com/KarinJS/Karin',
       }),
       GitChangelogMarkdownSection({
@@ -156,12 +160,12 @@ export default defineConfig({
   lastUpdated: true,
   head: head,
   themeConfig: {
-    siteTitle: `Karin <code class="VPBadge tip">v${karinPkg.devDependencies['node-karin'].replace('^', '')}</code>`,
+    siteTitle: `Karin <code class="VPBadge tip">v${karin.data.version}</code>`,
     logo: {
       src: '/logo.png',
     },
     editLink: {
-      pattern: 'https://github.com/KarinJS/Karin/edit/docs/docs/:path',
+      pattern: 'https://github.com/KarinJS/Karin-docs/edit/docs/docs/:path',
       text: '在 GitHub 上编辑此页面',
     },
     outline: {

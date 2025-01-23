@@ -12,11 +12,14 @@
         "node_modules/vitepress/types/index"
       ]
     },
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "**/.vitepress/**/*.ts",
     "**/.vitepress/**/*.mts",
     "**/.vitepress/**/*.vue",
+    "env.d.ts"
   ],
   "exclude": [
     "node_modules"

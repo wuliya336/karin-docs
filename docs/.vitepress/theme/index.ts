@@ -71,6 +71,7 @@ export default {
     app.component('HomeFooter', HomeFooter)
     app.component('Confetti', Confetti)
     app.component('ChangeLogs', ChangeLogs)
+    app.component('CursorEffect', CursorEffect)
     app.use(TwoslashFloatingVue as unknown as Plugin)
     app.use(NolebaseGitChangelogPlugin as Plugin)
     app.provide(InjectionKey, {
@@ -118,7 +119,7 @@ export default {
       },
       //默认值为true，表示已启用，此参数可以忽略；
       //如果为false，则表示未启用
-      //您可以使用“comment:true”序言在页面上单独启用它
+      //您可以使用"comment:true"序言在页面上单独启用它
       true
     )
     // 代码块添加折叠

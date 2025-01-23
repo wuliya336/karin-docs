@@ -8,7 +8,7 @@ import { nextTick, provide } from 'vue'
 
 // 页面分享按钮、首页公告栏、页脚
 import { ShareButton, Announcement, HomeFooter } from '@theojs/lumen'
-import { Footer_Data } from '../../data/fooertData.ts'
+import { Footer_Data } from '../../data/fooertData'
 // 顶级的阅读增强，页面右上角小书本
 import {
   NolebaseEnhancedReadabilitiesMenu,

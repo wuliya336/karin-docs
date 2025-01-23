@@ -4,6 +4,11 @@ comment: false
 
 # 欢迎来到 Karin 的世界 🌈
 
+<ClientOnly>
+  <MouseParticles />
+</ClientOnly>
+<Confetti />
+
 让我们开始一段神奇的旅程吧！
 
 ## 🚀 从这里起航
