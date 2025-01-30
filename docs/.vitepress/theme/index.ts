@@ -55,6 +55,7 @@ import { NProgress } from 'nprogress-v2/dist/index.js'
 
 import DocPill from './components/DocPill.vue'
 import Layout from './components/Layout.vue'
+import PluginList from './components/PluginList.vue'
 
 export default {
   extends: DefaultTheme,
@@ -65,6 +66,7 @@ export default {
         defaultToggle: true,
       }
     } as Options)
+    app.component('PluginList', PluginList)
     app.component('Pill', DocPill)
     app.component('HomeUnderline', HomeUnderline)
     app.component('NCard', Ncard)
