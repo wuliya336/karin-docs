@@ -28,6 +28,7 @@
     "@types/express": "^5.0.0",
     "@types/markdown-it-footnote": "^3.0.4",
     "@vueuse/core": "^12.5.0",
+    "animejs": "^3.2.2",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "canvas-confetti": "^1.9.3",

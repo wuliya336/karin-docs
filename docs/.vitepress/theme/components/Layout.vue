@@ -22,6 +22,7 @@ import {
 // 面包屑导航
 import { NolebaseBreadcrumbs } from '@nolebase/vitepress-plugin-breadcrumbs/client'
 
+import Fireworks from './Fireworks.vue'
 
 const { isDark } = useData()
 
@@ -60,6 +61,8 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 </script>
 
 <template>
+  <!-- 鼠标点击烟花效果 -->
+  <Fireworks />
   <DefaultTheme.Layout>
     <!-- 顶级的阅读增强，页面右上角小书本 -->
     <template #nav-bar-content-after>
