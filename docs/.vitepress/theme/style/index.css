@@ -7,3 +7,7 @@
 @import './custom-block.css';
 @import './hidden.css';
 @import './nprogress.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,8 +1,8 @@
 <template>
   <div v-if="loading">
-    <div class="loader-container">
+    <div class="inline-flex items-center gap-2">
       <div class="loader"></div>
-      <span>处理中......</span>
+      <span class="text-3xl">处理中......</span>
     </div>
   </div>
   <div v-else-if="error">获取更新日志失败，错误: {{ error }}</div>
@@ -55,20 +55,14 @@ export default {
 </script>
 
 <style scoped>
-.loader-container {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
 /* 加载动画样式 */
 .loader {
-  width: 20px;
-  height: 20px;
-  border: 3.5px solid var(--vp-c-text-1);
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--vp-c-text-1);
   border-top-color: transparent;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin-fce0b109 1s linear infinite;
 }
 
 @keyframes spin {
