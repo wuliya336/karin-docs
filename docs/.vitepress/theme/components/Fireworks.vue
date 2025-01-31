@@ -49,11 +49,11 @@ function createFireworks () {
   // 确保在重新创建前清理
   cleanup()
 
-  const lightColors = ['102, 167, 221', '62, 131, 225', '33, 78, 194']
+  const lightColors = ['207,148,216', '129, 87,194', '161,168,218']
   const darkColors = ['252, 146, 174', '202, 180, 190', '207, 198, 255']
 
   const defaultConfig: FireworksConfig = {
-    colors: isDark ? darkColors : lightColors,
+    colors: isDark.value ? darkColors : lightColors,
     numberOfParticles: 20,
     orbitRadius: { min: 50, max: 100 },
     circleRadius: { min: 10, max: 20 },
@@ -119,7 +119,7 @@ function createFireworks () {
     const p: Particle = {
       x,
       y,
-      color: isDark ? 'rgb(233, 179, 237)' : 'rgb(106, 159, 255)',
+      color: isDark.value ? 'rgb(233, 179, 237)' : 'rgb(243, 229, 245)',
       radius: 0.1,
       alpha: 0.5,
       lineWidth: 6,
@@ -198,7 +198,7 @@ onMounted(() => {
 })
 
 // 监听暗色模式变化
-watch(() => isDark, () => {
+watch(() => isDark.value, () => {
   createFireworks()
 })
 
