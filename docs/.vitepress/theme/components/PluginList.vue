@@ -2,11 +2,11 @@
   <div v-if="loading" class="text-center" style="color: var(--vp-c-text-1);">
     <div class="inline-flex items-center gap-2">
       <div class="loader"></div>
-      <span class="text-3xl">插件列表加载中，请稍等......</span>
+      <span class="text-2xl">插件列表加载中，请稍等......</span>
     </div>
   </div>
 
-  <div v-else-if="error" class="text-center font-bold" style="color: var(--vp-badge-danger-text);">
+  <div v-else-if="error" class="text-center font-bold text-2xl" style="color: var(--vp-badge-danger-text);">
     加载插件列表失败，错误: <br>{{ error }}
   </div>
 
@@ -61,16 +61,17 @@ export default {
 </script>
 
 <style scoped>
-/* 加载动画样式 */
 .loader {
   width: 32px;
   height: 32px;
   border: 4px solid var(--vp-c-text-1);
   border-top-color: transparent;
   border-radius: 50%;
-  animation: spin-fce0b109 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
+</style>
 
+<style>
 @keyframes spin {
   0% {
     transform: rotate(0deg);

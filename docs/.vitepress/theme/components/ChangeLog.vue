@@ -5,7 +5,7 @@
       <span class="text-3xl">处理中......</span>
     </div>
   </div>
-  <div v-else-if="error">获取更新日志失败，错误: {{ error }}</div>
+  <div v-else-if="error" class="text-2xl" style="color: var(--vp-badge-danger-text);">获取更新日志失败，错误: <br>{{ error }}</div>
   <div v-else v-html="compiledMarkdown"></div>
 </template>
 
@@ -55,16 +55,17 @@ export default {
 </script>
 
 <style scoped>
-/* 加载动画样式 */
 .loader {
   width: 32px;
   height: 32px;
   border: 4px solid var(--vp-c-text-1);
   border-top-color: transparent;
   border-radius: 50%;
-  animation: spin-fce0b109 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
+</style>
 
+<style>
 @keyframes spin {
   0% {
     transform: rotate(0deg);

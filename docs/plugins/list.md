@@ -2,6 +2,7 @@
 layout: home
 nolebase:
   gitChangelog: false
+  pageProperties: false
 ---
 
 # 📜 用户须知
@@ -172,6 +173,6 @@ pnpm add name -w
 
 <!-- 其他链接 -->
 
-[plugins]: https://github.com/KarinJS/Karin/edit/docs/docs/plugins/index.md
+[plugins]: https://github.com/KarinJS/plugins-list/edit/main/plugins.json
 
 </details>
