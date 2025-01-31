@@ -1,19 +1,21 @@
 <template>
-  <div>
-    <div v-if="loading" class="text-center" style="color: var(--vp-c-text-1);">
-      处理中......
+  <div v-if="loading" class="text-center" style="color: var(--vp-c-text-1);">
+    <div class="loader-container">
+      <div class="loader"></div>
+      <span>处理中......</span>
     </div>
+  </div>
 
-    <div v-else-if="error" class="text-center" style="color: var(--vp-c-error);">
-      加载插件列表失败，错误: {{ error }}
-    </div>
+  <div v-else-if="error" class="text-center font-bold" style="color: var(--vp-badge-danger-text);">
+    加载插件列表失败，错误: <br>{{ error }}
+  </div>
 
-    <!-- 渲染插件列表 -->
-    <div v-else>
-      <div v-for="type in ['npm', 'git', 'app']" :key="type">
-        <h2 class="text-2xl font-bold my-4">{{ getTypeTitle(type) }}</h2>
-        <PluginTable :plugins="filterPlugins(type)" />
-      </div>
+
+  <!-- 渲染插件列表 -->
+  <div v-else>
+    <div v-for="type in ['npm', 'git', 'app']" :key="type">
+      <h2 class="text-2xl font-bold my-4">{{ getTypeTitle(type) }}</h2>
+      <PluginTable :plugins="filterPlugins(type)" />
     </div>
   </div>
 </template>
@@ -57,3 +59,31 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.loader-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 加载动画样式 */
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 3.5px solid var(--vp-c-text-1);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
