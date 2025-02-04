@@ -38,6 +38,8 @@ import { head } from './theme/script/head'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 import type { Plugin } from 'vitepress'
 
+import tailwindcss from 'tailwindcss'
+
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
 
@@ -87,6 +89,7 @@ export default defineConfig({
       ]
     },
     plugins: [
+      tailwindcss(),
       ThumbnailHashImages(),
       GitChangelog({
         maxGitLogCount: 500,

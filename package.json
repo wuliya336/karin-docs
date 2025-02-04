@@ -11,6 +11,8 @@
     "build:cache": "vitepress build docs --force"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.302",
+    "@iconify/tailwind": "^1.2.0",
     "@iconify/vue": "^4.3.0",
     "@nolebase/markdown-it-bi-directional-links": "^2.12.1",
     "@nolebase/markdown-it-unlazy-img": "^2.12.1",
