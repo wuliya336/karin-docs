@@ -72,7 +72,7 @@
 
       <!-- 弹窗内容（透明模糊背景） -->
       <div
-        class="rounded-lg p-6 lg:p-10 w-11/12 h-4/5 lg:w-5/12 max-w-screen-2xl backdrop-blur-lg shadow-2xl overflow-auto transform bg-white/10 dark:bg-gray-800/10"
+        class="rounded-lg p-6 lg:p-10 w-11/12 h-4/5 lg:w-7/12 max-w-screen-2xl backdrop-blur-lg shadow-2xl overflow-auto transform bg-white/10 dark:bg-gray-800/10"
         @click.stop>
         <!-- 弹窗头部 -->
         <div class="flex justify-between items-center mb-4">
@@ -109,10 +109,7 @@
               </a>
             </template>
           </p>
-          <div class="warning custom-block">
-            <p class="custom-block-title">注意</p>
-            <p>当前页面正在施工中 🚧</p>
-          </div>
+          <div v-if="readmeContent" class="mt-4" v-html="readmeContent"></div>
         </div>
       </div>
     </div>
@@ -121,8 +118,9 @@
 
 <script>
 import axios from 'axios'
+import { marked } from 'marked'
+import hljs from 'highlight.js'
 import PluginCard from './PluginCard.vue'
-import Pill from './DocPill.vue'
 
 export default {
   components: { PluginCard },
@@ -138,7 +136,8 @@ export default {
         git: 1,
         app: 1
       },
-      itemsPerPage: 6 // 每页显示的插件数量
+      itemsPerPage: 6,// 每页显示的插件数量
+      readmeContent: ''
     }
   },
   computed: {
@@ -223,12 +222,39 @@ export default {
         plugin.version = '未知'
       }
     },
-    showPluginDetails (plugin) {
+    async showPluginDetails (plugin) {
       this.selectedPlugin = plugin
       this.isBlurred = true // 显示弹窗时启用背景模糊
       // 点击详情时加载版本信息
       if (this.selectedPlugin.version === '加载中...') {
         this.loadPluginVersion(plugin)
+      }
+      // 检查是否有 github 类型的仓库对象
+      const githubRepo = plugin.repo.find(repo => repo.type === 'github')
+      if (githubRepo) {
+        try {
+          const repoPath = githubRepo.url.split('/').slice(3, 5).join('/')
+          const readmeResponse = await axios.get(`https://raw.githubusercontent.com/${repoPath}/${githubRepo.branch}/README.md`)
+          const renderer = new marked.Renderer()
+          marked.setOptions({
+            renderer: renderer,
+            gfm: true,
+            pedantic: false,
+            sanitize: false,
+            tables: true,
+            breaks: false,
+            smartLists: true,
+            highlight: function (code, lang) {
+              const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+              return hljs.highlight(code, { language }).value
+            }
+          })
+          this.readmeContent = marked(readmeResponse.data)
+        } catch (err) {
+          this.readmeContent = '读取 README.md 文件失败'
+        }
+      } else {
+        this.readmeContent = ''
       }
     },
     getPaginatedPlugins (type) {
