@@ -59,37 +59,54 @@
     </div>
   </div>
 
-  <!-- 插件详情弹窗 -->
-  <transition enter-active-class="transition-all duration-500 ease-[cubic-bezier(0,0,0,1)]"
-    leave-active-class="transition-all duration-500 ease-[cubic-bezier(0,0,0,1)]" enter-from-class="scale-0"
-    enter-to-class="scale-100" leave-from-class="scale-100" leave-to-class="scale-0">
+  <!-- 弹窗背景和内容 -->
+  <transition enter-active-class="transition-all duration-500 ease-[cubic-bezier(1.00,0.00,1.00,1.00)]"
+    leave-active-class="transition-all duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"
+    enter-from-class="scale-125 opacity-0" enter-to-class="scale-100 opacity-100"
+    leave-from-class="scale-100 opacity-100" leave-to-class="scale-125 opacity-0">
     <div v-if="selectedPlugin" class="fixed inset-0 flex items-center justify-center z-50"
       @click="closePluginIfOutside($event)">
+      <!-- 背景模糊层（带动画） -->
+      <div class="fixed inset-0 backdrop-filter transform duration-500 ease-in-out"
+        :class="{ 'backdrop-blur-lg': isBlurred }"></div>
+
+      <!-- 弹窗内容（透明模糊背景） -->
       <div
-        class="rounded-lg p-6 lg:p-10 w-11/12 h-4/5 lg:w-5/12 max-w-screen-2xl backdrop-filter backdrop-blur-xl shadow-2xl overflow-auto transform"
+        class="rounded-lg p-6 lg:p-10 w-11/12 h-4/5 lg:w-5/12 max-w-screen-2xl backdrop-blur-lg shadow-2xl overflow-auto transform bg-white/10 dark:bg-gray-800/10"
         @click.stop>
+        <!-- 弹窗头部 -->
         <div class="flex justify-between items-center mb-4">
           <div class="text-3xl font-bold">{{ selectedPlugin.name }}</div>
           <button @click="selectedPlugin = null">
             <span
-              class="icon-[icon-park-solid--error] mt-4 h-6 w-6 lg:h-12 lg:w-12 bg-[#ff5e5e] transform duration-500 hover:rotate-180 hover:scale-150 ease-[cubic-bezier(0,0,0,1)]"></span>
+              class="icon-[icon-park-solid--error] mt-4 h-6 w-6 lg:h-8 lg:w-8 bg-[#ff5e5e] transform duration-500 hover:rotate-180 hover:scale-150 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
           </button>
         </div>
+
+        <!-- 弹窗内容区域 -->
         <div class="h-8"></div>
         <div class="space-y-4">
           <p><strong>描述:</strong> {{ selectedPlugin.description }}</p>
           <p><strong>版本:</strong> {{ selectedPlugin.version }}</p>
-          <p><strong>开源协议:</strong> <a :href="selectedPlugin.license.url" target="_blank">
-              {{ selectedPlugin.license.name }}
-            </a></p>
+          <p>
+            <strong>开发:&nbsp;</strong>
+            <template v-for="(author, index) in selectedPlugin.author" :key="author.name">
+              <Pill :name=author.name :link=author.home />
+              <span v-if="index !== selectedPlugin.author.length - 1" class="text-gray-600 dark:text-gray-300">, </span>
+            </template>
+          </p>
+          <p>
+            <strong>开源协议:&nbsp;</strong>
+            <Pill :name=selectedPlugin.license.name :link=selectedPlugin.license.url />
+          </p>
           <p>
             <strong>仓库地址: </strong>
-            <template v-for="(repo, index) in selectedPlugin.repo" :key="repo.url">
+            <template v-for="(repo) in selectedPlugin.repo" :key="repo.url">
+              &nbsp;
               <a :href="repo.url" target="_blank">
                 <span :class="getIconClass(repo.type)"
-                  class="w-6 h-6 transform duration-500 hover:scale-150 ease-[cubic-bezier(0,0,0,1)]"></span>
+                  class="w-6 h-6 mb-[-6px] transform duration-500 hover:scale-150 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
               </a>
-              <span v-if="index !== selectedPlugin.repo.length - 1">&nbsp;&nbsp;&nbsp;</span>
             </template>
           </p>
           <div class="warning custom-block">
@@ -105,6 +122,7 @@
 <script>
 import axios from 'axios'
 import PluginCard from './PluginCard.vue'
+import Pill from './DocPill.vue'
 
 export default {
   components: { PluginCard },
@@ -114,6 +132,7 @@ export default {
       loading: true,
       error: null,
       selectedPlugin: null,
+      isBlurred: false, // 控制背景模糊的状态
       currentPages: {
         npm: 1,
         git: 1,
@@ -140,6 +159,18 @@ export default {
       }
     }
   },
+  watch: {
+    // 监听 selectedPlugin 的变化
+    selectedPlugin (newVal) {
+      if (newVal) {
+        // 弹窗显示时，添加键盘事件监听
+        window.addEventListener('keydown', this.handleKeyDown)
+      } else {
+        // 弹窗隐藏时，移除键盘事件监听
+        window.removeEventListener('keydown', this.handleKeyDown)
+      }
+    }
+  },
   async mounted () {
     try {
       const response = await axios.get('https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json')
@@ -155,24 +186,23 @@ export default {
       this.loading = false
     }
   },
+  beforeUnmount () {
+    // 组件销毁时，移除键盘事件监听
+    window.removeEventListener('keydown', this.handleKeyDown)
+  },
   methods: {
-    beforeEnter (el) {
-      el.style.transform = 'scale(0)'
-    },
-    enter (el, done) {
-      el.style.transition = 'transform 0.3s cubic-bezier(0.00,0.00,0.00,1.00)'
-      el.style.transform = 'scale(1)'
-      done()
-    },
-    leave (el, done) {
-      el.style.transition = 'transform 0.3s cubic-bezier(0.00,0.00,0.00,1.00)'
-      el.style.transform = 'scale(0)'
-      done()
-    },
     closePluginIfOutside (event) {
       // 检查点击的目标是否是弹窗容器
       if (!event.target.closest('.rounded-lg')) {
         this.selectedPlugin = null // 关闭弹窗
+        this.isBlurred = false // 关闭弹窗时取消背景模糊
+      }
+    },
+    handleKeyDown (event) {
+      // 如果按下的是 ESC 键（keyCode 为 27）
+      if (event.keyCode === 27) {
+        this.selectedPlugin = null // 关闭弹窗
+        this.isBlurred = false // 关闭弹窗时取消背景模糊
       }
     },
     filterPlugins (type) {
@@ -195,6 +225,7 @@ export default {
     },
     showPluginDetails (plugin) {
       this.selectedPlugin = plugin
+      this.isBlurred = true // 显示弹窗时启用背景模糊
       // 点击详情时加载版本信息
       if (this.selectedPlugin.version === '加载中...') {
         this.loadPluginVersion(plugin)
