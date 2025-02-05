@@ -39,6 +39,7 @@ import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 import type { Plugin } from 'vitepress'
 
 import tailwindcss from 'tailwindcss'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
@@ -89,6 +90,7 @@ export default defineConfig({
       ]
     },
     plugins: [
+      vueDevTools(),
       tailwindcss(),
       ThumbnailHashImages(),
       GitChangelog({

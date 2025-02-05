@@ -9,7 +9,9 @@
 
     <div>
       <div class="flex justify-between items-center">
-        <div class="text-2xl font-bold text-gray-900 dark:text-white">{{ plugin.name }}</div>
+        <div class="text-2xl font-bold text-gray-900 dark:text-white scroll-text" :class="{ 'animate': shouldAnimate }">
+          {{ plugin.name }}
+        </div>
       </div>
       <div class="text-gray-600 mb-7 mt-4 dark:text-gray-300 line-clamp-2 min-h-[48.1px] select-none">{{
         plugin.description }}</div>
@@ -26,7 +28,7 @@
         </template>
       </div>
       <button @click="$emit('show-details', plugin)"
-        class="border border-solid relative overflow-visible w-16 h-10 bg-green-700/15 text-[#69bb66] hover:bg-yellow-300/20 hover:text-[#e7d84a] hover:scale-125 transform duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)] rounded-xl hover:filter hover:drop-shadow-[0_0_10px_#E2E51C] hover:text-shadow-[0_0_10px_#E2E51C]">
+        class=" border border-solid relative overflow-visible w-16 h-10 bg-green-700/15 text-[#69bb66] hover:bg-yellow-300/20 hover:text-[#e7d84a] hover:scale-125 transform duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)] rounded-xl hover:filter hover:drop-shadow-[0_0_10px_#E2E51C] hover:text-shadow-[0_0_10px_#E2E51C]">
         详情
       </button>
     </div>
@@ -46,6 +48,7 @@ export default {
       tiltX: 0,
       tiltY: 0,
       showMask: false,
+      shouldAnimate: false, // 是否需要滚动动画
       maskStyle: {
         top: '0',
         left: '0',
@@ -57,7 +60,8 @@ export default {
         transform: 'translate(-50%, -50%)',
         transition: 'all 0.5s ease',
         pointerEvents: 'none' // 防止遮罩层干扰点击事件
-      }
+      },
+      intervalId: null // 用于存储定时器的 ID
     }
   },
   computed: {
@@ -124,8 +128,29 @@ export default {
         this.maskStyle.height = '0'
         this.maskStyle.borderRadius = '50%'
       }, 500)
+    },
+    checkTextOverflow () {
+      this.$nextTick(() => {
+        const container = this.$el.querySelector('.scroll-text')
+        if (container.scrollWidth > container.clientWidth) {
+          this.shouldAnimate = true // 如果文本超出容器宽度，启用动画
+        } else {
+          this.shouldAnimate = false // 否则禁用动画
+        }
+      })
     }
-  }
+  },
+  mounted () {
+    // 在组件挂载后启动定时器，每 0.5 秒调用一次 checkTextOverflow 方法
+    this.intervalId = setInterval(this.checkTextOverflow, 10)
+  },
+  beforeDestroy () {
+    // 在组件销毁前清除定时器
+    clearInterval(this.intervalId)
+  },
+  updated () {
+    this.checkTextOverflow()
+  },
 }
 </script>
 
@@ -142,5 +167,42 @@ export default {
 
 .link1:hover {
   border: 1px solid;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.scroll-text {
+  overflow: hidden;
+  white-space: nowrap;
+  /* 添加一些内边距，使滚动效果更平滑 */
+  padding: 0 1rem;
+}
+
+.scroll-text.animate {
+  /* 5秒完成一次滚动，无限循环 */
+  animation: scrollText 5s linear infinite;
+  --text-width: calc(100% - var(--container-width));
+}
+</style>
+
+<style scoped>
+/* 定义滑动动画 */
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
 }
 </style>

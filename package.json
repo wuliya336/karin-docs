@@ -44,6 +44,7 @@
     "nprogress-v2": "^1.0.4",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
+    "vite-plugin-vue-devtools": "^7.7.1",
     "vitepress": "^1.6.3",
     "vitepress-markdown-timeline": "^1.2.2",
     "vitepress-plugin-codeblocks-fold": "^1.2.35",
