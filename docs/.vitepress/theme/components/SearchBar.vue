@@ -4,8 +4,7 @@
       <!-- 关键词搜索 -->
       <div class="flex-1 min-w-[200px]">
         <label class="block text-sm font-medium mb-1">关键词搜索</label>
-        <el-input v-model="searchKeyword" placeholder="名称/描述/作者" clearable />
-
+        <el-input v-model="searchKeyword" placeholder="名称/描述/作者" clearable @keyup.enter="handleSearch" />
       </div>
 
       <!-- 作者筛选 -->
@@ -97,14 +96,10 @@ export default {
     }
   },
   methods: {
-    // addMemory (val) {
-    //   TinyModal.message({ message: val, status: 'success' })
-    //   textMemoryRef.value.addMemory(val)
-    // },
     handleSearch () {
       this.$emit('search', {
         keyword: this.searchKeyword.toLowerCase(),
-        author: this.selectedAuthor === '全部作者' ? '' : this.selectedAuthor,
+        author: this.selectedAuthor === '全部' ? '' : this.selectedAuthor,
         pluginType: this.selectedPluginType,
         repoType: this.selectedRepoType
       })
