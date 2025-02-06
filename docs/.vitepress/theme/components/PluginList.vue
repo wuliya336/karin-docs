@@ -1,7 +1,9 @@
 <template>
   <div v-if="loading" class="text-center" style="color: var(--vp-c-text-1);">
     <div class="inline-flex items-center gap-2">
-      <div class="loader"></div>
+      <div
+        class="w-8 h-8 border-4 border-solid border-[var(--vp-c-text-1)] border-t-transparent rounded-full animate-spin">
+      </div>
       <span class="text-2xl">插件列表加载中，请稍等......</span>
     </div>
   </div>
@@ -35,14 +37,15 @@
         <!-- 正常页码按钮 -->
         <template v-for="item in getVisiblePages(type)" :key="item">
           <button v-if="item !== '...'" @click="setCurrentPage(type, item)" :class="{
-            'mx-1 px-4 py-2 rounded-lg page-button': true,
+            'mx-1 px-4 py-2 rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 select-none': true,
             'bg-[var(--vp-c-brand-1)] text-white ': currentPages[type] === item,
             'bg-gray-200 dark:bg-opacity-5 hover:text-[var(--vp-c-brand-1)]': currentPages[type] !== item
           }">
             {{ item }}
           </button>
           <!-- 省略样式占位符 -->
-          <span v-else class="mx-1 px-4 py-2 rounded-lg bg-gray-200 dark:bg-opacity-5 page-button">
+          <span v-else
+            class="mx-1 px-4 py-2 rounded-lg bg-gray-200 dark:bg-opacity-5 w-8 h-8 flex items-center justify-center flex-shrink-0 select-none">
             &hellip;
           </span>
         </template>
@@ -72,10 +75,12 @@
 
       <!-- 弹窗内容（透明模糊背景） -->
       <div
-        class="rounded-lg p-6 lg:p-10 w-11/12 h-4/5 lg:w-7/12 max-w-screen-2xl backdrop-blur-lg shadow-2xl overflow-auto transform bg-white/10 dark:bg-gray-800/10"
+        class="rounded-lg p-6 lg:p-10 w-11/12 h-4/5 lg:w-7/12 max-w-screen-2xl backdrop-blur-lg shadow-2xl overflow-auto transform relative"
         @click.stop>
+        <div class="absolute inset-0 -z-10" aria-hidden="true"></div>
         <!-- 弹窗头部 -->
-        <div class="flex justify-between items-center mb-4">
+        <div
+          class="flex justify-between items-center lg:py-6 lg:px-10 sm:py-3 sm:px-5 sticky top-0 z-50 backdrop-blur-lg rounded-lg">
           <div class="text-3xl font-bold">{{ selectedPlugin.name }}</div>
           <button @click="selectedPlugin = null">
             <span
@@ -85,9 +90,9 @@
 
         <!-- 弹窗内容区域 -->
         <div class="h-8"></div>
-        <div class="space-y-4">
-          <p><strong>描述:</strong> {{ selectedPlugin.description }}</p>
-          <p><strong>版本:</strong> {{ selectedPlugin.version }}</p>
+        <div class="space-y-4 pt-8">
+          <p><strong>描述:&nbsp;&nbsp;</strong>{{ selectedPlugin.description }}</p>
+          <p><strong>版本:&nbsp;&nbsp;</strong>{{ selectedPlugin.version }}</p>
           <p>
             <strong>开发:&nbsp;</strong>
             <template v-for="(author, index) in selectedPlugin.author" :key="author.name">
@@ -96,9 +101,19 @@
             </template>
           </p>
           <p>
-            <strong>开源协议:&nbsp;</strong>
+            <strong>开源协议:&nbsp;&nbsp;</strong>
             <Pill :name=selectedPlugin.license.name :link=selectedPlugin.license.url />
           </p>
+          <div v-if="selectedPlugin.type === 'npm'">
+            <strong>安装命令:&nbsp;&nbsp;</strong>
+            <code>pnpm add {{ selectedPlugin.name }} -w</code>&nbsp;
+            <button @click="copyInstallCommand(selectedPlugin.name)" class="focus:outline-none">
+              <div class="relative overflow-visible">
+                <span
+                  class="mb-[-8px] relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
+              </div>
+            </button>
+          </div>
           <p>
             <strong>仓库地址: </strong>
             <template v-for="(repo) in selectedPlugin.repo" :key="repo.url">
@@ -121,11 +136,17 @@ import axios from 'axios'
 import { marked } from 'marked'
 import hljs from 'highlight.js'
 import PluginCard from './PluginCard.vue'
+import { testGithub } from '../script/test-url'
 
 export default {
   components: { PluginCard },
   data () {
     return {
+      searchParams: {
+        keyword: '',
+        pluginType: '',
+        repoType: ''
+      },
       allPlugins: [],
       loading: true,
       error: null,
@@ -136,8 +157,9 @@ export default {
         git: 1,
         app: 1
       },
-      itemsPerPage: 6,// 每页显示的插件数量
-      readmeContent: ''
+      itemsPerPage: 9,// 每页显示的插件数量
+      readmeContent: '',
+      githubProxy: null
     }
   },
   computed: {
@@ -161,6 +183,19 @@ export default {
   watch: {
     // 监听 selectedPlugin 的变化
     selectedPlugin (newVal) {
+      this.$nextTick(() => {
+        if (newVal) {
+          // 锁定滚动
+          document.body.style.overflow = 'hidden'
+          // 补偿滚动条宽度（防止页面跳动）
+          document.body.style.paddingRight =
+            window.innerWidth - document.documentElement.clientWidth + 'px'
+        } else {
+          // 恢复滚动
+          document.body.style.overflow = ''
+          document.body.style.paddingRight = ''
+        }
+      })
       if (newVal) {
         // 弹窗显示时，添加键盘事件监听
         window.addEventListener('keydown', this.handleKeyDown)
@@ -172,11 +207,14 @@ export default {
   },
   async mounted () {
     try {
-      const response = await axios.get('https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json')
+      this.githubProxy = await testGithub()
+      const afterUrl = this.githubProxy(`https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json`)
+      const response = await axios.get(afterUrl)
       const data = response.data
       // const data = await import('./plugin.json')
       this.allPlugins = data.plugins.map(plugin => ({
         ...plugin,
+        author: Array.isArray(plugin.author) ? plugin.author : [],
         version: '加载中...' // 初始版本设置为加载中
       }))
     } catch (err) {
@@ -190,6 +228,23 @@ export default {
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
+    /** 搜索处理 */
+    handleSearch (params) {
+      this.searchParams = params
+      // 重置所有分页到第一页
+      this.currentPages = { npm: 1, git: 1, app: 1 }
+    },
+    async copyInstallCommand (name) {
+      try {
+        await navigator.clipboard.writeText(`pnpm add ${name} -w`)
+        ElMessage({ message: '安装命令已复制到剪贴板！', type: 'success', showClose: true, duration: 4000 })
+
+        console.log('安装命令已复制到剪贴板！')
+      } catch (err) {
+        console.error('无法复制安装命令: ', err)
+        ElMessage({ message: '安装命令已复制到剪贴板！', type: 'error', showClose: true, duration: 4000 })
+      }
+    },
     closePluginIfOutside (event) {
       // 检查点击的目标是否是弹窗容器
       if (!event.target.closest('.rounded-lg')) {
@@ -204,8 +259,42 @@ export default {
         this.isBlurred = false // 关闭弹窗时取消背景模糊
       }
     },
+    /** 过滤 */
     filterPlugins (type) {
-      return this.allPlugins.filter(p => p.type === type)
+      return this.allPlugins.filter(plugin => {
+        // 基础类型匹配
+        const typeMatch = plugin.type === type
+
+        // 关键词匹配（名称、描述、作者）
+        const keywordMatch =
+          plugin.name.toLowerCase().includes(this.searchParams.keyword) ||
+          plugin.description.toLowerCase().includes(this.searchParams.keyword) ||
+          this.checkAuthorsMatch(plugin.author, this.searchParams.keyword)
+
+        // 作者筛选
+        const authorMatch =
+          !this.searchParams.author ||
+          this.checkAuthorsMatch(plugin.author, this.searchParams.author)
+
+        // 插件类型筛选
+        const pluginTypeMatch =
+          !this.searchParams.pluginType ||
+          plugin.type === this.searchParams.pluginType
+
+        // 仓库类型筛选
+        const repoTypeMatch =
+          !this.searchParams.repoType ||
+          plugin.repo.some(r => r.type === this.searchParams.repoType)
+
+        return typeMatch && keywordMatch && authorMatch && pluginTypeMatch && repoTypeMatch
+      })
+    },
+    /** 匹配作者 */
+    checkAuthorsMatch (authors, searchTerm) {
+      if (!searchTerm) return true
+      return authors.some(author =>
+        author.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     },
     getTypeTitle (type) {
       return {
@@ -216,10 +305,33 @@ export default {
     },
     async loadPluginVersion (plugin) {
       try {
-        const response = await axios.get(`https://raw.githubusercontent.com/${plugin.repo[0].url.split('/').slice(3, 5).join('/')}/main/package.json`)
-        plugin.version = response.data.version
+        for (const repo of plugin.repo) {
+          const repoPath = repo.url.split('/').slice(3, 5).join('/')
+          switch (repo.type) {
+            case 'github': {
+              const afterUrl = this.githubProxy(`https://raw.githubusercontent.com/${repoPath}/${repo.branch}/package.json`)
+              // const response = await axios.get(`https://api.github.com/repos/${repoPath}`)
+              const pkg = await axios.get(afterUrl)
+              plugin.version = pkg.data.version
+              break
+            }
+            case 'gitee': {
+              // const giteeResponse = await axios.get(`https://gitee.com/api/v5/repos/${giteeRepo}`)
+              const pkg = await axios.get(`https://gitee.com/${repoPath}/raw/${repo.branch}/package.json`)
+              plugin.version = pkg.data.version
+              break
+            }
+            default: {
+              // TODO: 其他仓库类型
+              plugin.version = '暂时只能获取到 Github 和 Gitee 仓库的版本信息'
+              break
+            }
+          }
+          break
+          // https://gitee.com/ikenxuan/kkkkkk-10086/raw/master/README.md
+        }
       } catch (err) {
-        plugin.version = '未知'
+        plugin.version = err
       }
     },
     async showPluginDetails (plugin) {
@@ -230,32 +342,40 @@ export default {
         this.loadPluginVersion(plugin)
       }
       // 检查是否有 github 类型的仓库对象
-      const githubRepo = plugin.repo.find(repo => repo.type === 'github')
-      if (githubRepo) {
-        try {
-          const repoPath = githubRepo.url.split('/').slice(3, 5).join('/')
-          const readmeResponse = await axios.get(`https://raw.githubusercontent.com/${repoPath}/${githubRepo.branch}/README.md`)
-          const renderer = new marked.Renderer()
-          marked.setOptions({
-            renderer: renderer,
-            gfm: true,
-            pedantic: false,
-            sanitize: false,
-            tables: true,
-            breaks: false,
-            smartLists: true,
-            highlight: function (code, lang) {
-              const language = hljs.getLanguage(lang) ? lang : 'plaintext'
-              return hljs.highlight(code, { language }).value
-            }
-          })
-          this.readmeContent = marked(readmeResponse.data)
-        } catch (err) {
-          this.readmeContent = '读取 README.md 文件失败'
+      const Repo = plugin.repo.find(repo => repo.type === 'github' || repo.type === 'gitee')
+      let htmlData = ''
+      const repoPath = Repo.url.split('/').slice(3, 5).join('/')
+      switch (Repo.type) {
+        case 'github': {
+          const proxyUrl = this.githubProxy(`https://raw.githubusercontent.com/${repoPath}/${Repo.branch}/README.md`)
+          const readmeResponse = await axios.get(proxyUrl)
+          htmlData = readmeResponse.data
+          break
         }
-      } else {
-        this.readmeContent = ''
+        case 'gitee': {
+          const response = await axios.get(`https://gitee.com/${repoPath}/raw/${Repo.branch}/README.md`)
+          htmlData = response.data
+          break
+        }
+        default: {
+          htmlData = '<div class="danger custom-block github-alert"><p class="custom-block-title">错误 Error !</p><p>暂时只能获取到 Github 和 Gitee 仓库的 <code>README.md</code> 文件。</p></div>'
+        }
       }
+      const renderer = new marked.Renderer()
+      marked.setOptions({
+        renderer: renderer,
+        gfm: true,
+        pedantic: false,
+        sanitize: false,
+        tables: true,
+        breaks: false,
+        smartLists: true,
+        highlight: function (code, lang) {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+          return hljs.highlight(code, { language }).value
+        }
+      })
+      this.readmeContent = marked(htmlData)
     },
     getPaginatedPlugins (type) {
       const plugins = this.filterPlugins(type)
@@ -268,7 +388,8 @@ export default {
       return Math.ceil(plugins.length / this.itemsPerPage)
     },
     setCurrentPage (type, page) {
-      if (page >= 1 && page <= this.getPageCount(type)) {
+      const pageCount = this.getPageCount(type)
+      if (page >= 1 && page <= pageCount) {
         this.currentPages[type] = page
       }
     },
@@ -315,49 +436,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.loader {
-  width: 32px;
-  height: 32px;
-  border: 4px solid var(--vp-c-text-1);
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-/* 确保页码按钮宽度一致 */
-.page-button {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* 防止按钮收缩 */
-  flex-shrink: 0;
-  /** 禁止选中文本 */
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-  .page-button {
-    width: 32px;
-    height: 32px;
-  }
-}
-</style>
-
-<style>
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-</style>
