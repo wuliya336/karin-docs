@@ -1,5 +1,5 @@
 <template>
-  <div class="backdrop-blur-sm p-4 bg-white dark:bg-opacity-5 rounded-lg shadow-sm mb-6">
+  <div class="backdrop-blur-sm p-4 bg-white dark:bg-opacity-5 rounded-lg shadow-sm">
     <div class="flex flex-wrap gap-4 items-end">
       <!-- 关键词搜索 -->
       <div class="flex-1 min-w-[200px]">

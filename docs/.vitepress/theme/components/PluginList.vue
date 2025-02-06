@@ -13,53 +13,87 @@
     加载插件列表失败，错误: <br>{{ error }}
   </div>
 
-  <!-- 渲染插件卡片 -->
-  <div v-else class="space-y-8 p-6">
-    <!-- 每种插件类型 -->
-    <div v-for="type in ['npm', 'git', 'app']" :key="type">
-      <h2 class="text-2xl font-bold mb-4">{{ getTypeTitle(type) }}</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 分页显示插件 -->
-        <template v-for="(plugin) in getPaginatedPlugins(type)" :key="plugin.name">
-          <PluginCard :plugin="plugin" @show-details="showPluginDetails" />
-        </template>
-      </div>
+  <!-- 渲染插件页面 -->
+  <div v-else class="p-4 scroll-mt-[60px] md:scroll-mt-[80px]">
+    <div ref="cardsStart" class="relative -top-[60px] left-0 h-0"></div>
 
-      <!-- 分页控件 -->
-      <div class="flex justify-center mt-6">
-        <!-- 上一页按钮 -->
-        <button @click="setCurrentPage(type, currentPages[type] - 1)" :class="{
-          'mx-1 px-4 py-2 rounded-lg w-8 h-8': true,
-          'bg-gray-200 dark:bg-opacity-5': true,
-          'disabled cursor-not-allowed': currentPages[type] === 1 // 如果当前页是第一页，则禁用“上一页”按钮
-        }" :disabled="currentPages[type] === 1">
-          <span class="icon-[tabler--chevron-left]" style="width: 22px; height: 22px; margin: -3px 0 0 -12px;"></span>
+    <!-- 上分页控件 -->
+    <div class="flex justify-center my-2">
+      <!-- 上一页按钮 -->
+      <button @click="setCurrentPage(currentPage - 1)" :class="{
+        'mx-1 px-4 py-2 rounded-lg w-8 h-8 focus:outline-none hover:scale-125 transform duration-500 custom-bezier': true,
+        'bg-gray-200 dark:bg-opacity-5': true,
+        'disabled cursor-not-allowed': currentPage === 1
+      }" :disabled="currentPage === 1">
+        <span class="icon-[tabler--chevron-left]" style="width: 22px; height: 22px; margin: -3px 0 0 -12px;"></span>
+      </button>
+      <!-- 正常页码按钮 -->
+      <template v-for="item in getVisiblePages()" :key="item">
+        <button v-if="item !== '...'" @click="setCurrentPage(item)" :class="{
+          'mx-1 px-4 py-2 rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 select-none focus:outline-none hover:scale-125 transform duration-500 custom-bezier': true,
+          'bg-[var(--vp-c-brand-1)] text-white ': currentPage === item,
+          'bg-gray-200 dark:bg-opacity-5 hover:text-[var(--vp-c-brand-1)]': currentPage !== item
+        }">
+          {{ item }}
         </button>
-        <!-- 正常页码按钮 -->
-        <template v-for="item in getVisiblePages(type)" :key="item">
-          <button v-if="item !== '...'" @click="setCurrentPage(type, item)" :class="{
-            'mx-1 px-4 py-2 rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 select-none': true,
-            'bg-[var(--vp-c-brand-1)] text-white ': currentPages[type] === item,
-            'bg-gray-200 dark:bg-opacity-5 hover:text-[var(--vp-c-brand-1)]': currentPages[type] !== item
-          }">
-            {{ item }}
-          </button>
-          <!-- 省略样式占位符 -->
-          <span v-else
-            class="mx-1 px-4 py-2 rounded-lg bg-gray-200 dark:bg-opacity-5 w-8 h-8 flex items-center justify-center flex-shrink-0 select-none">
-            &hellip;
-          </span>
-        </template>
-        <!-- 下一页按钮 -->
-        <button @click="setCurrentPage(type, currentPages[type] + 1)" :class="{
-          'mx-1 px-4 py-2 rounded-lg w-8 h-8': true,
-          'bg-gray-200 dark:bg-opacity-5': true,
-          'disabled cursor-not-allowed': currentPages[type] === getPageCount(type) // 如果当前页是最后一页，则禁用“下一页”按钮
-        }" :disabled="currentPages[type] === getPageCount(type)">
-          <span class="icon-[tabler--chevron-right]" style="width: 22px; height: 22px; margin: -3px 0 0 -10px;;"></span>
-        </button>
-      </div>
+        <!-- 省略样式占位符 -->
+        <span v-else
+          class="mx-1 px-4 py-2 rounded-lg bg-gray-200 dark:bg-opacity-5 w-8 h-8 flex items-center justify-center flex-shrink-0 select-none cursor-not-allowed">
+          &hellip;
+        </span>
+      </template>
+      <!-- 下一页按钮 -->
+      <button @click="setCurrentPage(currentPage + 1)" :class="{
+        'mx-1 px-4 py-2 rounded-lg w-8 h-8 focus:outline-none hover:scale-125 transform duration-500 custom-bezier': true,
+        'bg-gray-200 dark:bg-opacity-5': true,
+        'disabled cursor-not-allowed': currentPage === pageCount
+      }" :disabled="currentPage === pageCount">
+        <span class="icon-[tabler--chevron-right]" style="width: 22px; height: 22px; margin: -3px 0 0 -10px;;"></span>
+      </button>
+    </div>
 
+    <!-- 渲染插件卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <template v-for="(plugin, index) in getPaginatedPlugins()" :key="plugin.name">
+        <!-- 动态绑定第一个卡片的ref -->
+        <PluginCard :ref="el => { if (index === 0) firstCardRef = el }" :plugin="plugin"
+          @show-details="showPluginDetails" />
+      </template>
+    </div>
+
+    <!-- 下分页控件 -->
+    <div class="flex justify-center mt-6">
+      <!-- 上一页按钮 -->
+      <button @click="setCurrentPage(currentPage - 1)" :class="{
+        'mx-1 px-4 py-2 rounded-lg w-8 h-8 focus:outline-none hover:scale-125 transform duration-500 custom-bezier': true,
+        'bg-gray-200 dark:bg-opacity-5': true,
+        'disabled cursor-not-allowed': currentPage === 1
+      }" :disabled="currentPage === 1">
+        <span class="icon-[tabler--chevron-left]" style="width: 22px; height: 22px; margin: -3px 0 0 -12px;"></span>
+      </button>
+      <!-- 正常页码按钮 -->
+      <template v-for="item in getVisiblePages()" :key="item">
+        <button v-if="item !== '...'" @click="setCurrentPage(item)" :class="{
+          'mx-1 px-4 py-2 rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 select-none focus:outline-none hover:scale-125 transform duration-500 custom-bezier': true,
+          'bg-[var(--vp-c-brand-1)] text-white ': currentPage === item,
+          'bg-gray-200 dark:bg-opacity-5 hover:text-[var(--vp-c-brand-1)]': currentPage !== item
+        }">
+          {{ item }}
+        </button>
+        <!-- 省略样式占位符 -->
+        <span v-else
+          class="mx-1 px-4 py-2 rounded-lg bg-gray-200 dark:bg-opacity-5 w-8 h-8 flex items-center justify-center flex-shrink-0 select-none cursor-not-allowed">
+          &hellip;
+        </span>
+      </template>
+      <!-- 下一页按钮 -->
+      <button @click="setCurrentPage(currentPage + 1)" :class="{
+        'mx-1 px-4 py-2 rounded-lg w-8 h-8 focus:outline-none hover:scale-125 transform duration-500 custom-bezier': true,
+        'bg-gray-200 dark:bg-opacity-5': true,
+        'disabled cursor-not-allowed': currentPage === pageCount
+      }" :disabled="currentPage === pageCount">
+        <span class="icon-[tabler--chevron-right]" style="width: 22px; height: 22px; margin: -3px 0 0 -10px;;"></span>
+      </button>
     </div>
   </div>
 
@@ -144,6 +178,7 @@ export default {
   components: { PluginCard, SearchBar },
   data () {
     return {
+      firstCardRef: null,
       searchParams: {
         keyword: '',
         pluginType: '',
@@ -154,17 +189,38 @@ export default {
       error: null,
       selectedPlugin: null,
       isBlurred: false, // 控制背景模糊的状态
-      currentPages: {
-        npm: 1,
-        git: 1,
-        app: 1
-      },
-      itemsPerPage: 9,// 每页显示的插件数量
+      currentPage: 1, // 默认页码
+      itemsPerPage: 9, // 每页显示的插件数量
       readmeContent: '',
       githubProxy: null
     }
   },
   computed: {
+    filteredPlugins () {
+      return this.allPlugins.filter(plugin => {
+        const keywordMatch =
+          plugin.name.toLowerCase().includes(this.searchParams.keyword) ||
+          plugin.description.toLowerCase().includes(this.searchParams.keyword) ||
+          this.checkAuthorsMatch(plugin.author, this.searchParams.keyword)
+
+        const authorMatch =
+          !this.searchParams.author ||
+          this.checkAuthorsMatch(plugin.author, this.searchParams.author)
+
+        const pluginTypeMatch =
+          !this.searchParams.pluginType ||
+          plugin.type === this.searchParams.pluginType
+
+        const repoTypeMatch =
+          !this.searchParams.repoType ||
+          plugin.repo.some(r => r.type === this.searchParams.repoType)
+
+        return keywordMatch && authorMatch && pluginTypeMatch && repoTypeMatch
+      })
+    },
+    pageCount () {
+      return Math.ceil(this.filteredPlugins.length / this.itemsPerPage)
+    },
     getIconClass () {
       return (type) => {
         switch (type) {
@@ -237,7 +293,7 @@ export default {
     handleSearch (params) {
       this.searchParams = params
       // 重置所有分页到第一页
-      this.currentPages = { npm: 1, git: 1, app: 1 }
+      this.currentPages = 1
     },
     async copyInstallCommand (name) {
       try {
@@ -382,62 +438,92 @@ export default {
       })
       this.readmeContent = marked(htmlData)
     },
-    getPaginatedPlugins (type) {
-      const plugins = this.filterPlugins(type)
-      const startIndex = (this.currentPages[type] - 1) * this.itemsPerPage
+    /** 分页方法 */
+    getPaginatedPlugins () {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage
       const endIndex = startIndex + this.itemsPerPage
-      return plugins.slice(startIndex, endIndex)
+      return this.filteredPlugins.slice(startIndex, endIndex)
     },
     getPageCount (type) {
       const plugins = this.filterPlugins(type)
       return Math.ceil(plugins.length / this.itemsPerPage)
     },
-    setCurrentPage (type, page) {
-      const pageCount = this.getPageCount(type)
-      if (page >= 1 && page <= pageCount) {
-        this.currentPages[type] = page
+    async setCurrentPage (page) {
+      if (page >= 1 && page <= this.pageCount) {
+        this.currentPage = page
+
+        // 等待DOM更新
+        await this.$nextTick()
+
+        const scrollToFirstCard = () => {
+          try {
+            // 方案1：直接定位到第一个卡片（精准定位）
+            if (this.firstCardRef?.$el) {
+              const cardTop = this.firstCardRef.$el.offsetTop
+              window.scrollTo({
+                top: cardTop - 60, // 60px为头部导航栏高度
+                behavior: 'smooth'
+              })
+            }
+          } catch (e) {
+            // 方案2：备用锚点定位
+            const anchor = this.$refs.cardsStart
+            if (anchor) {
+              const rect = anchor.getBoundingClientRect()
+              window.scrollTo({
+                top: window.pageYOffset + rect.top - 60,
+                behavior: 'smooth'
+              })
+            }
+          }
+        }
+        setTimeout(scrollToFirstCard, 100)
       }
     },
-    getVisiblePages (type) {
-      const pageCount = this.getPageCount(type)
-      const currentPage = this.currentPages[type]
+    smoothScrollPolyfill () {
+      const start = window.pageYOffset
+      const startTime = 'now' in window.performance ? performance.now() : new Date().getTime()
+
+      const animate = () => {
+        const now = 'now' in window.performance ? performance.now() : new Date().getTime()
+        const time = Math.min(1, (now - startTime) / 500)
+        const easedTime = 0.5 * (1 - Math.cos(Math.PI * time))
+
+        window.scrollTo(0, start + easedTime * (0 - start))
+
+        if (time < 1) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      requestAnimationFrame(animate)
+    },
+    getVisiblePages () {
+      const pageCount = this.pageCount
+      const currentPage = this.currentPage
       const items = []
 
       if (pageCount <= 7) {
-        // 如果总页数小于等于7，直接显示所有页码
-        for (let i = 1; i <= pageCount; i++) {
-          items.push(i)
-        }
+        for (let i = 1; i <= pageCount; i++) items.push(i)
       } else {
-        // 总页数大于7，需要分段显示
         if (currentPage <= 4) {
-          // 当前页在前4页内，显示前5页和省略号
-          for (let i = 1; i <= 5; i++) {
-            items.push(i)
-          }
-          items.push('...')
-          items.push(pageCount)
+          for (let i = 1; i <= 5; i++) items.push(i)
+          items.push('...', pageCount)
         } else if (currentPage >= pageCount - 3) {
-          // 当前页在最后4页内，显示省略号和最后5页
-          items.push(1)
-          items.push('...')
-          for (let i = pageCount - 4; i <= pageCount; i++) {
-            items.push(i)
-          }
+          items.push(1, '...')
+          for (let i = pageCount - 4; i <= pageCount; i++) items.push(i)
         } else {
-          // 当前页在中间，显示省略号、当前页及其前后两页、省略号和最后一页
-          items.push(1)
-          items.push('...')
-          for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-            items.push(i)
-          }
-          items.push('...')
-          items.push(pageCount)
+          items.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', pageCount)
         }
       }
-
       return items
-    }
+    },
+
+    /** 搜索重置页码 */
+    handleSearch (params) {
+      this.searchParams = params
+      this.currentPage = 1
+    },
   }
 }
 </script>
