@@ -1,4 +1,5 @@
 <template>
+  <SearchBar @search="handleSearch" :plugins="pluginsList()" />
   <div v-if="loading" class="text-center" style="color: var(--vp-c-text-1);">
     <div class="inline-flex items-center gap-2">
       <div
@@ -137,9 +138,10 @@ import { marked } from 'marked'
 import hljs from 'highlight.js'
 import PluginCard from './PluginCard.vue'
 import { testGithub } from '../script/test-url'
+import SearchBar from './SearchBar.vue'
 
 export default {
-  components: { PluginCard },
+  components: { PluginCard, SearchBar },
   data () {
     return {
       searchParams: {
@@ -228,6 +230,9 @@ export default {
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
+    pluginsList () {
+      return this.allPlugins
+    },
     /** 搜索处理 */
     handleSearch (params) {
       this.searchParams = params

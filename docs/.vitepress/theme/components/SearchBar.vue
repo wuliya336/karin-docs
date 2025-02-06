@@ -4,37 +4,33 @@
       <!-- 关键词搜索 -->
       <div class="flex-1 min-w-[200px]">
         <label class="block text-sm font-medium mb-1">关键词搜索</label>
-        <!-- <tiny-input ref="textMemoryRef" v-model="searchKeyword" name="textMemory" placeholder="名称/描述/作者"
-          :memory-space="10" @change="addMemory" @keyup.enter="handleSearch"></tiny-input> -->
+        <el-input v-model="searchKeyword" placeholder="名称/描述/作者" clearable />
+
       </div>
 
       <!-- 作者筛选 -->
       <div class="w-48">
-        <label class="block text-sm font-medium mb-1">作者筛选</label>
-        <!-- <tiny-select v-model="selectedAuthor" :searchable="true" :show-empty-image="true" :style="{ width: '150px' }"
-          :placeholder="'全部作者'">
-          <tiny-option v-for="item in uniqueAuthors" :key="item" :label="item" :value="item"> </tiny-option>
-        </tiny-select> -->
+        <label class="block text-sm font-medium mb-1">筛选作者</label>
+        <el-select v-model="selectedAuthor" filterable clearable placeholder="全部">
+          <el-option v-for="item in uniqueAuthors" :key="item" :label="item" :value="item" />
+        </el-select>
       </div>
 
       <!-- 插件类型筛选 -->
       <div class="w-48">
         <label class="block text-sm font-medium mb-1">插件类型</label>
-        <!-- <tiny-select v-model="selectedPluginType" :placeholder="'全部'">
-          <tiny-option v-for="item in pluginTypeOptions" :key="item.value" :label="item.label" :value="item.value"
-            :icon="item.icon">
-          </tiny-option>
-        </tiny-select> -->
+        <el-select v-model="selectedPluginType" clearable placeholder="全部">
+          <el-option v-for="item in pluginTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+        </el-select>
       </div>
 
       <!-- 仓库类型筛选 -->
       <div class="w-48">
         <label class="block text-sm font-medium mb-1">仓库类型</label>
-        <!-- <tiny-select v-model="selectedRepoType" :placeholder="'全部'">
-          <tiny-option v-for="item in repoTypeOptions" :key="item.value" :label="item.label" :value="item.value"
-            :icon="item.icon">
-          </tiny-option>
-        </tiny-select> -->
+
+        <el-select v-model="selectedRepoType" clearable placeholder="全部">
+          <el-option v-for="item in repoTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+        </el-select>
       </div>
 
       <button @click="handleSearch"
@@ -46,8 +42,6 @@
 </template>
 
 <script>
-// import { TinyModal } from '@opentiny/vue'
-
 export default {
   props: {
     plugins: {
@@ -84,7 +78,7 @@ export default {
         // 添加安全校验
         if (!Array.isArray(this.plugins)) {
           console.log(this.plugins)
-          return ['全部作者']
+          return ['全部']
         }
 
         this.plugins.forEach(plugin => {
@@ -95,10 +89,10 @@ export default {
             })
           }
         })
-        return ['全部作者', ...Array.from(authors)].filter(a => a !== '')
+        return ['全部', ...Array.from(authors)].filter(a => a !== '')
       } catch (e) {
         console.error('作者列表生成失败:', e)
-        return ['全部作者']
+        return ['全部']
       }
     }
   },
