@@ -36,10 +36,15 @@ import { head } from './theme/script/head'
 // import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
 // 懒加载模糊预览图
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
-import type { Plugin } from 'vitepress'
+
 
 import tailwindcss from 'tailwindcss'
 import vueDevTools from 'vite-plugin-vue-devtools'
+
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+// 自动导入 ElementPlus 组件
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
@@ -84,12 +89,26 @@ export default defineConfig({
     ]
   },
   vite: {
+    build: {
+      chunkSizeWarningLimit: 20000,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
+    },
     optimizeDeps: {
       exclude: [
-        '@nolebase/vitepress-plugin-breadcrumbs/client'
+        '@nolebase/vitepress-plugin-breadcrumbs/client',
       ]
     },
     plugins: [
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
       vueDevTools(),
       tailwindcss(),
       ThumbnailHashImages(),
@@ -135,6 +154,7 @@ export default defineConfig({
     ssr: {
       noExternal: [
         '@nolebase/*',
+        /element-plus/
       ],
     },
     css: {

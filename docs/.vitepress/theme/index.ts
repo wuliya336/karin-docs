@@ -57,6 +57,8 @@ import DocPill from './components/DocPill.vue'
 import Layout from './components/Layout.vue'
 import PluginList from './components/PluginList.vue'
 
+import 'element-plus/theme-chalk/dark/css-vars.css'
+
 export default {
   extends: DefaultTheme,
   enhanceApp ({ app, router }: EnhanceAppContext) {

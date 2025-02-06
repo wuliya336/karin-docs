@@ -5,7 +5,6 @@ export default {
   content: [
     "./index.html",
     "./docs/.vitepress/theme/components/*.{vue,js,ts,jsx,tsx}",
-    "./**/*.vue"
   ],
   extend: {
     scale: {

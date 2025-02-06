@@ -63,10 +63,10 @@
   </div>
 
   <!-- 弹窗背景和内容 -->
-  <transition enter-active-class="transition-all duration-500 ease-[cubic-bezier(1.00,0.00,1.00,1.00)]"
-    leave-active-class="transition-all duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"
-    enter-from-class="scale-125 opacity-0" enter-to-class="scale-100 opacity-100"
-    leave-from-class="scale-100 opacity-100" leave-to-class="scale-125 opacity-0">
+  <transition enter-active-class="transition-all duration-500 custom-bezier"
+    leave-active-class="transition-all duration-500 custom-bezier" enter-from-class="scale-125 opacity-0 custom-bezier"
+    enter-to-class="scale-100 opacity-100 custom-bezier" leave-from-class="scale-100 opacity-100 custom-bezier"
+    leave-to-class="scale-125 opacity-0 custom-bezier">
     <div v-if="selectedPlugin" class="fixed inset-0 flex items-center justify-center z-50"
       @click="closePluginIfOutside($event)">
       <!-- 背景模糊层（带动画） -->
@@ -84,7 +84,7 @@
           <div class="text-3xl font-bold">{{ selectedPlugin.name }}</div>
           <button @click="selectedPlugin = null">
             <span
-              class="icon-[icon-park-solid--error] mt-4 h-6 w-6 lg:h-8 lg:w-8 bg-[#ff5e5e] transform duration-500 hover:rotate-180 hover:scale-150 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
+              class="icon-[icon-park-solid--error] mt-4 h-6 w-6 lg:h-8 lg:w-8 bg-[#ff5e5e] transform duration-500 hover:rotate-180 hover:scale-150 custom-bezier"></span>
           </button>
         </div>
 
@@ -110,7 +110,7 @@
             <button @click="copyInstallCommand(selectedPlugin.name)" class="focus:outline-none">
               <div class="relative overflow-visible">
                 <span
-                  class="mb-[-8px] relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
+                  class="mb-[-8px] relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier"></span>
               </div>
             </button>
           </div>
@@ -120,7 +120,7 @@
               &nbsp;
               <a :href="repo.url" target="_blank">
                 <span :class="getIconClass(repo.type)"
-                  class="w-6 h-6 mb-[-6px] transform duration-500 hover:scale-150 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
+                  class="w-6 h-6 mb-[-6px] transform duration-500 hover:scale-150 custom-bezier"></span>
               </a>
             </template>
           </p>

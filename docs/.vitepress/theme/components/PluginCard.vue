@@ -5,8 +5,7 @@
     :style="cardStyle">
     <!-- 遮罩层 -->
     <transition name="mask">
-      <div v-if="showMask"
-        class="absolute z-10 transition-opacity duration-100 ease-[cubic-bezier(0.00,0.00,0.00,1.00)] opacity-0 overflow-hidden"
+      <div v-if="showMask" class="absolute z-10 transition-opacity duration-100 custom-bezier opacity-0 overflow-hidden"
         :style="maskStyle"></div>
     </transition>
 
@@ -16,17 +15,17 @@
           {{ plugin.name }}
         </div>
         <div v-if="plugin.type === 'npm'">
-          <!-- <el-popover placement="top-start" title="点击复制安装命令" :width="200" trigger="hover" :content=installCommand>
+          <el-popover placement="top-start" title="点击复制安装命令" :width="200" trigger="hover" :content=installCommand>
             <template #reference>
               <button @click="copyInstallCommand"
                 class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none">
                 <div class="relative overflow-visible">
                   <span
-                    class="relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
+                    class="relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier"></span>
                 </div>
               </button>
             </template>
-</el-popover> -->
+          </el-popover>
         </div>
       </div>
       <div class="text-gray-600 lg:mb-7 mb-4 md:mb-6 mt-4 dark:text-gray-300 line-clamp-2 min-h-[48.1px] select-none">{{
@@ -38,13 +37,13 @@
           &nbsp;
           <a :href="repo.url" target="_blank" class="select-none">
             <span :class="getIconClass(repo.type)"
-              class="w-6 h-6 transform duration-500 hover:scale-150 ease-[cubic-bezier(0.00,0.00,0.00,1.00)]"></span>
+              class="w-6 h-6 transform duration-500 hover:scale-150 custom-bezier"></span>
           </a>
           &nbsp;
         </template>
       </div>
       <button @click="$emit('show-details', plugin)"
-        class="focus:outline-none border border-solid relative overflow-visible w-16 h-10 bg-green-700/15 text-[#69bb66] hover:bg-yellow-300/20 hover:text-[#e7d84a] hover:scale-125 transform duration-500 ease-[cubic-bezier(0.00,0.00,0.00,1.00)] rounded-xl hover:filter hover:drop-shadow-[0_0_10px_#E2E51C] hover:text-shadow-[0_0_10px_#E2E51C]">
+        class="focus:outline-none border border-solid relative overflow-visible w-16 h-10 bg-green-700/15 text-[#69bb66] hover:bg-yellow-300/20 hover:text-[#e7d84a] hover:scale-125 transform duration-500 custom-bezier rounded-xl hover:filter hover:drop-shadow-[0_0_10px_#E2E51C] hover:text-shadow-[0_0_10px_#E2E51C]">
         详情
       </button>
     </div>
@@ -52,7 +51,7 @@
 </template>
 
 <script>
-// import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 export default {
   props: {
@@ -112,12 +111,12 @@ export default {
     async copyInstallCommand () {
       try {
         await navigator.clipboard.writeText(`pnpm add ${this.plugin.name} -w`)
-        // ElMessage({ message: '安装命令已复制到剪贴板！', type: 'success', showClose: true, duration: 4000 })
+        ElMessage({ message: '安装命令已复制到剪贴板！', type: 'success', showClose: true, duration: 4000 })
 
         console.log('安装命令已复制到剪贴板！')
       } catch (err) {
         console.error('无法复制安装命令: ', err)
-        // ElMessage({ message: '安装命令已复制到剪贴板！', type: 'error', showClose: true, duration: 4000 })
+        ElMessage({ message: '安装命令已复制到剪贴板！', type: 'error', showClose: true, duration: 4000 })
       }
     },
     handleMouseMove (event) {
