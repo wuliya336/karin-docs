@@ -116,7 +116,12 @@
         <!-- 弹窗头部 -->
         <div
           class="flex justify-between items-center lg:py-6 lg:px-10 sm:py-3 sm:px-5 sticky top-0 z-50 backdrop-blur-lg rounded-lg">
-          <div class="text-3xl font-bold">{{ selectedPlugin.name }}</div>
+          <div class="text-3xl font-bold">{{ selectedPlugin.name }}
+            <el-tooltip content="官方插件" placement="top" :effect="selectedPlugin.isDark ? 'dark' : 'light'">
+              <span v-if="selectedPlugin.official"
+                class="icon-[iconamoon--shield-yes-duotone] bg-[#9bd298] mb-[-4px]"></span>
+            </el-tooltip>
+          </div>
           <button @click="selectedPlugin = null">
             <span
               class="icon-[icon-park-solid--error] mt-4 h-6 w-6 lg:h-8 lg:w-8 bg-[#ff5e5e] transform duration-500 hover:rotate-180 hover:scale-150 custom-bezier"></span>
@@ -124,8 +129,7 @@
         </div>
 
         <!-- 弹窗内容区域 -->
-        <div class="h-8"></div>
-        <div class="space-y-4 pt-8">
+        <div class="pt-8">
           <p><strong>描述:&nbsp;&nbsp;</strong>{{ selectedPlugin.description }}</p>
           <p><strong>版本:&nbsp;&nbsp;</strong>{{ selectedPlugin.version }}</p>
           <p>
@@ -142,12 +146,14 @@
           <div v-if="selectedPlugin.type === 'npm'">
             <strong>安装命令:&nbsp;&nbsp;</strong>
             <code>pnpm add {{ selectedPlugin.name }} -w</code>&nbsp;
-            <button @click="copyInstallCommand(selectedPlugin.name)" class="focus:outline-none">
-              <div class="relative overflow-visible">
-                <span
-                  class="mb-[-8px] relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier"></span>
-              </div>
-            </button>
+            <el-tooltip content="点我复制安装命令" placement="top" :effect="selectedPlugin.isDark ? 'dark' : 'light'">
+              <button @click="copyInstallCommand(selectedPlugin.name)" class="focus:outline-none">
+                <div class="relative overflow-visible">
+                  <span
+                    class="mb-[-8px] relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier"></span>
+                </div>
+              </button>
+            </el-tooltip>
           </div>
           <p>
             <strong>仓库地址: </strong>
@@ -173,9 +179,15 @@ import hljs from 'highlight.js'
 import PluginCard from './PluginCard.vue'
 import { testGithub } from '../script/test-url'
 import SearchBar from './SearchBar.vue'
+import { useDark } from '@vueuse/core'
 
 export default {
   components: { PluginCard, SearchBar },
+  setup () {
+    const isDark = useDark()
+    return { isDark }
+  },
+
   data () {
     return {
       firstCardRef: null,
@@ -263,29 +275,41 @@ export default {
       }
     }
   },
-  async mounted () {
-    try {
-      this.githubProxy = await testGithub()
-      const afterUrl = this.githubProxy(`https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json`)
-      const response = await axios.get(afterUrl)
-      const data = response.data
-      // const data = await import('./plugin.json')
-      this.allPlugins = data.plugins.map(plugin => ({
-        ...plugin,
-        author: Array.isArray(plugin.author) ? plugin.author : [],
-        version: '加载中...' // 初始版本设置为加载中
-      }))
-    } catch (err) {
-      this.error = err.message || '加载失败'
-    } finally {
-      this.loading = false
-    }
+  mounted () {
+    this.loadPlugins()
   },
   beforeUnmount () {
     // 组件销毁时，移除键盘事件监听
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
+    async loadPlugins () {
+      try {
+        this.githubProxy = await testGithub()
+        const afterUrl = this.githubProxy(`https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json`)
+        const response = await axios.get(afterUrl)
+        const data = response.data
+        // const data = await import('./plugin.json')
+        this.allPlugins = data.plugins.map(plugin => ({
+          ...plugin,
+          author: Array.isArray(plugin.author) ? plugin.author : [],
+          name: ((plugin) => {
+            if (plugin.name.includes('karin-plugin-')) {
+              return plugin.name.replace('karin-plugin-', '')
+            } else if (plugin.name.includes('@karinjs/')) {
+              return plugin.name.replace('@karinjs/plugin-', '')
+            }
+          })(plugin),
+          version: '加载中...',
+          official: plugin.name.includes('@karinjs/'),
+          isDark: this.isDark
+        }))
+      } catch (err) {
+        this.error = err.message || '加载失败'
+      } finally {
+        this.loading = false
+      }
+    },
     pluginsList () {
       return this.allPlugins
     },

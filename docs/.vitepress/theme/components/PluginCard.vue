@@ -13,15 +13,18 @@
       <div class="flex justify-between items-center">
         <div class="text-2xl font-bold text-gray-900 dark:text-white">
           {{ plugin.name }}
+          <el-tooltip content="官方插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
+            <span v-if="plugin.official" class="icon-[iconamoon--shield-yes-duotone] bg-[#9bd298] mb-[-4px]"></span>
+          </el-tooltip>
         </div>
         <div v-if="plugin.type === 'npm'">
-          <el-popover placement="top-start" title="点击复制安装命令" :width="200" trigger="hover" :content=installCommand>
+          <el-popover placement="top-start" title="点我复制安装命令" :width="200" trigger="hover" :content=installCommand>
             <template #reference>
               <button @click="copyInstallCommand"
                 class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none">
-                <div class="relative overflow-visible">
+                <div class="relative overflow-visible ">
                   <span
-                    class="relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier"></span>
+                    class="mb-[-8px] relative icon-[iconamoon--copy-duotone] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier"></span>
                 </div>
               </button>
             </template>
