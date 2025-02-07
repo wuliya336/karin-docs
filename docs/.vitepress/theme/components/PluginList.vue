@@ -298,7 +298,7 @@ export default {
               return plugin.name.replace('karin-plugin-', '')
             } else if (plugin.name.includes('@karinjs/')) {
               return plugin.name.replace('@karinjs/plugin-', '')
-            }
+            } else return plugin.name
           })(plugin),
           version: '加载中...',
           official: plugin.name.includes('@karinjs/'),

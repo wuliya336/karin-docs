@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col justify-between h-full bg-white dark:bg-opacity-5 rounded-lg shadow-xl transition-shadow duration-300 px-6 pt-6 pb-4 overflow-hidden select-none"
+    class="relative flex flex-col justify-between h-full bg-white dark:bg-opacity-5 rounded-lg shadow-xl transition-shadow duration-300 px-6 sm:px-4 pt-6 sm:pt4 pb-4 overflow-hidden select-none"
     @mousemove="handleMouseMove" @mouseleave="handleMouseLeave" @mousedown="handleClick" @mouseup="handleMouseUp"
     :style="cardStyle">
     <!-- 遮罩层 -->
@@ -11,7 +11,7 @@
 
     <div>
       <div class="flex justify-between items-center">
-        <div class="text-2xl font-bold text-gray-900 dark:text-white">
+        <div class="lg:text-2xl text-xl font-bold text-gray-900 dark:text-white">
           {{ plugin.name }}
           <el-tooltip content="官方插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
             <span v-if="plugin.official" class="icon-[iconamoon--shield-yes-duotone] bg-[#9bd298] mb-[-4px]"></span>
@@ -31,8 +31,10 @@
           </el-popover>
         </div>
       </div>
-      <div class="text-gray-600 lg:mb-7 mb-4 md:mb-6 mt-4 dark:text-gray-300 line-clamp-2 min-h-[48.1px] select-none">{{
-        plugin.description }}</div>
+      <div
+        class="text-gray-600 lg:mb-7 mb-2 md:mb-4 mt-2 md:mt-3 lg:mt-4 dark:text-gray-300 line-clamp-2 min-h-[48.1px] select-none">
+        {{
+          plugin.description }}</div>
     </div>
     <div class="flex justify-between items-center">
       <div class="flex space-x-2">
@@ -46,8 +48,7 @@
         </template>
       </div>
       <button @click="$emit('show-details', plugin)"
-        class="focus:outline-none border border-solid relative overflow-visible w-16 h-10 bg-green-700/15 text-[#69bb66] hover:bg-yellow-300/20 hover:text-[#e7d84a] hover:scale-125 transform duration-500 custom-bezier rounded-xl hover:filter hover:drop-shadow-[0_0_10px_#E2E51C] hover:text-shadow-[0_0_10px_#E2E51C]">
-        详情
+        class="icon-[material-symbols--arrows-output-rounded] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier focus:outline-none">
       </button>
     </div>
   </div>

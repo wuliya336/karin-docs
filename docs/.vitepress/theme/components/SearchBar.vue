@@ -2,13 +2,13 @@
   <div class="backdrop-blur-sm p-4 bg-white dark:bg-opacity-5 rounded-lg shadow-sm">
     <div class="flex flex-wrap gap-4 items-end">
       <!-- 关键词搜索 -->
-      <div class="flex-1 min-w-[200px]">
+      <div class="min-w-48">
         <label class="block text-sm font-medium mb-1">关键词搜索</label>
         <el-input v-model="searchKeyword" placeholder="名称/描述/作者" clearable @keyup.enter="handleSearch" />
       </div>
 
       <!-- 作者筛选 -->
-      <div class="w-48">
+      <div class="w-32">
         <label class="block text-sm font-medium mb-1">筛选作者</label>
         <el-select v-model="selectedAuthor" filterable clearable placeholder="全部">
           <el-option v-for="item in uniqueAuthors" :key="item" :label="item" :value="item" />
@@ -16,7 +16,7 @@
       </div>
 
       <!-- 插件类型筛选 -->
-      <div class="w-48">
+      <div class="w-32">
         <label class="block text-sm font-medium mb-1">插件类型</label>
         <el-select v-model="selectedPluginType" clearable placeholder="全部">
           <el-option v-for="item in pluginTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
@@ -24,9 +24,8 @@
       </div>
 
       <!-- 仓库类型筛选 -->
-      <div class="w-48">
+      <div class="w-32">
         <label class="block text-sm font-medium mb-1">仓库类型</label>
-
         <el-select v-model="selectedRepoType" clearable placeholder="全部">
           <el-option v-for="item in repoTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
