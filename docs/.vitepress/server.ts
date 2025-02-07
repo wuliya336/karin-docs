@@ -1,13 +1,13 @@
 // server.ts
-import { serve } from "https://deno.land/std@0.217.0/http/server.ts"
-import { readFile } from "https://deno.land/std@0.217.0/fs/read_file.ts"
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts"
+import { readFileSync } from "node:fs"
 
 const handler = async (request: Request): Promise<Response> => {
   const url = new URL(request.url)
   const filePath = url.pathname === "/" ? "docs/.vitepress/dist/index.html" : `docs/.vitepress/dist${url.pathname}`
 
   try {
-    const fileContent = await readFile(filePath)
+    const fileContent = readFileSync(filePath)
     return new Response(fileContent, {
       headers: { "Content-Type": "text/html" },
     })
