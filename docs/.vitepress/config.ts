@@ -1,4 +1,5 @@
 import axios from 'axios'
+import path from 'node:path'
 import { defineConfig } from 'vitepress'
 import nav from './theme/script/nav'
 import sidebar from './theme/script/sidebar'
@@ -160,10 +161,15 @@ export default defineConfig({
         /element-plus/
       ],
     },
+    resolve: {
+      alias: {
+        '~/': `${path.resolve(__dirname, 'docs')}/`,
+      },
+    },
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern'
+          api: 'modern',
         }
       }
     },

@@ -6,6 +6,8 @@
   --vp-c-brand-3: #352984;
   --vp-home-hero-image-background-image: linear-gradient(-45deg, #f6abe9 50%, #ebe0ba 50%);
   --vp-home-hero-image-filter: blur(150px);
+  /* 组件库焦点颜色覆盖 */
+  --el-color-primary: var(--vp-c-brand-2) !important;
 }
 
 /* 主题色，浅色模式，深紫色调 */
@@ -13,6 +15,8 @@
   --vp-c-brand-1: #C8ABFA;
   --vp-c-brand-2: #3c30a4;
   --vp-c-brand-3: #352984;
+  /* 组件库焦点颜色覆盖 */
+  --el-color-primary: var(--vp-c-brand-1) !important;
 }
 
 /* 移除链接跳转下划线 */
