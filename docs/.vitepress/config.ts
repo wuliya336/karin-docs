@@ -93,10 +93,12 @@ export default defineConfig({
   },
   vite: {
     build: {
-      chunkSizeWarningLimit: 20000,
-      rollupOptions: {
-        output: {
-          manualChunks: undefined
+      // 压缩代码
+      minify: false,
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true
         }
       }
     },

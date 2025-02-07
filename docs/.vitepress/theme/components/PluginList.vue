@@ -186,27 +186,7 @@ export default {
   components: { PluginCard, SearchBar },
   setup () {
     const isDark = useDark()
-
-    const handleBackButton = (event) => {
-      if (this?.selectedPlugin) {
-        this.selectedPlugin = null
-
-      }
-    }
-
-    // 监听 popstate 事件
-    window.addEventListener('popstate', handleBackButton)
-
-    // 在组件销毁时移除事件监听器
-    onBeforeUnmount(() => {
-      window.removeEventListener('popstate', handleBackButton)
-      history.replaceState({}, '', window.location.href)
-      document.body.style.overflow = ''
-      document.body.style.paddingRight = ''
-    })
-
-
-    return { isDark, handleBackButton }
+    return { isDark }
   },
 
   data () {
@@ -441,7 +421,6 @@ export default {
       }
     },
     async showPluginDetails (plugin) {
-      history.pushState({}, '', window.location.href)
       this.selectedPlugin = plugin
       this.isBlurred = true // 显示弹窗时启用背景模糊
       // 点击详情时加载版本信息
