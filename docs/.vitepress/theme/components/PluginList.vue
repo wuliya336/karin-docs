@@ -192,8 +192,7 @@ export default {
       currentPage: 1, // 默认页码
       itemsPerPage: 9, // 每页显示的插件数量
       readmeContent: '',
-      githubProxy: null,
-      isPopupVisible: false,
+      githubProxy: null
     }
   },
   computed: {
@@ -249,8 +248,10 @@ export default {
           // 补偿滚动条宽度（防止页面跳动）
           document.body.style.paddingRight =
             window.innerWidth - document.documentElement.clientWidth + 'px'
-          // 添加历史记录
-          window.history.pushState(null, null, location.href)
+        } else {
+          // 恢复滚动
+          document.body.style.overflow = ''
+          document.body.style.paddingRight = ''
         }
       })
       if (newVal) {
@@ -262,18 +263,8 @@ export default {
       }
     }
   },
-  beforeRouteLeave (to, from, next) {
-    if (this.selectedPlugin) {
-      // 如果弹窗打开时尝试离开页面，先关闭弹窗
-      this.selectedPlugin = null
-      next(false) // 取消本次路由跳转
-    } else {
-      next()
-    }
-  },
   async mounted () {
     try {
-      window.addEventListener('popstate', this.handlePopState)
       this.githubProxy = await testGithub()
       const afterUrl = this.githubProxy(`https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json`)
       const response = await axios.get(afterUrl)
@@ -281,7 +272,6 @@ export default {
       // const data = await import('./plugin.json')
       this.allPlugins = data.plugins.map(plugin => ({
         ...plugin,
-        name: plugin.name.replace(/karin-plugin-/g, ''),
         author: Array.isArray(plugin.author) ? plugin.author : [],
         version: '加载中...' // 初始版本设置为加载中
       }))
@@ -291,24 +281,11 @@ export default {
       this.loading = false
     }
   },
-  beforeDestroy () {
-    window.removeEventListener('popstate', this.handlePopState)
-  },
   beforeUnmount () {
     // 组件销毁时，移除键盘事件监听
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
-    handlePopState () {
-      if (this.isPopupVisible) {
-        this.isPopupVisible = false // 关闭弹窗
-      } else {
-        this.$router.go(-1) // 如果弹窗未显示，则正常返回上一页
-      }
-    },
-    closePopup () {
-      this.isPopupVisible = false
-    },
     pluginsList () {
       return this.allPlugins
     },
@@ -331,11 +308,9 @@ export default {
     },
     closePluginIfOutside (event) {
       // 检查点击的目标是否是弹窗容器
-      if (!event.target.closest('.rounded-lg') || this.isPopupVisible) {
+      if (!event.target.closest('.rounded-lg')) {
         this.selectedPlugin = null // 关闭弹窗
         this.isBlurred = false // 关闭弹窗时取消背景模糊
-      } else {
-        this.$router.go(-1) // 如果弹窗未显示，则正常返回上一页
       }
     },
     handleKeyDown (event) {
