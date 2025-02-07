@@ -43,7 +43,7 @@ jobs:
         with:
           project: "karin"
           # entrypoint: "https://deno.land/std@0.217.0/http/file_server.ts"
-          entrypoint: "docs/.vitepress/server.ts"
+          entrypoint: "server.ts"
           root: "docs/.vitepress"
           include: docs/.vitepress
           
