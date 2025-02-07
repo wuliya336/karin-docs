@@ -46,6 +46,8 @@ import Components from 'unplugin-vue-components/vite'
 // 自动导入 ElementPlus 组件
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+import { visualizer } from 'rollup-plugin-visualizer'
+
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
 
@@ -149,7 +151,8 @@ export default defineConfig({
           调用示例: 'logos:typescript-icon',
           返回值: 'vscode-icons:file-type-light-json'
         },
-      })
+      }),
+      visualizer(),
     ],
     ssr: {
       noExternal: [

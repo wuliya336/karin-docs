@@ -193,8 +193,7 @@ export default {
       itemsPerPage: 9, // 每页显示的插件数量
       readmeContent: '',
       githubProxy: null,
-      touchStartX: 0,
-      isHorizontalSwipe: false
+      isPopupVisible: false,
     }
   },
   computed: {
@@ -250,16 +249,8 @@ export default {
           // 补偿滚动条宽度（防止页面跳动）
           document.body.style.paddingRight =
             window.innerWidth - document.documentElement.clientWidth + 'px'
-          document.addEventListener('touchstart', this.handleTouchStart)
-          document.addEventListener('touchmove', this.handleTouchMove)
-          document.addEventListener('touchend', this.handleTouchEnd)
-        } else {
-          // 恢复滚动
-          document.body.style.overflow = ''
-          document.body.style.paddingRight = ''
-          document.removeEventListener('touchstart', this.handleTouchStart)
-          document.removeEventListener('touchmove', this.handleTouchMove)
-          document.removeEventListener('touchend', this.handleTouchEnd)
+          // 添加历史记录
+          window.history.pushState(null, null, location.href)
         }
       })
       if (newVal) {
@@ -282,6 +273,7 @@ export default {
   },
   async mounted () {
     try {
+      window.addEventListener('popstate', this.handlePopState)
       this.githubProxy = await testGithub()
       const afterUrl = this.githubProxy(`https://raw.githubusercontent.com/KarinJS/plugins-list/main/plugins.json`)
       const response = await axios.get(afterUrl)
@@ -299,40 +291,23 @@ export default {
       this.loading = false
     }
   },
+  beforeDestroy () {
+    window.removeEventListener('popstate', this.handlePopState)
+  },
   beforeUnmount () {
     // 组件销毁时，移除键盘事件监听
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
-    // 触摸事件处理
-    handleTouchStart (e) {
-      this.touchStartX = e.touches[0].clientX
-      this.isHorizontalSwipe = false
-    },
-    handleTouchMove (e) {
-      const deltaX = e.touches[0].clientX - this.touchStartX
-      const deltaY = e.touches[0].clientY - this.touchStartY
-
-      // 只有当水平滑动超过垂直滑动时才触发
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
-        this.isHorizontalSwipe = true
-        e.preventDefault()
+    handlePopState () {
+      if (this.isPopupVisible) {
+        this.isPopupVisible = false // 关闭弹窗
+      } else {
+        this.$router.go(-1) // 如果弹窗未显示，则正常返回上一页
       }
     },
-    handleTouchEnd (e) {
-      if (this.isHorizontalSwipe) {
-        this.selectedPlugin = null // 关闭弹窗
-        this.isHorizontalSwipe = false
-      }
-    },
-    /** 弹窗关闭方法 */
-    closeModal () {
-      this.selectedPlugin = null
-      // 确保恢复滚动
-      document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.top = ''
-      document.documentElement.style.scrollBehavior = '' // 重置滚动行为
+    closePopup () {
+      this.isPopupVisible = false
     },
     pluginsList () {
       return this.allPlugins
@@ -356,9 +331,11 @@ export default {
     },
     closePluginIfOutside (event) {
       // 检查点击的目标是否是弹窗容器
-      if (!event.target.closest('.rounded-lg')) {
+      if (!event.target.closest('.rounded-lg') || this.isPopupVisible) {
         this.selectedPlugin = null // 关闭弹窗
         this.isBlurred = false // 关闭弹窗时取消背景模糊
+      } else {
+        this.$router.go(-1) // 如果弹窗未显示，则正常返回上一页
       }
     },
     handleKeyDown (event) {
@@ -446,9 +423,6 @@ export default {
     async showPluginDetails (plugin) {
       this.selectedPlugin = plugin
       this.isBlurred = true // 显示弹窗时启用背景模糊
-      const scrollY = window.scrollY
-      document.documentElement.style.setProperty('--scroll-y', `${scrollY}px`)
-      document.documentElement.classList.add('lock-scroll')
       // 点击详情时加载版本信息
       if (this.selectedPlugin.version === '加载中...') {
         this.loadPluginVersion(plugin)
@@ -578,25 +552,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/* 滚动锁定方案（兼容性更好） */
-.lock-scroll {
-  position: fixed;
-  width: 100%;
-  top: calc(-1 * var(--scroll-y));
-  overflow-y: scroll;
-  /* 保留滚动条 */
-}
-
-/* 移动端滑动反馈动画 */
-.modal-slide-enter-active,
-.modal-slide-leave-active {
-  transition: transform 0.3s ease;
-}
-
-.modal-slide-enter-from,
-.modal-slide-leave-to {
-  transform: translateX(100%);
-}
-</style>

@@ -44,6 +44,7 @@
     "node-karin": "latest",
     "nprogress-v2": "^1.0.4",
     "postcss": "^8.5.1",
+    "rollup-plugin-visualizer": "^5.14.0",
     "tailwindcss": "^3.4.17",
     "unplugin-auto-import": "^19.0.0",
     "unplugin-vue-components": "^28.0.0",
