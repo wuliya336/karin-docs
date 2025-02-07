@@ -34,6 +34,7 @@
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "canvas-confetti": "^1.9.3",
+    "dayjs": "^1.11.13",
     "element-plus": "^2.9.3",
     "highlight.js": "^11.11.1",
     "markdown-it-footnote": "^4.0.0",
