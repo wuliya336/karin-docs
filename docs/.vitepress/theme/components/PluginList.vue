@@ -192,7 +192,9 @@ export default {
       currentPage: 1, // 默认页码
       itemsPerPage: 9, // 每页显示的插件数量
       readmeContent: '',
-      githubProxy: null
+      githubProxy: null,
+      touchStartX: 0,
+      isHorizontalSwipe: false
     }
   },
   computed: {
@@ -248,10 +250,16 @@ export default {
           // 补偿滚动条宽度（防止页面跳动）
           document.body.style.paddingRight =
             window.innerWidth - document.documentElement.clientWidth + 'px'
+          document.addEventListener('touchstart', this.handleTouchStart)
+          document.addEventListener('touchmove', this.handleTouchMove)
+          document.addEventListener('touchend', this.handleTouchEnd)
         } else {
           // 恢复滚动
           document.body.style.overflow = ''
           document.body.style.paddingRight = ''
+          document.removeEventListener('touchstart', this.handleTouchStart)
+          document.removeEventListener('touchmove', this.handleTouchMove)
+          document.removeEventListener('touchend', this.handleTouchEnd)
         }
       })
       if (newVal) {
@@ -263,6 +271,15 @@ export default {
       }
     }
   },
+  beforeRouteLeave (to, from, next) {
+    if (this.selectedPlugin) {
+      // 如果弹窗打开时尝试离开页面，先关闭弹窗
+      this.selectedPlugin = null
+      next(false) // 取消本次路由跳转
+    } else {
+      next()
+    }
+  },
   async mounted () {
     try {
       this.githubProxy = await testGithub()
@@ -272,6 +289,7 @@ export default {
       // const data = await import('./plugin.json')
       this.allPlugins = data.plugins.map(plugin => ({
         ...plugin,
+        name: plugin.name.replace(/karin-plugin-/g, ''),
         author: Array.isArray(plugin.author) ? plugin.author : [],
         version: '加载中...' // 初始版本设置为加载中
       }))
@@ -286,6 +304,36 @@ export default {
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
+    // 触摸事件处理
+    handleTouchStart (e) {
+      this.touchStartX = e.touches[0].clientX
+      this.isHorizontalSwipe = false
+    },
+    handleTouchMove (e) {
+      const deltaX = e.touches[0].clientX - this.touchStartX
+      const deltaY = e.touches[0].clientY - this.touchStartY
+
+      // 只有当水平滑动超过垂直滑动时才触发
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+        this.isHorizontalSwipe = true
+        e.preventDefault()
+      }
+    },
+    handleTouchEnd (e) {
+      if (this.isHorizontalSwipe) {
+        this.selectedPlugin = null // 关闭弹窗
+        this.isHorizontalSwipe = false
+      }
+    },
+    /** 弹窗关闭方法 */
+    closeModal () {
+      this.selectedPlugin = null
+      // 确保恢复滚动
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.documentElement.style.scrollBehavior = '' // 重置滚动行为
+    },
     pluginsList () {
       return this.allPlugins
     },
@@ -398,6 +446,9 @@ export default {
     async showPluginDetails (plugin) {
       this.selectedPlugin = plugin
       this.isBlurred = true // 显示弹窗时启用背景模糊
+      const scrollY = window.scrollY
+      document.documentElement.style.setProperty('--scroll-y', `${scrollY}px`)
+      document.documentElement.classList.add('lock-scroll')
       // 点击详情时加载版本信息
       if (this.selectedPlugin.version === '加载中...') {
         this.loadPluginVersion(plugin)
@@ -527,3 +578,25 @@ export default {
   }
 }
 </script>
+
+<style>
+/* 滚动锁定方案（兼容性更好） */
+.lock-scroll {
+  position: fixed;
+  width: 100%;
+  top: calc(-1 * var(--scroll-y));
+  overflow-y: scroll;
+  /* 保留滚动条 */
+}
+
+/* 移动端滑动反馈动画 */
+.modal-slide-enter-active,
+.modal-slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.modal-slide-enter-from,
+.modal-slide-leave-to {
+  transform: translateX(100%);
+}
+</style>
