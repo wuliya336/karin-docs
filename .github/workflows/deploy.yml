@@ -23,17 +23,17 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: true
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
 
       - name: Build step
         run: "pnpm build"
