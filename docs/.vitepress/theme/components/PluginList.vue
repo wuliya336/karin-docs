@@ -294,13 +294,6 @@ export default {
         this.allPlugins = data.plugins.map(plugin => ({
           ...plugin,
           author: Array.isArray(plugin.author) ? plugin.author : [],
-          name: ((plugin) => {
-            if (plugin.name.includes('karin-plugin-')) {
-              return plugin.name.replace('karin-plugin-', '')
-            } else if (plugin.name.includes('@karinjs/')) {
-              return plugin.name.replace('@karinjs/plugin-', '')
-            } else return plugin.name
-          })(plugin),
           version: '加载中...',
           official: plugin.name.includes('@karinjs/'),
           isDark: this.isDark

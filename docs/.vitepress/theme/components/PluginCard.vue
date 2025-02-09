@@ -12,7 +12,7 @@
     <div>
       <div class="flex justify-between items-center">
         <div class="lg:text-2xl text-xl font-bold text-gray-900 dark:text-white">
-          {{ plugin.name }}
+          {{ replaceName(plugin.name) }}
           <el-tooltip content="官方插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
             <span v-if="plugin.official" class="icon-[iconamoon--shield-yes-duotone] bg-[#9bd298] mb-[-4px]"></span>
           </el-tooltip>
@@ -109,9 +109,19 @@ export default {
             return 'icon-[devicon--npm] bg-[#cb3837]'
         }
       }
+    },
+    transName () {
+      return this.replaceName(this.plugin.name)
     }
   },
   methods: {
+    replaceName (pluginName) {
+      if (pluginName.includes('karin-plugin-')) {
+        return pluginName.replace('karin-plugin-', '')
+      } else if (pluginName.includes('@karinjs/')) {
+        return pluginName.replace('@karinjs/plugin-', '')
+      } else return pluginName
+    },
     async copyInstallCommand () {
       try {
         await navigator.clipboard.writeText(`pnpm add ${this.plugin.name} -w`)
