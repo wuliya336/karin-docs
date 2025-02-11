@@ -16,6 +16,7 @@ const nav = [
       {
         text: '插件开发', items: [
           { text: '开发简介', link: '/plugins/index' },
+          { text: '前端配置', link: '/plugins/component' },
           { text: '开发规范', link: '/plugins/standard' },
           { text: 'API 合集', link: '/plugins/api' },
           { text: '插件示例', link: '/plugins/demo' },

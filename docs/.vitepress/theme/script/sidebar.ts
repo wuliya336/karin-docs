@@ -22,7 +22,8 @@ const sidebar = [
       { text: '开发规范 <iconify-icon icon="mingcute:tag-fill" style="color: #ff2a2a"></iconify-icon>', link: '/plugins/standard' },
       { text: '插件示例 <iconify-icon icon="ix:pen-filled" style="color: #ffce2a"></iconify-icon>', link: '/plugins/demo' },
       { text: '插件包示例 <iconify-icon icon="fluent-emoji-flat:package"></iconify-icon>', link: '/plugins/package' },
-      { text: '插件列表 <iconify-icon icon="fa-solid:list-ul" style="color: #8284ff"></iconify-icon>', link: '/plugins/list' }
+      { text: '插件列表 <iconify-icon icon="fa-solid:list-ul" style="color: #8284ff"></iconify-icon>', link: '/plugins/list' },
+      { text: '前端配置 <iconify-icon icon="icon-park-solid:install" style="color: #ffce2a"></iconify-icon>', link: '/plugins/component' }
     ]
   },
   {

@@ -84,3 +84,7 @@ comment: false
 ## 插件列表
 
 - [插件列表](./list.md)
+
+## 前端配置
+
+- [前端配置](./component.md)
