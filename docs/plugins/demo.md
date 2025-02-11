@@ -99,11 +99,27 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 
 调用 `karin.accept` 注册一个事件监听插件
 
+> [!IMPORTANT]
+>
+> - `accept` 的第一个参数为事件名称，支持监听 [`通知`](../event/notice.md) 和 [`请求`](../event/request.md) 事件。
+> - `accept` 的第二个参数为事件处理函数。
+> - `accept` 的第三个参数为插件的配置项，参数内容参考上方 [`command`](#_1-命令正则处理) 的参数三
+
+监听入群通知事件插件示例
+
+<!-- prettier-ignore -->
+```js twoslash
+import karin from 'node-karin'
+export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
+  await e.reply('\n欢迎新人 Ciallo～(∠・ω< )⌒☆', { at: true })
+}, { name: '加群通知' })
+```
+
 ### 3. 中间件 <Badge type="danger" text="待完善..." />
 
 调用 `karin.use` 注册一个中间件
 
-### 4. 上下文处理 <Badge type="warning" text="待完善..." />
+### 4. 上下文事件处理 <Badge type="warning" text="待完善..." />
 
 调用 `karin.ctx` 注册一个上下文事件
 
@@ -112,6 +128,10 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 > - `ctx` 可以在任何地方调用，它并不是插件
 > - `ctx` 的返回值是一个 `Message` 类型的对象
 > - `ctx` 的第一个参数为消息事件，也就是 `Message` 事件，第二个参数详见下方说明
+
+::: tip 提示
+上下文也可以通过 `通知事件` 和 `请求事件` 触发
+:::
 
 ```ts twoslash
 import { Message } from 'node-karin'
