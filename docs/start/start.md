@@ -34,16 +34,27 @@
 
 ### 全局安装`pnpm`
 
+::: warning 友情提示
+pnpm 在10.x版本引入了一个破坏性变更  
+目前暂时无法很好的对此进行兼容  
+请务必使用 `pnpm v9` 版本  
+如果已经安装了`pnpm v10`的小伙伴请不要跳过此步骤
+:::
+
 如果已经安装过的小伙伴可以直接跳到 [下一步](#安装) 啦！
 
 ::: code-group
 
 ```bash [官方源]
-npm install pnpm -g  # 安装包管理器，启动！
+npm install pnpm@9 -g  # 安装包管理器，启动！
 ```
 
 ```bash [国内源]
 npm --registry=https://registry.npmmirror.com install pnpm -g  # 国内加速版！
+```
+
+```bash [查看版本]
+pnpm -v  # 查看版本
 ```
 
 :::
