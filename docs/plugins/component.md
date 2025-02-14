@@ -175,8 +175,8 @@ components.input.json("input-key")
 | `label`       | `string`                                                                    | 设置标签       |
 | `placeholder` | `string`                                                                    | 设置占位符文本 |
 | `description` | `string`                                                                    | 设置描述文本   |
-| `required`    | `boolean`                                                                   | 设置必填       |
-| `clearable`   | `boolean`                                                                   | 设置可清除     |
+| `isRequired`  | `boolean`                                                                   | 设置必填       |
+| `isClearable` | `boolean`                                                                   | 设置可清除     |
 | `size`        | `sm` \| `md` \| `lg`                                                        | 设置大小       |
 | `color`       | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置颜色       |
 | `rules`       | `ValidationRule`                                                            | 设置验证规则   |
@@ -210,8 +210,8 @@ components.input.create("input-key", {
   label: "这是一个输入框", // 设置标签
   placeholder: "请输入内容", // 设置占位符文本
   description: "这是一个描述", // 设置描述文本
-  required: true, // 内容必填
-  clearable: true, // 可清除
+  isRequired: true, // 内容必填
+  isClearable: true, // 可清除
   size: "sm", // 大小
   color: "primary", // 颜色
   rules: [
@@ -258,10 +258,10 @@ components.divider.vertical("divider-key", true)
 | `thumbIcon`        | `string`                                                                      | 设置开关按钮上的图标       |
 | `startContent`     | `string`                                                                      | 设置开关打开时的内容图标   |
 | `endContent`       | `string`                                                                      | 设置开关关闭时的内容图标   |
-| `selected`         | `boolean`                                                                     | 设置开关的选中状态（只读） |
+| `isSelected`       | `boolean`                                                                     | 设置开关的选中状态（只读） |
 | `defaultSelected`  | `boolean`                                                                     | 设置开关的默认选中状态     |
-| `readonly`         | `boolean`                                                                     | 设置开关为只读模式         |
-| `disabled`         | `boolean`                                                                     | 设置开关为禁用状态         |
+| `isReadOnly`       | `boolean`                                                                     | 设置开关为只读模式         |
+| `isDisabled`       | `boolean`                                                                     | 设置开关为禁用状态         |
 | `disableAnimation` | `boolean`                                                                     | 设置是否禁用开关的动画效果 |
 | `options`          | `SwitchProps`                                                                 | 一次性设置多个配置项       |
 
@@ -278,10 +278,10 @@ components.switch.create("switch-key", {
   thumbIcon: "图标名称",
   startContent: "开始图标",
   endContent: "结束图标",
-  selected: true, // 选中状态
+  isSelected: true, // 选中状态
   defaultSelected: true, // 默认选中
-  readonly: true, // 只读
-  disabled: true, // 禁用
+  isReadOnly: true, // 只读
+  isDisabled: true, // 禁用
   disableAnimation: true // 禁用动画
 })
 ```
