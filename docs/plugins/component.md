@@ -2,8 +2,18 @@
 
 ## 文件
 
-- 文件名称: `web.config.mjs` 注意是`mjs`文件
-- 文件位置: 放到插件的根目录下
+- 文件名称: 必须是`web.config`
+- 文件位置: 通过`package.json`定义
+- value编写: 以`package.json`为相对路径进行编写
+
+```json
+{
+  "karin": {
+    "web": "./lib/web.config.js", // 在ts环境下不会读取这个 只有在js环境下才会读取
+    "ts-web": "./src/web.config.ts" // 在ts环境下会读取这个
+  }
+}
+```
 
 ## 编写示例
 
@@ -44,7 +54,8 @@ export default {
 ## 生成组件
 
 - 每个组件都提供了丰富的配置选项
-- 所有的组件调用方式都是`链式调用`
+- ~~所有的组件调用方式都是`链式调用`~~
+- 现在组件的调用方式是`函数调用`
 
 ### 1. 输入框组件 (Input)
 
@@ -166,39 +177,40 @@ export interface ValidationRule {
 #### 调用示例
 
 ```js
-// create函数可以随意换成其他 因为有时候我们不需要配置那么多参数
-components.input.create('input-key') // 创建一个全新无任何配置的输入框
-  .label('这是一个输入框') // 设置标签
-  .placeholder('请输入内容') // 设置占位符
-  .description('这是一个描述') // 设置描述
-  .required(true) // 设置必填
-  .clearable(true) // 设置可清除
-  .size('sm') // 设置大小
-  .color('primary') // 设置颜色
-  .validate([
+// create函数可以随意换成其他 因为有时候我们不需要配置那么多参数 可以使用一些其他默认方法的参数
+components.input.create('input-key', {
+  label: '这是一个输入框', // 设置标签
+  placeholder: '请输入内容', // 设置占位符文本
+  description: '这是一个描述', // 设置描述文本
+  required: true, // 内容必填
+  clearable: true, // 可清除
+  size: 'sm', // 大小
+  color: 'primary', // 颜色
+  validate: [
     {
-      min: 0,
-      max: 100,
-      error: '数字应在0-100之间'
+      min: 0, // 最小值
+      max: 100, // 最大值
+      error: '数字应在0-100之间' // 自定义错误消息
     },
     {
-      regex: /^\d+$/,
-      error: '只能输入数字'
+      regex: /^\d+$/, // 正则表达式
+      error: '只能输入数字' // 自定义错误消息
     }
-  ])
+  ]
+})
 ```
 
 ### 2. 分隔线组件 (Divider)
 
 ```js
 // 基础用法
-components.divider
+components.divider.create('divider-key')
 
 // 透明分隔线
-components.divider.transparent(true)
+components.divider.transparent('divider-key', true)
 
 // 垂直分隔线
-components.divider.vertical(true)
+components.divider.vertical('divider-key', true)
 ```
 
 ### 3. 开关组件 (Switch)
@@ -226,57 +238,65 @@ components.divider.vertical(true)
 #### 调用示例
 
 ```js
-components.switch
-  .create('switch-key')
-  .startText('开启文本')          // 设置开启文本
-  .endText('关闭文本')           // 设置关闭文本
-  .size('sm' | 'md' | 'lg')     // 设置大小
-  .color('primary' | 'secondary' | 'success' | 'warning' | 'danger') // 设置颜色
-  .thumbIcon('图标名称')         // 设置开关图标
-  .startContent('开始图标')      // 设置开始内容图标
-  .endContent('结束图标')        // 设置结束内容图标
-  .selected(true)               // 设置选中状态
-  .defaultSelected(true)        // 设置默认选中
-  .readonly()                   // 设置只读
-  .disabled()                   // 设置禁用
-  .disableAnimation()           // 禁用动画
+components.switch.create('switch-key', {
+  startText: '开启文本',
+  endText: '关闭文本',
+  size: 'sm',
+  color: 'primary',
+  thumbIcon: '图标名称',
+  startContent: '开始图标',
+  endContent: '结束图标',
+  selected: true, // 选中状态
+  defaultSelected: true, // 默认选中
+  readonly: true, // 只读
+  disabled: true, // 禁用
+  disableAnimation: true // 禁用动画
+})
 ```
 
 ### 4. 手风琴组件 (Accordion)
 
 #### API 参数说明
 
-请先调用`components.accordion.create`方法创建组件
+请先调用 `components.accordion.create` 方法创建组件
 
-| API 方法            | 参数类型                               | 描述         |
-| ------------------- | -------------------------------------- | ------------ |
-| `title`             | `string`                               | 设置标题     |
-| `variant`           | `'bordered' \| 'shadow' \| 'splitted'` | 设置样式变体 |
-| `selectionMode`     | `'single' \| 'multiple'`               | 设置选择模式 |
-| `selectionBehavior` | `'toggle' \| 'replace'`                | 设置选择行为 |
-| `compact`           | `boolean`                              | 设置紧凑模式 |
-| `disabled`          | `boolean`                              | 设置禁用     |
-| `showDivider`       | `boolean`                              | 显示分隔线   |
-| `hideIndicator`     | `boolean`                              | 隐藏指示器   |
-| `disableAnimation`  | `boolean`                              | 禁用动画     |
-| `fullWidth`         | `boolean`                              | 设置全宽     |
-| `children`          | `AccordionItem[]`                      | 设置子项     |
+| API 方法                    | 参数类型                                          | 描述                                 |
+| --------------------------- | ------------------------------------------------- | ------------------------------------ |
+| `label`                     | `string`                                          | 设置标签文本                         |
+| `title`                     | `string`                                          | 设置标题                             |
+| `variant`                   | `'light' \| 'shadow' \| 'bordered' \| 'splitted'` | 设置样式变体                         |
+| `selectionMode`             | `'none' \| 'single' \| 'multiple'`                | 设置选择模式                         |
+| `selectionBehavior`         | `'toggle' \| 'replace'`                           | 设置选择行为                         |
+| `isCompact`                 | `boolean`                                         | 设置是否所有手风琴项目都应缩小       |
+| `isDisabled`                | `boolean`                                         | 设置是否禁用                         |
+| `showDivider`               | `boolean`                                         | 是否在每个手风琴项目的底部显示分隔线 |
+| `hideIndicator`             | `boolean`                                         | 是否隐藏指示器                       |
+| `disableAnimation`          | `boolean`                                         | 是否禁用动画                         |
+| `disableIndicatorAnimation` | `boolean`                                         | 是否禁用指示器动画                   |
+| `disallowEmptySelection`    | `boolean`                                         | 是否不允许空选择                     |
+| `keepContentMounted`        | `boolean`                                         | 是否保持内容挂载                     |
+| `fullWidth`                 | `boolean`                                         | 是否全宽                             |
+| `disabledKeys`              | `string[]`                                        | 禁用的键列表                         |
+| `selectedKeys`              | `string[]`                                        | 选中项的键列表                       |
+| `defaultSelectedKeys`       | `string[]`                                        | 默认选中项的键列表                   |
+| `children`                  | `AccordionItem[]`                                 | 手风琴子项列表                       |
 
-子项Api:
+#### 手风琴子项 (AccordionItem) API
 
-请先调用`components.accordion.createItem`方法创建子项
+请先调用 `components.accordion.createItem` 方法创建子项
 
-| API 方法                    | 参数类型          | 描述           |
-| --------------------------- | ----------------- | -------------- |
-| `title`                     | `string`          | 设置标题       |
-| `subtitle`                  | `string`          | 设置副标题     |
-| `hideIndicator`             | `boolean`         | 隐藏指示器     |
-| `compact`                   | `boolean`         | 设置紧凑模式   |
-| `disabled`                  | `boolean`         | 设置禁用       |
-| `keepContentMounted`        | `boolean`         | 保持内容挂载   |
-| `disableAnimation`          | `boolean`         | 禁用动画       |
-| `disableIndicatorAnimation` | `boolean`         | 禁用指示器动画 |
-| `children`                  | `ComponentsClass` | 设置子项内容   |
+| API 方法                    | 参数类型     | 描述                     |
+| --------------------------- | ------------ | ------------------------ |
+| `title`                     | `string`     | 设置标题                 |
+| `subtitle`                  | `string`     | 设置副标题               |
+| `indicator`                 | `boolean`    | 是否显示折叠项展开指示器 |
+| `isCompact`                 | `boolean`    | 是否使用紧凑模式         |
+| `isDisabled`                | `boolean`    | 是否禁用                 |
+| `keepContentMounted`        | `boolean`    | 关闭时是否保持挂载内容   |
+| `hideIndicator`             | `boolean`    | 是否隐藏指示器           |
+| `disableAnimation`          | `boolean`    | 是否禁用动画             |
+| `disableIndicatorAnimation` | `boolean`    | 是否禁用指示器动画       |
+| `children`                  | `Children[]` | 设置子项内容             |
 
 #### 调用示例
 
@@ -286,17 +306,19 @@ components.switch
 
 ```js
 // 基本调用方法
-components.accordion.create('accordion-key')
- .children([ // accordion的children数组里面需要全部都是accordionItem
-  components.accordion.createItem('item-key')
-    .title('子项标题')
-    .subtitle('子项副标题')
-    .children([ // accordionItem的children数组里面可以添加除accordion、accordionItem以外的任意组件
-      // 这里可以添加输入框、开关等组件
-      components.input.string('input-key-1')
-      components.switch.create('switch-key-1')
-    ])
- ])
+components.accordion.create('accordion-key', {
+  label: '这是一个手风琴',
+  children: [
+    components.accordion.createItem('accordion-item-key', {
+      title: '子项标题',
+      subtitle: '子项副标题',
+      children: [
+        components.input.string('accordion-input-key'),
+        components.switch.create('accordion-switch-key')
+      ]
+    })
+  ]
+})
  
 ```
 
@@ -305,66 +327,89 @@ components.accordion.create('accordion-key')
 :::
 
 ```js
-components.accordion.create('accordion-key')
-  .title('标题')                // 设置标题
-  .variant('bordered' | 'shadow' | 'splitted') // 设置样式变体
-  .selectionMode('single' | 'multiple') // 设置选择模式
-  .selectionBehavior('toggle' | 'replace') // 设置选择行为
-  .compact()                    // 设置紧凑模式
-  .disabled()                   // 设置禁用
-  .showDivider()               // 显示分隔线
-  .hideIndicator()             // 隐藏指示器
-  .disableAnimation()          // 禁用动画
-  .fullWidth()                 // 设置全宽
-  .children([                  // 设置子项
-    components.accordion.createItem('item-key')
-      .title('子项标题')
-      .subtitle('子项副标题')
-      .children([              // 子项内容
-        components.input.string('input-key-2')
-      ]),
-    components.accordion.createItem('item-key-2')
-      .title('子项标题2')
-      .subtitle('子项副标题2')
-      .children([              // 子项内容
-        components.input.number('input-key-3')
-      ])
-  ])
+components.accordion.create('accordion-key', {
+  label: '这是一个手风琴', // 设置标签文本  
+  title: '手风琴标题', // 设置标题
+  variant: 'light', // 设置样式变体
+  selectionMode: 'single', // 设置选择模式
+  selectionBehavior: 'toggle', // 设置选择行为
+  isCompact: true, // 设置是否所有手风琴项目都应缩小
+  isDisabled: false, // 设置是否禁用
+  showDivider: true, // 是否在每个手风琴项目的底部显示分隔线
+  hideIndicator: false, // 是否隐藏指示器
+  disableAnimation: false, // 是否禁用动画
+  disableIndicatorAnimation: false, // 是否禁用指示器动画
+  disallowEmptySelection: false, // 是否不允许空选择
+  keepContentMounted: true, // 是否保持内容挂载
+  fullWidth: true, // 是否全宽
+  disabledKeys: ['key1', 'key2'], // 禁用的键列表
+  selectedKeys: ['key1'], // 选中项的键列表
+  defaultSelectedKeys: ['key1'], // 默认选中项的键列表
+
+  // 手风琴子项
+  children: [
+    components.accordion.createItem('accordion-item-key', {
+      title: '子项标题',
+      subtitle: '子项副标题',
+      indicator: true, // 是否显示折叠项展开指示器
+      isCompact: false, // 是否使用紧凑模式
+      isDisabled: false, // 是否禁用
+      keepContentMounted: true, // 关闭时是否保持挂载内容
+      hideIndicator: false, // 是否隐藏指示器
+      disableAnimation: false, // 是否禁用动画
+      disableIndicatorAnimation: false, // 是否禁用指示器动画
+      children: [
+        // 自定义组件
+        components.input.string('accordion-input-key'),
+        components.switch.create('accordion-switch-key')
+      ]
+    })
+  ]
+})
 ```
 
-#### 5. 手风琴Pro组件 (AccordionPro)
+### 5. 手风琴Pro组件 (AccordionPro)
 
 ::: tip
 pro版本其实就是给一个数据源进行动态渲染  
 可以删除、新增
 :::
 
-pro版本的调用方法与基础版本类似 但是需要传入一个数据源 数据源的格式如下:
+pro版本的调用方法与基础版本类似。仅有2个区别
+
+- 需要传入一个数据源 数据源的格式如下
+- 子组件非数组，而是对象
 
 ```js
-// data的构成就是accordion的children数组里面需要全部都是accordionItem的key
-const data = [
+components.accordionPro.create(
+  // 唯一标识符
+  'accordion-pro-key',
+  // data
+  // data的构成就是accordion的children数组里面需要全部都是accordionItem的key
+  [
+    {
+      title: '数据项1',
+      input: '数据项1',
+      switch: true
+    },
+    {
+      input: '数据项2',
+      switch: false
+    }
+  ],
+  // 子项参数
   {
-    title: '数据项1', // 我们需要给每一个accordionItem设置一个title
-    'input': '数据项1',
-    'switch': true
-  },
-  {
-    'input': '数据项2',
-    'switch': false
-  }
-]
-
-components.accordionPro.create('accordion-pro-key', data)
- .children([
-  components.accordion.createItem('item-key')
-    .title('子项标题')
-    .subtitle('子项副标题')
-    .children([
-      components.input.string('input'), // 这里需要与data的key一致
-      components.switch.create('switch') // 这里需要与data的key一致
-    ])
- ])
+    label: '这是一个手风琴',
+    // 注意这里不是数组，在普通版本的手风琴中这里是一个数组
+    children: components.accordion.createItem('accordion-item', {
+      title: '子项标题',
+      subtitle: '子项副标题',
+      children: [
+        components.input.string('accordion-input'), // 这里需要与data的key一致
+        components.switch.create('accordion-switch')
+      ]
+    })
+  })
 ```
 
 ## 保存
@@ -381,6 +426,148 @@ components.accordionPro.create('accordion-pro-key', data)
     {
       "input": "数据项2",
       "switch": true
+    }
+  ]
+}
+```
+
+## 下面是一个我写的示例文件
+
+```js
+import { components } from 'node-karin'
+
+export default {
+  info: {
+
+  },
+  /** 动态渲染的组件 */
+  components: () => [
+    // 邮件输入框
+    components.input.email('email'),
+    // 分隔线
+    components.divider.create('divider1'),
+    // 数字输入框
+    components.input.number('number'),
+    // 分隔线
+    components.divider.create('divider2'),
+    // 单选框组
+    components.radio.group('radio-group', {
+      label: '这是一个单选框',
+      orientation: 'horizontal',
+      // 单选框列表
+      radio: [
+        components.radio.create('radio-1', {
+          label: '选项1',
+          value: 'option1'
+        }),
+        components.radio.create('radio-2', {
+          label: '选项2',
+          value: 'option2'
+        })
+      ]
+    }),
+    // 分隔线
+    components.divider.create('divider3'),
+    // 复选框组
+    components.checkbox.group('checkbox-group', {
+      label: '这是一个复选框',
+      orientation: 'horizontal',
+      // 复选框列表
+      checkbox: [
+        components.checkbox.create('checkbox-1', {
+          name: '选项1',
+          label: '选项1',
+          value: 'option1'
+        }),
+        components.checkbox.create('checkbox-2', {
+          label: '选项2',
+          value: 'option2'
+        }),
+        components.checkbox.create('checkbox-3', {
+          label: '选项3',
+          value: 'option3'
+        })
+      ]
+    }),
+    // 分隔线
+    components.divider.create('divider4', { transparent: true }),
+
+    // 手风琴
+    components.accordion.create('accordion-key', {
+      label: '这是一个手风琴',
+      children: [
+        components.accordion.createItem('accordion-item-key', {
+          title: '子项标题',
+          subtitle: '子项副标题',
+          children: [
+            components.input.string('accordion-input-key'),
+            components.switch.create('accordion-switch-key')
+          ]
+        })
+      ]
+    }),
+    // 手风琴pro
+    components.accordionPro.create(
+      // 唯一标识符
+      'accordion-pro-key',
+      // data
+      [
+        {
+          title: '数据项1',
+          input: '数据项1',
+          switch: true
+        },
+        {
+          input: '数据项2',
+          switch: false
+        }
+      ],
+      // 子项参数
+      {
+        label: '这是一个手风琴',
+        children: components.accordion.createItem('accordion-item', {
+          title: '子项标题',
+          subtitle: '子项副标题',
+          children: [
+            components.input.string('accordion-input'), // 这里需要与data的key一致
+            components.switch.create('accordion-switch')
+          ]
+        })
+      })
+  ],
+
+  /** 前端点击保存之后调用的方法 */
+  save: (config) => {
+    console.log('config:', JSON.stringify(config, null, 2))
+  }
+}
+
+```
+
+### 返回值
+
+```json
+{
+  "radio-group": "",
+  "checkbox-group": {
+    "checkbox-1": false,
+    "checkbox-2": false,
+    "checkbox-3": false
+  },
+  "accordion-key": [
+    {
+      "accordion-input-key": "",
+      "accordion-switch-key": false
+    }
+  ],
+  "accordion-pro-key": [
+    {
+      "input": "数据项1",
+      "switch": true
+    },
+    {
+      "input": "数据项2",
+      "switch": false
     }
   ]
 }
