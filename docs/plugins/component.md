@@ -412,6 +412,234 @@ components.accordionPro.create(
   })
 ```
 
+### 6. 单选框组 (RadioGroup)
+
+#### API 参数说明
+
+请先调用 `components.radio.group` 方法创建单选框组
+
+| API 方法           | 参数类型                                                                    | 描述                     |
+| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
+| `label`            | `string`                                                                    | 设置标签文本             |
+| `size`             | `sm` \| `md` \| `lg`                                                        | 设置单选框组的大小       |
+| `color`            | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置单选框组的颜色主题   |
+| `orientation`      | `horizontal` \| `vertical`                                                  | 设置排列方向             |
+| `name`             | `string`                                                                    | 设置表单提交时的字段名称 |
+| `value`            | `string`                                                                    | 设置当前选中的值         |
+| `defaultValue`     | `string`                                                                    | 设置默认选中的值         |
+| `errorMessage`     | `string`                                                                    | 设置错误提示信息         |
+| `isDisabled`       | `boolean`                                                                   | 设置是否禁用整个单选框组 |
+| `isRequired`       | `boolean`                                                                   | 设置是否必填             |
+| `isReadOnly`       | `boolean`                                                                   | 设置是否只读             |
+| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态         |
+| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果     |
+| `radio`            | `Radio[]`                                                                   | 设置单选框选项列表       |
+
+#### 单选框选项 (Radio) API
+
+请使用 `components.radio.create` 方法创建单选框选项
+
+| API 方法           | 参数类型   | 描述                 |
+| ------------------ | ---------- | -------------------- |
+| `value`            | `string`   | 设置选项的值（必填） |
+| `label`            | `string`   | 设置选项的标签文本   |
+| `size`             | `'sm' \| 'md' \| 'lg'` | 设置选项的大小 |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题 |
+| `description`      | `string`   | 设置选项的描述文本   |
+| `isDisabled`       | `boolean`  | 设置是否禁用此选项   |
+| `isRequired`       | `boolean`  | 设置是否必填         |
+| `isReadOnly`       | `boolean`  | 设置是否只读         |
+| `isInvalid`        | `boolean`  | 设置是否无效状态     |
+| `disableAnimation` | `boolean`  | 设置是否禁用动画效果 |
+
+#### 调用示例
+
+```js
+// 基础用法
+components.radio.group('radio-group', {
+  label: '这是一个单选框组',
+  orientation: 'horizontal',
+  radio: [
+    components.radio.create('radio-1', {
+      label: '选项1',
+      value: 'option1'
+    }),
+    components.radio.create('radio-2', {
+      label: '选项2',
+      value: 'option2'
+    })
+  ]
+})
+```
+
+完整配置示例：
+
+```js
+components.radio.group('radio-group', {
+  label: '这是一个单选框组',
+  size: 'md',
+  color: 'primary',
+  orientation: 'horizontal',
+  name: 'radio-group-name',
+  value: 'option1',
+  defaultValue: 'option1',
+  errorMessage: '请选择一个选项',
+  isDisabled: false,
+  isRequired: true,
+  isReadOnly: false,
+  isInvalid: false,
+  disableAnimation: false,
+  radio: [
+    components.radio.create('radio-1', {
+      value: 'option1',
+      label: '选项1',
+      size: 'md',
+      color: 'primary',
+      description: '这是选项1的描述',
+      isDisabled: false,
+      isRequired: false,
+      isReadOnly: false,
+      isInvalid: false,
+      disableAnimation: false
+    }),
+    components.radio.create('radio-2', {
+      value: 'option2',
+      label: '选项2',
+      description: '这是选项2的描述'
+    })
+  ]
+})
+```
+
+#### 返回值示例
+
+```json
+{
+  "radio-group": "option1"
+}
+```
+
+### 7. 复选框组 (CheckboxGroup)
+
+#### API 参数说明
+
+请先调用 `components.checkbox.group` 方法创建复选框组
+
+| API 方法           | 参数类型                                                                    | 描述                     |
+| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
+| `orientation`      | `'vertical' \| 'horizontal'`                                                | 设置排列方向（默认水平）  |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'`| 设置复选框组的颜色主题   |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                     | 设置复选框组的大小       |
+| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                | 设置复选框组的圆角大小   |
+| `name`             | `string`                                                                    | 设置表单提交时的字段名称 |
+| `label`            | `string`                                                                    | 设置标签文本             |
+| `value`            | `string[]`                                                                  | 设置当前选中的值数组     |
+| `lineThrough`      | `boolean`                                                                   | 设置是否显示删除线       |
+| `defaultValue`     | `string[]`                                                                  | 设置默认选中的值数组     |
+| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态         |
+| `isDisabled`       | `boolean`                                                                   | 设置是否禁用整个复选框组 |
+| `isRequired`       | `boolean`                                                                   | 设置是否必填             |
+| `isReadOnly`       | `boolean`                                                                   | 设置是否只读             |
+| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果     |
+| `checkbox`         | `CheckboxProps[]`                                                          | 设置复选框选项列表       |
+
+#### 复选框选项 (Checkbox) API
+
+请使用 `components.checkbox.create` 方法创建复选框选项
+
+| API 方法           | 参数类型                                                                    | 描述                     |
+| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
+| `value`            | `string`                                                                    | 设置选项的值             |
+| `label`            | `string`                                                                    | 设置选项的标签文本       |
+| `name`             | `string`                                                                    | 设置表单提交时的字段名称 |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                     | 设置选项的大小           |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'`| 设置选项的颜色主题       |
+| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                | 设置选项的圆角大小       |
+| `lineThrough`      | `boolean`                                                                   | 设置是否显示删除线       |
+| `isSelected`       | `boolean`                                                                   | 设置是否选中             |
+| `defaultSelected`  | `boolean`                                                                   | 设置默认是否选中         |
+| `isRequired`       | `boolean`                                                                   | 设置是否必填             |
+| `isReadOnly`       | `boolean`                                                                   | 设置是否只读             |
+| `isDisabled`       | `boolean`                                                                   | 设置是否禁用             |
+| `isIndeterminate`  | `boolean`                                                                   | 设置不确定状态（视觉呈现）|
+| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态         |
+| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果     |
+
+#### 调用示例
+
+```js
+// 基础用法
+components.checkbox.group('checkbox-group', {
+  label: '这是一个复选框组',
+  orientation: 'horizontal',
+  checkbox: [
+    components.checkbox.create('checkbox-1', {
+      label: '选项1',
+      value: 'option1'
+    }),
+    components.checkbox.create('checkbox-2', {
+      label: '选项2',
+      value: 'option2'
+    })
+  ]
+})
+```
+
+完整配置示例：
+
+```js
+components.checkbox.group('checkbox-group', {
+  label: '这是一个复选框组',
+  orientation: 'horizontal',
+  color: 'primary',
+  size: 'md',
+  radius: 'md',
+  name: 'checkbox-group-name',
+  value: ['option1'],
+  lineThrough: false,
+  defaultValue: ['option1'],
+  isInvalid: false,
+  isDisabled: false,
+  isRequired: true,
+  isReadOnly: false,
+  disableAnimation: false,
+  checkbox: [
+    components.checkbox.create('checkbox-1', {
+      value: 'option1',
+      label: '选项1',
+      name: 'checkbox-1',
+      size: 'md',
+      color: 'primary',
+      radius: 'md',
+      lineThrough: false,
+      isSelected: true,
+      defaultSelected: true,
+      isRequired: false,
+      isReadOnly: false,
+      isDisabled: false,
+      isIndeterminate: false,
+      isInvalid: false,
+      disableAnimation: false
+    }),
+    components.checkbox.create('checkbox-2', {
+      value: 'option2',
+      label: '选项2'
+    })
+  ]
+})
+```
+
+#### 返回值示例
+
+```json
+{
+  "checkbox-group": {
+    "checkbox-1": true,
+    "checkbox-2": false
+  }
+}
+```
+
 ## 保存
 
 需要注意 返回的值中，就算你是`number`类型 返回的也是`string`类型
@@ -425,7 +653,7 @@ components.accordionPro.create(
     },
     {
       "input": "数据项2",
-      "switch": true
+      "switch": false
     }
   ]
 }
