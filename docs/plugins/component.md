@@ -4,7 +4,7 @@
 
 - 文件名称: 必须是`web.config`
 - 文件位置: 通过`package.json`定义
-- value编写: 以`package.json`为相对路径进行编写
+- value 编写: 以`package.json`为相对路径进行编写
 
 ```json
 {
@@ -22,13 +22,13 @@
 - 后续适配`info`配置
 
 > ⚠️ **重要提示**
-> 每个组件的`key`必须全局唯一，包括嵌套组件的key也不能重复
-> key重复会导致页面渲染错误，组件状态混乱，请务必确保key的唯一性
+> 每个组件的`key`必须全局唯一，包括嵌套组件的 key 也不能重复
+> key 重复会导致页面渲染错误，组件状态混乱，请务必确保 key 的唯一性
 
 ## 配置组件
 
-```js
-import { components } from 'node-karin'
+```js twoslash
+import { components } from "node-karin"
 
 export default {
   info: {
@@ -38,14 +38,14 @@ export default {
   components: () => [
     // 在这里面 添加各种子组件
   ],
-  
+
   /** 前端点击保存之后调用的方法 */
   save: (config) => {
-    console.log('保存的配置:', config)
+    console.log("保存的配置:", config)
     // 在这里处理保存逻辑
     return {
       success: true,
-      message: '保存成功'
+      message: "保存成功"
     }
   }
 }
@@ -70,74 +70,98 @@ export default {
 - `time()`: 时间输入
 - `datetime()`: 日期时间输入
 - `email()`: 邮箱输入
-- `url()`: URL输入
+- `url()`: URL 输入
 - `tel()`: 电话号码输入
 - `password()`: 密码输入
 - `color()`: 颜色输入
-- `json()`: JSON输入
+- `json()`: JSON 输入
 
 **如果需要创建一个无任何配置的输入框，请使用`components.input.create()`方法**
 
 ::: code-group
 
-```js [基础用法]
+```js twoslash [基础用法]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建全新无任何配置的输入框
-components.input.create('input-key')
+components.input.create("input-key")
 ```
 
-```js [字符串]
+```js twoslash [字符串]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个字符串输入框
-components.input.string('input-key')
+components.input.string("input-key")
 ```
 
-```js [数字]
+```js twoslash [数字]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个数字输入框
-components.input.number('input-key')
+components.input.number("input-key")
 ```
 
-```js [布尔值]
+```js twoslash [布尔值]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个布尔值输入框
-components.input.boolean('input-key')
+components.input.boolean("input-key")
 ```
 
-```js [日期]
+```js twoslash [日期]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个日期输入框
-components.input.date('input-key')
+components.input.date("input-key")
 ```
 
-```js [时间]
+```js twoslash [时间]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个时间输入框
-components.input.time('input-key')
+components.input.time("input-key")
 ```
 
-```js [日期时间]
+```js twoslash [日期时间]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个日期时间输入框
-components.input.datetime('input-key')
+components.input.datetime("input-key")
 ```
 
-```js [邮箱]
+```js twoslash [邮箱]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个邮箱输入框
-components.input.email('input-key')
+components.input.email("input-key")
 ```
 
-```js [URL]
+```js twoslash [URL]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个URL输入框
-components.input.url('input-key')
+components.input.url("input-key")
 ```
 
-```js [电话]
+```js twoslash [电话]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个电话输入框
-components.input.tel('input-key')
+components.input.tel("input-key")
 ```
 
-```js [密码]
+```js twoslash [密码]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个密码输入框
-components.input.password('input-key')
+components.input.password("input-key")
 ```
 
-```js [JSON]
+```js twoslash [JSON]
+import { components } from "node-karin"
+// ---cut-before---
 // 创建一个JSON输入框
-components.input.json('input-key')
+components.input.json("input-key")
 ```
 
 :::
@@ -155,9 +179,11 @@ components.input.json('input-key')
 | `clearable`   | `boolean`                                                                   | 设置可清除     |
 | `size`        | `sm` \| `md` \| `lg`                                                        | 设置大小       |
 | `color`       | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置颜色       |
-| `rules`    | `ValidationRule`                                                            | 设置验证规则   |
+| `rules`       | `ValidationRule`                                                            | 设置验证规则   |
 
-```ts
+```ts twoslash
+import { components } from "node-karin"
+// ---cut-before---
 export interface ValidationRule {
   /** 正则表达式 */
   regex?: string | RegExp
@@ -176,25 +202,27 @@ export interface ValidationRule {
 
 #### 调用示例
 
-```js
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
 // create函数可以随意换成其他 因为有时候我们不需要配置那么多参数 可以使用一些其他默认方法的参数
-components.input.create('input-key', {
-  label: '这是一个输入框', // 设置标签
-  placeholder: '请输入内容', // 设置占位符文本
-  description: '这是一个描述', // 设置描述文本
+components.input.create("input-key", {
+  label: "这是一个输入框", // 设置标签
+  placeholder: "请输入内容", // 设置占位符文本
+  description: "这是一个描述", // 设置描述文本
   required: true, // 内容必填
   clearable: true, // 可清除
-  size: 'sm', // 大小
-  color: 'primary', // 颜色
+  size: "sm", // 大小
+  color: "primary", // 颜色
   rules: [
     {
       min: 0, // 最小值
       max: 100, // 最大值
-      error: '数字应在0-100之间' // 自定义错误消息
+      error: "数字应在0-100之间" // 自定义错误消息
     },
     {
       regex: /^\d+$/, // 正则表达式
-      error: '只能输入数字' // 自定义错误消息
+      error: "只能输入数字" // 自定义错误消息
     }
   ]
 })
@@ -202,15 +230,17 @@ components.input.create('input-key', {
 
 ### 2. 分隔线组件 (Divider)
 
-```js
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
 // 基础用法
-components.divider.create('divider-key')
+components.divider.create("divider-key")
 
 // 透明分隔线
-components.divider.transparent('divider-key', true)
+components.divider.transparent("divider-key", true)
 
 // 垂直分隔线
-components.divider.vertical('divider-key', true)
+components.divider.vertical("divider-key", true)
 ```
 
 ### 3. 开关组件 (Switch)
@@ -237,15 +267,17 @@ components.divider.vertical('divider-key', true)
 
 #### 调用示例
 
-```js
-components.switch.create('switch-key', {
-  startText: '开启文本',
-  endText: '关闭文本',
-  size: 'sm',
-  color: 'primary',
-  thumbIcon: '图标名称',
-  startContent: '开始图标',
-  endContent: '结束图标',
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
+components.switch.create("switch-key", {
+  startText: "开启文本",
+  endText: "关闭文本",
+  size: "sm",
+  color: "primary",
+  thumbIcon: "图标名称",
+  startContent: "开始图标",
+  endContent: "结束图标",
   selected: true, // 选中状态
   defaultSelected: true, // 默认选中
   readonly: true, // 只读
@@ -304,35 +336,38 @@ components.switch.create('switch-key', {
 手风琴的调用比较复杂 请仔细阅读此部分
 :::
 
-```js
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
 // 基本调用方法
-components.accordion.create('accordion-key', {
-  label: '这是一个手风琴',
+components.accordion.create("accordion-key", {
+  label: "这是一个手风琴",
   children: [
-    components.accordion.createItem('accordion-item-key', {
-      title: '子项标题',
-      subtitle: '子项副标题',
+    components.accordion.createItem("accordion-item-key", {
+      title: "子项标题",
+      subtitle: "子项副标题",
       children: [
-        components.input.string('accordion-input-key'),
-        components.switch.create('accordion-switch-key')
+        components.input.string("accordion-input-key"),
+        components.switch.create("accordion-switch-key")
       ]
     })
   ]
 })
- 
 ```
 
 ::: tip
 完整调用示例
 :::
 
-```js
-components.accordion.create('accordion-key', {
-  label: '这是一个手风琴', // 设置标签文本  
-  title: '手风琴标题', // 设置标题
-  variant: 'light', // 设置样式变体
-  selectionMode: 'single', // 设置选择模式
-  selectionBehavior: 'toggle', // 设置选择行为
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
+components.accordion.create("accordion-key", {
+  label: "这是一个手风琴", // 设置标签文本
+  title: "手风琴标题", // 设置标题
+  variant: "light", // 设置样式变体
+  selectionMode: "single", // 设置选择模式
+  selectionBehavior: "toggle", // 设置选择行为
   isCompact: true, // 设置是否所有手风琴项目都应缩小
   isDisabled: false, // 设置是否禁用
   showDivider: true, // 是否在每个手风琴项目的底部显示分隔线
@@ -342,15 +377,15 @@ components.accordion.create('accordion-key', {
   disallowEmptySelection: false, // 是否不允许空选择
   keepContentMounted: true, // 是否保持内容挂载
   fullWidth: true, // 是否全宽
-  disabledKeys: ['key1', 'key2'], // 禁用的键列表
-  selectedKeys: ['key1'], // 选中项的键列表
-  defaultSelectedKeys: ['key1'], // 默认选中项的键列表
+  disabledKeys: ["key1", "key2"], // 禁用的键列表
+  selectedKeys: ["key1"], // 选中项的键列表
+  defaultSelectedKeys: ["key1"], // 默认选中项的键列表
 
   // 手风琴子项
   children: [
-    components.accordion.createItem('accordion-item-key', {
-      title: '子项标题',
-      subtitle: '子项副标题',
+    components.accordion.createItem("accordion-item-key", {
+      title: "子项标题",
+      subtitle: "子项副标题",
       indicator: true, // 是否显示折叠项展开指示器
       isCompact: false, // 是否使用紧凑模式
       isDisabled: false, // 是否禁用
@@ -360,56 +395,59 @@ components.accordion.create('accordion-key', {
       disableIndicatorAnimation: false, // 是否禁用指示器动画
       children: [
         // 自定义组件
-        components.input.string('accordion-input-key'),
-        components.switch.create('accordion-switch-key')
+        components.input.string("accordion-input-key"),
+        components.switch.create("accordion-switch-key")
       ]
     })
   ]
 })
 ```
 
-### 5. 手风琴Pro组件 (AccordionPro)
+### 5. 手风琴 Pro 组件 (AccordionPro)
 
 ::: tip
-pro版本其实就是给一个数据源进行动态渲染  
+pro 版本其实就是给一个数据源进行动态渲染  
 可以删除、新增
 :::
 
-pro版本的调用方法与基础版本类似。仅有2个区别
+pro 版本的调用方法与基础版本类似。仅有 2 个区别
 
 - 需要传入一个数据源 数据源的格式如下
 - 子组件非数组，而是对象
 
-```js
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
 components.accordionPro.create(
   // 唯一标识符
-  'accordion-pro-key',
+  "accordion-pro-key",
   // data
   // data的构成就是accordion的children数组里面需要全部都是accordionItem的key
   [
     {
-      title: '数据项1',
-      input: '数据项1',
+      title: "数据项1",
+      input: "数据项1",
       switch: true
     },
     {
-      input: '数据项2',
+      input: "数据项2",
       switch: false
     }
   ],
   // 子项参数
   {
-    label: '这是一个手风琴',
+    label: "这是一个手风琴",
     // 注意这里不是数组，在普通版本的手风琴中这里是一个数组
-    children: components.accordion.createItem('accordion-item', {
-      title: '子项标题',
-      subtitle: '子项副标题',
+    children: components.accordion.createItem("accordion-item", {
+      title: "子项标题",
+      subtitle: "子项副标题",
       children: [
-        components.input.string('accordion-input'), // 这里需要与data的key一致
-        components.switch.create('accordion-switch')
+        components.input.string("accordion-input"), // 这里需要与data的key一致
+        components.switch.create("accordion-switch")
       ]
     })
-  })
+  }
+)
 ```
 
 ### 6. 单选框组 (RadioGroup)
@@ -439,34 +477,36 @@ components.accordionPro.create(
 
 请使用 `components.radio.create` 方法创建单选框选项
 
-| API 方法           | 参数类型   | 描述                 |
-| ------------------ | ---------- | -------------------- |
-| `value`            | `string`   | 设置选项的值（必填） |
-| `label`            | `string`   | 设置选项的标签文本   |
-| `size`             | `'sm' \| 'md' \| 'lg'` | 设置选项的大小 |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题 |
-| `description`      | `string`   | 设置选项的描述文本   |
-| `isDisabled`       | `boolean`  | 设置是否禁用此选项   |
-| `isRequired`       | `boolean`  | 设置是否必填         |
-| `isReadOnly`       | `boolean`  | 设置是否只读         |
-| `isInvalid`        | `boolean`  | 设置是否无效状态     |
-| `disableAnimation` | `boolean`  | 设置是否禁用动画效果 |
+| API 方法           | 参数类型                                                                      | 描述                 |
+| ------------------ | ----------------------------------------------------------------------------- | -------------------- |
+| `value`            | `string`                                                                      | 设置选项的值（必填） |
+| `label`            | `string`                                                                      | 设置选项的标签文本   |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置选项的大小       |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题   |
+| `description`      | `string`                                                                      | 设置选项的描述文本   |
+| `isDisabled`       | `boolean`                                                                     | 设置是否禁用此选项   |
+| `isRequired`       | `boolean`                                                                     | 设置是否必填         |
+| `isReadOnly`       | `boolean`                                                                     | 设置是否只读         |
+| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态     |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果 |
 
 #### 调用示例
 
-```js
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
 // 基础用法
-components.radio.group('radio-group', {
-  label: '这是一个单选框组',
-  orientation: 'horizontal',
+components.radio.group("radio-group", {
+  label: "这是一个单选框组",
+  orientation: "horizontal",
   radio: [
-    components.radio.create('radio-1', {
-      label: '选项1',
-      value: 'option1'
+    components.radio.create("radio-1", {
+      label: "选项1",
+      value: "option1"
     }),
-    components.radio.create('radio-2', {
-      label: '选项2',
-      value: 'option2'
+    components.radio.create("radio-2", {
+      label: "选项2",
+      value: "option2"
     })
   ]
 })
@@ -474,38 +514,40 @@ components.radio.group('radio-group', {
 
 完整配置示例：
 
-```js
-components.radio.group('radio-group', {
-  label: '这是一个单选框组',
-  size: 'md',
-  color: 'primary',
-  orientation: 'horizontal',
-  name: 'radio-group-name',
-  value: 'option1',
-  defaultValue: 'option1',
-  errorMessage: '请选择一个选项',
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
+components.radio.group("radio-group", {
+  label: "这是一个单选框组",
+  size: "md",
+  color: "primary",
+  orientation: "horizontal",
+  name: "radio-group-name",
+  value: "option1",
+  defaultValue: "option1",
+  errorMessage: "请选择一个选项",
   isDisabled: false,
   isRequired: true,
   isReadOnly: false,
   isInvalid: false,
   disableAnimation: false,
   radio: [
-    components.radio.create('radio-1', {
-      value: 'option1',
-      label: '选项1',
-      size: 'md',
-      color: 'primary',
-      description: '这是选项1的描述',
+    components.radio.create("radio-1", {
+      value: "option1",
+      label: "选项1",
+      size: "md",
+      color: "primary",
+      description: "这是选项1的描述",
       isDisabled: false,
       isRequired: false,
       isReadOnly: false,
       isInvalid: false,
       disableAnimation: false
     }),
-    components.radio.create('radio-2', {
-      value: 'option2',
-      label: '选项2',
-      description: '这是选项2的描述'
+    components.radio.create("radio-2", {
+      value: "option2",
+      label: "选项2",
+      description: "这是选项2的描述"
     })
   ]
 })
@@ -525,61 +567,63 @@ components.radio.group('radio-group', {
 
 请先调用 `components.checkbox.group` 方法创建复选框组
 
-| API 方法           | 参数类型                                                                    | 描述                     |
-| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
-| `orientation`      | `'vertical' \| 'horizontal'`                                                | 设置排列方向（默认水平）  |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'`| 设置复选框组的颜色主题   |
-| `size`             | `'sm' \| 'md' \| 'lg'`                                                     | 设置复选框组的大小       |
-| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                | 设置复选框组的圆角大小   |
-| `name`             | `string`                                                                    | 设置表单提交时的字段名称 |
-| `label`            | `string`                                                                    | 设置标签文本             |
-| `value`            | `string[]`                                                                  | 设置当前选中的值数组     |
-| `lineThrough`      | `boolean`                                                                   | 设置是否显示删除线       |
-| `defaultValue`     | `string[]`                                                                  | 设置默认选中的值数组     |
-| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态         |
-| `isDisabled`       | `boolean`                                                                   | 设置是否禁用整个复选框组 |
-| `isRequired`       | `boolean`                                                                   | 设置是否必填             |
-| `isReadOnly`       | `boolean`                                                                   | 设置是否只读             |
-| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果     |
-| `checkbox`         | `CheckboxProps[]`                                                          | 设置复选框选项列表       |
+| API 方法           | 参数类型                                                                      | 描述                     |
+| ------------------ | ----------------------------------------------------------------------------- | ------------------------ |
+| `orientation`      | `'vertical' \| 'horizontal'`                                                  | 设置排列方向（默认水平） |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置复选框组的颜色主题   |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置复选框组的大小       |
+| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置复选框组的圆角大小   |
+| `name`             | `string`                                                                      | 设置表单提交时的字段名称 |
+| `label`            | `string`                                                                      | 设置标签文本             |
+| `value`            | `string[]`                                                                    | 设置当前选中的值数组     |
+| `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线       |
+| `defaultValue`     | `string[]`                                                                    | 设置默认选中的值数组     |
+| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态         |
+| `isDisabled`       | `boolean`                                                                     | 设置是否禁用整个复选框组 |
+| `isRequired`       | `boolean`                                                                     | 设置是否必填             |
+| `isReadOnly`       | `boolean`                                                                     | 设置是否只读             |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果     |
+| `checkbox`         | `CheckboxProps[]`                                                             | 设置复选框选项列表       |
 
 #### 复选框选项 (Checkbox) API
 
 请使用 `components.checkbox.create` 方法创建复选框选项
 
-| API 方法           | 参数类型                                                                    | 描述                     |
-| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
-| `value`            | `string`                                                                    | 设置选项的值             |
-| `label`            | `string`                                                                    | 设置选项的标签文本       |
-| `name`             | `string`                                                                    | 设置表单提交时的字段名称 |
-| `size`             | `'sm' \| 'md' \| 'lg'`                                                     | 设置选项的大小           |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'`| 设置选项的颜色主题       |
-| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                | 设置选项的圆角大小       |
-| `lineThrough`      | `boolean`                                                                   | 设置是否显示删除线       |
-| `isSelected`       | `boolean`                                                                   | 设置是否选中             |
-| `defaultSelected`  | `boolean`                                                                   | 设置默认是否选中         |
-| `isRequired`       | `boolean`                                                                   | 设置是否必填             |
-| `isReadOnly`       | `boolean`                                                                   | 设置是否只读             |
-| `isDisabled`       | `boolean`                                                                   | 设置是否禁用             |
-| `isIndeterminate`  | `boolean`                                                                   | 设置不确定状态（视觉呈现）|
-| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态         |
-| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果     |
+| API 方法           | 参数类型                                                                      | 描述                       |
+| ------------------ | ----------------------------------------------------------------------------- | -------------------------- |
+| `value`            | `string`                                                                      | 设置选项的值               |
+| `label`            | `string`                                                                      | 设置选项的标签文本         |
+| `name`             | `string`                                                                      | 设置表单提交时的字段名称   |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置选项的大小             |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题         |
+| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置选项的圆角大小         |
+| `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线         |
+| `isSelected`       | `boolean`                                                                     | 设置是否选中               |
+| `defaultSelected`  | `boolean`                                                                     | 设置默认是否选中           |
+| `isRequired`       | `boolean`                                                                     | 设置是否必填               |
+| `isReadOnly`       | `boolean`                                                                     | 设置是否只读               |
+| `isDisabled`       | `boolean`                                                                     | 设置是否禁用               |
+| `isIndeterminate`  | `boolean`                                                                     | 设置不确定状态（视觉呈现） |
+| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态           |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果       |
 
 #### 调用示例
 
-```js
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
 // 基础用法
-components.checkbox.group('checkbox-group', {
-  label: '这是一个复选框组',
-  orientation: 'horizontal',
+components.checkbox.group("checkbox-group", {
+  label: "这是一个复选框组",
+  orientation: "horizontal",
   checkbox: [
-    components.checkbox.create('checkbox-1', {
-      label: '选项1',
-      value: 'option1'
+    components.checkbox.create("checkbox-1", {
+      label: "选项1",
+      value: "option1"
     }),
-    components.checkbox.create('checkbox-2', {
-      label: '选项2',
-      value: 'option2'
+    components.checkbox.create("checkbox-2", {
+      label: "选项2",
+      value: "option2"
     })
   ]
 })
@@ -587,30 +631,32 @@ components.checkbox.group('checkbox-group', {
 
 完整配置示例：
 
-```js
-components.checkbox.group('checkbox-group', {
-  label: '这是一个复选框组',
-  orientation: 'horizontal',
-  color: 'primary',
-  size: 'md',
-  radius: 'md',
-  name: 'checkbox-group-name',
-  value: ['option1'],
+```js twoslash
+import { components } from "node-karin"
+// ---cut-before---
+components.checkbox.group("checkbox-group", {
+  label: "这是一个复选框组",
+  orientation: "horizontal",
+  color: "primary",
+  size: "md",
+  radius: "md",
+  name: "checkbox-group-name",
+  value: ["option1"],
   lineThrough: false,
-  defaultValue: ['option1'],
+  defaultValue: ["option1"],
   isInvalid: false,
   isDisabled: false,
   isRequired: true,
   isReadOnly: false,
   disableAnimation: false,
   checkbox: [
-    components.checkbox.create('checkbox-1', {
-      value: 'option1',
-      label: '选项1',
-      name: 'checkbox-1',
-      size: 'md',
-      color: 'primary',
-      radius: 'md',
+    components.checkbox.create("checkbox-1", {
+      value: "option1",
+      label: "选项1",
+      name: "checkbox-1",
+      size: "md",
+      color: "primary",
+      radius: "md",
       lineThrough: false,
       isSelected: true,
       defaultSelected: true,
@@ -621,9 +667,9 @@ components.checkbox.group('checkbox-group', {
       isInvalid: false,
       disableAnimation: false
     }),
-    components.checkbox.create('checkbox-2', {
-      value: 'option2',
-      label: '选项2'
+    components.checkbox.create("checkbox-2", {
+      value: "option2",
+      label: "选项2"
     })
   ]
 })
@@ -661,75 +707,73 @@ components.checkbox.group('checkbox-group', {
 
 ## 下面是一个我写的示例文件
 
-```js
-import { components } from 'node-karin'
+```js twoslash
+import { components } from "node-karin"
 
 export default {
-  info: {
-
-  },
+  info: {},
   /** 动态渲染的组件 */
   components: () => [
     // 邮件输入框
-    components.input.email('email'),
+    components.input.email("email"),
     // 分隔线
-    components.divider.create('divider1'),
+    components.divider.create("divider1"),
     // 数字输入框
-    components.input.number('number'),
+    components.input.number("number"),
     // 分隔线
-    components.divider.create('divider2'),
+    components.divider.create("divider2"),
     // 单选框组
-    components.radio.group('radio-group', {
-      label: '这是一个单选框',
-      orientation: 'horizontal',
+    components.radio.group("radio-group", {
+      label: "这是一个单选框",
+      orientation: "horizontal",
       // 单选框列表
       radio: [
-        components.radio.create('radio-1', {
-          label: '选项1',
-          value: 'option1'
+        components.radio.create("radio-1", {
+          label: "选项1",
+          value: "option1"
         }),
-        components.radio.create('radio-2', {
-          label: '选项2',
-          value: 'option2'
+        components.radio.create("radio-2", {
+          label: "选项2",
+          value: "option2"
         })
       ]
     }),
     // 分隔线
-    components.divider.create('divider3'),
+    components.divider.create("divider3"),
     // 复选框组
-    components.checkbox.group('checkbox-group', {
-      label: '这是一个复选框',
-      orientation: 'horizontal',
+    components.checkbox.group("checkbox-group", {
+      label: "这是一个复选框",
+      orientation: "horizontal",
       // 复选框列表
       checkbox: [
-        components.checkbox.create('checkbox-1', {
-          name: '选项1',
-          label: '选项1',
-          value: 'option1'
+        components.checkbox.create("checkbox-1", {
+          name: "选项1",
+          label: "选项1",
+          value: "option1"
         }),
-        components.checkbox.create('checkbox-2', {
-          label: '选项2',
-          value: 'option2'
+        components.checkbox.create("checkbox-2", {
+          label: "选项2",
+          value: "option2"
         }),
-        components.checkbox.create('checkbox-3', {
-          label: '选项3',
-          value: 'option3'
+        components.checkbox.create("checkbox-3", {
+          label: "选项3",
+          value: "option3"
         })
       ]
     }),
     // 分隔线
-    components.divider.create('divider4', { transparent: true }),
+    components.divider.create("divider4", { transparent: true }),
 
     // 手风琴
-    components.accordion.create('accordion-key', {
-      label: '这是一个手风琴',
+    components.accordion.create("accordion-key", {
+      label: "这是一个手风琴",
       children: [
-        components.accordion.createItem('accordion-item-key', {
-          title: '子项标题',
-          subtitle: '子项副标题',
+        components.accordion.createItem("accordion-item-key", {
+          title: "子项标题",
+          subtitle: "子项副标题",
           children: [
-            components.input.string('accordion-input-key'),
-            components.switch.create('accordion-switch-key')
+            components.input.string("accordion-input-key"),
+            components.switch.create("accordion-switch-key")
           ]
         })
       ]
@@ -737,39 +781,39 @@ export default {
     // 手风琴pro
     components.accordionPro.create(
       // 唯一标识符
-      'accordion-pro-key',
+      "accordion-pro-key",
       // data
       [
         {
-          title: '数据项1',
-          input: '数据项1',
+          title: "数据项1",
+          input: "数据项1",
           switch: true
         },
         {
-          input: '数据项2',
+          input: "数据项2",
           switch: false
         }
       ],
       // 子项参数
       {
-        label: '这是一个手风琴',
-        children: components.accordion.createItem('accordion-item', {
-          title: '子项标题',
-          subtitle: '子项副标题',
+        label: "这是一个手风琴",
+        children: components.accordion.createItem("accordion-item", {
+          title: "子项标题",
+          subtitle: "子项副标题",
           children: [
-            components.input.string('accordion-input'), // 这里需要与data的key一致
-            components.switch.create('accordion-switch')
+            components.input.string("accordion-input"), // 这里需要与data的key一致
+            components.switch.create("accordion-switch")
           ]
         })
-      })
+      }
+    )
   ],
 
   /** 前端点击保存之后调用的方法 */
   save: (config) => {
-    console.log('config:', JSON.stringify(config, null, 2))
+    console.log("config:", JSON.stringify(config, null, 2))
   }
 }
-
 ```
 
 ### 返回值

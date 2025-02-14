@@ -1,4 +1,5 @@
-const nav = [
+import { DefaultTheme } from 'vitepress'
+const nav: DefaultTheme.NavItem[] = [
   {
     text: '快速开始',
     items: [
@@ -18,7 +19,6 @@ const nav = [
           { text: '开发简介', link: '/plugins/index' },
           { text: '前端配置', link: '/plugins/component' },
           { text: '开发规范', link: '/plugins/standard' },
-          { text: 'API 合集', link: '/plugins/api' },
           { text: '插件示例', link: '/plugins/demo' },
           { text: '插件包示例', link: '/plugins/package' }
         ]
@@ -28,11 +28,29 @@ const nav = [
   },
   {
     text: '开发工具',
-    link: '/utils'
+    items: [
+      { text: '目录', link: '/utils' },
+      { text: 'Api合集', link: '/utils/api' },
+      { text: 'Karin类', link: '/utils/karin' },
+      { text: '创建消息元素', link: '/utils/segment' },
+      { text: '日志管理', link: '/utils/logger' },
+      { text: '常用函数合集', link: '/utils/common' },
+      { text: '键值存储', link: '/utils/redis' },
+      { text: 'Yaml编辑器', link: '/utils/YamlEditor' },
+      { text: '图片渲染', link: '/utils/Renderer' },
+      { text: '端口共享', link: '/utils/server' },
+      { text: '更新', link: '/utils/update' },
+    ]
   },
   {
     text: '事件',
-    link: '/event/index'
+    items: [
+      { text: '目录', link: '/event/index' },
+      { text: '所有事件', link: '/event/general-data' },
+      { text: '消息事件', link: '/event/message' },
+      { text: '通知事件', link: '/event/notice' },
+      { text: '请求事件', link: '/event/request' }
+    ]
   },
   {
     text: '更新日志',

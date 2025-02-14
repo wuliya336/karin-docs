@@ -1,7 +1,7 @@
 # Express 服务
 
 ::: tip
-如果开发者有api需求，无需自行实现一个`webServer`  
+如果开发者有 api 需求，无需自行实现一个`webServer`
 你无需关心端口问题，`karin`已经帮你处理好啦~  
 :::
 
@@ -46,5 +46,4 @@ app.use('/api/test', router)
  * `http://127.0.0.1:7777/api/test/ping`
  * 访问到我们的路由
  */
-
 ```

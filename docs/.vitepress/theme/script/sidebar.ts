@@ -31,15 +31,16 @@ const sidebar = [
     collapsed: true,
     items: [
       { text: '目录 <iconify-icon icon="ri:menu-fold-4-line"></iconify-icon>', link: '/utils' },
-      { text: 'Api合集', link: '/plugins/api' },
-      { text: 'karin', link: '/utils/karin' },
-      { text: 'segment', link: '/utils/segment' },
-      { text: 'logger', link: '/utils/logger' },
-      { text: 'common', link: '/utils/common' },
-      { text: 'redis', link: '/utils/redis' },
-      { text: 'update', link: '/utils/update' },
-      { text: 'YamlEditor', link: '/utils/YamlEditor' },
-      { text: 'Renderer', link: '/utils/Renderer' }
+      { text: 'Api合集', link: '/utils/api' },
+      { text: 'Karin类', link: '/utils/karin' },
+      { text: '创建消息元素', link: '/utils/segment' },
+      { text: '日志管理', link: '/utils/logger' },
+      { text: '常用函数合集', link: '/utils/common' },
+      { text: '键值存储', link: '/utils/redis' },
+      { text: 'Yaml编辑器', link: '/utils/YamlEditor' },
+      { text: '图片渲染', link: '/utils/Renderer' },
+      { text: '端口共享', link: '/utils/server' },
+      { text: '更新', link: '/utils/update' },
     ]
   },
   {
