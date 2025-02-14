@@ -40,3 +40,9 @@ comment: false
 
 `update`是一个用于更新插件工具，还可获取插件更新日志  
 详情查看 [**update**](./update.md)
+
+## server
+
+`server` 直接使用 `express` 服务  
+详情查看 [**server**](./server.md)
+
