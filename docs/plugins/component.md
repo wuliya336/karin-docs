@@ -155,7 +155,7 @@ components.input.json('input-key')
 | `clearable`   | `boolean`                                                                   | 设置可清除     |
 | `size`        | `sm` \| `md` \| `lg`                                                        | 设置大小       |
 | `color`       | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置颜色       |
-| `validate`    | `ValidationRule`                                                            | 设置验证规则   |
+| `rules`    | `ValidationRule`                                                            | 设置验证规则   |
 
 ```ts
 export interface ValidationRule {
@@ -186,7 +186,7 @@ components.input.create('input-key', {
   clearable: true, // 可清除
   size: 'sm', // 大小
   color: 'primary', // 颜色
-  validate: [
+  rules: [
     {
       min: 0, // 最小值
       max: 100, // 最大值
