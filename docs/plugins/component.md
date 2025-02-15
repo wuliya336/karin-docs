@@ -28,7 +28,7 @@
 ## 配置组件
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 
 export default {
   info: {
@@ -41,11 +41,11 @@ export default {
 
   /** 前端点击保存之后调用的方法 */
   save: (config) => {
-    console.log("保存的配置:", config)
+    console.log('保存的配置:', config)
     // 在这里处理保存逻辑
     return {
       success: true,
-      message: "保存成功"
+      message: '保存成功'
     }
   }
 }
@@ -81,87 +81,87 @@ export default {
 ::: code-group
 
 ```js twoslash [基础用法]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建全新无任何配置的输入框
-components.input.create("input-key")
+components.input.create('input-key')
 ```
 
 ```js twoslash [字符串]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个字符串输入框
-components.input.string("input-key")
+components.input.string('input-key')
 ```
 
 ```js twoslash [数字]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个数字输入框
-components.input.number("input-key")
+components.input.number('input-key')
 ```
 
 ```js twoslash [布尔值]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个布尔值输入框
-components.input.boolean("input-key")
+components.input.boolean('input-key')
 ```
 
 ```js twoslash [日期]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个日期输入框
-components.input.date("input-key")
+components.input.date('input-key')
 ```
 
 ```js twoslash [时间]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个时间输入框
-components.input.time("input-key")
+components.input.time('input-key')
 ```
 
 ```js twoslash [日期时间]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个日期时间输入框
-components.input.datetime("input-key")
+components.input.datetime('input-key')
 ```
 
 ```js twoslash [邮箱]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个邮箱输入框
-components.input.email("input-key")
+components.input.email('input-key')
 ```
 
 ```js twoslash [URL]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个URL输入框
-components.input.url("input-key")
+components.input.url('input-key')
 ```
 
 ```js twoslash [电话]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个电话输入框
-components.input.tel("input-key")
+components.input.tel('input-key')
 ```
 
 ```js twoslash [密码]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个密码输入框
-components.input.password("input-key")
+components.input.password('input-key')
 ```
 
 ```js twoslash [JSON]
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 创建一个JSON输入框
-components.input.json("input-key")
+components.input.json('input-key')
 ```
 
 :::
@@ -182,7 +182,7 @@ components.input.json("input-key")
 | `rules`       | `ValidationRule`                                                            | 设置验证规则   |
 
 ```ts twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 export interface ValidationRule {
   /** 正则表达式 */
@@ -203,26 +203,26 @@ export interface ValidationRule {
 #### 调用示例
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // create函数可以随意换成其他 因为有时候我们不需要配置那么多参数 可以使用一些其他默认方法的参数
-components.input.create("input-key", {
-  label: "这是一个输入框", // 设置标签
-  placeholder: "请输入内容", // 设置占位符文本
-  description: "这是一个描述", // 设置描述文本
+components.input.create('input-key', {
+  label: '这是一个输入框', // 设置标签
+  placeholder: '请输入内容', // 设置占位符文本
+  description: '这是一个描述', // 设置描述文本
   isRequired: true, // 内容必填
   isClearable: true, // 可清除
-  size: "sm", // 大小
-  color: "primary", // 颜色
+  size: 'sm', // 大小
+  color: 'primary', // 颜色
   rules: [
     {
       min: 0, // 最小值
       max: 100, // 最大值
-      error: "数字应在0-100之间" // 自定义错误消息
+      error: '数字应在0-100之间' // 自定义错误消息
     },
     {
       regex: /^\d+$/, // 正则表达式
-      error: "只能输入数字" // 自定义错误消息
+      error: '只能输入数字' // 自定义错误消息
     }
   ]
 })
@@ -231,16 +231,16 @@ components.input.create("input-key", {
 ### 2. 分隔线组件 (Divider)
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 基础用法
-components.divider.create("divider-key")
+components.divider.create('divider-key')
 
 // 透明分隔线
-components.divider.transparent("divider-key", true)
+components.divider.transparent('divider-key', true)
 
 // 垂直分隔线
-components.divider.vertical("divider-key", true)
+components.divider.vertical('divider-key', true)
 ```
 
 ### 3. 开关组件 (Switch)
@@ -268,16 +268,16 @@ components.divider.vertical("divider-key", true)
 #### 调用示例
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
-components.switch.create("switch-key", {
-  startText: "开启文本",
-  endText: "关闭文本",
-  size: "sm",
-  color: "primary",
-  thumbIcon: "图标名称",
-  startContent: "开始图标",
-  endContent: "结束图标",
+components.switch.create('switch-key', {
+  startText: '开启文本',
+  endText: '关闭文本',
+  size: 'sm',
+  color: 'primary',
+  thumbIcon: '图标名称',
+  startContent: '开始图标',
+  endContent: '结束图标',
   isSelected: true, // 选中状态
   defaultSelected: true, // 默认选中
   isReadOnly: true, // 只读
@@ -337,18 +337,18 @@ components.switch.create("switch-key", {
 :::
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 基本调用方法
-components.accordion.create("accordion-key", {
-  label: "这是一个手风琴",
+components.accordion.create('accordion-key', {
+  label: '这是一个手风琴',
   children: [
-    components.accordion.createItem("accordion-item-key", {
-      title: "子项标题",
-      subtitle: "子项副标题",
+    components.accordion.createItem('accordion-item-key', {
+      title: '子项标题',
+      subtitle: '子项副标题',
       children: [
-        components.input.string("accordion-input-key"),
-        components.switch.create("accordion-switch-key")
+        components.input.string('accordion-input-key'),
+        components.switch.create('accordion-switch-key')
       ]
     })
   ]
@@ -360,14 +360,14 @@ components.accordion.create("accordion-key", {
 :::
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
-components.accordion.create("accordion-key", {
-  label: "这是一个手风琴", // 设置标签文本
-  title: "手风琴标题", // 设置标题
-  variant: "light", // 设置样式变体
-  selectionMode: "single", // 设置选择模式
-  selectionBehavior: "toggle", // 设置选择行为
+components.accordion.create('accordion-key', {
+  label: '这是一个手风琴', // 设置标签文本
+  title: '手风琴标题', // 设置标题
+  variant: 'light', // 设置样式变体
+  selectionMode: 'single', // 设置选择模式
+  selectionBehavior: 'toggle', // 设置选择行为
   isCompact: true, // 设置是否所有手风琴项目都应缩小
   isDisabled: false, // 设置是否禁用
   showDivider: true, // 是否在每个手风琴项目的底部显示分隔线
@@ -377,15 +377,15 @@ components.accordion.create("accordion-key", {
   disallowEmptySelection: false, // 是否不允许空选择
   keepContentMounted: true, // 是否保持内容挂载
   fullWidth: true, // 是否全宽
-  disabledKeys: ["key1", "key2"], // 禁用的键列表
-  selectedKeys: ["key1"], // 选中项的键列表
-  defaultSelectedKeys: ["key1"], // 默认选中项的键列表
+  disabledKeys: ['key1', 'key2'], // 禁用的键列表
+  selectedKeys: ['key1'], // 选中项的键列表
+  defaultSelectedKeys: ['key1'], // 默认选中项的键列表
 
   // 手风琴子项
   children: [
-    components.accordion.createItem("accordion-item-key", {
-      title: "子项标题",
-      subtitle: "子项副标题",
+    components.accordion.createItem('accordion-item-key', {
+      title: '子项标题',
+      subtitle: '子项副标题',
       indicator: true, // 是否显示折叠项展开指示器
       isCompact: false, // 是否使用紧凑模式
       isDisabled: false, // 是否禁用
@@ -395,8 +395,8 @@ components.accordion.create("accordion-key", {
       disableIndicatorAnimation: false, // 是否禁用指示器动画
       children: [
         // 自定义组件
-        components.input.string("accordion-input-key"),
-        components.switch.create("accordion-switch-key")
+        components.input.string('accordion-input-key'),
+        components.switch.create('accordion-switch-key')
       ]
     })
   ]
@@ -416,34 +416,34 @@ pro 版本的调用方法与基础版本类似。仅有 2 个区别
 - 子组件非数组，而是对象
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 components.accordionPro.create(
   // 唯一标识符
-  "accordion-pro-key",
+  'accordion-pro-key',
   // data
   // data的构成就是accordion的children数组里面需要全部都是accordionItem的key
   [
     {
-      title: "数据项1",
-      input: "数据项1",
+      title: '数据项1',
+      input: '数据项1',
       switch: true
     },
     {
-      input: "数据项2",
+      input: '数据项2',
       switch: false
     }
   ],
   // 子项参数
   {
-    label: "这是一个手风琴",
+    label: '这是一个手风琴',
     // 注意这里不是数组，在普通版本的手风琴中这里是一个数组
-    children: components.accordion.createItem("accordion-item", {
-      title: "子项标题",
-      subtitle: "子项副标题",
+    children: components.accordion.createItem('accordion-item', {
+      title: '子项标题',
+      subtitle: '子项副标题',
       children: [
-        components.input.string("accordion-input"), // 这里需要与data的key一致
-        components.switch.create("accordion-switch")
+        components.input.string('accordion-input'), // 这里需要与data的key一致
+        components.switch.create('accordion-switch')
       ]
     })
   }
@@ -493,20 +493,20 @@ components.accordionPro.create(
 #### 调用示例
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 基础用法
-components.radio.group("radio-group", {
-  label: "这是一个单选框组",
-  orientation: "horizontal",
+components.radio.group('radio-group', {
+  label: '这是一个单选框组',
+  orientation: 'horizontal',
   radio: [
-    components.radio.create("radio-1", {
-      label: "选项1",
-      value: "option1"
+    components.radio.create('radio-1', {
+      label: '选项1',
+      value: 'option1'
     }),
-    components.radio.create("radio-2", {
-      label: "选项2",
-      value: "option2"
+    components.radio.create('radio-2', {
+      label: '选项2',
+      value: 'option2'
     })
   ]
 })
@@ -515,39 +515,39 @@ components.radio.group("radio-group", {
 完整配置示例：
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
-components.radio.group("radio-group", {
-  label: "这是一个单选框组",
-  size: "md",
-  color: "primary",
-  orientation: "horizontal",
-  name: "radio-group-name",
-  value: "option1",
-  defaultValue: "option1",
-  errorMessage: "请选择一个选项",
+components.radio.group('radio-group', {
+  label: '这是一个单选框组',
+  size: 'md',
+  color: 'primary',
+  orientation: 'horizontal',
+  name: 'radio-group-name',
+  value: 'option1',
+  defaultValue: 'option1',
+  errorMessage: '请选择一个选项',
   isDisabled: false,
   isRequired: true,
   isReadOnly: false,
   isInvalid: false,
   disableAnimation: false,
   radio: [
-    components.radio.create("radio-1", {
-      value: "option1",
-      label: "选项1",
-      size: "md",
-      color: "primary",
-      description: "这是选项1的描述",
+    components.radio.create('radio-1', {
+      value: 'option1',
+      label: '选项1',
+      size: 'md',
+      color: 'primary',
+      description: '这是选项1的描述',
       isDisabled: false,
       isRequired: false,
       isReadOnly: false,
       isInvalid: false,
       disableAnimation: false
     }),
-    components.radio.create("radio-2", {
-      value: "option2",
-      label: "选项2",
-      description: "这是选项2的描述"
+    components.radio.create('radio-2', {
+      value: 'option2',
+      label: '选项2',
+      description: '这是选项2的描述'
     })
   ]
 })
@@ -610,20 +610,20 @@ components.radio.group("radio-group", {
 #### 调用示例
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
 // 基础用法
-components.checkbox.group("checkbox-group", {
-  label: "这是一个复选框组",
-  orientation: "horizontal",
+components.checkbox.group('checkbox-group', {
+  label: '这是一个复选框组',
+  orientation: 'horizontal',
   checkbox: [
-    components.checkbox.create("checkbox-1", {
-      label: "选项1",
-      value: "option1"
+    components.checkbox.create('checkbox-1', {
+      label: '选项1',
+      value: 'option1'
     }),
-    components.checkbox.create("checkbox-2", {
-      label: "选项2",
-      value: "option2"
+    components.checkbox.create('checkbox-2', {
+      label: '选项2',
+      value: 'option2'
     })
   ]
 })
@@ -632,31 +632,31 @@ components.checkbox.group("checkbox-group", {
 完整配置示例：
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 // ---cut-before---
-components.checkbox.group("checkbox-group", {
-  label: "这是一个复选框组",
-  orientation: "horizontal",
-  color: "primary",
-  size: "md",
-  radius: "md",
-  name: "checkbox-group-name",
-  value: ["option1"],
+components.checkbox.group('checkbox-group', {
+  label: '这是一个复选框组',
+  orientation: 'horizontal',
+  color: 'primary',
+  size: 'md',
+  radius: 'md',
+  name: 'checkbox-group-name',
+  value: ['option1'],
   lineThrough: false,
-  defaultValue: ["option1"],
+  defaultValue: ['option1'],
   isInvalid: false,
   isDisabled: false,
   isRequired: true,
   isReadOnly: false,
   disableAnimation: false,
   checkbox: [
-    components.checkbox.create("checkbox-1", {
-      value: "option1",
-      label: "选项1",
-      name: "checkbox-1",
-      size: "md",
-      color: "primary",
-      radius: "md",
+    components.checkbox.create('checkbox-1', {
+      value: 'option1',
+      label: '选项1',
+      name: 'checkbox-1',
+      size: 'md',
+      color: 'primary',
+      radius: 'md',
       lineThrough: false,
       isSelected: true,
       defaultSelected: true,
@@ -667,9 +667,9 @@ components.checkbox.group("checkbox-group", {
       isInvalid: false,
       disableAnimation: false
     }),
-    components.checkbox.create("checkbox-2", {
-      value: "option2",
-      label: "选项2"
+    components.checkbox.create('checkbox-2', {
+      value: 'option2',
+      label: '选项2'
     })
   ]
 })
@@ -708,72 +708,72 @@ components.checkbox.group("checkbox-group", {
 ## 下面是一个我写的示例文件
 
 ```js twoslash
-import { components } from "node-karin"
+import { components } from 'node-karin'
 
 export default {
   info: {},
   /** 动态渲染的组件 */
   components: () => [
     // 邮件输入框
-    components.input.email("email"),
+    components.input.email('email'),
     // 分隔线
-    components.divider.create("divider1"),
+    components.divider.create('divider1'),
     // 数字输入框
-    components.input.number("number"),
+    components.input.number('number'),
     // 分隔线
-    components.divider.create("divider2"),
+    components.divider.create('divider2'),
     // 单选框组
-    components.radio.group("radio-group", {
-      label: "这是一个单选框",
-      orientation: "horizontal",
+    components.radio.group('radio-group', {
+      label: '这是一个单选框',
+      orientation: 'horizontal',
       // 单选框列表
       radio: [
-        components.radio.create("radio-1", {
-          label: "选项1",
-          value: "option1"
+        components.radio.create('radio-1', {
+          label: '选项1',
+          value: 'option1'
         }),
-        components.radio.create("radio-2", {
-          label: "选项2",
-          value: "option2"
+        components.radio.create('radio-2', {
+          label: '选项2',
+          value: 'option2'
         })
       ]
     }),
     // 分隔线
-    components.divider.create("divider3"),
+    components.divider.create('divider3'),
     // 复选框组
-    components.checkbox.group("checkbox-group", {
-      label: "这是一个复选框",
-      orientation: "horizontal",
+    components.checkbox.group('checkbox-group', {
+      label: '这是一个复选框',
+      orientation: 'horizontal',
       // 复选框列表
       checkbox: [
-        components.checkbox.create("checkbox-1", {
-          name: "选项1",
-          label: "选项1",
-          value: "option1"
+        components.checkbox.create('checkbox-1', {
+          name: '选项1',
+          label: '选项1',
+          value: 'option1'
         }),
-        components.checkbox.create("checkbox-2", {
-          label: "选项2",
-          value: "option2"
+        components.checkbox.create('checkbox-2', {
+          label: '选项2',
+          value: 'option2'
         }),
-        components.checkbox.create("checkbox-3", {
-          label: "选项3",
-          value: "option3"
+        components.checkbox.create('checkbox-3', {
+          label: '选项3',
+          value: 'option3'
         })
       ]
     }),
     // 分隔线
-    components.divider.create("divider4", { transparent: true }),
+    components.divider.create('divider4', { transparent: true }),
 
     // 手风琴
-    components.accordion.create("accordion-key", {
-      label: "这是一个手风琴",
+    components.accordion.create('accordion-key', {
+      label: '这是一个手风琴',
       children: [
-        components.accordion.createItem("accordion-item-key", {
-          title: "子项标题",
-          subtitle: "子项副标题",
+        components.accordion.createItem('accordion-item-key', {
+          title: '子项标题',
+          subtitle: '子项副标题',
           children: [
-            components.input.string("accordion-input-key"),
-            components.switch.create("accordion-switch-key")
+            components.input.string('accordion-input-key'),
+            components.switch.create('accordion-switch-key')
           ]
         })
       ]
@@ -781,28 +781,28 @@ export default {
     // 手风琴pro
     components.accordionPro.create(
       // 唯一标识符
-      "accordion-pro-key",
+      'accordion-pro-key',
       // data
       [
         {
-          title: "数据项1",
-          input: "数据项1",
+          title: '数据项1',
+          input: '数据项1',
           switch: true
         },
         {
-          input: "数据项2",
+          input: '数据项2',
           switch: false
         }
       ],
       // 子项参数
       {
-        label: "这是一个手风琴",
-        children: components.accordion.createItem("accordion-item", {
-          title: "子项标题",
-          subtitle: "子项副标题",
+        label: '这是一个手风琴',
+        children: components.accordion.createItem('accordion-item', {
+          title: '子项标题',
+          subtitle: '子项副标题',
           children: [
-            components.input.string("accordion-input"), // 这里需要与data的key一致
-            components.switch.create("accordion-switch")
+            components.input.string('accordion-input'), // 这里需要与data的key一致
+            components.switch.create('accordion-switch')
           ]
         })
       }
@@ -811,7 +811,7 @@ export default {
 
   /** 前端点击保存之后调用的方法 */
   save: (config) => {
-    console.log("config:", JSON.stringify(config, null, 2))
+    console.log('config:', JSON.stringify(config, null, 2))
   }
 }
 ```
