@@ -170,16 +170,17 @@ components.input.json('input-key')
 
 在调用以上方法创建后 可以继续调用如下方法
 
-| api           | 参数                                                                        | 描述           |
-| ------------- | --------------------------------------------------------------------------- | -------------- |
-| `label`       | `string`                                                                    | 设置标签       |
-| `placeholder` | `string`                                                                    | 设置占位符文本 |
-| `description` | `string`                                                                    | 设置描述文本   |
-| `isRequired`  | `boolean`                                                                   | 设置必填       |
-| `isClearable` | `boolean`                                                                   | 设置可清除     |
-| `size`        | `sm` \| `md` \| `lg`                                                        | 设置大小       |
-| `color`       | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置颜色       |
-| `rules`       | `ValidationRule`                                                            | 设置验证规则   |
+| api           | 参数                                                                        | 描述                                           |
+| ------------- | --------------------------------------------------------------------------- | ---------------------------------------------- |
+| `label`       | `string`                                                                    | 设置标签                                       |
+| `placeholder` | `string`                                                                    | 设置占位符文本                                 |
+| `description` | `string`                                                                    | 设置描述文本                                   |
+| `isRequired`  | `boolean`                                                                   | 设置必填                                       |
+| `isClearable` | `boolean`                                                                   | 设置可清除                                     |
+| `size`        | `sm` \| `md` \| `lg`                                                        | 设置大小                                       |
+| `color`       | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置颜色                                       |
+| `rules`       | `ValidationRule`                                                            | 设置验证规则                                   |
+| `默认参数`    | `ComponentProps`                                                            | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 ```ts twoslash
 import { components } from 'node-karin'
@@ -230,17 +231,34 @@ components.input.create('input-key', {
 
 ### 2. 分隔线组件 (Divider)
 
+#### API 参数说明
+
+| API 方法      | 参数类型                     | 描述                                           |
+| ------------- | ---------------------------- | ---------------------------------------------- |
+| `transparent` | `boolean`                    | 是否透明                                       |
+| `orientation` | `'horizontal' \| 'vertical'` | 分割线的方向，可选水平或垂直                   |
+| `默认参数`    | `ComponentProps`             | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+
+#### 调用示例
+
 ```js twoslash
 import { components } from 'node-karin'
 // ---cut-before---
 // 基础用法
 components.divider.create('divider-key')
 
-// 透明分隔线
-components.divider.transparent('divider-key', true)
+// 设置参数
+components.divider.create('divider-key', {
+  description: '此处填写分割线的描述', // 描述
+  orientation: 'horizontal', // 方向
+  transparent: false // 是否透明
+})
 
-// 垂直分隔线
-components.divider.vertical('divider-key', true)
+// 创建水平分隔线
+components.divider.horizontal('divider-key') // orientation 参数默认为 horizontal
+
+// 创建垂直分隔线
+components.divider.vertical('divider-key') // orientation 参数默认为 vertical
 ```
 
 ### 3. 开关组件 (Switch)
@@ -249,21 +267,22 @@ components.divider.vertical('divider-key', true)
 
 请先调用`components.switch.create`方法创建组件
 
-| API 方法           | 参数类型                                                                      | 描述                       |
-| ------------------ | ----------------------------------------------------------------------------- | -------------------------- |
-| `startText`        | `string`                                                                      | 设置开关打开时显示的文本   |
-| `endText`          | `string`                                                                      | 设置开关关闭时显示的文本   |
-| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置开关组件的大小         |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置开关的颜色主题         |
-| `thumbIcon`        | `string`                                                                      | 设置开关按钮上的图标       |
-| `startContent`     | `string`                                                                      | 设置开关打开时的内容图标   |
-| `endContent`       | `string`                                                                      | 设置开关关闭时的内容图标   |
-| `isSelected`       | `boolean`                                                                     | 设置开关的选中状态（只读） |
-| `defaultSelected`  | `boolean`                                                                     | 设置开关的默认选中状态     |
-| `isReadOnly`       | `boolean`                                                                     | 设置开关为只读模式         |
-| `isDisabled`       | `boolean`                                                                     | 设置开关为禁用状态         |
-| `disableAnimation` | `boolean`                                                                     | 设置是否禁用开关的动画效果 |
-| `options`          | `SwitchProps`                                                                 | 一次性设置多个配置项       |
+| API 方法           | 参数类型                                                                      | 描述                                           |
+| ------------------ | ----------------------------------------------------------------------------- | ---------------------------------------------- |
+| `startText`        | `string`                                                                      | 设置开关打开时显示的文本                       |
+| `endText`          | `string`                                                                      | 设置开关关闭时显示的文本                       |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置开关组件的大小                             |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置开关的颜色主题                             |
+| `thumbIcon`        | `string`                                                                      | 设置开关按钮上的图标                           |
+| `startContent`     | `string`                                                                      | 设置开关打开时的内容图标                       |
+| `endContent`       | `string`                                                                      | 设置开关关闭时的内容图标                       |
+| `isSelected`       | `boolean`                                                                     | 设置开关的选中状态（只读）                     |
+| `defaultSelected`  | `boolean`                                                                     | 设置开关的默认选中状态                         |
+| `isReadOnly`       | `boolean`                                                                     | 设置开关为只读模式                             |
+| `isDisabled`       | `boolean`                                                                     | 设置开关为禁用状态                             |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用开关的动画效果                     |
+| `options`          | `SwitchProps`                                                                 | 一次性设置多个配置项                           |
+| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 调用示例
 
@@ -292,43 +311,45 @@ components.switch.create('switch-key', {
 
 请先调用 `components.accordion.create` 方法创建组件
 
-| API 方法                    | 参数类型                                          | 描述                                 |
-| --------------------------- | ------------------------------------------------- | ------------------------------------ |
-| `label`                     | `string`                                          | 设置标签文本                         |
-| `title`                     | `string`                                          | 设置标题                             |
-| `variant`                   | `'light' \| 'shadow' \| 'bordered' \| 'splitted'` | 设置样式变体                         |
-| `selectionMode`             | `'none' \| 'single' \| 'multiple'`                | 设置选择模式                         |
-| `selectionBehavior`         | `'toggle' \| 'replace'`                           | 设置选择行为                         |
-| `isCompact`                 | `boolean`                                         | 设置是否所有手风琴项目都应缩小       |
-| `isDisabled`                | `boolean`                                         | 设置是否禁用                         |
-| `showDivider`               | `boolean`                                         | 是否在每个手风琴项目的底部显示分隔线 |
-| `hideIndicator`             | `boolean`                                         | 是否隐藏指示器                       |
-| `disableAnimation`          | `boolean`                                         | 是否禁用动画                         |
-| `disableIndicatorAnimation` | `boolean`                                         | 是否禁用指示器动画                   |
-| `disallowEmptySelection`    | `boolean`                                         | 是否不允许空选择                     |
-| `keepContentMounted`        | `boolean`                                         | 是否保持内容挂载                     |
-| `fullWidth`                 | `boolean`                                         | 是否全宽                             |
-| `disabledKeys`              | `string[]`                                        | 禁用的键列表                         |
-| `selectedKeys`              | `string[]`                                        | 选中项的键列表                       |
-| `defaultSelectedKeys`       | `string[]`                                        | 默认选中项的键列表                   |
-| `children`                  | `AccordionItem[]`                                 | 手风琴子项列表                       |
+| API 方法                    | 参数类型                                          | 描述                                           |
+| --------------------------- | ------------------------------------------------- | ---------------------------------------------- |
+| `label`                     | `string`                                          | 设置标签文本                                   |
+| `title`                     | `string`                                          | 设置标题                                       |
+| `variant`                   | `'light' \| 'shadow' \| 'bordered' \| 'splitted'` | 设置样式变体                                   |
+| `selectionMode`             | `'none' \| 'single' \| 'multiple'`                | 设置选择模式                                   |
+| `selectionBehavior`         | `'toggle' \| 'replace'`                           | 设置选择行为                                   |
+| `isCompact`                 | `boolean`                                         | 设置是否所有手风琴项目都应缩小                 |
+| `isDisabled`                | `boolean`                                         | 设置是否禁用                                   |
+| `showDivider`               | `boolean`                                         | 是否在每个手风琴项目的底部显示分隔线           |
+| `hideIndicator`             | `boolean`                                         | 是否隐藏指示器                                 |
+| `disableAnimation`          | `boolean`                                         | 是否禁用动画                                   |
+| `disableIndicatorAnimation` | `boolean`                                         | 是否禁用指示器动画                             |
+| `disallowEmptySelection`    | `boolean`                                         | 是否不允许空选择                               |
+| `keepContentMounted`        | `boolean`                                         | 是否保持内容挂载                               |
+| `fullWidth`                 | `boolean`                                         | 是否全宽                                       |
+| `disabledKeys`              | `string[]`                                        | 禁用的键列表                                   |
+| `selectedKeys`              | `string[]`                                        | 选中项的键列表                                 |
+| `defaultSelectedKeys`       | `string[]`                                        | 默认选中项的键列表                             |
+| `children`                  | `AccordionItem[]`                                 | 手风琴子项列表                                 |
+| `默认参数`                  | `ComponentProps`                                  | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 手风琴子项 (AccordionItem) API
 
 请先调用 `components.accordion.createItem` 方法创建子项
 
-| API 方法                    | 参数类型     | 描述                     |
-| --------------------------- | ------------ | ------------------------ |
-| `title`                     | `string`     | 设置标题                 |
-| `subtitle`                  | `string`     | 设置副标题               |
-| `indicator`                 | `boolean`    | 是否显示折叠项展开指示器 |
-| `isCompact`                 | `boolean`    | 是否使用紧凑模式         |
-| `isDisabled`                | `boolean`    | 是否禁用                 |
-| `keepContentMounted`        | `boolean`    | 关闭时是否保持挂载内容   |
-| `hideIndicator`             | `boolean`    | 是否隐藏指示器           |
-| `disableAnimation`          | `boolean`    | 是否禁用动画             |
-| `disableIndicatorAnimation` | `boolean`    | 是否禁用指示器动画       |
-| `children`                  | `Children[]` | 设置子项内容             |
+| API 方法                    | 参数类型         | 描述                                           |
+| --------------------------- | ---------------- | ---------------------------------------------- |
+| `title`                     | `string`         | 设置标题                                       |
+| `subtitle`                  | `string`         | 设置副标题                                     |
+| `indicator`                 | `boolean`        | 是否显示折叠项展开指示器                       |
+| `isCompact`                 | `boolean`        | 是否使用紧凑模式                               |
+| `isDisabled`                | `boolean`        | 是否禁用                                       |
+| `keepContentMounted`        | `boolean`        | 关闭时是否保持挂载内容                         |
+| `hideIndicator`             | `boolean`        | 是否隐藏指示器                                 |
+| `disableAnimation`          | `boolean`        | 是否禁用动画                                   |
+| `disableIndicatorAnimation` | `boolean`        | 是否禁用指示器动画                             |
+| `children`                  | `Children[]`     | 设置子项内容                                   |
+| `默认参数`                  | `ComponentProps` | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 调用示例
 
@@ -456,39 +477,41 @@ components.accordionPro.create(
 
 请先调用 `components.radio.group` 方法创建单选框组
 
-| API 方法           | 参数类型                                                                    | 描述                     |
-| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
-| `label`            | `string`                                                                    | 设置标签文本             |
-| `size`             | `sm` \| `md` \| `lg`                                                        | 设置单选框组的大小       |
-| `color`            | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置单选框组的颜色主题   |
-| `orientation`      | `horizontal` \| `vertical`                                                  | 设置排列方向             |
-| `name`             | `string`                                                                    | 设置表单提交时的字段名称 |
-| `value`            | `string`                                                                    | 设置当前选中的值         |
-| `defaultValue`     | `string`                                                                    | 设置默认选中的值         |
-| `errorMessage`     | `string`                                                                    | 设置错误提示信息         |
-| `isDisabled`       | `boolean`                                                                   | 设置是否禁用整个单选框组 |
-| `isRequired`       | `boolean`                                                                   | 设置是否必填             |
-| `isReadOnly`       | `boolean`                                                                   | 设置是否只读             |
-| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态         |
-| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果     |
-| `radio`            | `Radio[]`                                                                   | 设置单选框选项列表       |
+| API 方法           | 参数类型                                                                    | 描述                                           |
+| ------------------ | --------------------------------------------------------------------------- | ---------------------------------------------- |
+| `label`            | `string`                                                                    | 设置标签文本                                   |
+| `size`             | `sm` \| `md` \| `lg`                                                        | 设置单选框组的大小                             |
+| `color`            | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置单选框组的颜色主题                         |
+| `orientation`      | `horizontal` \| `vertical`                                                  | 设置排列方向                                   |
+| `name`             | `string`                                                                    | 设置表单提交时的字段名称                       |
+| `value`            | `string`                                                                    | 设置当前选中的值                               |
+| `defaultValue`     | `string`                                                                    | 设置默认选中的值                               |
+| `errorMessage`     | `string`                                                                    | 设置错误提示信息                               |
+| `isDisabled`       | `boolean`                                                                   | 设置是否禁用整个单选框组                       |
+| `isRequired`       | `boolean`                                                                   | 设置是否必填                                   |
+| `isReadOnly`       | `boolean`                                                                   | 设置是否只读                                   |
+| `isInvalid`        | `boolean`                                                                   | 设置是否无效状态                               |
+| `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果                           |
+| `radio`            | `Radio[]`                                                                   | 设置单选框选项列表                             |
+| `默认参数`         | `ComponentProps`                                                            | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 单选框选项 (Radio) API
 
 请使用 `components.radio.create` 方法创建单选框选项
 
-| API 方法           | 参数类型                                                                      | 描述                 |
-| ------------------ | ----------------------------------------------------------------------------- | -------------------- |
-| `value`            | `string`                                                                      | 设置选项的值（必填） |
-| `label`            | `string`                                                                      | 设置选项的标签文本   |
-| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置选项的大小       |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题   |
-| `description`      | `string`                                                                      | 设置选项的描述文本   |
-| `isDisabled`       | `boolean`                                                                     | 设置是否禁用此选项   |
-| `isRequired`       | `boolean`                                                                     | 设置是否必填         |
-| `isReadOnly`       | `boolean`                                                                     | 设置是否只读         |
-| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态     |
-| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果 |
+| API 方法           | 参数类型                                                                      | 描述                                           |
+| ------------------ | ----------------------------------------------------------------------------- | ---------------------------------------------- |
+| `value`            | `string`                                                                      | 设置选项的值（必填）                           |
+| `label`            | `string`                                                                      | 设置选项的标签文本                             |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置选项的大小                                 |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题                             |
+| `description`      | `string`                                                                      | 设置选项的描述文本                             |
+| `isDisabled`       | `boolean`                                                                     | 设置是否禁用此选项                             |
+| `isRequired`       | `boolean`                                                                     | 设置是否必填                                   |
+| `isReadOnly`       | `boolean`                                                                     | 设置是否只读                                   |
+| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态                               |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果                           |
+| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 调用示例
 
@@ -567,45 +590,47 @@ components.radio.group('radio-group', {
 
 请先调用 `components.checkbox.group` 方法创建复选框组
 
-| API 方法           | 参数类型                                                                      | 描述                     |
-| ------------------ | ----------------------------------------------------------------------------- | ------------------------ |
-| `orientation`      | `'vertical' \| 'horizontal'`                                                  | 设置排列方向（默认水平） |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置复选框组的颜色主题   |
-| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置复选框组的大小       |
-| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置复选框组的圆角大小   |
-| `name`             | `string`                                                                      | 设置表单提交时的字段名称 |
-| `label`            | `string`                                                                      | 设置标签文本             |
-| `value`            | `string[]`                                                                    | 设置当前选中的值数组     |
-| `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线       |
-| `defaultValue`     | `string[]`                                                                    | 设置默认选中的值数组     |
-| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态         |
-| `isDisabled`       | `boolean`                                                                     | 设置是否禁用整个复选框组 |
-| `isRequired`       | `boolean`                                                                     | 设置是否必填             |
-| `isReadOnly`       | `boolean`                                                                     | 设置是否只读             |
-| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果     |
-| `checkbox`         | `CheckboxProps[]`                                                             | 设置复选框选项列表       |
+| API 方法           | 参数类型                                                                      | 描述                                           |
+| ------------------ | ----------------------------------------------------------------------------- | ---------------------------------------------- |
+| `orientation`      | `'vertical' \| 'horizontal'`                                                  | 设置排列方向（默认水平）                       |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置复选框组的颜色主题                         |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置复选框组的大小                             |
+| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置复选框组的圆角大小                         |
+| `name`             | `string`                                                                      | 设置表单提交时的字段名称                       |
+| `label`            | `string`                                                                      | 设置标签文本                                   |
+| `value`            | `string[]`                                                                    | 设置当前选中的值数组                           |
+| `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线                             |
+| `defaultValue`     | `string[]`                                                                    | 设置默认选中的值数组                           |
+| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态                               |
+| `isDisabled`       | `boolean`                                                                     | 设置是否禁用整个复选框组                       |
+| `isRequired`       | `boolean`                                                                     | 设置是否必填                                   |
+| `isReadOnly`       | `boolean`                                                                     | 设置是否只读                                   |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果                           |
+| `checkbox`         | `CheckboxProps[]`                                                             | 设置复选框选项列表                             |
+| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 复选框选项 (Checkbox) API
 
 请使用 `components.checkbox.create` 方法创建复选框选项
 
-| API 方法           | 参数类型                                                                      | 描述                       |
-| ------------------ | ----------------------------------------------------------------------------- | -------------------------- |
-| `value`            | `string`                                                                      | 设置选项的值               |
-| `label`            | `string`                                                                      | 设置选项的标签文本         |
-| `name`             | `string`                                                                      | 设置表单提交时的字段名称   |
-| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置选项的大小             |
-| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题         |
-| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置选项的圆角大小         |
-| `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线         |
-| `isSelected`       | `boolean`                                                                     | 设置是否选中               |
-| `defaultSelected`  | `boolean`                                                                     | 设置默认是否选中           |
-| `isRequired`       | `boolean`                                                                     | 设置是否必填               |
-| `isReadOnly`       | `boolean`                                                                     | 设置是否只读               |
-| `isDisabled`       | `boolean`                                                                     | 设置是否禁用               |
-| `isIndeterminate`  | `boolean`                                                                     | 设置不确定状态（视觉呈现） |
-| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态           |
-| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果       |
+| API 方法           | 参数类型                                                                      | 描述                                           |
+| ------------------ | ----------------------------------------------------------------------------- | ---------------------------------------------- |
+| `value`            | `string`                                                                      | 设置选项的值                                   |
+| `label`            | `string`                                                                      | 设置选项的标签文本                             |
+| `name`             | `string`                                                                      | 设置表单提交时的字段名称                       |
+| `size`             | `'sm' \| 'md' \| 'lg'`                                                        | 设置选项的大小                                 |
+| `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题                             |
+| `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置选项的圆角大小                             |
+| `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线                             |
+| `isSelected`       | `boolean`                                                                     | 设置是否选中                                   |
+| `defaultSelected`  | `boolean`                                                                     | 设置默认是否选中                               |
+| `isRequired`       | `boolean`                                                                     | 设置是否必填                                   |
+| `isReadOnly`       | `boolean`                                                                     | 设置是否只读                                   |
+| `isDisabled`       | `boolean`                                                                     | 设置是否禁用                                   |
+| `isIndeterminate`  | `boolean`                                                                     | 设置不确定状态（视觉呈现）                     |
+| `isInvalid`        | `boolean`                                                                     | 设置是否无效状态                               |
+| `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果                           |
+| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 调用示例
 
@@ -704,6 +729,17 @@ components.checkbox.group('checkbox-group', {
   ]
 }
 ```
+
+## 默认参数
+
+每个组件的 API 接口都在 `ComponentProps` 的基础上扩展出来，所以你用到的每个组件都会有以下默认参数。
+
+| API 方法      | 参数类型        | 描述                                                                                                                                    |
+| ------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| key           | `string`        | 唯一标识符，注意这个 key 是要全局唯一不是组件内唯一噢（意思是整个文件<mark>不能出现</mark>第二个<mark>相同</mark>的 key）               |
+| componentType | `ComponentType` | 组件类型                                                                                                                                |
+| description   | `string`        | 组件描述                                                                                                                                |
+| className     | `string`        | 自定义包裹组件的 `div` 的 `className`，用于样式定制。<mark>样式命名遵循 [tailwindcss v3](https://v3.tailwindcss.com/) 的命名规范</mark> |
 
 ## 下面是一个我写的示例文件
 
