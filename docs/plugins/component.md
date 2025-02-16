@@ -429,26 +429,65 @@ components.accordion.create('accordion-key', {
 ### 5. 手风琴 Pro 组件 (AccordionPro)
 
 ::: tip
-pro 版本其实就是给一个数据源进行动态渲染  
+手风琴 Pro 其实就是给一个数据源进行动态渲染
 可以删除、新增
 :::
 
-pro 版本的调用方法与基础版本类似。仅有 2 个区别
+Pro 版本的调用方法与基础版本类似。仅有 2 个区别
 
-- 需要传入一个数据源 数据源的格式如下
-- 子组件非数组，而是对象
+#### 参数说明
+
+来解释一下：
+
+|        | 参数类型                                                       | 描述                                             |
+| ------ | -------------------------------------------------------------- | ------------------------------------------------ |
+| 参数一 | `string`                                                       | 全局唯一标识符                                   |
+| 参数二 | `Record<string, any>[]`                                        | 数据源（是一个数组，数组的长度就是手风琴的数量） |
+| 参数三 | `Omit<AccordionProProps, 'key' \| 'componentType' \| 'data'>)` | 手风琴组件本身                                   |
+
+- 在调用时的 **参数二** 需要传入一个数据源，数据源的类型为 `Record<string, any>[]`，格式如下
+
+::: details 点击打开卡片查看参数二说明
+
+> [!IMPORTANT] 重要
+>
+> 1. 如果数组中的对象拥有 `title` 这个属性，那么组件本身就会自动取出对应的值在前端进行渲染，如果没有，那么它的默认值是 `新卡片 ${参数二.length + 1}`<br />
+> 2. 但是，还有但是，如果在参数三中 **给手风琴项配置了 `title` 属性** 的话，那么组件页面就会以手风琴项的配置为准。优先级：`手风琴项配置` > `数组对象配置`
+
+数组中 **每个对象的键名** 就是参数三手风琴项的参数一 `key`，值会自动渲染到前端。<br />
+Q: 键名是什么？<br />
+A: 比如：`{ title: '标题', input: '数据项' }`，那么 `title` 就是键名
+
+```js:line-numbers
+[
+    {
+      title: '这是我自定义的标题', // 页面上会渲染这个值当成标题
+      input: '数据项1',
+      switch: true
+    },
+    {
+      input: '数据项2',
+      switch: false
+    }
+],
+```
+
+:::
+
+> [!IMPORTANT] 注意：
+> 在手风琴 Pro 的参数三中，`children` 属性不是数组，而是对象了噢。
+
+#### 调用示例
 
 ```js twoslash
 import { components } from 'node-karin'
 // ---cut-before---
 components.accordionPro.create(
-  // 唯一标识符
-  'accordion-pro-key',
-  // data
-  // data的构成就是accordion的children数组里面需要全部都是accordionItem的key
+  'accordion-pro-key', // 参数一仍然是全局唯一标识符
+  // 参数二说明见上方的折叠卡片
   [
     {
-      title: '数据项1',
+      title: '这是我自定义的标题',
       input: '数据项1',
       switch: true
     },
@@ -457,16 +496,17 @@ components.accordionPro.create(
       switch: false
     }
   ],
-  // 子项参数
+  // 手风琴 Pro 的参数三就是普通手风琴组件本身的参数二
   {
     label: '这是一个手风琴',
-    // 注意这里不是数组，在普通版本的手风琴中这里是一个数组
+    // 特别注意这里不是数组了，在普通版本的手风琴中这里才是一个数组
     children: components.accordion.createItem('accordion-item', {
-      title: '子项标题',
+      title: '子项标题', // 这里配置了会强制覆盖数组对象里面的 title
       subtitle: '子项副标题',
       children: [
-        components.input.string('accordion-input'), // 这里需要与data的key一致
-        components.switch.create('accordion-switch')
+        // 这里的 key 就不需要唯一了，只需要和数组中对象的 键名 对应即可
+        components.input.string('input'),
+        components.switch.create('switch')
       ]
     })
   }

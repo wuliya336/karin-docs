@@ -12,3 +12,5 @@ components.divider.create('divider-key', {
   orientation: 'horizontal', // 方向
   transparent: false // 是否透明
 })
+
+components.accordionPro.create('555')
