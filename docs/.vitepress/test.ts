@@ -8,6 +8,7 @@ components.divider.vertical('divider-key') // orientation 参数默认为 vertic
 
 components.divider.create('divider-key', {
   description: '此处填写分割线的描述', // 描述
+  descPosition: 50, // 描述文本位置 0-100的数字
   orientation: 'horizontal', // 方向
   transparent: false // 是否透明
 })

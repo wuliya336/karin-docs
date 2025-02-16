@@ -233,11 +233,12 @@ components.input.create('input-key', {
 
 #### API 参数说明
 
-| API 方法      | 参数类型                     | 描述                                           |
-| ------------- | ---------------------------- | ---------------------------------------------- |
-| `transparent` | `boolean`                    | 是否透明                                       |
-| `orientation` | `'horizontal' \| 'vertical'` | 分割线的方向，可选水平或垂直                   |
-| `默认参数`    | `ComponentProps`             | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| API 方法       | 参数类型                     | 描述                                           |
+| -------------- | ---------------------------- | ---------------------------------------------- |
+| `descPosition` | `number`                     | 描述文本位置 0-100 的数字                      |
+| `transparent`  | `boolean`                    | 是否透明                                       |
+| `orientation`  | `'horizontal' \| 'vertical'` | 分割线的方向，可选水平或垂直                   |
+| `默认参数`     | `ComponentProps`             | 每个组件都继承自这个 [**默认参数**](#默认参数) |
 
 #### 调用示例
 
@@ -250,6 +251,7 @@ components.divider.create('divider-key')
 // 设置参数
 components.divider.create('divider-key', {
   description: '此处填写分割线的描述', // 描述
+  descPosition: 50, // 描述文本位置 0-100的数字
   orientation: 'horizontal', // 方向
   transparent: false // 是否透明
 })
