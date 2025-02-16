@@ -19,7 +19,16 @@
       <div class="w-32">
         <label class="block text-sm font-medium mb-1">插件类型</label>
         <el-select v-model="selectedPluginType" clearable placeholder="全部">
-          <el-option v-for="item in pluginTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in pluginTypeOptions" :key="item.value" :label="item.label" :value="item.value">
+            <span style="float: left;">
+              <span v-if="item.value === 'npm'" class="icon-[devicon--npm] mr-[5px] mb-[-1.5px]"></span>
+              <span v-if="item.value === 'git'"
+                class="icon-[octicon--mark-github-16] mr-[5px] mb-[-1.5px] bg-black dark:bg-white"></span>
+              <span v-if="item.value === 'app'"
+                class="icon-[icon-park-twotone--more-app] mr-[5px] mb-[-1.5px] bg-[#7fe1fa]"></span>
+            </span>
+            <span style="float: left">{{ item.label }}</span>
+          </el-option>
         </el-select>
       </div>
 
@@ -27,7 +36,16 @@
       <div class="w-32">
         <label class="block text-sm font-medium mb-1">仓库类型</label>
         <el-select v-model="selectedRepoType" clearable placeholder="全部">
-          <el-option v-for="item in repoTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in repoTypeOptions" :key="item.value" :label="item.label" :value="item.value">
+            <span style="float: left;">
+              <span v-if="item.value === 'npm'" class="icon-[devicon--npm] mr-[5px] mb-[-1.5px]"></span>
+              <span v-if="item.value === 'github'"
+                class="icon-[octicon--mark-github-16] mr-[5px] mb-[-1.5px] bg-black dark:bg-white"></span>
+              <span v-if="item.value === 'gitee'"
+                class="icon-[simple-icons--gitee] mr-[5px] mb-[-1.5px] bg-red-500"></span>
+            </span>
+            <span style="float: left">{{ item.label }}</span>
+          </el-option>
         </el-select>
       </div>
 

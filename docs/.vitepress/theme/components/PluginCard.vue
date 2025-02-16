@@ -14,7 +14,17 @@
         <div class="lg:text-2xl text-xl font-bold text-gray-900 dark:text-white">
           {{ replaceName(plugin.name) }}
           <el-tooltip content="官方插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
-            <span v-if="plugin.official" class="icon-[iconamoon--shield-yes-duotone] bg-[#9bd298] mb-[-4px]"></span>
+            <span v-if="plugin.official"
+              class="icon-[iconamoon--shield-yes-duotone] h-7 w-7 bg-[#9bd298] mb-[-7.5px]"></span>
+          </el-tooltip>
+          <el-tooltip content="NPM 插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
+            <span v-if="plugin.type === 'npm'" class="icon-[devicon--npm] ml-[4px] mb-[-4px]"></span>
+          </el-tooltip>
+          <el-tooltip content="Git 插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
+            <span v-if="plugin.type === 'git'" class="icon-[octicon--mark-github-16] mb-[-4px]"></span>
+          </el-tooltip>
+          <el-tooltip content="应用插件" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
+            <span v-if="plugin.type === 'app'" class="icon-[icon-park-twotone--more-app] mb-[-4px] bg-[#7fe1fa]"></span>
           </el-tooltip>
         </div>
         <div v-if="plugin.type === 'npm'">
@@ -40,10 +50,12 @@
       <div class="flex space-x-2">
         <template v-for="(repo) in plugin.repo" :key="repo.url">
           &nbsp;
-          <a :href="repo.url" target="_blank" class="select-none">
-            <span :class="getIconClass(repo.type)"
-              class="w-6 h-6 transform duration-500 hover:scale-150 custom-bezier"></span>
-          </a>
+          <el-tooltip content="托管/存储库" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
+            <a :href="repo.url" target="_blank" class="select-none">
+              <span :class="getIconClass(repo.type)"
+                class="w-6 h-6 transform duration-500 hover:scale-150 custom-bezier"></span>
+            </a>
+          </el-tooltip>
           &nbsp;
         </template>
       </div>
@@ -78,7 +90,7 @@ export default {
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         position: 'absolute',
         transform: 'translate(-50%, -50%)',
-        transition: 'all 0.5s ease',
+        transition: 'all 1s ease',
         pointerEvents: 'none' // 防止遮罩层干扰点击事件
       },
       intervalId: null, // 用于存储定时器的 ID
@@ -160,9 +172,11 @@ export default {
 
       // 延迟设置遮罩的扩散效果
       setTimeout(() => {
-        this.maskStyle.width = '200%'
-        this.maskStyle.height = '200%'
-        this.maskStyle.borderRadius = '0'
+        const maxSize = Math.max(rect.width, rect.height) * 2 // 取宽高最大值的两倍
+        this.maskStyle.width = `${maxSize}px`
+        this.maskStyle.height = `${maxSize}px`
+        // 保持圆形
+        this.maskStyle.borderRadius = '50%'
       }, 10)
     },
     handleMouseUp () {
