@@ -5,7 +5,7 @@
     :style="cardStyle">
     <!-- 遮罩层 -->
     <transition name="mask">
-      <div v-if="showMask" class="absolute z-10 transition-opacity duration-100 custom-bezier opacity-0 overflow-hidden"
+      <div v-if="showMask" class="absolute z-10 transition-opacity duration-100 opacity-0 overflow-hidden"
         :style="maskStyle"></div>
     </transition>
 
@@ -94,6 +94,7 @@ export default {
         pointerEvents: 'none' // 防止遮罩层干扰点击事件
       },
       intervalId: null, // 用于存储定时器的 ID
+      isAnimating: false // 用于标记是否正在动画
     }
   },
   computed: {
@@ -161,6 +162,7 @@ export default {
       this.tiltY = 0
     },
     handleClick (event) {
+      if (this.isAnimating) return // 如果动画正在进行，直接返回，不处理点击事件
       const rect = event.currentTarget.getBoundingClientRect()
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
@@ -169,6 +171,7 @@ export default {
       this.maskStyle.top = `${y}px`
       this.maskStyle.left = `${x}px`
       this.showMask = true
+      this.isAnimating = true // 标记动画开始
 
       // 延迟设置遮罩的扩散效果
       setTimeout(() => {
@@ -190,6 +193,7 @@ export default {
           this.maskStyle.height = '0'
           this.maskStyle.borderRadius = '50%'
           this.maskStyle.opacity = '1'
+          this.isAnimating = false // 标记动画结束
         }, 1)
       }, 1)
     },
