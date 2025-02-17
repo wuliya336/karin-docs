@@ -1,13 +1,14 @@
 import axios from 'axios'
 import path from 'node:path'
 import { defineConfig } from 'vitepress'
-import nav from './theme/script/nav'
-import sidebar from './theme/script/sidebar'
-import search from './theme/script/search'
+import nav from './data/nav'
+import sidebar from './data/sidebar'
+import search from './data/search'
+import head from './data/head'
 // 时间线
 import timeline from 'vitepress-markdown-timeline'
 // @ts-ignore 任务列表
-import taskLists from "markdown-it-task-lists"
+import taskLists from 'markdown-it-task-lists'
 // mathjax3公式支持
 import mathjax3 from 'markdown-it-mathjax3'
 // 页脚
@@ -19,7 +20,7 @@ import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-in
 // 基于git的页面历史
 import {
   GitChangelog,
-  GitChangelogMarkdownSection,
+  GitChangelogMarkdownSection
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
 // 页面属性
 import {
@@ -31,13 +32,15 @@ import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/v
 // 代码块内的代码类型提示
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 // 代码组图标
-import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons'
-import { head } from './theme/script/head'
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin,
+  localIconLoader
+} from 'vitepress-plugin-group-icons'
 // 面包屑导航
 // import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
 // 懒加载模糊预览图
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
-
 
 import tailwindcss from 'tailwindcss'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -63,7 +66,7 @@ export default defineConfig({
     lineNumbers: false,
     image: {
       // 开启图片懒加载
-      lazyLoading: true,
+      lazyLoading: true
     },
     config: async (md) => {
       // 时间线
@@ -82,7 +85,7 @@ export default defineConfig({
       md.use(groupIconMdPlugin)
       // 懒加载模糊预览图
       md.use(UnlazyImages(), {
-        imgElementTag: 'NolebaseUnlazyImg',
+        imgElementTag: 'NolebaseUnlazyImg'
       })
     },
     // 代码块内的代码类型提示，与代码块行号渲染冲突
@@ -103,23 +106,21 @@ export default defineConfig({
       }
     },
     optimizeDeps: {
-      exclude: [
-        '@nolebase/vitepress-plugin-breadcrumbs/client',
-      ]
+      exclude: ['@nolebase/vitepress-plugin-breadcrumbs/client']
     },
     plugins: [
       AutoImport({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver()]
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver()]
       }),
       vueDevTools(),
       tailwindcss(),
       ThumbnailHashImages(),
       GitChangelog({
         maxGitLogCount: 500,
-        repoURL: () => 'https://github.com/KarinJS/Karin',
+        repoURL: () => 'https://github.com/KarinJS/Karin'
       }),
       GitChangelogMarkdownSection({
         exclude: (id) => id.endsWith('index.md'),
@@ -127,15 +128,13 @@ export default defineConfig({
           // 禁用页面历史
           disableChangelog: false,
           // 禁用贡献者
-          disableContributors: true,
-        },
+          disableContributors: true
+        }
       }) as any,
       // 页面属性
       PageProperties(),
       PagePropertiesMarkdownSection({
-        excludes: [
-          'index.md',
-        ],
+        excludes: ['index.md']
       }),
       // 代码组图标
       groupIconVitePlugin({
@@ -153,38 +152,35 @@ export default defineConfig({
           请求示例3: 'logos:javascript',
           调用示例: 'logos:typescript-icon',
           返回值: 'vscode-icons:file-type-light-json'
-        },
+        }
       }),
-      visualizer(),
+      visualizer()
     ],
     ssr: {
-      noExternal: [
-        '@nolebase/*',
-        /element-plus/
-      ],
+      noExternal: ['@nolebase/*', /element-plus/]
     },
     resolve: {
       alias: {
-        '~/': `${path.resolve(__dirname, 'docs')}/`,
-      },
+        '~/': `${path.resolve(__dirname, 'docs')}/`
+      }
     },
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern',
+          api: 'modern'
         }
       }
-    },
+    }
   },
   vue: {
     template: {
       compilerOptions: {
-        isCustomElement: (tag) => customElements.includes(tag),
+        isCustomElement: (tag) => customElements.includes(tag)
       },
       transformAssetUrls: {
-        NolebaseUnlazyImg: ['src'],
-      },
-    },
+        NolebaseUnlazyImg: ['src']
+      }
+    }
   },
   // transformPageData (pageData, context) {
   //   // 面包屑导航
@@ -198,11 +194,11 @@ export default defineConfig({
   themeConfig: {
     siteTitle: `Karin <code class="VPBadge tip">v${karin.data.version}</code>`,
     logo: {
-      src: '/logo.png',
+      src: '/logo.png'
     },
     editLink: {
       pattern: 'https://github.com/KarinJS/Karin-docs/edit/docs/docs/:path',
-      text: '在 GitHub 上编辑此页面',
+      text: '在 GitHub 上编辑此页面'
     },
     outline: {
       level: [2, 4],
@@ -218,15 +214,15 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/KarinJS/Karin' },
       {
         icon: {
-          svg: '<svg t="1718335878865" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1729" width="200" height="200"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m259.168-568.896h-290.752a25.28 25.28 0 0 0-25.28 25.28l-0.032 63.232c0 13.952 11.296 25.28 25.28 25.28h177.024a25.28 25.28 0 0 1 25.28 25.28v12.64a75.84 75.84 0 0 1-75.84 75.84h-240.224a25.28 25.28 0 0 1-25.28-25.28v-240.192a75.84 75.84 0 0 1 75.84-75.84h353.92a25.28 25.28 0 0 0 25.28-25.28l0.064-63.2a25.312 25.312 0 0 0-25.28-25.312H417.184a189.632 189.632 0 0 0-189.632 189.6v353.952c0 13.952 11.328 25.28 25.28 25.28h372.928a170.656 170.656 0 0 0 170.656-170.656v-145.376a25.28 25.28 0 0 0-25.28-25.28z" p-id="1730"></path></svg>',
+          svg: '<svg t="1718335878865" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1729" width="200" height="200"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m259.168-568.896h-290.752a25.28 25.28 0 0 0-25.28 25.28l-0.032 63.232c0 13.952 11.296 25.28 25.28 25.28h177.024a25.28 25.28 0 0 1 25.28 25.28v12.64a75.84 75.84 0 0 1-75.84 75.84h-240.224a25.28 25.28 0 0 1-25.28-25.28v-240.192a75.84 75.84 0 0 1 75.84-75.84h353.92a25.28 25.28 0 0 0 25.28-25.28l0.064-63.2a25.312 25.312 0 0 0-25.28-25.312H417.184a189.632 189.632 0 0 0-189.632 189.6v353.952c0 13.952 11.328 25.28 25.28 25.28h372.928a170.656 170.656 0 0 0 170.656-170.656v-145.376a25.28 25.28 0 0 0-25.28-25.28z" p-id="1730"></path></svg>'
         },
-        link: 'https://gitee.com/KarinJS/Karin',
+        link: 'https://gitee.com/KarinJS/Karin'
       },
       { icon: 'npm', link: 'https://www.npmjs.com/package/node-karin' }
     ],
     docFooter: {
       prev: '上一页',
-      next: '下一页',
+      next: '下一页'
     },
     lastUpdated: {
       text: '最后编辑于',
@@ -236,10 +232,9 @@ export default defineConfig({
     // 侧边栏文字更改
     sidebarMenuLabel: '目录',
     // 返回顶部文字修改
-    returnToTopLabel: '返回顶部',
+    returnToTopLabel: '返回顶部'
   }
 })
-
 
 const customElements = [
   'mjx-container',
@@ -328,5 +323,5 @@ const customElements = [
   'maction',
   'semantics',
   'annotation',
-  'annotation-xml',
+  'annotation-xml'
 ]

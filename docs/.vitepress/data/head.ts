@@ -1,6 +1,10 @@
 import { HeadConfig } from 'vitepress'
 
-export const head: HeadConfig[] = [
+// prettier-ignore
+const head: HeadConfig[] = [
+  // SEO
+  ['meta', { name: 'msvalidate.01', content: '8D5DDEA97F72740B73499AA520B67A1A' }],
+  ['meta', { name: 'google-site-verification', content: '--V9ZVVBfakHdqwR54bgY6jnFPXz8XFBWhwsPEiBb5Q' }],
   ['meta', { property: 'og:title', content: 'Karin' }],
   ['meta', { property: 'og:description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
   ['meta', { property: 'og:image', content: 'https://karin.fun/logo-2.png' }],
@@ -12,5 +16,6 @@ export const head: HeadConfig[] = [
   ['meta', { name: 'description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
   ['meta', { name: 'keywords', content: 'Bot frame, Robot frame, TypeScript' }],
   ['link', { rel: 'manifest', href: '/site.webmanifest' }],
-
 ]
+
+export default head
