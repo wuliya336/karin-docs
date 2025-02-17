@@ -5,6 +5,7 @@ import nav from './data/nav'
 import sidebar from './data/sidebar'
 import search from './data/search'
 import head from './data/head'
+import pwa from './data/pwa'
 // 时间线
 import timeline from 'vitepress-markdown-timeline'
 // @ts-ignore 任务列表
@@ -51,193 +52,211 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import { visualizer } from 'rollup-plugin-visualizer'
+// 启用本地 https
+// @ts-ignore
+import httpsLocalhost from 'https-localhost'
+// pwa 支持
+import { withPwa } from '@vite-pwa/vitepress'
+// 本地自签证书
+import mkcert from 'vite-plugin-mkcert'
 
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
 
-export default defineConfig({
-  lang: 'zh-CN',
-  base: '/',
-  title: 'karin',
-  description: '让机器人开发变得简单有趣',
-  markdown: {
-    math: true,
-    // 全局代码块行号显示
-    lineNumbers: false,
-    image: {
-      // 开启图片懒加载
-      lazyLoading: true
-    },
-    config: async (md) => {
-      // 时间线
-      md.use(timeline)
-      // 任务列表
-      md.use(taskLists)
-      // 公式
-      md.use(mathjax3)
-      // 脚注
-      md.use(footnote_plugin)
-      // 双向链接
-      md.use(BiDirectionalLinks())
-      // 行内链接预览
-      md.use(InlineLinkPreviewElementTransform)
-      // 代码组图标
-      md.use(groupIconMdPlugin)
-      // 懒加载模糊预览图
-      md.use(UnlazyImages(), {
-        imgElementTag: 'NolebaseUnlazyImg'
-      })
-    },
-    // 代码块内的代码类型提示，与代码块行号渲染冲突
-    codeTransformers: [
-      // @ts-ignore
-      transformerTwoslash()
-    ]
-  },
-  vite: {
-    build: {
-      // 压缩代码
-      minify: false,
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true
-        }
-      }
-    },
-    optimizeDeps: {
-      exclude: ['@nolebase/vitepress-plugin-breadcrumbs/client']
-    },
-    plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()]
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()]
-      }),
-      vueDevTools(),
-      tailwindcss(),
-      ThumbnailHashImages(),
-      GitChangelog({
-        maxGitLogCount: 500,
-        repoURL: () => 'https://github.com/KarinJS/Karin'
-      }),
-      GitChangelogMarkdownSection({
-        exclude: (id) => id.endsWith('index.md'),
-        sections: {
-          // 禁用页面历史
-          disableChangelog: false,
-          // 禁用贡献者
-          disableContributors: true
-        }
-      }) as any,
-      // 页面属性
-      PageProperties(),
-      PagePropertiesMarkdownSection({
-        excludes: ['index.md']
-      }),
-      // 代码组图标
-      groupIconVitePlugin({
-        customIcon: {
-          ts: 'logos:typescript-icon',
-          js: 'logos:javascript', //js图标
-          md: 'logos:markdown', //markdown图标
-          css: 'logos:css-3', //css图标
-          cnpm: 'https://npmmirror.com/cnpm.png',
-          被动事件调用: 'logos:javascript',
-          主动事件调用: 'logos:javascript',
-          请求示例: 'logos:javascript',
-          请求示例1: 'logos:javascript',
-          请求示例2: 'logos:javascript',
-          请求示例3: 'logos:javascript',
-          调用示例: 'logos:typescript-icon',
-          返回值: 'vscode-icons:file-type-light-json'
-        }
-      }),
-      visualizer()
-    ],
-    ssr: {
-      noExternal: ['@nolebase/*', /element-plus/]
-    },
-    resolve: {
-      alias: {
-        '~/': `${path.resolve(__dirname, 'docs')}/`
-      }
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern'
-        }
-      }
-    }
-  },
-  vue: {
-    template: {
-      compilerOptions: {
-        isCustomElement: (tag) => customElements.includes(tag)
+export default withPwa(
+  defineConfig({
+    pwa: pwa,
+    lang: 'zh-CN',
+    base: '/',
+    title: 'karin',
+    description: '让机器人开发变得简单有趣',
+    markdown: {
+      math: true,
+      // 全局代码块行号显示
+      lineNumbers: false,
+      image: {
+        // 开启图片懒加载
+        lazyLoading: true
       },
-      transformAssetUrls: {
-        NolebaseUnlazyImg: ['src']
+      config: async (md) => {
+        // 时间线
+        md.use(timeline)
+        // 任务列表
+        md.use(taskLists)
+        // 公式
+        md.use(mathjax3)
+        // 脚注
+        md.use(footnote_plugin)
+        // 双向链接
+        md.use(BiDirectionalLinks())
+        // 行内链接预览
+        md.use(InlineLinkPreviewElementTransform)
+        // 代码组图标
+        md.use(groupIconMdPlugin)
+        // 懒加载模糊预览图
+        md.use(UnlazyImages(), {
+          imgElementTag: 'NolebaseUnlazyImg'
+        })
+      },
+      // 代码块内的代码类型提示，与代码块行号渲染冲突
+      codeTransformers: [
+        // @ts-ignore
+        transformerTwoslash()
+      ]
+    },
+    vite: {
+      server: {
+        https: httpsLocalhost()
+      },
+      build: {
+        // 压缩代码
+        minify: false,
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true
+          }
+        }
+      },
+      optimizeDeps: {
+        exclude: ['@nolebase/vitepress-plugin-breadcrumbs/client']
+      },
+      plugins: [
+        mkcert(),
+        AutoImport({
+          resolvers: [ElementPlusResolver()]
+        }),
+        Components({
+          resolvers: [ElementPlusResolver()]
+        }),
+        vueDevTools(),
+        tailwindcss(),
+        ThumbnailHashImages(),
+        GitChangelog({
+          maxGitLogCount: 500,
+          repoURL: () => 'https://github.com/KarinJS/Karin'
+        }),
+        GitChangelogMarkdownSection({
+          exclude: (id) => id.endsWith('index.md'),
+          sections: {
+            // 禁用页面历史
+            disableChangelog: false,
+            // 禁用贡献者
+            disableContributors: true
+          }
+        }) as any,
+        // 页面属性
+        PageProperties(),
+        PagePropertiesMarkdownSection({
+          excludes: ['index.md']
+        }),
+        // 代码组图标
+        groupIconVitePlugin({
+          customIcon: {
+            ts: 'logos:typescript-icon',
+            js: 'logos:javascript', //js图标
+            md: 'logos:markdown', //markdown图标
+            css: 'logos:css-3', //css图标
+            cnpm: 'https://npmmirror.com/cnpm.png',
+            被动事件调用: 'logos:javascript',
+            主动事件调用: 'logos:javascript',
+            请求示例: 'logos:javascript',
+            请求示例1: 'logos:javascript',
+            请求示例2: 'logos:javascript',
+            请求示例3: 'logos:javascript',
+            调用示例: 'logos:typescript-icon',
+            返回值: 'vscode-icons:file-type-light-json'
+          }
+        }),
+        visualizer()
+      ],
+      ssr: {
+        noExternal: ['@nolebase/*', /element-plus/]
+      },
+      resolve: {
+        alias: {
+          '~/': `${path.resolve(__dirname, 'docs')}/`
+        }
+      },
+      css: {
+        preprocessorOptions: {
+          scss: {
+            api: 'modern'
+          }
+        }
       }
-    }
-  },
-  // transformPageData (pageData, context) {
-  //   // 面包屑导航
-  //   generateBreadcrumbsData(pageData, context)
-  // },
-  // 移除地址的.html
-  cleanUrls: true,
-  // 显示最后更新时间
-  lastUpdated: true,
-  head: head,
-  themeConfig: {
-    siteTitle: `Karin <code class="VPBadge tip">v${karin.data.version}</code>`,
-    logo: {
-      src: '/logo.png'
     },
-    editLink: {
-      pattern: 'https://github.com/KarinJS/Karin-docs/edit/docs/docs/:path',
-      text: '在 GitHub 上编辑此页面'
-    },
-    outline: {
-      level: [2, 4],
-      label: '页面导航'
-    },
-    nav: nav as [],
-    sidebar: sidebar,
-    search: search as any,
-    lightModeSwitchTitle: '切换到浅色模式',
-    darkModeSwitchTitle: '切换到深色模式',
-    darkModeSwitchLabel: '主题模式',
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/KarinJS/Karin' },
-      {
-        icon: {
-          svg: '<svg t="1718335878865" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1729" width="200" height="200"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m259.168-568.896h-290.752a25.28 25.28 0 0 0-25.28 25.28l-0.032 63.232c0 13.952 11.296 25.28 25.28 25.28h177.024a25.28 25.28 0 0 1 25.28 25.28v12.64a75.84 75.84 0 0 1-75.84 75.84h-240.224a25.28 25.28 0 0 1-25.28-25.28v-240.192a75.84 75.84 0 0 1 75.84-75.84h353.92a25.28 25.28 0 0 0 25.28-25.28l0.064-63.2a25.312 25.312 0 0 0-25.28-25.312H417.184a189.632 189.632 0 0 0-189.632 189.6v353.952c0 13.952 11.328 25.28 25.28 25.28h372.928a170.656 170.656 0 0 0 170.656-170.656v-145.376a25.28 25.28 0 0 0-25.28-25.28z" p-id="1730"></path></svg>'
+    vue: {
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => customElements.includes(tag)
         },
-        link: 'https://gitee.com/KarinJS/Karin'
+        transformAssetUrls: {
+          NolebaseUnlazyImg: ['src']
+        }
+      }
+    },
+    // transformPageData (pageData, context) {
+    //   // 面包屑导航
+    //   generateBreadcrumbsData(pageData, context)
+    // },
+    // 移除地址的.html
+    cleanUrls: true,
+    // 显示最后更新时间
+    lastUpdated: true,
+    head: head,
+    themeConfig: {
+      siteTitle: `Karin <code class="VPBadge tip">v${karin.data.version}</code>`,
+      logo: {
+        src: '/logo.png'
       },
-      { icon: 'npm', link: 'https://www.npmjs.com/package/node-karin' }
-    ],
-    docFooter: {
-      prev: '上一页',
-      next: '下一页'
+      editLink: {
+        pattern: 'https://github.com/KarinJS/Karin-docs/edit/docs/docs/:path',
+        text: '在 GitHub 上编辑此页面'
+      },
+      outline: {
+        level: [2, 4],
+        label: '页面导航'
+      },
+      nav: nav as [],
+      sidebar: sidebar,
+      search: search as any,
+      lightModeSwitchTitle: '切换到浅色模式',
+      darkModeSwitchTitle: '切换到深色模式',
+      darkModeSwitchLabel: '主题模式',
+      socialLinks: [
+        { icon: 'github', link: 'https://github.com/KarinJS/Karin' },
+        {
+          icon: {
+            svg: '<svg t="1718335878865" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1729" width="200" height="200"><path d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m259.168-568.896h-290.752a25.28 25.28 0 0 0-25.28 25.28l-0.032 63.232c0 13.952 11.296 25.28 25.28 25.28h177.024a25.28 25.28 0 0 1 25.28 25.28v12.64a75.84 75.84 0 0 1-75.84 75.84h-240.224a25.28 25.28 0 0 1-25.28-25.28v-240.192a75.84 75.84 0 0 1 75.84-75.84h353.92a25.28 25.28 0 0 0 25.28-25.28l0.064-63.2a25.312 25.312 0 0 0-25.28-25.312H417.184a189.632 189.632 0 0 0-189.632 189.6v353.952c0 13.952 11.328 25.28 25.28 25.28h372.928a170.656 170.656 0 0 0 170.656-170.656v-145.376a25.28 25.28 0 0 0-25.28-25.28z" p-id="1730"></path></svg>'
+          },
+          link: 'https://gitee.com/KarinJS/Karin'
+        },
+        { icon: 'npm', link: 'https://www.npmjs.com/package/node-karin' }
+      ],
+      docFooter: {
+        prev: '上一页',
+        next: '下一页'
+      },
+      lastUpdated: {
+        text: '最后编辑于',
+        formatOptions: {
+          dateStyle: 'long',
+          timeStyle: 'long',
+          hourCycle: 'h12'
+        }
+      },
+      outlineTitle: '本页大纲',
+      // 侧边栏文字更改
+      sidebarMenuLabel: '目录',
+      // 返回顶部文字修改
+      returnToTopLabel: '返回顶部'
     },
-    lastUpdated: {
-      text: '最后编辑于',
-      formatOptions: { dateStyle: 'long', timeStyle: 'long', hourCycle: 'h12' }
-    },
-    outlineTitle: '本页大纲',
-    // 侧边栏文字更改
-    sidebarMenuLabel: '目录',
-    // 返回顶部文字修改
-    returnToTopLabel: '返回顶部'
-  },
-  sitemap: {
-    hostname: 'https://karin.fun'
-  }
-})
+    sitemap: {
+      hostname: 'https://karin.fun'
+    }
+  })
+)
 
 const customElements = [
   'mjx-container',
