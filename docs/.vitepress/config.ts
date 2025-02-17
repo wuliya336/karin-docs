@@ -233,6 +233,9 @@ export default defineConfig({
     sidebarMenuLabel: '目录',
     // 返回顶部文字修改
     returnToTopLabel: '返回顶部'
+  },
+  sitemap: {
+    hostname: 'https://karin.fun'
   }
 })
 
