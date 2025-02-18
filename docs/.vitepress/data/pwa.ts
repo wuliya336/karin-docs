@@ -3,7 +3,7 @@ import fg from 'fast-glob'
 import { resolve } from 'path'
 
 const pwa: Partial<PwaOptions> = {
-  outDir: '../dist',
+  outDir: '../docs/.vitepress/dist', // 这里是以 .vitepress 为根目录的相对路径
   registerType: 'autoUpdate',
   includeAssets: fg.sync('**/*.{png,svg,gif,ico,txt}', {
     cwd: resolve(__dirname, '../../public')
@@ -48,9 +48,6 @@ const pwa: Partial<PwaOptions> = {
   workbox: {
     globDirectory: '../dist',
     globPatterns: ['**/*.{js,css,html,png,svg,ico,txt}']
-    // globOptions: {
-    //   ignore: ['**/node_modules/**/*', 'sw.js', 'workbox-*.js']
-    // }
   }
 }
 
