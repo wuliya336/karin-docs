@@ -1,10 +1,5 @@
 <template>
-  <div v-if="loading">
-    <div class="inline-flex items-center gap-2">
-      <div class="loader"></div>
-      <span class="text-3xl">处理中......</span>
-    </div>
-  </div>
+  <el-table v-if="loading" v-loading="loading" element-loading-text="处理中" />
   <div v-else-if="error" class="text-2xl" style="color: var(--vp-badge-danger-text);">获取更新日志失败，错误: <br>{{ error }}</div>
   <div v-else v-html="compiledMarkdown"></div>
 </template>

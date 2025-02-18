@@ -1,13 +1,6 @@
 <template>
   <SearchBar @search="handleSearch" :plugins="pluginsList()" />
-  <div v-if="loading" class="text-center" style="color: var(--vp-c-text-1);">
-    <div class="inline-flex items-center gap-2">
-      <div
-        class="w-8 h-8 border-4 border-solid border-[var(--vp-c-text-1)] border-t-transparent rounded-full animate-spin">
-      </div>
-      <span class="text-2xl">插件列表加载中，请稍等......</span>
-    </div>
-  </div>
+  <el-table v-if="loading" v-loading="loading" element-loading-text="处理中" />
 
   <div v-else-if="error" class="text-center font-bold text-2xl" style="color: var(--vp-badge-danger-text);">
     加载插件列表失败，错误: <br>{{ error }}
