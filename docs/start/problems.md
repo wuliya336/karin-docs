@@ -18,7 +18,7 @@ outline: [2, 4]
 
 👉 其次，你应该**阅读一遍 [**《常见问题解答 / FAQ》**](./faq.md)**。<mark>很多情况下你遇到的问题也曾经困扰过很多人，并且已经被总结出了解决方案。</mark>这种情况下，直接查阅这份 FAQ 能更快地解决你的问题。
 
-<NCard title="🤔 常见问题解答 / FAQ" link="faq/">
+<NCard title="🤔 常见问题解答 / FAQ" link="/start/faq/">
 说不定就有你正在努力寻找的答案。
 </NCard>
 

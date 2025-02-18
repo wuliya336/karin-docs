@@ -196,6 +196,8 @@ export default withPwa(
         transformerTwoslash()
       ]
     },
+    // 所有的页面都应该被预加载
+    shouldPreload: () => true,
     // 将元数据提取到单独的块中。
     metaChunk: true,
     // transformPageData (pageData, context) {
