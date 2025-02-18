@@ -59,9 +59,7 @@ export default {
 
 ### 1. 输入框组件 (Input)
 
-::: tip
-默认封装了以下这些基础类型  
-:::
+**默认封装了以下这些基础类型**
 
 - `string()`: 字符串输入
 - `number()`: 数字输入
@@ -164,6 +162,13 @@ import { components } from 'node-karin'
 components.input.json('input-key')
 ```
 
+```js twoslash [单维数组]
+import { components } from 'node-karin'
+// ---cut-before---
+// 创建一个单维数组容器
+components.input.group('input-key')
+```
+
 :::
 
 #### api 参数
@@ -180,7 +185,7 @@ components.input.json('input-key')
 | `size`        | `sm` \| `md` \| `lg`                                                        | 设置大小                                       |
 | `color`       | `default` \| `primary` \| `secondary` \| `success` \| `warning` \| `danger` | 设置颜色                                       |
 | `rules`       | `ValidationRule`                                                            | 设置验证规则                                   |
-| `默认参数`    | `ComponentProps`                                                            | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`    | `ComponentProps`                                                            | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 ```ts twoslash
 import { components } from 'node-karin'
@@ -238,7 +243,7 @@ components.input.create('input-key', {
 | `descPosition` | `number`                     | 描述文本位置 0-100 的数字                      |
 | `transparent`  | `boolean`                    | 是否透明                                       |
 | `orientation`  | `'horizontal' \| 'vertical'` | 分割线的方向，可选水平或垂直                   |
-| `默认参数`     | `ComponentProps`             | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`     | `ComponentProps`             | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 调用示例
 
@@ -284,7 +289,7 @@ components.divider.vertical('divider-key') // orientation 参数默认为 vertic
 | `isDisabled`       | `boolean`                                                                     | 设置开关为禁用状态                             |
 | `disableAnimation` | `boolean`                                                                     | 设置是否禁用开关的动画效果                     |
 | `options`          | `SwitchProps`                                                                 | 一次性设置多个配置项                           |
-| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 调用示例
 
@@ -333,7 +338,7 @@ components.switch.create('switch-key', {
 | `selectedKeys`              | `string[]`                                        | 选中项的键列表                                 |
 | `defaultSelectedKeys`       | `string[]`                                        | 默认选中项的键列表                             |
 | `children`                  | `AccordionItem[]`                                 | 手风琴子项列表                                 |
-| `默认参数`                  | `ComponentProps`                                  | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`                  | `ComponentProps`                                  | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 手风琴子项 (AccordionItem) API
 
@@ -351,7 +356,7 @@ components.switch.create('switch-key', {
 | `disableAnimation`          | `boolean`        | 是否禁用动画                                   |
 | `disableIndicatorAnimation` | `boolean`        | 是否禁用指示器动画                             |
 | `children`                  | `Children[]`     | 设置子项内容                                   |
-| `默认参数`                  | `ComponentProps` | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`                  | `ComponentProps` | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 调用示例
 
@@ -535,7 +540,7 @@ components.accordionPro.create(
 | `isInvalid`        | `boolean`                                                                   | 设置是否无效状态                               |
 | `disableAnimation` | `boolean`                                                                   | 设置是否禁用动画效果                           |
 | `radio`            | `Radio[]`                                                                   | 设置单选框选项列表                             |
-| `默认参数`         | `ComponentProps`                                                            | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`         | `ComponentProps`                                                            | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 单选框选项 (Radio) API
 
@@ -553,7 +558,7 @@ components.accordionPro.create(
 | `isReadOnly`       | `boolean`                                                                     | 设置是否只读                                   |
 | `isInvalid`        | `boolean`                                                                     | 设置是否无效状态                               |
 | `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果                           |
-| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 调用示例
 
@@ -649,7 +654,7 @@ components.radio.group('radio-group', {
 | `isReadOnly`       | `boolean`                                                                     | 设置是否只读                                   |
 | `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果                           |
 | `checkbox`         | `CheckboxProps[]`                                                             | 设置复选框选项列表                             |
-| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 复选框选项 (Checkbox) API
 
@@ -672,7 +677,7 @@ components.radio.group('radio-group', {
 | `isIndeterminate`  | `boolean`                                                                     | 设置不确定状态（视觉呈现）                     |
 | `isInvalid`        | `boolean`                                                                     | 设置是否无效状态                               |
 | `disableAnimation` | `boolean`                                                                     | 设置是否禁用动画效果                           |
-| `默认参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**默认参数**](#默认参数) |
+| `基础参数`         | `ComponentProps`                                                              | 每个组件都继承自这个 [**基础参数**](#基础参数) |
 
 #### 调用示例
 
@@ -753,6 +758,61 @@ components.checkbox.group('checkbox-group', {
 }
 ```
 
+### 8. 单维数组操作 (Input.Group)
+
+::: details 什么是单维数组？
+单维数组是指一个只有一层结构的数组，它的每个元素都是直接存储在数组中，而不是嵌套的数组或其他复杂结构。<br />
+**单维数组的特点：**
+
+1. 结构简单：单维数组的每个元素都是直接访问的，没有嵌套的层级。
+2. 索引访问：通过索引可以直接访问数组中的元素，索引从 0 开始。
+3. 类型一致：在 TypeScript 中，单维数组通常存储相同类型的元素
+
+**示例：**
+
+```ts twoslash
+const numbers: number[] = [1, 2, 3, 4, 5]
+const names: string[] = ['Alice', 'Bob', 'Charlie']
+```
+
+:::
+
+#### API 参数说明
+
+| API 方法      | 参数类型         | 描述                                                                                  |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------- |
+| `label`       | `string`         | 输入框组的标签。                                                                      |
+| `template`    | `InputProps`     | 输入框模板，定义输入框的样式或行为。 <Badge type="danger" text="必传参数" />          |
+| `itemsPerRow` | `number`         | 输入框一行最多显示的数量，默认为 3 个。                                               |
+| `maxRows`     | `number`         | 输入框最大显示的行数，超出后滚动，默认为 3 行。                                       |
+| `maxInputs`   | `number`         | 输入框最大数量，默认为 100，设置为 0 表示不限制。                                     |
+| `data`        | `string[]`       | 输入框组的数据，以字符串数组的形式存储，如果数据源类型是 `number` 请先转换成 `string` |
+| `基础参数`    | `ComponentProps` | 每个组件都继承自这个 [**基础参数**](#基础参数)                                        |
+
+#### 调用示例
+
+```js twoslash
+import { components } from 'node-karin'
+// ---cut-before---
+components.input.group('group-key', {
+  label: '这是一个单维数组框',
+  maxRows: 3,
+  itemsPerRow: 3,
+  maxInputs: 100,
+  data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+  template: components.input.string('input-key', {
+    color: 'success'
+    // 更多参数。。。
+  })
+})
+```
+
+#### 返回值示例
+
+```json
+["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+```
+
 ## 保存
 
 需要注意 返回的值中，就算你是`number`类型 返回的也是`string`类型
@@ -772,9 +832,9 @@ components.checkbox.group('checkbox-group', {
 }
 ```
 
-## 默认参数
+## 基础参数
 
-每个组件的 API 接口都在 `ComponentProps` 的基础上扩展出来，所以你用到的每个组件都会有以下默认参数。
+每个组件的 API 接口都在 `ComponentProps` 的基础上扩展出来，所以你用到的每个组件都会有以下基础参数。
 
 | API 方法      | 参数类型        | 描述                                                                                                                                    |
 | ------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |

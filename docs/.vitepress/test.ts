@@ -13,4 +13,14 @@ components.divider.create('divider-key', {
   transparent: false // 是否透明
 })
 
-components.accordionPro.create('555')
+components.input.group('group-key', {
+  label: '这是一个单维数组框',
+  maxRows: 3,
+  itemsPerRow: 3,
+  maxInputs: 100,
+  data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+  template: components.input.string('input-key', {
+    color: 'success'
+    // 更多参数。。。
+  })
+})
