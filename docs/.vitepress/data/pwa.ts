@@ -46,7 +46,7 @@ const pwa: Partial<PwaOptions> = {
     ]
   },
   workbox: {
-    globDirectory: '../dist',
+    globDirectory: './',
     globPatterns: ['**/*.{js,css,html,png,svg,ico,txt}']
   }
 }
