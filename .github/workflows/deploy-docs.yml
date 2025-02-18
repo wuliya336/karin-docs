@@ -51,6 +51,10 @@ jobs:
       - name: Copy CNAME
         run: cp docs/CNAME docs/.vitepress/dist/CNAME
 
+      # 将docs/baidu_verify_codeva-bHYwzw4l9m.html文件复制到docs/.vitepress/dist目录下
+      - name: Copy baidu_verify_codeva-bHYwzw4l9m.html
+        run: cp docs/baidu_verify_codeva-bHYwzw4l9m.html docs/.vitepress/dist/baidu_verify_codeva-bHYwzw4l9m.html
+
       # 查看 workflow 的文档来获取更多信息
       # @see https://github.com/crazy-max/ghaction-github-pages
       - name: Deploy to GitHub Pages
@@ -67,6 +71,10 @@ jobs:
       # rm CNAME
       - name: Remove CNAME
         run: rm -f docs/.vitepress/dist/CNAME
+
+      # rm baidu_verify_codeva-bHYwzw4l9m.html
+      - name: Remove baidu_verify_codeva-bHYwzw4l9m.html
+        run: rm -f docs/.vitepress/dist/baidu_verify_codeva-bHYwzw4l9m.html
 
       - name: Push to hanhan0258/karin-docs
         id: push-to-hanhan
