@@ -3,3 +3,5 @@
 /docs/.vitepress/dist
 @karinjs/
 stats.html
+/docs/dev-dist
+dist

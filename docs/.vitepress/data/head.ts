@@ -15,7 +15,7 @@ const head: HeadConfig[] = [
   ['meta', { name: 'author', content: 'KarinJS Team' }],
   ['meta', { name: 'description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
   ['meta', { name: 'keywords', content: 'Bot frame, Robot frame, TypeScript' }],
-  ['link', { rel: 'manifest', href: '/site.webmanifest' }],
+  ['link',{ rel: 'icon', href: '/images/logo.png'}],
 ]
 
 export default head

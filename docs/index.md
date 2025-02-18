@@ -5,7 +5,7 @@ hero:
   name: 'Karin 🌟'
   tagline: '让机器人开发变得简单有趣 ✨'
   image:
-    src: /logo-2.png
+    src: /images/logo-2.png
   prelink:
     title: '<p style="text-align: left;"><i class="fa-solid fa-rocket" style="color: #63E6BE;"></i> 开始探索</p><div style="text-align: left; font-weight: bold; word-break: break-all; overflow-wrap: break-word;">pnpm create karin</div>'
   actions:
