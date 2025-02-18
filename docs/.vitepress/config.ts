@@ -70,54 +70,7 @@ export default withPwa(
     base: '/',
     title: 'karin',
     description: '让机器人开发变得简单有趣',
-    markdown: {
-      math: true,
-      // 全局代码块行号显示
-      lineNumbers: false,
-      image: {
-        // 开启图片懒加载
-        lazyLoading: true
-      },
-      config: async (md) => {
-        // 时间线
-        md.use(timeline)
-        // 任务列表
-        md.use(taskLists)
-        // 公式
-        md.use(mathjax3)
-        // 脚注
-        md.use(footnote_plugin)
-        // 双向链接
-        md.use(BiDirectionalLinks())
-        // 行内链接预览
-        md.use(InlineLinkPreviewElementTransform)
-        // 代码组图标
-        md.use(groupIconMdPlugin)
-        // 懒加载模糊预览图
-        md.use(UnlazyImages(), {
-          imgElementTag: 'NolebaseUnlazyImg'
-        })
-      },
-      // 代码块内的代码类型提示，与代码块行号渲染冲突
-      codeTransformers: [
-        // @ts-ignore
-        transformerTwoslash()
-      ]
-    },
     vite: {
-      server: {
-        https: httpsLocalhost()
-      },
-      build: {
-        // 压缩代码
-        minify: false,
-        terserOptions: {
-          compress: {
-            drop_console: true,
-            drop_debugger: true
-          }
-        }
-      },
       optimizeDeps: {
         exclude: ['@nolebase/vitepress-plugin-breadcrumbs/client']
       },
@@ -184,6 +137,19 @@ export default withPwa(
             api: 'modern'
           }
         }
+      },
+      server: {
+        https: httpsLocalhost()
+      },
+      build: {
+        // 压缩代码
+        minify: false,
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true
+          }
+        }
       }
     },
     vue: {
@@ -196,6 +162,42 @@ export default withPwa(
         }
       }
     },
+    markdown: {
+      math: true,
+      // 全局代码块行号显示
+      lineNumbers: false,
+      image: {
+        // 开启图片懒加载
+        lazyLoading: true
+      },
+      config: async (md) => {
+        // 时间线
+        md.use(timeline)
+        // 任务列表
+        md.use(taskLists)
+        // 公式
+        md.use(mathjax3)
+        // 脚注
+        md.use(footnote_plugin)
+        // 双向链接
+        md.use(BiDirectionalLinks())
+        // 行内链接预览
+        md.use(InlineLinkPreviewElementTransform)
+        // 代码组图标
+        md.use(groupIconMdPlugin)
+        // 懒加载模糊预览图
+        md.use(UnlazyImages(), {
+          imgElementTag: 'NolebaseUnlazyImg'
+        })
+      },
+      // 代码块内的代码类型提示，与代码块行号渲染冲突
+      codeTransformers: [
+        // @ts-ignore
+        transformerTwoslash()
+      ]
+    },
+    // 将元数据提取到单独的块中。
+    metaChunk: true,
     // transformPageData (pageData, context) {
     //   // 面包屑导航
     //   generateBreadcrumbsData(pageData, context)
