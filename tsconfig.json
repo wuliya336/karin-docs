@@ -16,9 +16,9 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "**/.vitepress/**/*.ts",
-    "**/.vitepress/**/*.mts",
-    "**/.vitepress/**/*.vue",
+    "docs/**/*.ts",
+    "docs/**/*.d.ts",
+    "docs/**/*.vue",
     "env.d.ts"
   ],
   "exclude": [

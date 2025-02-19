@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vitepress build docs",
-    "dev": "vitepress dev docs",
+    "dev": "vitepress dev docs --host --debug transform",
     "preview": "vitepress preview docs",
     "build:analyze": "vitepress build docs --debug",
     "build:cache": "vitepress build docs --force"

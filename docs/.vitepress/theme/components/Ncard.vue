@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vitepress'
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 
 interface NCardProps {
     title: string
