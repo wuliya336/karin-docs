@@ -752,7 +752,7 @@ components.checkbox.group('checkbox-group', {
 
 #### 返回值示例
 
-::: details
+::: danger
 在`1.3.21`版本中，返回值的格式发生了变化，请注意查看。
 :::
 
