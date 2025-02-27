@@ -1,5 +1,9 @@
 # 前端配置页面
 
+破坏性提交记录:
+
+- `1.3.21`: `checkbox-group`组件返回值的格式发生了变化
+
 ## 文件
 
 - 文件名称: 必须是`web.config`
@@ -24,6 +28,7 @@
 > ⚠️ **重要提示**
 > 每个组件的`key`必须全局唯一，包括嵌套组件的 key 也不能重复
 > key 重复会导致页面渲染错误，组件状态混乱，请务必确保 key 的唯一性
+> 不要使用`.`来连接多个key，`react-hook-form`会自动将`.`进行转换
 
 ## 配置组件
 
@@ -669,8 +674,6 @@ components.radio.group('radio-group', {
 | `color`            | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | 设置选项的颜色主题                             |
 | `radius`           | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                    | 设置选项的圆角大小                             |
 | `lineThrough`      | `boolean`                                                                     | 设置是否显示删除线                             |
-| `isSelected`       | `boolean`                                                                     | 设置是否选中                                   |
-| `defaultSelected`  | `boolean`                                                                     | 设置默认是否选中                               |
 | `isRequired`       | `boolean`                                                                     | 设置是否必填                                   |
 | `isReadOnly`       | `boolean`                                                                     | 设置是否只读                                   |
 | `isDisabled`       | `boolean`                                                                     | 设置是否禁用                                   |
@@ -749,12 +752,25 @@ components.checkbox.group('checkbox-group', {
 
 #### 返回值示例
 
+::: details
+在`1.3.21`版本中，返回值的格式发生了变化，请注意查看。
+:::
+
 ```json
+// 1.3.21 版本之前
 {
   "checkbox-group": {
     "checkbox-1": true,
     "checkbox-2": false
   }
+}
+
+// 1.3.21 版本之后 选中的值将会出现在数组中
+{
+  "checkbox-group": [
+    "checkbox-1",
+    "checkbox-2"
+  ]
 }
 ```
 
