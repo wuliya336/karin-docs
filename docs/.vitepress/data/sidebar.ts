@@ -6,15 +6,14 @@ export const sidebar = {
         { text: '介绍', link: '/start/start' },
         { text: '环境安装', link: '/install/environment' },
         { text: '框架安装', link: '/install/framework' },
+        { text: 'webui', link: '/start/web' },
         { text: '接入平台', link: '/install/platform' }
       ]
     },
     {
-      text: '快速开始 <iconify-icon icon="line-md:chevron-triple-right"></iconify-icon>',
+      text: '进阶使用 <iconify-icon icon="line-md:chevron-triple-right"></iconify-icon>',
       collapsed: true,
       items: [
-        { text: '目录 <iconify-icon icon="ri:menu-fold-4-line"></iconify-icon>', link: '/start/index' },
-        { text: '安装 <iconify-icon icon="icon-park-solid:install" style="color: #ffce2a"></iconify-icon>', link: '/start/start' },
         { text: '渲染器 <iconify-icon icon="material-symbols:screenshot-monitor-outline-rounded" style="color: #3fa4fc"></iconify-icon>', link: '/start/render' },
         { text: '配置文件 <iconify-icon icon="lets-icons:setting-fill" style="color: #898989"></iconify-icon>', link: '/start/file' },
         {
