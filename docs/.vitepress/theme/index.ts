@@ -31,6 +31,7 @@ import Ncard from './components/Ncard.vue'
 import HomeUnderline from './components/HomeUnderline.vue'
 import Confetti from './components/Confetti.vue'
 import ChangeLogs from './components/ChangeLog.vue'
+import NodeDownloads from './components/NodeDownloads.vue'
 // 页面属性
 import {
   NolebasePagePropertiesPlugin,
@@ -61,7 +62,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 
 export default {
   extends: DefaultTheme,
-  enhanceApp ({ app, router }: EnhanceAppContext) {
+  enhanceApp({ app, router }: EnhanceAppContext) {
     app.use(NolebaseEnhancedReadabilitiesPlugin, {
       spotlight: {
         disableHelp: true,
@@ -75,6 +76,7 @@ export default {
     app.component('HomeFooter', HomeFooter)
     app.component('Confetti', Confetti)
     app.component('ChangeLogs', ChangeLogs)
+    app.component('NodeDownloads', NodeDownloads)
     app.use(TwoslashFloatingVue as unknown as Plugin)
     app.use(NolebaseGitChangelogPlugin as Plugin)
     app.provide(InjectionKey, {
@@ -103,7 +105,7 @@ export default {
   Layout: Layout,
 
   /** 响应式图片缩放 */
-  setup () {
+  setup() {
     // 获取前言和路由
     const route = useRoute()
     const { frontmatter } = useData()

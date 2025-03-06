@@ -2,7 +2,7 @@ import axios from 'axios'
 import path from 'node:path'
 import { defineConfig } from 'vitepress'
 import nav from './data/nav'
-import sidebar from './data/sidebar'
+import { sidebar } from './data/sidebar'
 import search from './data/search'
 import head from './data/head'
 import pwa from './data/pwa'
@@ -52,13 +52,8 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import { visualizer } from 'rollup-plugin-visualizer'
-// 启用本地 https
-// @ts-ignore
-import httpsLocalhost from 'https-localhost'
 // pwa 支持
 import { withPwa } from '@vite-pwa/vitepress'
-// 本地自签证书
-import mkcert from 'vite-plugin-mkcert'
 
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
@@ -75,7 +70,6 @@ export default withPwa(
         exclude: ['@nolebase/vitepress-plugin-breadcrumbs/client']
       },
       plugins: [
-        mkcert(),
         AutoImport({
           resolvers: [ElementPlusResolver()]
         }),
@@ -137,9 +131,6 @@ export default withPwa(
             api: 'modern'
           }
         }
-      },
-      server: {
-        https: httpsLocalhost()
       },
       build: {
         // 压缩代码
