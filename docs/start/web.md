@@ -25,7 +25,7 @@
 第一次登录需要输入 HTTP 认证令牌 (｀・ω・´)
 :::
 
-![登录界面](../install/karin_connect.png)
+![登录界面](/web/karin_connect.png)
 
 认证令牌就在启动日志中的 `HTTP Auth Token` 字段，复制粘贴就可以啦！
 

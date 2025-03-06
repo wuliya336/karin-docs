@@ -34,7 +34,7 @@
   - 2: `ws://127.0.0.1:7777/onebot/v11/ws`
   - 3: `http_post` `http://127.0.0.1:7777/onebot`
 
-![karin_start](./karin_start.png)
+![karin_start](/web/karin_start.png)
 
 ## WebSocket 连接说明
 
@@ -82,13 +82,13 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
 
 1. 在 `NapCat` 控制台点击`网络配置`：
 
-![napcat_webui](./napcat_webui.png)
+![napcat_webui](/web/napcat_webui.png)
 
 2. 创建新连接：
    - 点击`新建`按钮
    - 选择`WebSocket客户端`模式
 
-![napcat_webui_client_new](./napcat_webui_client_new.png)
+![napcat_webui_client_new](/web/napcat_webui_client_new.png)
 
 3. 填写连接信息：
    - 启用开关：✅ 开启
@@ -97,11 +97,11 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
    - 鉴权Token：填入 Karin 控制台显示的 Token
    - 最后点击`保存`
 
-![napcat_webui_client_save](./napcat_webui_client_save.png)
+![napcat_webui_client_save](/web/napcat_webui_client_save.png)
 
 如果一切顺利，切换到 Karin 控制台，你会看到这样温馨的提示：
 
-![karin_connect](./karin_connect.png)
+![karin_connect](/web/karin_connect.png)
 
 恭喜你！Karin 和 NapCat 已经成功牵手啦 🎊
 
@@ -125,13 +125,13 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
 
 1. 在 `NapCat` 控制台点击`网络配置`：
 
-![napcat_webui](./napcat_webui.png)
+![napcat_webui](/web/napcat_webui.png)
 
 2. 创建新连接：
     - 点击`新建`按钮
     - 选择`WebSocket服务器`模式
 
-![napcat_webui_client_new](./napcat_webui_client_new.png)
+![napcat_webui_client_new](/web/napcat_webui_client_new.png)
 
 3. 填写连接信息：
    - 启用开关：✅ 开启
@@ -141,7 +141,7 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
    - Token: NapCat `(不配置也可以的 如果配置需要记住 后续需要使用)`
    - 最后点击`保存`
 
-![napcat_webui_client_save](./napcat_webui_client_save.png)
+![napcat_webui_client_save](/web/napcat_webui_client_save.png)
 
 4. 组合wsUrl: `ws://127.0.0.1:3001` token: `NapCat`
 
@@ -152,7 +152,7 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
    - 在登录页面输入控制台打印的 http鉴权token: `AffryQ`
    - 点击`登录`
 
-![karin_webui_login](./karin_webui_login.png)
+![karin_webui_login](/web/karin_webui_login.png)
 
 2. 进入 `Karin-webui` 配置 `WebSocket` 连接
    - 点击 `配置信息` 进入系统配置
@@ -160,7 +160,7 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
    - 选择 `正向 WebSocket 客户端`
    - 点击 `添加`
 
-![karin_webui_client_new](./karin_webui_client_new.png)
+![karin_webui_client_new](/web/karin_webui_client_new.png)
 
 3. 填写连接信息：
    - 启用开关：✅ 开启
@@ -168,11 +168,11 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
    - Token: `NapCat`
    - 最后点击右上角的`保存`
 
-![karin_webui_websocket_save](./karin_webui_websocket_save.png)
+![karin_webui_websocket_save](/web/karin_webui_websocket_save.png)
 
 4. 查看 `Karin` 日志，确认连接成功
 
-![karin_connect](./karin_connect.png)
+![karin_connect](/web/karin_connect.png)
 
 ::: tip
 更多接入正在编写中...

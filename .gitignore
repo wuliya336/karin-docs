@@ -5,3 +5,4 @@
 stats.html
 /docs/dev-dist
 dist
+.vitepress/cache

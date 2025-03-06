@@ -141,6 +141,12 @@ export default withPwa(
             drop_debugger: true
           }
         }
+      },
+      server: {
+        fs: {
+          // 允许超出根目录范围
+          strict: false
+        }
       }
     },
     vue: {
