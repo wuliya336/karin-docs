@@ -72,9 +72,9 @@ jobs:
       - name: Remove CNAME
         run: rm -f docs/.vitepress/dist/CNAME
 
-      # cp vercel.json
-      - name: cp vercel.json
-        run: cp vercel.json docs/.vitepress/dist/vercel.json
+      # # cp vercel.json
+      # - name: cp vercel.json
+      #   run: cp vercel.json docs/.vitepress/dist/vercel.json
 
       # rm baidu_verify_codeva-bHYwzw4l9m.html
       - name: Remove baidu_verify_codeva-bHYwzw4l9m.html
