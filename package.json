@@ -50,6 +50,8 @@
     "tailwindcss": "^3.4.17",
     "unplugin-auto-import": "^19.1.1",
     "unplugin-vue-components": "^28.4.1",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-imagemin": "^0.6.1",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vitepress": "^1.6.3",
     "vitepress-markdown-timeline": "^1.2.2",

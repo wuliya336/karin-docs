@@ -54,6 +54,9 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 // pwa 支持
 import { withPwa } from '@vite-pwa/vitepress'
+import viteImagemin from 'vite-plugin-imagemin'
+import compression from 'vite-plugin-compression'
+
 
 /** karin pkg */
 const karin = await axios.get('https://registry.npmjs.org/node-karin/latest')
@@ -70,19 +73,33 @@ export default withPwa(
         exclude: ['@nolebase/vitepress-plugin-breadcrumbs/client']
       },
       plugins: [
+        compression({
+          algorithm: 'gzip', // 或 'brotliCompress'
+        }),
+        // 图片压缩
+        viteImagemin({
+          mozjpeg: { quality: 75 },
+          optipng: { optimizationLevel: 5 },
+          webp: { quality: 75 }
+        }),
+        // 自动导入
         AutoImport({
           resolvers: [ElementPlusResolver()]
         }),
+        // 自动导入 ElementPlus 组件
         Components({
           resolvers: [ElementPlusResolver()]
         }),
         vueDevTools(),
         tailwindcss(),
+        // 缩略图模糊哈希生成
         ThumbnailHashImages(),
+        // 基于git的页面历史
         GitChangelog({
           maxGitLogCount: 500,
           repoURL: () => 'https://github.com/KarinJS/Karin'
         }),
+        // 基于git的页面历史
         GitChangelogMarkdownSection({
           exclude: (id) => id.endsWith('index.md'),
           sections: {
@@ -133,14 +150,17 @@ export default withPwa(
         }
       },
       build: {
-        // 压缩代码
-        minify: false,
+        minify: 'esbuild',
+        chunkSizeWarningLimit: 1000,
         terserOptions: {
           compress: {
             drop_console: true,
             drop_debugger: true
           }
         }
+      },
+      worker: {
+        format: 'es'
       },
       server: {
         fs: {

@@ -7,7 +7,6 @@ const nav: DefaultTheme.NavItem[] = [
       { text: '环境安装', link: '/install/environment' },
       { text: '框架安装', link: '/install/framework' },
       { text: '接入平台', link: '/install/platform' },
-      { text: '总目录', link: '/start/index' },
       { text: '渲染器', link: '/start/render' },
       { text: '配置文件', link: '/start/file' },
       { text: '疑难杂症', link: '/start/problems' },

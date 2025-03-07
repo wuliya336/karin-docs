@@ -17,7 +17,7 @@ hero:
     #   link: /plugins/index
     - theme: brand
       text: 🚀 立即开始
-      link: /start/index
+      link: /start/start
 
 features:
   - title: 🚀 轻量 · 高效
