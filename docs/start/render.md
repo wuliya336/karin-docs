@@ -57,15 +57,15 @@ npm config set registry https://registry.npmmirror.com
 ::: code-group
 
 ```bash [npm]
-npm init -y && npm install @karinjs/puppeteer && npx init && node .
+npm init -y && npm install @karinjs/puppeteer@1.6.1 && npx init && node .
 ```
 
 ```bash [pnpm]
-pnpm init && pnpm install @karinjs/puppeteer && npx init && node .
+pnpm init && pnpm install @karinjs/puppeteer@1.6.1 && npx init && node .
 ```
 
 ```bash [yarn]
-yarn init -y && yarn add @karinjs/puppeteer && npx init && node .
+yarn init -y && yarn add @karinjs/puppeteer@1.6.1 && npx init && node .
 ```
 
 :::
