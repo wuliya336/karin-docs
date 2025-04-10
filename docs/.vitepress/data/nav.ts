@@ -42,7 +42,8 @@ const nav: DefaultTheme.NavItem[] = [
       { text: '图片渲染', link: '/utils/Renderer' },
       { text: '端口共享', link: '/utils/server' },
       { text: '更新', link: '/utils/update' },
-      { text: '钩子系统', link: '/utils/hooks' }
+      { text: '钩子系统', link: '/utils/hooks' },
+      { text: '系统工具', link: '/utils/system' },
     ]
   },
   {
