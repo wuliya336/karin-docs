@@ -9,7 +9,7 @@
         :style="maskStyle"></div>
     </transition>
 
-    <div>
+    <div class="flex flex-col h-full">
       <div class="flex justify-between items-center">
         <div class="lg:text-2xl text-xl font-bold text-gray-900 dark:text-white">
           {{ replaceName(plugin.name) }}
@@ -41,27 +41,20 @@
           </el-popover>
         </div>
       </div>
-      <div
-        class="text-gray-600 lg:mb-7 mb-2 md:mb-4 mt-2 md:mt-3 lg:mt-4 dark:text-gray-300 line-clamp-2 min-h-[48.1px] select-none">
-        {{
-          plugin.description }}</div>
-    </div>
-    <div class="flex justify-between items-center">
-      <div class="flex space-x-2">
-        <template v-for="(repo) in plugin.repo" :key="repo.url">
-          &nbsp;
-          <el-tooltip content="托管/存储库" placement="top" :effect="plugin.isDark ? 'dark' : 'light'">
-            <a :href="repo.url" target="_blank" class="select-none">
-              <span :class="getIconClass(repo.type)"
-                class="w-6 h-6 transform duration-500 hover:scale-150 custom-bezier"></span>
-            </a>
-          </el-tooltip>
-          &nbsp;
-        </template>
+
+      <!-- 修改插件介绍区域，设置固定高度并添加溢出处理 -->
+      <div class="flex-grow mt-2 md:mt-3 lg:mt-4 flex flex-col">
+        <div class="text-gray-600 dark:text-gray-300 select-none pr-8 relative h-[80px] overflow-y-auto">
+          {{ plugin.description }}
+        </div>
       </div>
-      <button @click="$emit('show-details', plugin)"
-        class="icon-[material-symbols--arrows-output-rounded] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier focus:outline-none">
-      </button>
+
+      <!-- 将详情按钮放在底部固定位置 -->
+      <div class="mt-auto flex justify-end">
+        <button @click="$emit('show-details', plugin)"
+          class="icon-[material-symbols--arrows-output-rounded] w-6 h-6 bg-[#9bd298] hover:bg-yellow-200 hover:scale-150 transform duration-500 custom-bezier focus:outline-none">
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -199,12 +192,14 @@ export default {
     },
   },
   mounted () {
-    // 在组件挂载后启动定时器，每 0.5 秒调用一次 checkTextOverflow 方法
-    this.intervalId = setInterval(this.checkTextOverflow, 10)
+    // 由于不再需要检查文本溢出，可以移除此定时器
+    // this.intervalId = setInterval(this.checkTextOverflow, 10)
   },
   beforeDestroy () {
     // 在组件销毁前清除定时器
-    clearInterval(this.intervalId)
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+    }
   },
 }
 </script>
