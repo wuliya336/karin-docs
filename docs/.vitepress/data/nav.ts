@@ -49,7 +49,6 @@ const nav: DefaultTheme.NavItem[] = [
     text: '事件',
     items: [
       { text: '目录', link: '/event/index' },
-      { text: '所有事件', link: '/event/general-data' },
       { text: '消息事件', link: '/event/message' },
       { text: '通知事件', link: '/event/notice' },
       { text: '请求事件', link: '/event/request' }

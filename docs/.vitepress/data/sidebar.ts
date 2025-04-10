@@ -58,7 +58,6 @@ export const sidebar = {
       collapsed: true,
       items: [
         { text: '目录 <iconify-icon icon="ri:menu-fold-4-line"></iconify-icon>', link: '/event/index' },
-        { text: '所有事件 <iconify-icon icon="qlementine-icons:view-page-all-16" style="color: #2afff8"></iconify-icon>', link: '/event/general-data' },
         { text: '消息事件 <iconify-icon icon="tabler:message" style="color: #ff632a"></iconify-icon>', link: '/event/message' },
         { text: '通知事件 <iconify-icon icon="iconamoon:notification" style="color: #2aff79"></iconify-icon>', link: '/event/notice' },
         { text: '请求事件 <iconify-icon icon="mingcute:tag-fill" style="color: #742aff"></iconify-icon>', link: '/event/request' }
