@@ -4,6 +4,9 @@ on:
     branches: docs
   pull_request:
     branches: docs
+  schedule:
+    # 每天 UTC 时间 0:00 运行（相当于北京时间 8:00）
+    - cron: '0 0 * * *'
 
 jobs:
   deploy:
