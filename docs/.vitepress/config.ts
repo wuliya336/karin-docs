@@ -150,12 +150,6 @@ export default withPwa(
       build: {
         minify: 'esbuild',
         chunkSizeWarningLimit: 1000,
-        terserOptions: {
-          compress: {
-            drop_console: true,
-            drop_debugger: true
-          }
-        }
       },
       worker: {
         format: 'es'
