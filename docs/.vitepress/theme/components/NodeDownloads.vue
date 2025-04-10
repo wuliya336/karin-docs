@@ -1,84 +1,107 @@
 <template>
-  <div class="node-downloads">
-    <div v-if="loading" class="loading">
-      <div class="loading-spinner"></div>
+  <div class="my-5">
+    <div v-if="loading" class="flex items-center justify-center p-5 text-[var(--vp-c-text-2)]">
+      <div
+        class="w-5 h-5 mr-2.5 rounded-full border-2 border-[var(--vp-c-divider)] border-t-[var(--vp-c-brand)] animate-spin">
+      </div>
       正在获取最新版本信息...
     </div>
 
-    <div v-else class="download-sections">
+    <div v-else>
       <!-- Windows 下载 -->
-      <div class="download-section">
-        <h4 @click="toggleSection('windows')" class="section-title">
-          <span class="icon">
+      <div class="mb-4 border border-[var(--vp-c-divider)] rounded-lg overflow-hidden bg-[var(--vp-c-bg-alt)]">
+        <div @click="toggleSection('windows')"
+          class="m-0 p-3 bg-[var(--vp-c-bg-soft)] cursor-pointer flex items-center select-none">
+          <span class="mr-2 flex items-center">
             <iconify-icon icon="logos:microsoft-windows" width="20" />
           </span>
-          Windows
-          <span class="toggle-icon">{{ sections.windows ? '▼' : '▶' }}</span>
-        </h4>
-        <div v-show="sections.windows" class="section-content">
-          <div v-for="file in windowsFiles" :key="file.name" class="file-item">
-            <span class="file-name">{{ file.name }}</span>
-            <div class="file-links">
-              <a :href="getDownloadUrl(file.filename)" target="_blank" class="download-link">
-                下载
-                <iconify-icon icon="material-symbols:download" />
-              </a>
-              <span class="file-hash" @click="copyHash(file.hash)">
-                SHA256: {{ file.hash.slice(0, 8) }}...
-                <iconify-icon icon="material-symbols:content-copy-outline" />
-              </span>
+          <span class="font-bold">Windows</span>
+          <span class="ml-auto text-xs">{{ sections.windows ? '▼' : '▶' }}</span>
+        </div>
+        <div v-show="sections.windows" class="p-4 bg-white dark:bg-[var(--vp-c-bg)]">
+          <div v-for="file in windowsFiles" :key="file.name"
+            class="py-2 border-b border-[var(--vp-c-divider)] last:border-b-0">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <span class="font-mono text-[0.9em] mb-2 md:mb-0">{{ file.name }}</span>
+              <div class="flex gap-4 items-center">
+                <a :href="getDownloadUrl(file.filename)" target="_blank"
+                  class="flex items-center gap-1 text-[var(--vp-c-brand)] no-underline">
+                  下载
+                  <iconify-icon icon="material-symbols:download" />
+                </a>
+                <span
+                  class="flex items-center gap-1 font-mono text-[0.8em] text-[var(--vp-c-text-2)] cursor-pointer hover:text-[var(--vp-c-brand)]"
+                  @click="copyHash(file.hash)">
+                  SHA256: {{ file.hash.slice(0, 8) }}...
+                  <iconify-icon icon="material-symbols:content-copy-outline" />
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Linux 下载 -->
-      <div class="download-section">
-        <h4 @click="toggleSection('linux')" class="section-title">
-          <span class="icon">
+      <div class="mb-4 border border-[var(--vp-c-divider)] rounded-lg overflow-hidden bg-[var(--vp-c-bg-alt)]">
+        <div @click="toggleSection('linux')"
+          class="m-0 p-3 bg-[var(--vp-c-bg-soft)] cursor-pointer flex items-center select-none">
+          <span class="mr-2 flex items-center">
             <iconify-icon icon="logos:linux-tux" width="20" />
           </span>
-          Linux
-          <span class="toggle-icon">{{ sections.linux ? '▼' : '▶' }}</span>
-        </h4>
-        <div v-show="sections.linux" class="section-content">
-          <div v-for="file in linuxFiles" :key="file.name" class="file-item">
-            <span class="file-name">{{ file.name }}</span>
-            <div class="file-links">
-              <a :href="getDownloadUrl(file.filename)" target="_blank" class="download-link">
-                下载
-                <iconify-icon icon="material-symbols:download" />
-              </a>
-              <span class="file-hash" @click="copyHash(file.hash)">
-                SHA256: {{ file.hash.slice(0, 8) }}...
-                <iconify-icon icon="material-symbols:content-copy-outline" />
-              </span>
+          <span class="font-bold">Linux</span>
+          <span class="ml-auto text-xs">{{ sections.linux ? '▼' : '▶' }}</span>
+        </div>
+        <div v-show="sections.linux" class="p-4 bg-white dark:bg-[var(--vp-c-bg)]">
+          <div v-for="file in linuxFiles" :key="file.name"
+            class="py-2 border-b border-[var(--vp-c-divider)] last:border-b-0">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <span class="font-mono text-[0.9em] mb-2 md:mb-0">{{ file.name }}</span>
+              <div class="flex gap-4 items-center">
+                <a :href="getDownloadUrl(file.filename)" target="_blank"
+                  class="flex items-center gap-1 text-[var(--vp-c-brand)] no-underline">
+                  下载
+                  <iconify-icon icon="material-symbols:download" />
+                </a>
+                <span
+                  class="flex items-center gap-1 font-mono text-[0.8em] text-[var(--vp-c-text-2)] cursor-pointer hover:text-[var(--vp-c-brand)]"
+                  @click="copyHash(file.hash)">
+                  SHA256: {{ file.hash.slice(0, 8) }}...
+                  <iconify-icon icon="material-symbols:content-copy-outline" />
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 源码下载 -->
-      <div class="download-section">
-        <h4 @click="toggleSection('source')" class="section-title">
-          <span class="icon">
+      <div class="mb-4 border border-[var(--vp-c-divider)] rounded-lg overflow-hidden bg-[var(--vp-c-bg-alt)]">
+        <div @click="toggleSection('source')"
+          class="m-0 p-3 bg-[var(--vp-c-bg-soft)] cursor-pointer flex items-center select-none">
+          <span class="mr-2 flex items-center">
             <iconify-icon icon="material-symbols:code" width="20" />
           </span>
-          Source Code
-          <span class="toggle-icon">{{ sections.source ? '▼' : '▶' }}</span>
-        </h4>
-        <div v-show="sections.source" class="section-content">
-          <div v-for="file in sourceFiles" :key="file.name" class="file-item">
-            <span class="file-name">{{ file.name }}</span>
-            <div class="file-links">
-              <a :href="getDownloadUrl(file.filename)" target="_blank" class="download-link">
-                下载
-                <iconify-icon icon="material-symbols:download" />
-              </a>
-              <span class="file-hash" @click="copyHash(file.hash)">
-                SHA256: {{ file.hash.slice(0, 8) }}...
-                <iconify-icon icon="material-symbols:content-copy-outline" />
-              </span>
+          <span class="font-bold">Source Code</span>
+          <span class="ml-auto text-xs">{{ sections.source ? '▼' : '▶' }}</span>
+        </div>
+        <div v-show="sections.source" class="p-4 bg-white dark:bg-[var(--vp-c-bg)]">
+          <div v-for="file in sourceFiles" :key="file.name"
+            class="py-2 border-b border-[var(--vp-c-divider)] last:border-b-0">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <span class="font-mono text-[0.9em] mb-2 md:mb-0">{{ file.name }}</span>
+              <div class="flex gap-4 items-center">
+                <a :href="getDownloadUrl(file.filename)" target="_blank"
+                  class="flex items-center gap-1 text-[var(--vp-c-brand)] no-underline">
+                  下载
+                  <iconify-icon icon="material-symbols:download" />
+                </a>
+                <span
+                  class="flex items-center gap-1 font-mono text-[0.8em] text-[var(--vp-c-text-2)] cursor-pointer hover:text-[var(--vp-c-brand)]"
+                  @click="copyHash(file.hash)">
+                  SHA256: {{ file.hash.slice(0, 8) }}...
+                  <iconify-icon icon="material-symbols:content-copy-outline" />
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -161,28 +184,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.node-downloads {
-  margin: 20px 0;
-}
-
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: var(--vp-c-text-2);
-}
-
-.loading-spinner {
-  border: 2px solid var(--vp-c-divider);
-  border-top: 2px solid var(--vp-c-brand);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-  margin-right: 10px;
-}
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -191,82 +192,5 @@ onMounted(async () => {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.download-section {
-  margin-bottom: 16px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.section-title {
-  margin: 0;
-  padding: 12px 16px;
-  background-color: var(--vp-c-bg-soft);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
-
-.icon {
-  margin-right: 8px;
-  display: flex;
-  align-items: center;
-}
-
-.toggle-icon {
-  margin-left: auto;
-  font-size: 12px;
-}
-
-.section-content {
-  padding: 16px;
-}
-
-.file-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.file-item:last-child {
-  border-bottom: none;
-}
-
-.file-name {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.9em;
-}
-
-.file-links {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.download-link {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--vp-c-brand);
-  text-decoration: none;
-}
-
-.file-hash {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.8em;
-  color: var(--vp-c-text-2);
-  cursor: pointer;
-}
-
-.file-hash:hover {
-  color: var(--vp-c-brand);
 }
 </style>

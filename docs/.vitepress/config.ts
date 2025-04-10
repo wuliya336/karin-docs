@@ -40,8 +40,6 @@ import {
 } from 'vitepress-plugin-group-icons'
 // 面包屑导航
 // import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress'
-// 懒加载模糊预览图
-import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 
 import tailwindcss from 'tailwindcss'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -174,9 +172,6 @@ export default withPwa(
         compilerOptions: {
           isCustomElement: (tag) => customElements.includes(tag)
         },
-        transformAssetUrls: {
-          NolebaseUnlazyImg: ['src']
-        }
       }
     },
     markdown: {
@@ -202,10 +197,6 @@ export default withPwa(
         md.use(InlineLinkPreviewElementTransform)
         // 代码组图标
         md.use(groupIconMdPlugin)
-        // 懒加载模糊预览图
-        md.use(UnlazyImages(), {
-          imgElementTag: 'NolebaseUnlazyImg'
-        })
       },
       // 代码块内的代码类型提示，与代码块行号渲染冲突
       codeTransformers: [

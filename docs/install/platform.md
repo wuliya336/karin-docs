@@ -24,6 +24,7 @@
 :::
 
 ### 默认配置一览
+
 - HTTP 服务端口: `7777`
 - WebSocket 服务端口: `7777` (与 HTTP 端口共用)
 - HTTP Token: 自动生成的 6 位随机大小写字母
@@ -47,6 +48,7 @@
 想象一下两种不同的交友方式：
 
 - **反向 WebSocket (Client 模式)**
+
   - 协议端主动出击，向 Karin 发起连接请求
   - Karin 作为 WebSocket 服务器(Server)静待连接
   - 就像是协议端主动来敲 Karin 的门
@@ -75,6 +77,7 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
 ### NapCat 具体配置
 
 首先确保你已经：
+
 - 安装好 `NapCat`
 - 进入 `NapCat` 的 Web 控制台
 
@@ -94,7 +97,7 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
    - 启用开关：✅ 开启
    - 名称：`karin` `(支持任意名称)`
    - URL：`ws://127.0.0.1:7777`
-   - 鉴权Token：填入 Karin 控制台显示的 Token
+   - 鉴权 Token：填入 Karin 控制台显示的 Token
    - 最后点击`保存`
 
 ![napcat_webui_client_save](/web/napcat_webui_client_save.png)
@@ -128,8 +131,8 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
 ![napcat_webui](/web/napcat_webui.png)
 
 2. 创建新连接：
-    - 点击`新建`按钮
-    - 选择`WebSocket服务器`模式
+   - 点击`新建`按钮
+   - 选择`WebSocket服务器`模式
 
 ![napcat_webui_client_new](/web/napcat_webui_client_new.png)
 
@@ -143,13 +146,13 @@ Karin 默认开启反向 WebSocket 模式，也就是在家里等着朋友来访
 
 ![napcat_webui_client_save](/web/napcat_webui_client_save.png)
 
-4. 组合wsUrl: `ws://127.0.0.1:3001` token: `NapCat`
+4. 组合 wsUrl: `ws://127.0.0.1:3001` token: `NapCat`
 
 #### Karin 具体配置
 
 1. 打开 `Karin-webui`
    - 打开 `http://127.0.0.1:7777/web` 如果更换了端口请以控制台打印为准
-   - 在登录页面输入控制台打印的 http鉴权token: `AffryQ`
+   - 在登录页面输入控制台打印的 http 鉴权 token: `AffryQ`
    - 点击`登录`
 
 ![karin_webui_login](/web/karin_webui_login.png)
