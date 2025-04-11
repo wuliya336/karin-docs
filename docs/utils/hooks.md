@@ -2,16 +2,6 @@
 
 > Hook 钩子系统允许开发者在特定操作执行前后插入自定义逻辑，实现功能扩展和行为修改。
 
-::: danger 注意
-
-### 当前页文档正在编写中，可能存在误导性，请谨慎参考！
-
-> 钩子系统的使用需要谨慎，确保理解其工作原理和影响。<br />
-> 错误的使用可能导致严重的问题，如消息丢失或插件冲突。<br />
-> 请谨慎使用钩子系统，仅在必要时使用。
-
-:::
-
 ## 概述
 
 Karin 框架提供了强大的钩子系统，允许插件开发者在关键流程中注入自定义逻辑。钩子系统基于优先级排序和链式调用，确保多个钩子能够有序协作。
@@ -28,8 +18,8 @@ import { hooks } from 'node-karin'
 
 Karin 框架提供了多种类型的钩子：
 
-- message : [消息处理钩子](#消息处理钩子)
 - sendMsg : [消息发送钩子](#消息发送钩子)
+- message : [消息处理钩子](#消息处理钩子)
 - empty : [未找到匹配插件钩子](#未找到匹配插件钩子)
 - eventCall : [事件调用插件钩子](#事件调用插件钩子)
 
@@ -44,9 +34,9 @@ Karin 框架提供了多种类型的钩子：
 
 ### 添加钩子 添加普通消息钩子
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
-
+// ---cut---
 // 添加普通消息钩子
 const hookId = hooks.sendMsg.message(
   (contact, elements, retryCount, next) => {
@@ -67,7 +57,7 @@ const hookId = hooks.sendMsg.message(
 
 ```js twoslash
 import { hooks } from 'node-karin'
-
+// ---cut---
 // 添加转发消息钩子
 const hookId = hooks.sendMsg.forward(
   (contact, elements, options, next) => {
@@ -78,9 +68,7 @@ const hookId = hooks.sendMsg.forward(
     // 不调用 next() 则会阻止消息发送
     next()
   },
-  {
-    priority: 200 // 可选，设置优先级
-  }
+  { priority: 200 }
 )
 ```
 
@@ -88,8 +76,14 @@ const hookId = hooks.sendMsg.forward(
 
 当不再需要某个钩子时，可以通过其 ID 移除：
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
+// ---cut---
+// 添加消息发送钩子
+const hookId = hooks.sendMsg.message(
+  (contact, elements, retryCount, next) => next(),
+  { priority: 100 }
+)
 
 // 移除之前添加的钩子
 hooks.sendMsg.remove(hookId)
@@ -99,11 +93,11 @@ hooks.sendMsg.remove(hookId)
 
 消息处理钩子允许你在消息处理流程中插入自定义逻辑：
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
-
-// 添加消息处理钩子
-const hookId = hooks.message.on(
+// ---cut---
+// 添加消息处理钩子（处理所有类型消息）
+const hookId = hooks.message(
   (e, next) => {
     // 在这里处理接收到的消息
     console.log('收到消息:', e.raw_message)
@@ -111,69 +105,88 @@ const hookId = hooks.message.on(
     // 调用 next() 允许消息继续处理
     next()
   },
-  {
-    priority: 100 // 可选，设置优先级
-  }
+  { priority: 100 }
+)
+
+// 添加特定类型的消息钩子（例如群消息）
+const groupHookId = hooks.message.group(
+  (e, next) => {
+    console.log('收到群消息:', e.raw_message)
+    next()
+  },
+  { priority: 100 }
 )
 
 // 移除消息处理钩子
-hooks.message.off(hookId)
+hooks.message.remove(hookId)
+hooks.message.remove(groupHookId)
 ```
 
 ## 未找到匹配插件钩子
 
 当没有插件处理某个命令时，可以通过此钩子进行处理：
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
-
-// 添加未找到匹配插件钩子
-const hookId = hooks.empty.on(
-  (e, command, next) => {
+// ---cut---
+// 添加未找到匹配插件钩子（处理所有类型消息）
+const hookId = hooks.empty(
+  (e, next) => {
     // 处理未匹配的命令
-    console.log(`未找到处理 "${command}" 的插件`)
-
+    console.log(`未找到处理 "${e.msg}" 的插件`)
     // 可以在这里提供默认回复
-    e.reply(`抱歉，我不知道如何处理 "${command}" 命令`)
-
+    e.reply(`抱歉，我不知道如何处理 "${e.msg}" 命令`)
     // 调用 next() 允许继续处理
     next()
   },
-  {
-    priority: 100 // 可选，设置优先级
-  }
+  { priority: 100 }
+)
+
+// 也可以使用 message 方法添加（效果相同）
+const messageHookId = hooks.empty.message(
+  (e, next) => {
+    console.log(`未找到处理 "${e.msg}" 的插件`)
+    next()
+  },
+  { priority: 100 }
 )
 
 // 移除钩子
-hooks.empty.off(hookId)
+hooks.empty.remove(hookId)
 ```
 
 ## 事件调用插件钩子
 
 事件调用插件钩子允许你在事件触发插件处理前后插入逻辑：
 
-```js twoslash
+<!-- prettier-ignore -->
+```ts twoslash
 import { hooks } from 'node-karin'
-
-// 添加事件调用插件钩子
-const hookId = hooks.eventCall.on(
-  (e, plugin, next) => {
+// ---cut---
+// 添加事件调用插件钩子（处理所有类型消息）
+const hookId = hooks.eventCall((e, plugin, next) => {
     // 在插件处理事件前执行
-    console.log(`插件 ${plugin.name} 即将处理事件`)
-
+    console.log(`插件 ${plugin.file.name} 即将处理事件`)
     // 调用 next() 允许插件继续处理
     next()
-
     // 在插件处理事件后执行
-    console.log(`插件 ${plugin.name} 已处理事件`)
+    console.log(`插件 ${plugin.file.name} 已处理事件`)
   },
-  {
-    priority: 100 // 可选，设置优先级
-  }
+  { priority: 100 }
+)
+
+// 添加特定类型的事件调用钩子（例如群消息）
+const groupHookId = hooks.eventCall.group((e, plugin, next) => {
+    console.log(`插件 ${plugin.file.name} 即将处理群消息事件`)
+    next()
+    console.log(`插件 ${plugin.file.name} 已处理群消息事件`)
+  },
+  { priority: 100 }
 )
 
 // 移除钩子
-hooks.eventCall.off(hookId)
+hooks.eventCall.remove(hookId)
+hooks.eventCall.remove(groupHookId)
 ```
 
 ## 钩子执行流程
@@ -189,9 +202,10 @@ hooks.eventCall.off(hookId)
 
 通过消息处理钩子，你可以拦截和过滤特定的消息：
 
-```js twoslash
+<!-- prettier-ignore -->
+```ts twoslash
 import { hooks } from 'node-karin'
-
+// ---cut---
 hooks.sendMsg.message((contact, elements, retryCount, next) => {
   // 检查消息内容是否包含敏感词
   const messageText = elements
@@ -199,7 +213,7 @@ hooks.sendMsg.message((contact, elements, retryCount, next) => {
     .map((e) => e.text)
     .join('')
 
-  if (containsSensitiveWords(messageText)) {
+  if (['敏感词1', '敏感词2', '违禁词', '广告'].some((word) =>messageText.includes(word))) {
     console.log('消息包含敏感词，已阻止发送')
     // 不调用 next()，阻止消息发送
     return
@@ -212,9 +226,9 @@ hooks.sendMsg.message((contact, elements, retryCount, next) => {
 
 ### 消息修改
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
-
+// ---cut---
 hooks.sendMsg.message((contact, elements, retryCount, next) => {
   // 修改消息内容
   for (const element of elements) {
@@ -230,9 +244,9 @@ hooks.sendMsg.message((contact, elements, retryCount, next) => {
 
 ### 消息日志记录
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
-
+// ---cut---
 hooks.sendMsg.message(
   (contact, elements, retryCount, next) => {
     // 记录所有发送的消息
@@ -241,7 +255,7 @@ hooks.sendMsg.message(
       .map((e) => e.text)
       .join('')
 
-    logger.info(`发送消息到 ${contact.name}: ${messageText}`)
+    console.log(`发送消息到 ${contact.name}: ${messageText}`)
 
     // 允许消息继续发送
     next()
@@ -262,13 +276,13 @@ hooks.sendMsg.message(
 
 ### 条件性钩子
 
-```js twoslash
+```ts twoslash
 import { hooks } from 'node-karin'
-
+// ---cut---
 // 只在特定条件下激活的钩子
 hooks.sendMsg.message((contact, elements, retryCount, next) => {
-  // 检查是否满足条件
-  if (!shouldInterceptMessage()) {
+  // 随机决定是否拦截（50%概率）
+  if (Math.random() <= 0.5) {
     // 不满足条件，直接放行
     return next()
   }
@@ -277,7 +291,7 @@ hooks.sendMsg.message((contact, elements, retryCount, next) => {
   // ...处理逻辑...
 
   // 决定是否继续
-  if (shouldContinue) {
+  if (true) {
     next()
   }
 })
@@ -287,13 +301,15 @@ hooks.sendMsg.message((contact, elements, retryCount, next) => {
 
 通过设置不同优先级的多个钩子，可以实现复杂的处理流程：
 
-```js twoslash
+```ts twoslash
+import type { Elements, TextElement } from 'node-karin'
+const isValidContent = (elements: Elements[]) => true
 import { hooks } from 'node-karin'
-
+// ---cut---
 // 第一个钩子：日志记录（最高优先级）
 hooks.sendMsg.message(
   (contact, elements, retryCount, next) => {
-    logger.info('准备发送消息')
+    console.log('准备发送消息')
     next()
   },
   { priority: 100 }
@@ -303,6 +319,7 @@ hooks.sendMsg.message(
 hooks.sendMsg.message(
   (contact, elements, retryCount, next) => {
     // 内容过滤逻辑
+    // 例如，检查消息内容是否有效（自行实现）
     if (isValidContent(elements)) {
       next()
     }
@@ -314,7 +331,13 @@ hooks.sendMsg.message(
 hooks.sendMsg.message(
   (contact, elements, retryCount, next) => {
     // 内容转换逻辑
-    transformContent(elements)
+    for (const element of elements) {
+      if (element.type === 'text') {
+        // 转换文本内容，例如添加前缀、替换特定文本等
+        element.text = element.text.replace(/某些词/g, '***')
+      }
+      // 可以添加对其他类型元素的处理
+    }
     next()
   },
   { priority: 300 }
