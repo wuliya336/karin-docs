@@ -4,7 +4,7 @@
 
 ## 概述
 
-Karin 框架提供了强大的钩子系统，允许插件开发者在关键流程中注入自定义逻辑。钩子系统基于优先级排序和链式调用，确保多个钩子能够有序协作。
+Karin 框架提供了强大的钩子系统，允许插件开发者在关键流程中注入自定义逻辑。钩子系统基于优先级排序，确保多个钩子能够有序协作。
 
 ## 使用方式
 
@@ -23,6 +23,30 @@ Karin 框架提供了多种类型的钩子：
 - empty : [未找到匹配插件钩子](#未找到匹配插件钩子)
 - eventCall : [事件调用插件钩子](#事件调用插件钩子)
 
+## 通用操作
+
+### 移除钩子
+
+所有类型的钩子都可以通过 remove 方法移除。当不再需要某个钩子时，可以通过其 ID 移除：
+
+```ts twoslash
+import { hooks } from 'node-karin'
+// ---cut---
+// 添加一个不作任何操作的空钩子（以消息发送钩子为例）
+const hookId = hooks.sendMsg.message(
+  (contact, elements, retryCount, next) => next(),
+  { priority: 100 }
+)
+
+// 移除钩子
+hooks.sendMsg.remove(hookId)
+
+// 其他类型钩子的移除方式相同
+// hooks.message.remove(messageHookId)
+// hooks.empty.remove(emptyHookId)
+// hooks.eventCall.remove(eventCallHookId)
+```
+
 ## 消息发送钩子
 
 ### 钩子类型
@@ -32,7 +56,7 @@ Karin 框架提供了多种类型的钩子：
 - 普通消息钩子 ：拦截和处理普通消息的发送
 - 转发消息钩子 ：拦截和处理转发消息的发送
 
-### 添加钩子 添加普通消息钩子
+### 添加普通消息钩子
 
 ```ts twoslash
 import { hooks } from 'node-karin'
@@ -84,9 +108,6 @@ const hookId = hooks.sendMsg.message(
   (contact, elements, retryCount, next) => next(),
   { priority: 100 }
 )
-
-// 移除之前添加的钩子
-hooks.sendMsg.remove(hookId)
 ```
 
 ## 消息处理钩子
@@ -116,10 +137,6 @@ const groupHookId = hooks.message.group(
   },
   { priority: 100 }
 )
-
-// 移除消息处理钩子
-hooks.message.remove(hookId)
-hooks.message.remove(groupHookId)
 ```
 
 ## 未找到匹配插件钩子
@@ -150,9 +167,6 @@ const messageHookId = hooks.empty.message(
   },
   { priority: 100 }
 )
-
-// 移除钩子
-hooks.empty.remove(hookId)
 ```
 
 ## 事件调用插件钩子
@@ -183,10 +197,6 @@ const groupHookId = hooks.eventCall.group((e, plugin, next) => {
   },
   { priority: 100 }
 )
-
-// 移除钩子
-hooks.eventCall.remove(hookId)
-hooks.eventCall.remove(groupHookId)
 ```
 
 ## 钩子执行流程
