@@ -20,46 +20,6 @@ console.log(isClass(MyClass)) // 输出: true
 console.log(isClass(myFunction)) // 输出: false
 ```
 
-<!-- ## 错误处理
-
-### stringifyError
-
-拆解错误对象，用于 JSON 序列化。
-
-```js twoslash
-import { stringifyError } from 'node-karin'
-
-/**
- * 拆解错误对象 用于JSON序列化
- * @param error 错误对象
- */
-try {
-  throw new Error('测试错误')
-} catch (error) {
-  const errorObj = stringifyError(error as Error)
-  console.log(errorObj) // 输出: { name: 'Error', message: '测试错误', stack: '...' }
-}
-```
-
-### errorToString
-
-将错误对象转为字符串。
-
-```js twoslash
-import { errorToString } from 'node-karin'
-
-/**
- * 将错误对象转为字符串
- * @param error 错误对象
- */
-try {
-  throw new Error('测试错误')
-} catch (error) {
-  const errorStr = errorToString(error as Error)
-  console.log(errorStr) // 输出错误的名称、消息和堆栈信息
-}
-``` -->
-
 ## 命令执行
 
 ### exec
@@ -508,7 +468,7 @@ const timeBetween = formatTime(1620000000, 1620086400)
 console.log(timeBetween) // 例如: "1天"
 ```
 
-## Git 和包管理
+## Git 和包管理（更新）
 
 ### getPkgVersion
 
