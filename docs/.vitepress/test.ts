@@ -1,26 +1,20 @@
-import { components } from 'node-karin'
+import type { YamlComment } from 'node-karin'
+// ---cut---
+import { yaml, YamlEditor } from 'node-karin'
 
-// 创建水平分隔线
-components.divider.horizontal('divider-key') // orientation 参数默认为 horizontal
+// 创建编辑器实例
+const editor = new YamlEditor('config.yaml')
 
-// 创建垂直分隔线
-components.divider.vertical('divider-key') // orientation 参数默认为 vertical
+// 添加单个注释
+editor.comment('name', '项目名称', true) // true 表示添加到键上方
+editor.comment('version', '版本号', false) // false 表示添加到行尾
 
-components.divider.create('divider-key', {
-  description: '此处填写分割线的描述', // 描述
-  descPosition: 50, // 描述文本位置 0-100的数字
-  orientation: 'horizontal', // 方向
-  transparent: false // 是否透明
-})
+// 批量添加注释
+const comments: YamlComment = {
+  name: { comment: '项目名称', type: 'top' },
+  version: { comment: '版本号', type: 'end' }
+}
+yaml.applyComments(editor, comments)
 
-components.input.group('group-key', {
-  label: '这是一个单维数组框',
-  maxRows: 3,
-  itemsPerRow: 3,
-  maxInputs: 100,
-  data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-  template: components.input.string('input-key', {
-    color: 'success'
-    // 更多参数。。。
-  })
-})
+// 保存文件
+editor.save()
