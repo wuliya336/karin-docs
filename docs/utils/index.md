@@ -38,10 +38,6 @@ comment: false
 `YamlEditor`是一个用于编辑`yaml`文件的工具  
 详情查看 [**YamlEditor**](./YamlEditor.md)
 
-## update
-
-`update`是一个用于更新插件工具，还可获取插件更新日志  
-详情查看 [**update**](./update.md)
 
 ## server
 
