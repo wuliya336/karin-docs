@@ -48,7 +48,10 @@ export const test = karin.command('^文本$', '这是一段文本消息')
 
 ```js twoslash
 import karin, { segment } from 'node-karin'
-export const text = karin.command(/^#文本测试$/, segment.text('这是一段文本消息'))
+export const text = karin.command(
+  /^#文本测试$/,
+  segment.text('这是一段文本消息')
+)
 ```
 
 - `command` 的第三种使用方法，回调函数
@@ -63,7 +66,10 @@ export const callback = karin.command(/^#回调测试$/, async (e, next) => {
   // 传入`sengment`元素
   await e.reply(segment.text('这是一个回调测试'))
   // 传入数组 支持各种组合的`segment`元素
-  await e.reply([segment.text('这是一个回调测试'), segment.image('https://www.example.com/example.png')])
+  await e.reply([
+    segment.text('这是一个回调测试'),
+    segment.image('https://www.example.com/example.png')
+  ])
   // 若要继续匹配下一个插件，请调用 next 方法（类似 return false）
   next() // 注释该行则终止匹配
 })
@@ -91,7 +97,7 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
   adapter: [], // 生效的适配器
   dsbAdapter: [], // 禁用的适配器
   delay: 0, // 延迟回复 单位毫秒 仅在第二个参数非函数时有效
-  stop: false, // 是否停止执行后续插件 仅在第二个参数非函数时有效
+  stop: false // 是否停止执行后续插件 仅在第二个参数非函数时有效
 })
 ```
 
@@ -115,11 +121,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
 }, { name: '加群通知' })
 ```
 
-### 3. 中间件 <Badge type="danger" text="待完善..." />
-
-调用 `karin.use` 注册一个中间件
-
-### 4. 上下文事件处理 <Badge type="warning" text="待完善..." />
+### 3. 上下文事件处理 <Badge type="warning" text="待完善..." />
 
 调用 `karin.ctx` 注册一个上下文事件
 
@@ -143,7 +145,7 @@ const context = await karin.ctx(e, {
   reply: true, // 超时后是否回复
   replyMsg: '操作超时已取消', // 超时回复文本 默认为 '操作超时已取消'
   time: 120, // 超时时间 默认120秒
-  userId: e.userId, // 指定用户id触发下文 不指定则使用默认 e.user_id
+  userId: e.userId // 指定用户id触发下文 不指定则使用默认 e.user_id
 })
 ```
 
@@ -153,7 +155,9 @@ const context = await karin.ctx(e, {
 import karin, { logger } from 'node-karin'
 
 const ctxText = karin.command('登录', async (e) => {
-  await e.reply('6位数的验证码已发送至您的邮箱 123456789@example.com，请注意查收')
+  await e.reply(
+    '6位数的验证码已发送至您的邮箱 123456789@example.com，请注意查收'
+  )
   const ctx = await karin.ctx(e) // 120 秒内等待用户发送验证码
   logger.mark('验证码：' + ctx.msg) // 记录日志
   // 处理登录逻辑......
@@ -199,9 +203,9 @@ export class hello extends Plugin {
           /** 命令正则匹配 */
           reg: /^#你好$/,
           /** 正则对应的执行方法 */
-          fnc: 'hello',
-        },
-      ],
+          fnc: 'hello'
+        }
+      ]
     })
   }
 
@@ -240,9 +244,9 @@ export class hello extends Plugin {
           /** 是否显示操作日志 默认显示 */
           log: true,
           /** 操作权限 all | admin | master | group.admin | group.owner */
-          permission: 'all',
-        },
-      ],
+          permission: 'all'
+        }
+      ]
     })
   }
 

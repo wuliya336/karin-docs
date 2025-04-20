@@ -65,7 +65,6 @@ comment: false
 - `task`插件: 构建定时任务
 - `handler`插件: 约定事件处理
 - `button`插件: QQBot 专属，构建按钮
-- `use`插件: 中间件
 - `plugin`类插件: 消息插件类
 
 ### 插件规范
