@@ -1,5 +1,8 @@
 # common 模块
 
+> [!note] 温馨提示
+> 本文由AI辅助生成，可能存在不准确性。
+
 common模块提供了各种常用工具函数，这些函数在框架各个部分被广泛使用。该模块汇集了文件操作、网络请求、图像处理等多种功能。
 
 ## 导出的子模块
@@ -25,20 +28,11 @@ export { createRawMessage, createRawMessage as makeMessageLog, makeMessage, make
 
 ## 使用方式
 
-common模块可以通过两种方式使用：直接导入单个函数，或使用命名空间对象。
-
-### 直接导入单个函数
-
-```typescript
-import { axios, formatTime, mergeImage } from 'node-karin'
-
-// 直接使用函数
-const response = await axios('https://example.com', 'get')
-```
+common模块只能通过命名空间对象方式使用，不支持直接导入单个函数。
 
 ### 使用命名空间
 
-也可以使用common命名空间来访问所有函数，便于组织代码：
+通过导入common命名空间来访问所有函数：
 
 ```typescript
 import { common } from 'node-karin'
@@ -55,8 +49,6 @@ const timeDiff = common.formatTime(1620000000)
 对Axios进行简单封装，优化错误处理和超时处理。
 
 ```typescript
-import { axios } from 'node-karin'
-// 或使用命名空间
 import { common } from 'node-karin'
 
 /**
@@ -67,18 +59,13 @@ import { common } from 'node-karin'
  * @returns 请求响应，失败时返回null，401时返回undefined
  */
 // 方式1: 使用配置对象
-const response = await axios({ 
-  url: 'https://example.com', 
-  method: 'get' 
-})
-// 使用命名空间
-const response2 = await common.axios({ 
+const response = await common.axios({ 
   url: 'https://example.com', 
   method: 'get' 
 })
 
 // 方式2: 使用URL+方法
-const postResponse = await axios(
+const postResponse = await common.axios(
   'https://example.com/api', 
   'post', 
   { data: { key: 'value' } }
@@ -92,8 +79,6 @@ const postResponse = await axios(
 计算两个时间戳之间的时间差，并格式化为人类可读的字符串。
 
 ```typescript
-import { formatTime } from 'node-karin'
-// 或使用命名空间
 import { common } from 'node-karin'
 
 /**
@@ -103,8 +88,8 @@ import { common } from 'node-karin'
  * @returns 格式化的时间差字符串
  */
 // 计算给定时间戳到现在的时间差
-const diff = formatTime(1620000000)  // "18天"
-// 使用命名空间
+const diff = common.formatTime(1620000000)  // "18天"
+// 计算两个时间戳之间的差值
 const diff2 = common.formatTime(1620000000, 1624000000)  // "46天"
 ```
 
@@ -115,8 +100,6 @@ const diff2 = common.formatTime(1620000000, 1624000000)  // "46天"
 将多张图片合并成一张图片。
 
 ```typescript
-import { mergeImage } from 'node-karin'
-// 或使用命名空间
 import { common } from 'node-karin'
 
 /**
@@ -125,16 +108,10 @@ import { common } from 'node-karin'
  * @param perRow 每行图片数量，默认为3
  * @returns 返回包含base64、宽度和高度的对象
  */
-const result = await mergeImage([
+const result = await common.mergeImage([
   '/path/to/image1.jpg',
   '/path/to/image2.jpg',
   'base64://...' // base64格式的图片
-], 2)
-
-// 使用命名空间
-const result2 = await common.mergeImage([
-  '/path/to/image1.jpg',
-  '/path/to/image2.jpg'
 ], 2)
 
 console.log(result.base64)  // 合并后图片的base64编码
@@ -147,8 +124,6 @@ console.log(result.height)  // 合并后图片的高度
 将图片路径数组转换为绝对路径数组，并处理base64格式的图片。
 
 ```typescript
-import { getAbsPath } from 'node-karin'
-// 或使用命名空间
 import { common } from 'node-karin'
 
 /**
@@ -157,13 +132,7 @@ import { common } from 'node-karin'
  * @param root 临时目录根路径
  * @returns 绝对路径数组
  */
-const paths = getAbsPath([
-  '/relative/path/image.jpg',
-  'base64://...'
-], '/temp/directory')
-
-// 使用命名空间
-const paths2 = common.getAbsPath([
+const paths = common.getAbsPath([
   '/relative/path/image.jpg',
   'base64://...'
 ], '/temp/directory')
@@ -179,8 +148,6 @@ const paths2 = common.getAbsPath([
 更新YAML文件，支持添加注释。
 
 ```typescript
-import { updateYaml } from 'node-karin'
-// 或使用命名空间
 import { common } from 'node-karin'
 
 /**
@@ -188,7 +155,7 @@ import { common } from 'node-karin'
  * @param filePath 文件路径
  * @param settings 设置项数组
  */
-updateYaml('/path/to/config.yaml', [
+common.updateYaml('/path/to/config.yaml', [
   {
     key: 'server.port',
     val: 3000,
@@ -203,18 +170,16 @@ updateYaml('/path/to/config.yaml', [
 获取不同类型的插件列表。
 
 ```typescript
-import { getNpmPlugins, getPlugins, getGitPlugins } from 'node-karin'
-// 或使用命名空间
 import { common } from 'node-karin'
 
 // 获取NPM插件列表
-const npmPlugins = await getNpmPlugins(true)  // true表示返回详细信息
+const npmPlugins = await common.getNpmPlugins(true)  // true表示返回详细信息
 
 // 获取所有插件
-const allPlugins = await getPlugins()
+const allPlugins = await common.getPlugins()
 
 // 获取Git插件
-const gitPlugins = await getGitPlugins(true)  // true表示只返回带package.json的插件
+const gitPlugins = await common.getGitPlugins(true)  // true表示只返回带package.json的插件
 ```
 
 ## 文件和路径操作
@@ -238,52 +203,6 @@ common模块同样重新导出了按钮和消息处理相关的函数：
 - [`createRawMessage`, `makeMessageLog`, `makeMessage`, `makeForward`](./message.md) - 消息处理
 
 ## 使用示例
-
-### 直接导入函数
-
-```typescript
-import { 
-  axios, 
-  formatTime, 
-  mergeImage, 
-  readJson, 
-  writeJson, 
-  mkdir 
-} from 'node-karin'
-
-async function processUserData(userId) {
-  // 创建用户目录
-  const userDir = `/data/users/${userId}`
-  await mkdir(userDir)
-  
-  // 读取用户配置
-  const config = await readJson(`${userDir}/config.json`) || {}
-  
-  // 获取用户资料
-  const response = await axios(`https://api.example.com/users/${userId}`, 'get')
-  if (!response) {
-    console.log('获取用户资料失败')
-    return null
-  }
-  
-  // 合并用户头像
-  if (response.data.avatars && response.data.avatars.length > 1) {
-    const mergedAvatar = await mergeImage(response.data.avatars)
-    response.data.mergedAvatar = mergedAvatar.base64
-  }
-  
-  // 计算账户年龄
-  const accountAge = formatTime(response.data.createdAt)
-  console.log(`账户创建于 ${accountAge} 前`)
-  
-  // 保存更新后的用户数据
-  await writeJson(`${userDir}/data.json`, response.data)
-  
-  return response.data
-}
-```
-
-### 使用命名空间
 
 ```typescript
 import { common } from 'node-karin'
