@@ -68,7 +68,7 @@ export const sidebar = {
       collapsed: true,
       items: [
         { text: '<iconify-icon icon="carbon:export" style="color: #2a79ff"></iconify-icon> Exports', link: '/api/exports' },
-        { text: '<iconify-icon icon="clarity:network-server-line" style="color: #ff6b2a"></iconify-icon> Server', link: '/api/server' },
+        { text: '<iconify-icon icon="mdi:server" style="color: #ff6b2a"></iconify-icon> Server', link: '/api/server' },
         { text: '<iconify-icon icon="material-symbols:router" style="color: #2aff79"></iconify-icon> Handler', link: '/api/handler' },
         { text: '<iconify-icon icon="ri:robot-fill" style="color: #2a79ff"></iconify-icon> Bot', link: '/api/bot' },
         {
