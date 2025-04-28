@@ -1,0 +1,51 @@
+/* 代码块选项卡 */
+.vp-code-group .tabs {
+  padding-top: 28px;
+  /* 调整选项卡高度 */
+  background-color: var(--vp-c-bg);
+  /* 使用主题背景色 */
+  border-bottom: none;
+  /* 去掉底部边框，避免双线效果 */
+}
+
+/* 代码块选项卡 - 顶部小圆点 */
+.vp-code-group .tabs::before {
+  background: #ff6058;
+  /* 红色 */
+  border-radius: 50%;
+  box-shadow: 20px 0 #ffbd2e, 40px 0 #28c940;
+  /* 黄色和绿色 */
+  content: ' ';
+  height: 12px;
+  width: 12px;
+  left: 12px;
+  margin-top: -20px;
+  /* 同步调整小圆点位置 */
+  position: absolute;
+}
+
+/* 代码块组 */
+.vp-code-group {
+  color: var(--vp-c-text-1);
+  /* 使用主题文本颜色 */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  /* 柔和阴影 */
+  background-color: var(--vp-c-bg);
+  /* 使用主题背景色 */
+}
+
+/* 代码块内部样式 */
+.vp-code-group .vp-code {
+  padding: 16px;
+  border-radius: 0 0 16px 16px;
+  /* 增大底部圆角至 16px */
+  border-top: 1px solid #d0d0d0;
+  /* 浅色模式边框 - 中灰色 */
+}
+
+/* 深色模式下边框颜色 */
+.dark .vp-code-group .vp-code {
+  border-top: 1px solid #888;
+  /* 深色模式下边框 - 更亮的浅灰色 */
+}
