@@ -376,6 +376,169 @@ comment: false
 - 使用`github`来托管插件
 - `npm`使用`github-ci`来发布包
 
+## 使用插件模板进行开发
+
+使用`create-karin`可以快速创建一个标准的Karin插件项目。本章节将详细介绍如何使用插件模板进行开发。
+
+### 创建插件项目
+
+可以通过以下命令快速创建一个插件项目：
+
+```bash
+# 交互式创建项目
+pnpm create karin
+
+# 或者直接使用npx（无需安装pnpm）
+npx create-karin
+```
+
+按照提示选择插件类型，可选择：
+
+- TypeScript插件（推荐）：`karin-plugin-ts`
+- JavaScript插件：`karin-plugin-js`
+
+### 项目结构说明
+
+以TypeScript插件为例，创建完成后的项目结构如下：
+
+```
+karin-plugin-example/
+├── src/                 # 源代码目录
+│   ├── apps/            # 插件应用目录（主要编写插件逻辑的地方）
+│   │   ├── example.ts   # 示例插件
+│   │   ├── handler.ts   # 事件处理器示例
+│   │   ├── render.ts    # 渲染处理示例
+│   │   ├── sendMsg.ts   # 消息发送示例
+│   │   └── task.ts      # 定时任务示例
+│   ├── utils/           # 工具函数目录
+│   ├── app.ts           # 开发环境入口
+│   ├── dir.ts           # 目录管理
+│   └── index.ts         # 插件入口文件
+├── config/              # 配置文件目录
+├── resources/           # 静态资源目录
+├── .vscode/             # VS Code配置
+├── package.json         # 项目配置
+├── tsconfig.json        # TypeScript配置
+├── tsup.config.ts       # 构建配置
+├── development.env      # 开发环境配置
+└── README.md            # 项目说明
+```
+
+### package.json配置说明
+
+插件的`package.json`中包含了一些重要配置：
+
+```json
+{
+  "name": "karin-plugin-example", // 插件名称，需要以karin-plugin-开头
+  "version": "1.0.0",
+  "type": "module", // 使用ESM模块系统
+  "scripts": {
+    "dev": "cross-env EBV_FILE=\"development.env\" node --import tsx src/app.ts", // 开发命令
+    "build": "tsup", // 构建命令
+    "pub": "npm publish --access public" // 发布命令
+  },
+  "karin": { // Karin插件特有配置
+    "main": "src/index.ts", // TS环境入口文件
+    "apps": ["lib/apps"], // 生产环境apps目录
+    "ts-apps": ["src/apps"], // 开发环境apps目录
+    "static": ["resources"], // 静态资源目录
+    "files": ["config", "data", "resources"] // 需要创建的文件夹
+  }
+}
+```
+
+### 开发流程
+
+1. **环境准备**：确保已安装 Node.js (>=18) 和 pnpm
+
+2. **创建项目**：
+
+   ```bash
+   pnpm create karin
+   # 选择 TypeScript插件 或 JavaScript插件
+   ```
+
+3. **启动开发环境**：
+
+   ```bash
+   cd karin-plugin-example
+   pnpm dev
+   ```
+
+4. **编写插件逻辑**：
+   主要在 `src/apps/` 目录下编写插件逻辑。插件模板已经包含了几种常见的插件类型示例：
+   - `example.ts`：基础命令示例
+   - `handler.ts`：事件处理器示例
+   - `task.ts`：定时任务示例
+   - `render.ts`：渲染处理示例
+   - `sendMsg.ts`：消息发送示例
+
+5. **插件构建**：
+
+   ```bash
+   pnpm build
+   ```
+
+6. **发布插件**：
+
+   ```bash
+   pnpm pub
+   ```
+
+### 示例：创建一个简单的命令插件
+
+在`src/apps/`目录下创建一个新文件，例如`myCommand.ts`：
+
+```ts
+import { karin } from 'node-karin'
+
+/**
+ * 创建一个简单的命令插件
+ * 当接收到消息"#我的命令"时，回复"这是我的第一个Karin插件！"
+ */
+export const myFirstCommand = karin.command(
+  '^(#)?我的命令$', 
+  '这是我的第一个Karin插件！', 
+  {
+    name: '我的命令', // 插件名称
+    event: 'message', // 监听的事件
+    reply: true, // 启用引用回复
+  }
+)
+```
+
+### 插件调试技巧
+
+1. **日志输出**：使用Karin内置的logger进行日志输出
+
+   ```ts
+   import { logger } from 'node-karin'
+   
+   logger.info('这是一条信息日志')
+   logger.error('这是一条错误日志')
+   logger.success('这是一条成功日志')
+   ```
+
+2. **开发模式热重载**：开发模式下，修改`apss`目录下的代码后会自动重新加载插件
+
+3. **配置文件**：在`config`目录下创建JSON配置文件，可以通过以下方式读取
+
+   ```ts
+   import { readJSONSync } from 'node-karin/fs'
+   import path from 'node:path'
+   import { dir } from '../dir'
+
+   // 读取配置文件
+   const config = readJSONSync(path.join(dir.config, 'myConfig.json'))
+   ```
+
+### 更多资源
+
+- 完整API文档：https://karin.fun/api/
+- 命令插件示例：参考下方[消息插件示例](./demo.md)章节
+- 前端组件开发：参考[前端配置](./component.md)章节
+
 ## 插件示例
 
 - [消息插件示例](./demo.md)
