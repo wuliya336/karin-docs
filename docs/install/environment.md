@@ -3,7 +3,7 @@
 ## Node.js <Badge type="danger" text="铛铛铛！必需品" />
 
 ::: warning 友情提示
-`Karin`是一个基于`Node.js`开发的可爱机器人框架，在 <Pill name="MIT License" link="../license" /> 下开源~ 
+`Karin`是一个基于`Node.js`开发的可爱机器人框架，在 <Pill name="MIT License" link="../license" /> 下开源~
 :::
 
 ### 版本要求
@@ -13,8 +13,9 @@
 :::
 
 小贴士：
-- 最低支持 v18+，推荐使用 v22+ 
-- 虽然理论上支持 v16+，但是为了获得最佳体验还是推荐使用更新版本啦
+
+- 最低支持 v18+，推荐使用 v22+
+- ~~虽然理论上支持 v16+，但是为了获得最佳体验还是推荐使用更新版本啦~~
 - 官方的`LTS`版本，所以跟着大家一起用 v22+ 准没错！
 - 当然啦，如果你只是想尝鲜，用其他版本也不是不可以 😉
 
@@ -30,20 +31,24 @@
 #### Windows 系统
 
 1. 使用官方安装包(推荐)
+
    - 访问 <Pill name="Node.js官网" link="https://nodejs.org/zh-cn" /> 下载安装包
-   - <Pill name="如果无法访问，可以使用下方列表的安装包哦" link="#下载地址" /> 
+   - <Pill name="如果无法访问，可以使用下方列表的安装包哦" link="#下载地址" />
    - 下载 LTS 版本的 .msi 安装包
    - 双击运行安装程序，全部下一步即可
 
 2. 使用 nvm-windows (适合需要管理多个 Node.js 版本的用户)
+
    - 访问 <Pill name="nvm-windows" link="https://github.com/coreybutler/nvm-windows/releases" /> 下载最新版本
    - 下载 nvm-setup.exe 并安装
    - 打开命令提示符(cmd)，运行:
+
      ```bash
      nvm install latest  # 安装最新版
      nvm install lts    # 安装 LTS 版本
      nvm use xxx       # 使用指定版本
      ```
+
 </details>
 
 <details>
@@ -52,20 +57,23 @@
 #### macOS 系统
 
 1. 使用 Homebrew
+
    ```bash
    brew install node
    ```
 
 2. 使用 nvm (推荐)
+
    ```bash
    # 1. 安装 nvm
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-   
+
    # 2. 安装 Node.js
    nvm install node    # 安装最新版
    nvm install --lts  # 安装 LTS 版本
    nvm use xxx       # 使用指定版本
    ```
+
 </details>
 
 <details>
@@ -90,15 +98,17 @@ sudo yum install -y nodejs
 :::
 
 2. 使用 nvm (推荐)
+
    ```bash
    # 1. 安装 nvm
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-   
+
    # 2. 安装 Node.js
    nvm install node    # 安装最新版
    nvm install --lts  # 安装 LTS 版本
    nvm use xxx       # 使用指定版本
    ```
+
 </details>
 
 ### 下载地址
@@ -133,6 +143,7 @@ npm -v   # 查看 npm 版本
 ### Windows 安装
 
 1. 下载安装包:
+
    - <Pill name="Git官网" link="https://git-scm.com/" />
    - 国内镜像源(推荐):
      - <Pill name="64位Git" link="https://registry.npmmirror.com/-/binary/git-for-windows/v2.47.1.windows.1/Git-2.47.1-64-bit.exe" />
@@ -191,22 +202,39 @@ pnpm 是一个快速、节省磁盘空间的包管理器。它具有以下特点
 ### 安装 pnpm
 
 ::: warning 友情提示
-pnpm 在10.x版本引入了一个破坏性变更  
-目前暂时无法很好的对此进行兼容  
+pnpm 在 10.x 版本引入了一个破坏性变更  
+~~目前暂时无法很好的对此进行兼容~~  
 请务必使用 `pnpm v9` 版本  
 如果已经安装了`pnpm v10`的小伙伴请不要跳过此步骤
+
+新增版本: `1.8.0`
+
+目前已经对`pnpm v10.x`版本进行一定的适配  
+如果没有编程基础推荐使用`9`，无脑哦！！！  
+下方也列出了关于`pnpm v10.x`的指引  
+使用 `pnpm v10.x` 版本的用户请注意：
+
+- 必须使用`node-karin v1.8.0`及以上版本
+- `pnpm` 必须使用 `v10.8.0` 及以上版本
+
 :::
 
 ::: code-group
 
 ```bash [官方源]
-# 安装包管理器，启动！
+# 安装 9.x 版本的pnpm
 npm install pnpm@9 -g
+
+# pnpm v10.x
+npm install pnpm -g
 ```
 
 ```bash [国内源]
 # 国内加速版！
 npm --registry=https://registry.npmmirror.com install pnpm@9 -g
+
+# pnpm v10.x
+npm --registry=https://registry.npmmirror.com install pnpm -g
 ```
 
 ```bash [查看版本]
@@ -256,7 +284,7 @@ npm config get registry
 
 - 后面我们会经常用到 pnpm，建议先熟悉一下这些基本命令哦！
 - 在开发插件时，工作区相关的命令会特别有用
-:::
+  :::
 
 ```bash
 # 工作区相关
@@ -275,3 +303,94 @@ pnpm remove <pkg> # 删除某个包
 pnpm run <script> # 运行 package.json 中定义的脚本
 ```
 
+## 关于`pnpm v10.x`版本
+
+> [!note] karin 非 1.8.0+ 的版本，请勿使用 pnpm v10.x
+
+### 背景
+
+> [!caution] pnpm v10.x 版本引入了一个破坏性变更
+> 官方原文如下:  
+> Since v10, pnpm doesn't run the lifecycle scripts of dependencies unless they are listed in onlyBuiltDependencies.
+>
+> 从 v10 开始，pnpm 不会运行依赖项的生命周期脚本，除非它们在 onlyBuiltDependencies 中列出。  
+> 原文地址: [点击查看](https://pnpm.io/settings#ignoredepscripts)
+
+- 我们使用`sqlite3`作为举例，`sqlite3`的安装需要编译二进制文件的
+- 但是开发者为了方便用户的使用，会将构建产物预编译，并将这些构建产物托管到对应的代码平台上
+- 这样用户在安装的时候就不需要自己编译了，直接下载对应的二进制文件即可
+- 在`pnpm v9.x`版本中，执行`pnpm install`
+- `sqlite3`会执行一个`install`的脚本，来下载对应的二进制文件
+- 在`pnpm v10.x`版本中，`sqlite3`的这个下载行为会被禁止，需要手动允许
+
+如下所示:
+![sqlite3](./approve-builds.png)
+
+### 解决方法
+
+> [!note] 温馨提示
+> 执行完成`pnpm install`后  
+> 如果出现了上图的这个提示，只需要跟着下面的步骤走就可以了哦~
+
+- 输入 `pnpm approve-builds`
+
+  ![pnpm approve-builds](./pnpm-approve-builds.png)
+
+- 输入 `a`
+
+  ![a](./pnpm-approve-builds-a.png)
+
+- 按下回车 也就是直接按下`Enter`键即可
+
+  ![enter](./pnpm-approve-builds-enter.png)
+
+- 输入 `y`
+
+  ![y](./pnpm-approve-builds-y.png)
+
+到此为止，`sqlite3`的安装就完成了
+
+> [!note]
+> 当然，一个依赖只需要一次即可~  
+> 查看`pnpm-workspace.yaml`，会发现`onlyBuiltDependencies`中已经添加了对应的依赖  
+> 这样下次安装的时候就不会再询问了哦~
+
+```yaml
+onlyBuiltDependencies:
+  - '@karinjs/node-pty'
+  - '@karinjs/sqlite3-cjs'
+  - canvas
+  - classic-level
+  - sqlite3
+```
+
+### 写给开发者的话
+
+> [!note] 温馨提示
+> 如果你的插件依赖了包含`生命周期脚本`的依赖  
+> 可以将安装指令修改为如下所示  
+> 注意要求使用`pnpm v10.8.0+`版本哦~
+
+```bash
+pnpm add karin-plugin-xxx -w
+```
+
+修改为
+
+```bash
+# pnpm v9.x 版本
+pnpm add karin-plugin-xxx -w
+
+# pnpm v10.x 版本
+pnpm --allow-build=sqlite3 add karin-plugin-xxx -w
+```
+
+如果是多个:
+
+```bash
+# pnpm v9.x 版本
+pnpm add karin-plugin-xxx -w
+
+# pnpm v10.x 版本
+pnpm --allow-build=sqlite3 --allow-build=canvas add karin-plugin-xxx -w
+```
