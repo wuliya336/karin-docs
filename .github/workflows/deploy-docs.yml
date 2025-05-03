@@ -77,7 +77,7 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "karin-docs-15"
+          project: "karin"
           entrypoint: "https://deno.land/std@0.217.0/http/file_server.ts"
           root: "docs/.vitepress/dist"
 
