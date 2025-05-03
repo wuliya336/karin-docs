@@ -3,6 +3,7 @@
 ## 安装步骤
 
 🎮 开始安装：
+
 - 找一个干净的目录（越空越好！）
 - 运行下面这个魔法咒语：
 
@@ -20,10 +21,13 @@ pnpm create karin
 
 > [!NOTE] 小贴士
 > 文档可能会有点落后于版本，随时用 `npx karin` 查看最新指令哦！
-> 
+>
 > 前台启动时请保持窗口开启，想关闭用 `Ctrl+C` 就好啦~
-> 
+>
 > 后台运行的话随便关窗口，要停止就用 `npx karin stop`
+
+> [!note] 1.8.0 新增
+> `ki`缩写命令，使用`ki`代替`karin`，更简洁哦！
 
 ::: code-group
 
@@ -89,6 +93,7 @@ karin pm2  # 更快捷！
 ## 寻找插件
 
 想要给你的 Karin 添加新功能？来这里找找：
+
 - 去 Github 搜索 `karin-plugin`，有很多好玩的！
 - 看看我们的 [插件商店](../plugins/index)
 
@@ -104,4 +109,4 @@ karin pm2  # 更快捷！
 
 感谢这些可爱的开发者们对 `Karin` 的贡献：
 
-[![贡献者](https://contributors-img.web.app/image?repo=KarinJS/Karin)](https://github.com/KarinJS/Karin/graphs/contributors) 
+[![贡献者](https://contributors-img.web.app/image?repo=KarinJS/Karin)](https://github.com/KarinJS/Karin/graphs/contributors)
