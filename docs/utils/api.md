@@ -131,11 +131,11 @@ const result = await e.bot.logger('info', '这是一条info日志')
 
 > 发送消息
 
-|     参数     |       类型       |   描述   |                               备注                               |
-| :----------: | :--------------: | :------: | :--------------------------------------------------------------: |
+|     参数     |       类型       |   描述   |                           备注                            |
+| :----------: | :--------------: | :------: | :-------------------------------------------------------: |
 |  `contact`   |    `Contact`     | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-|  `elements`  | `Array<Element>` | 消息元素 |                            注意是数组                            |
-| `retryCount` |     `number`     | 重试次数 |                               可选                               |
+|  `elements`  | `Array<Element>` | 消息元素 |                        注意是数组                         |
+| `retryCount` |     `number`     | 重试次数 |                           可选                            |
 
 ::: code-group
 
@@ -167,10 +167,10 @@ export interface SendMsgResults {
 
 > 发送长消息
 
-|   参数    |   类型    |   描述   |                               备注                               |
-| :-------: | :-------: | :------: | :--------------------------------------------------------------: |
+|   参数    |   类型    |   描述   |                           备注                            |
+| :-------: | :-------: | :------: | :-------------------------------------------------------: |
 | `contact` | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-|  `resId`  | `string`  | 资源 ID  |                                                                  |
+|  `resId`  | `string`  | 资源 ID  |                                                           |
 
 ::: code-group
 
@@ -202,10 +202,10 @@ export interface SendMsgResults {
 
 > 发送合并转发消息
 
-|    参数    |       类型       |   描述   |                               备注                               |
-| :--------: | :--------------: | :------: | :--------------------------------------------------------------: |
+|    参数    |       类型       |   描述   |                           备注                            |
+| :--------: | :--------------: | :------: | :-------------------------------------------------------: |
 | `contact`  |    `Contact`     | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-| `elements` | `Array<Element>` | 消息元素 |                                                                  |
+| `elements` | `Array<Element>` | 消息元素 |                                                           |
 
 ::: code-group
 
@@ -231,10 +231,10 @@ const result = await e.bot.sendForwardMsg(e.contact, elements)
 
 > 撤回消息，返回值不值得信任
 
-|    参数     |   类型    |   描述   |                               备注                               |
-| :---------: | :-------: | :------: | :--------------------------------------------------------------: |
+|    参数     |   类型    |   描述   |                           备注                            |
+| :---------: | :-------: | :------: | :-------------------------------------------------------: |
 |  `contact`  | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-| `messageId` | `string`  | 消息 ID  |                                                                  |
+| `messageId` | `string`  | 消息 ID  |                                                           |
 
 ::: code-group
 
@@ -308,10 +308,10 @@ const result = await e.bot.getGroupAvatarUrl(e.groupId, size, history)
 
 > 获取消息
 
-|    参数     |   类型    |   描述   |                               备注                               |
-| :---------: | :-------: | :------: | :--------------------------------------------------------------: |
+|    参数     |   类型    |   描述   |                           备注                            |
+| :---------: | :-------: | :------: | :-------------------------------------------------------: |
 |  `contact`  | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-| `messageId` | `string`  | 消息 ID  |                                                                  |
+| `messageId` | `string`  | 消息 ID  |                                                           |
 
 ::: code-group
 
@@ -349,11 +349,11 @@ export interface MessageResponse {
 
 > 获取历史消息
 
-|     参数     |   类型    |   描述   |                               备注                               |
-| :----------: | :-------: | :------: | :--------------------------------------------------------------: |
-|  `contact`   | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-| `startMsgId` | `string`  | 起始消息 |                                                                  |
-|   `count`    | `number`  | 消息数量 |                             默认`1`                              |
+|     参数     |        类型        |   描述   |                           备注                            |
+| :----------: | :----------------: | :------: | :-------------------------------------------------------: |
+|  `contact`   |     `Contact`      | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
+| `startMsgId` | `string \| number` | 起始消息 |     支持消息ID(`messageId`)或消息序列号(`messageSeq`)     |
+|   `count`    |      `number`      | 消息数量 |                          默认`1`                          |
 
 ::: code-group
 
@@ -361,9 +361,14 @@ export interface MessageResponse {
 import karin, { Message, GroupMessage, segment, common } from 'node-karin'
 const e = {} as GroupMessage
 // ---cut-before---
+// 使用消息ID
 const startMsgId = '123456789'
 const count = 10
 const result = await e.bot.getHistoryMsg(e.contact, startMsgId, count)
+
+// 使用消息序列号
+const startMsgSeq = 12345
+const result2 = await e.bot.getHistoryMsg(e.contact, startMsgSeq, count)
 ```
 
 ```ts twoslash [返回值]
@@ -379,9 +384,9 @@ Array<MessageResponse>
 
 > 获取合并转发消息 **暂时无法使用**
 
-|  参数   |   类型   |  描述   | 备注 |
-| :-----: | :------: | :-----: | :--: |
-| `resId` | `string` | 资源 ID |      |
+|  参数   |   类型   |  描述   | 备注  |
+| :-----: | :------: | :-----: | :---: |
+| `resId` | `string` | 资源 ID |       |
 
 ::: code-group
 
@@ -403,11 +408,11 @@ const result = await e.bot.getForwardMsg(resId)
 
 > 获取群精华消息
 
-|    参数    |   类型   |   描述   | 备注 |
-| :--------: | :------: | :------: | :--: |
-| `groupId`  | `string` |  群 ID   |      |
-|   `page`   | `number` |   页码   |      |
-| `pageSize` | `number` | 每页数量 |      |
+|    参数    |   类型   |   描述   | 备注  |
+| :--------: | :------: | :------: | :---: |
+| `groupId`  | `string` |  群 ID   |       |
+|   `page`   | `number` |   页码   |       |
+| `pageSize` | `number` | 每页数量 |       |
 
 ::: code-group
 
@@ -455,10 +460,10 @@ export interface GetGroupHighlightsResponse {
 
 > 构造资源 ID，不发送消息
 
-|    参数    |           类型           |   描述   |                               备注                               |
-| :--------: | :----------------------: | :------: | :--------------------------------------------------------------: |
+|    参数    |           类型           |   描述   |                           备注                            |
+| :--------: | :----------------------: | :------: | :-------------------------------------------------------: |
 | `contact`  |        `Contact`         | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-| `elements` | `Array<NodeElementType>` | 消息元素 |                                                                  |
+| `elements` | `Array<NodeElementType>` | 消息元素 |                                                           |
 
 ::: code-group
 
@@ -593,10 +598,10 @@ const result = await e.bot.setGroupMute(groupId, targetId, duration)
 
 > 设置全员禁言
 
-|   参数    |   类型    |   描述   | 备注 |
-| :-------: | :-------: | :------: | :--: |
-| `groupId` | `string`  |  群 ID   |      |
-|  `isBan`  | `boolean` | 是否禁言 |      |
+|   参数    |   类型    |   描述   | 备注  |
+| :-------: | :-------: | :------: | :---: |
+| `groupId` | `string`  |  群 ID   |       |
+|  `isBan`  | `boolean` | 是否禁言 |       |
 
 ::: code-group
 
@@ -619,11 +624,11 @@ const result = await e.bot.setGroupAllMute(groupId, isBan)
 
 > 设置或取消群管理员
 
-|    参数    |   类型    |    描述    | 备注 |
-| :--------: | :-------: | :--------: | :--: |
-| `groupId`  | `string`  |   群 ID    |      |
-| `targetId` | `string`  |  目标 ID   |      |
-| `isAdmin`  | `boolean` | 是否管理员 |      |
+|    参数    |   类型    |    描述    | 备注  |
+| :--------: | :-------: | :--------: | :---: |
+| `groupId`  | `string`  |   群 ID    |       |
+| `targetId` | `string`  |  目标 ID   |       |
+| `isAdmin`  | `boolean` | 是否管理员 |       |
 
 ::: code-group
 
@@ -647,11 +652,11 @@ const result = await e.bot.setGroupAdmin(groupId, targetId, isAdmin)
 
 > 设置群名片
 
-|    参数    |   类型   |  描述   | 备注 |
-| :--------: | :------: | :-----: | :--: |
-| `groupId`  | `string` |  群 ID  |      |
-| `targetId` | `string` | 目标 ID |      |
-|   `card`   | `string` | 群名片  |      |
+|    参数    |   类型   |  描述   | 备注  |
+| :--------: | :------: | :-----: | :---: |
+| `groupId`  | `string` |  群 ID  |       |
+| `targetId` | `string` | 目标 ID |       |
+|   `card`   | `string` | 群名片  |       |
 
 ::: code-group
 
@@ -675,10 +680,10 @@ const result = await e.bot.setGroupMemberCard(groupId, targetId, card)
 
 > 设置群名
 
-|    参数     |   类型   | 描述  | 备注 |
-| :---------: | :------: | :---: | :--: |
-|  `groupId`  | `string` | 群 ID |      |
-| `groupName` | `string` | 群名  |      |
+|    参数     |   类型   | 描述  | 备注  |
+| :---------: | :------: | :---: | :---: |
+|  `groupId`  | `string` | 群 ID |       |
+| `groupName` | `string` | 群名  |       |
 
 ::: code-group
 
@@ -701,10 +706,10 @@ const result = await e.bot.setGroupName(groupId, groupName)
 
 > 退出群组
 
-|    参数     |   类型    |   描述   | 备注 |
-| :---------: | :-------: | :------: | :--: |
-|  `groupId`  | `string`  |  群 ID   |      |
-| `isDismiss` | `boolean` | 是否解散 |      |
+|    参数     |   类型    |   描述   | 备注  |
+| :---------: | :-------: | :------: | :---: |
+|  `groupId`  | `string`  |  群 ID   |       |
+| `isDismiss` | `boolean` | 是否解散 |       |
 
 ::: code-group
 
@@ -727,11 +732,11 @@ const result = await e.bot.setGroupQuit(groupId, isDismiss)
 
 > 设置群专属头衔
 
-|    参数    |   类型   |   描述   | 备注 |
-| :--------: | :------: | :------: | :--: |
-| `groupId`  | `string` |  群 ID   |      |
-| `targetId` | `string` | 目标 ID  |      |
-|  `title`   | `string` | 专属头衔 |      |
+|    参数    |   类型   |   描述   | 备注  |
+| :--------: | :------: | :------: | :---: |
+| `groupId`  | `string` |  群 ID   |       |
+| `targetId` | `string` | 目标 ID  |       |
+|  `title`   | `string` | 专属头衔 |       |
 
 ::: code-group
 
@@ -755,9 +760,9 @@ const result = await e.bot.setGroupMemberTitle(groupId, targetId, title)
 
 > 获取陌生人信息
 
-|    参数    |   类型   |  描述   | 备注 |
-| :--------: | :------: | :-----: | :--: |
-| `targetId` | `string` | 用户 ID |      |
+|    参数    |   类型   |  描述   | 备注  |
+| :--------: | :------: | :-----: | :---: |
+| `targetId` | `string` | 用户 ID |       |
 
 ::: code-group
 
@@ -821,9 +826,9 @@ export interface UserInfo {
 
 > 获取好友列表
 
-|   参数    |   类型    |       描述       | 备注 |
-| :-------: | :-------: | :--------------: | :--: |
-| `refresh` | `boolean` | 是否刷新好友列表 | 可选 |
+|   参数    |   类型    |       描述       | 备注  |
+| :-------: | :-------: | :--------------: | :---: |
+| `refresh` | `boolean` | 是否刷新好友列表 | 可选  |
 
 ::: code-group
 
@@ -846,10 +851,10 @@ const result = await e.bot.getFriendList(refresh)
 
 > 获取群信息
 
-|   参数    |   类型    |     描述     | 备注 |
-| :-------: | :-------: | :----------: | :--: |
-| `groupId` | `string`  |    群 ID     |      |
-| `noCache` | `boolean` | 是否刷新缓存 | 可选 |
+|   参数    |   类型    |     描述     | 备注  |
+| :-------: | :-------: | :----------: | :---: |
+| `groupId` | `string`  |    群 ID     |       |
+| `noCache` | `boolean` | 是否刷新缓存 | 可选  |
 
 ::: code-group
 
@@ -893,9 +898,9 @@ export interface GroupInfo {
 
 > 获取群列表
 
-|   参数    |   类型    |      描述      | 备注 |
-| :-------: | :-------: | :------------: | :--: |
-| `refresh` | `boolean` | 是否刷新群列表 | 可选 |
+|   参数    |   类型    |      描述      | 备注  |
+| :-------: | :-------: | :------------: | :---: |
+| `refresh` | `boolean` | 是否刷新群列表 | 可选  |
 
 ::: code-group
 
@@ -918,11 +923,11 @@ const result = await e.bot.getGroupList(refresh)
 
 > 获取群成员信息
 
-|    参数    |   类型    |     描述     | 备注 |
-| :--------: | :-------: | :----------: | :--: |
-| `groupId`  | `string`  |    群 ID     |      |
-| `targetId` | `string`  | 目标用户 ID  |      |
-| `refresh`  | `boolean` | 是否刷新缓存 | 可选 |
+|    参数    |   类型    |     描述     | 备注  |
+| :--------: | :-------: | :----------: | :---: |
+| `groupId`  | `string`  |    群 ID     |       |
+| `targetId` | `string`  | 目标用户 ID  |       |
+| `refresh`  | `boolean` | 是否刷新缓存 | 可选  |
 
 ::: code-group
 
@@ -977,10 +982,10 @@ export interface GroupMemberInfo {
 
 > 获取群成员列表
 
-|   参数    |   类型    |     描述     | 备注 |
-| :-------: | :-------: | :----------: | :--: |
-| `groupId` | `string`  |    群 ID     |      |
-| `refresh` | `boolean` | 是否刷新缓存 | 可选 |
+|   参数    |   类型    |     描述     | 备注  |
+| :-------: | :-------: | :----------: | :---: |
+| `groupId` | `string`  |    群 ID     |       |
+| `refresh` | `boolean` | 是否刷新缓存 | 可选  |
 
 ::: code-group
 
@@ -1004,9 +1009,9 @@ const result = await e.bot.getGroupMemberList(groupId, refresh)
 
 > 获取群荣誉信息
 
-|   参数    |   类型   | 描述  | 备注 |
-| :-------: | :------: | :---: | :--: |
-| `groupId` | `string` | 群 ID |      |
+|   参数    |   类型   | 描述  | 备注  |
+| :-------: | :------: | :---: | :---: |
+| `groupId` | `string` | 群 ID |       |
 
 ::: code-group
 
@@ -1046,11 +1051,11 @@ export interface QQGroupHonorInfo {
 
 > 设置好友请求结果
 
-|    参数     |   类型    |    描述     | 备注 |
-| :---------: | :-------: | :---------: | :--: |
-| `requestId` | `string`  | 请求事件 ID |      |
-| `isApprove` | `boolean` |  是否同意   |      |
-|  `remark`   | `string`  |  好友备注   | 可选 |
+|    参数     |   类型    |    描述     | 备注  |
+| :---------: | :-------: | :---------: | :---: |
+| `requestId` | `string`  | 请求事件 ID |       |
+| `isApprove` | `boolean` |  是否同意   |       |
+|  `remark`   | `string`  |  好友备注   | 可选  |
 
 ::: code-group
 
@@ -1074,11 +1079,11 @@ const result = await e.bot.setFriendApplyResult(requestId, isApprove, remark)
 
 > 设置申请加入群请求结果
 
-|     参数     |   类型    |    描述     | 备注 |
-| :----------: | :-------: | :---------: | :--: |
-| `requestId`  | `string`  | 请求事件 ID |      |
-| `isApprove`  | `boolean` |  是否同意   |      |
-| `denyReason` | `string`  |  拒绝理由   | 可选 |
+|     参数     |   类型    |    描述     | 备注  |
+| :----------: | :-------: | :---------: | :---: |
+| `requestId`  | `string`  | 请求事件 ID |       |
+| `isApprove`  | `boolean` |  是否同意   |       |
+| `denyReason` | `string`  |  拒绝理由   | 可选  |
 
 ::: code-group
 
@@ -1102,10 +1107,10 @@ const result = await e.bot.setGroupApplyResult(requestId, isApprove, denyReason)
 
 > 设置邀请加入群请求结果
 
-|    参数     |   类型    |    描述     | 备注 |
-| :---------: | :-------: | :---------: | :--: |
-| `requestId` | `string`  | 请求事件 ID |      |
-| `isApprove` | `boolean` |  是否同意   |      |
+|    参数     |   类型    |    描述     | 备注  |
+| :---------: | :-------: | :---------: | :---: |
+| `requestId` | `string`  | 请求事件 ID |       |
+| `isApprove` | `boolean` |  是否同意   |       |
 
 ::: code-group
 
@@ -1128,12 +1133,12 @@ const result = await e.bot.setInvitedJoinGroupResult(requestId, isApprove)
 
 > 设置消息表情回应
 
-|    参数     |   类型    |   描述   |                               备注                               |
-| :---------: | :-------: | :------: | :--------------------------------------------------------------: |
+|    参数     |   类型    |   描述   |                           备注                            |
+| :---------: | :-------: | :------: | :-------------------------------------------------------: |
 |  `contact`  | `Contact` | 目标信息 | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-| `messageId` | `string`  | 消息 ID  |                                                                  |
-|  `faceId`   | `number`  | 表情 ID  |                                                                  |
-|   `isSet`   | `boolean` | 是否设置 |                                                                  |
+| `messageId` | `string`  | 消息 ID  |                                                           |
+|  `faceId`   | `number`  | 表情 ID  |                                                           |
+|   `isSet`   | `boolean` | 是否设置 |                                                           |
 
 ::: code-group
 
@@ -1157,12 +1162,12 @@ const result = await e.bot.setMsgReaction(e.contact, messageId, faceId, isSet)
 
 > 上传群文件或私聊文件
 
-|   参数    |   类型    |     描述     |                               备注                               |
-| :-------: | :-------: | :----------: | :--------------------------------------------------------------: |
+|   参数    |   类型    |     描述     |                           备注                            |
+| :-------: | :-------: | :----------: | :-------------------------------------------------------: |
 | `contact` | `Contact` |   目标信息   | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-|  `file`   | `string`  | 本地文件路径 |                                                                  |
-|  `name`   | `string`  |   文件名称   |                                                                  |
-| `folder`  | `string`  |  父目录 ID   |                               可选                               |
+|  `file`   | `string`  | 本地文件路径 |                                                           |
+|  `name`   | `string`  |   文件名称   |                                                           |
+| `folder`  | `string`  |  父目录 ID   |                           可选                            |
 
 ::: code-group
 
@@ -1186,9 +1191,9 @@ const result = await e.bot.uploadFile(e.contact, file, name, folder)
 
 > 下载文件到协议端本地
 
-|   参数    |         类型          |   描述   | 备注 |
-| :-------: | :-------------------: | :------: | :--: |
-| `options` | `DownloadFileOptions` | 下载选项 | 可选 |
+|   参数    |         类型          |   描述   | 备注  |
+| :-------: | :-------------------: | :------: | :---: |
+| `options` | `DownloadFileOptions` | 下载选项 | 可选  |
 
 ::: code-group
 
@@ -1216,10 +1221,10 @@ export interface DownloadFileResponse {
 
 > 创建群文件夹
 
-|   参数    |   类型   |   描述   | 备注 |
-| :-------: | :------: | :------: | :--: |
-| `groupId` | `string` |   群号   |      |
-|  `name`   | `string` | 文件夹名 |      |
+|   参数    |   类型   |   描述   | 备注  |
+| :-------: | :------: | :------: | :---: |
+| `groupId` | `string` |   群号   |       |
+|  `name`   | `string` | 文件夹名 |       |
 
 ::: code-group
 
@@ -1248,11 +1253,11 @@ export interface CreateGroupFolderResponse {
 
 > 重命名群文件夹
 
-|    参数    |   类型   |   描述    | 备注 |
-| :--------: | :------: | :-------: | :--: |
-| `groupId`  | `string` |   群号    |      |
-| `folderId` | `string` | 文件夹 ID |      |
-|   `name`   | `string` | 文件夹名  |      |
+|    参数    |   类型   |   描述    | 备注  |
+| :--------: | :------: | :-------: | :---: |
+| `groupId`  | `string` |   群号    |       |
+| `folderId` | `string` | 文件夹 ID |       |
+|   `name`   | `string` | 文件夹名  |       |
 
 ::: code-group
 
@@ -1276,10 +1281,10 @@ const result = await e.bot.renameGroupFolder(groupId, folderId, name)
 
 > 删除群文件夹
 
-|    参数    |   类型   |   描述    | 备注 |
-| :--------: | :------: | :-------: | :--: |
-| `groupId`  | `string` |   群号    |      |
-| `folderId` | `string` | 文件夹 ID |      |
+|    参数    |   类型   |   描述    | 备注  |
+| :--------: | :------: | :-------: | :---: |
+| `groupId`  | `string` |   群号    |       |
+| `folderId` | `string` | 文件夹 ID |       |
 
 ::: code-group
 
@@ -1302,11 +1307,11 @@ const result = await e.bot.delGroupFolder(groupId, folderId)
 
 > 上传群文件
 
-|   参数    |   类型   |   描述   | 备注 |
-| :-------: | :------: | :------: | :--: |
-| `groupId` | `string` |   群号   |      |
-|  `file`   | `string` | 文件路径 |      |
-|  `name`   | `string` |  文件名  | 可选 |
+|   参数    |   类型   |   描述   | 备注  |
+| :-------: | :------: | :------: | :---: |
+| `groupId` | `string` |   群号   |       |
+|  `file`   | `string` | 文件路径 |       |
+|  `name`   | `string` |  文件名  | 可选  |
 
 ::: code-group
 
@@ -1330,11 +1335,11 @@ const result = await e.bot.uploadGroupFile(groupId, file, name)
 
 > 删除群文件
 
-|   参数    |   类型   |    描述     | 备注 |
-| :-------: | :------: | :---------: | :--: |
-| `groupId` | `string` |    群号     |      |
-| `fileId`  | `string` |   文件 ID   |      |
-|  `busId`  | `number` | 文件类型 ID |      |
+|   参数    |   类型   |    描述     | 备注  |
+| :-------: | :------: | :---------: | :---: |
+| `groupId` | `string` |    群号     |       |
+| `fileId`  | `string` |   文件 ID   |       |
+|  `busId`  | `number` | 文件类型 ID |       |
 
 ::: code-group
 
@@ -1357,9 +1362,9 @@ const result = await e.bot.delGroupFile(groupId, fileId, busId)
 
 > 获取群文件系统信息
 
-|   参数    |   类型   | 描述 | 备注 |
-| :-------: | :------: | :--: | :--: |
-| `groupId` | `string` | 群号 |      |
+|   参数    |   类型   | 描述  | 备注  |
+| :-------: | :------: | :---: | :---: |
+| `groupId` | `string` | 群号  |       |
 
 ::: code-group
 
@@ -1391,10 +1396,10 @@ export interface GetGroupFileSystemInfoResponse {
 
 > 获取群文件夹下文件列表
 
-|    参数    |   类型   |   描述    | 备注 |
-| :--------: | :------: | :-------: | :--: |
-| `groupId`  | `string` |   群号    |      |
-| `folderId` | `string` | 文件夹 ID | 可选 |
+|    参数    |   类型   |   描述    | 备注  |
+| :--------: | :------: | :-------: | :---: |
+| `groupId`  | `string` |   群号    |       |
+| `folderId` | `string` | 文件夹 ID | 可选  |
 
 ::: code-group
 
@@ -1425,10 +1430,10 @@ export interface GetGroupFileListResponse {
 
 > 设置群备注
 
-|   参数    |   类型   |   描述   | 备注 |
-| :-------: | :------: | :------: | :--: |
-| `groupId` | `string` |   群号   |      |
-| `remark`  | `string` | 新的备注 |      |
+|   参数    |   类型   |   描述   | 备注  |
+| :-------: | :------: | :------: | :---: |
+| `groupId` | `string` |   群号   |       |
+| `remark`  | `string` | 新的备注 |       |
 
 ::: code-group
 
@@ -1450,9 +1455,9 @@ const result = await e.bot.setGroupRemark(groupId, remark)
 
 > 获取陌生群信息
 
-|   参数    |   类型   | 描述 | 备注 |
-| :-------: | :------: | :--: | :--: |
-| `groupId` | `string` | 群号 |      |
+|   参数    |   类型   | 描述  | 备注  |
+| :-------: | :------: | :---: | :---: |
+| `groupId` | `string` | 群号  |       |
 
 ::: code-group
 
@@ -1473,9 +1478,9 @@ const result = await e.bot.getNotJoinedGroupInfo!(groupId)
 
 > 获取全体艾特剩余次数
 
-|   参数    |   类型   | 描述 | 备注 |
-| :-------: | :------: | :--: | :--: |
-| `groupId` | `string` | 群号 |      |
+|   参数    |   类型   | 描述  | 备注  |
+| :-------: | :------: | :---: | :---: |
+| `groupId` | `string` | 群号  |       |
 
 ::: code-group
 
@@ -1504,9 +1509,9 @@ export interface GetAtAllCountResponse {
 
 > 获取群被禁言用户列表
 
-|   参数    |   类型   | 描述 | 备注 |
-| :-------: | :------: | :--: | :--: |
-| `groupId` | `string` | 群号 |      |
+|   参数    |   类型   | 描述  | 备注  |
+| :-------: | :------: | :---: | :---: |
+| `groupId` | `string` | 群号  |       |
 
 ::: code-group
 
@@ -1533,10 +1538,10 @@ export interface GetGroupMuteListResponse {
 
 > 戳一戳用户
 
-|   参数    |   类型    |    描述    |                               备注                               |
-| :-------: | :-------: | :--------: | :--------------------------------------------------------------: |
+|   参数    |   类型    |    描述    |                           备注                            |
+| :-------: | :-------: | :--------: | :-------------------------------------------------------: |
 | `contact` | `Contact` |  目标信息  | `e.contact` 或 [手动构建](../utils/karin.md#contactgroup) |
-|  `count`  | `number`  | 戳一戳次数 |                               可选                               |
+|  `count`  | `number`  | 戳一戳次数 |                           可选                            |
 
 ::: code-group
 
@@ -1558,9 +1563,9 @@ const result = await e.bot.pokeUser(e.contact, count)
 
 > 获取 Cookies
 
-|   参数   |   类型   | 描述 | 备注 |
-| :------: | :------: | :--: | :--: |
-| `domain` | `string` | 域名 |      |
+|   参数   |   类型   | 描述  | 备注  |
+| :------: | :------: | :---: | :---: |
+| `domain` | `string` | 域名  |       |
 
 ::: code-group
 
@@ -1584,9 +1589,9 @@ const result = await e.bot.getCookies(domain)
 
 > 获取相关接口凭证
 
-|   参数   |   类型   | 描述 | 备注 |
-| :------: | :------: | :--: | :--: |
-| `domain` | `string` | 域名 |      |
+|   参数   |   类型   | 描述  | 备注  |
+| :------: | :------: | :---: | :---: |
+| `domain` | `string` | 域名  |       |
 
 ::: code-group
 
@@ -1608,9 +1613,9 @@ const result = await e.bot.getCredentials(domain)
 
 > 获取 CSRF Token
 
-|   参数   |   类型   | 描述 | 备注 |
-| :------: | :------: | :--: | :--: |
-| `domain` | `string` | 域名 |      |
+|   参数   |   类型   | 描述  | 备注  |
+| :------: | :------: | :---: | :---: |
+| `domain` | `string` | 域名  |       |
 
 ::: code-group
 
@@ -1634,11 +1639,11 @@ const result = await e.bot.getCSRFToken(domain)
 
 > 获取 HTTP Cookies
 
-|   参数    |   类型   |   描述   | 备注 |
-| :-------: | :------: | :------: | :--: |
-|  `appid`  | `string` | 应用 ID  |      |
-|  `daid`   | `string` |   DAID   |      |
-| `jumpUrl` | `string` | 跳转 URL |      |
+|   参数    |   类型   |   描述   | 备注  |
+| :-------: | :------: | :------: | :---: |
+|  `appid`  | `string` | 应用 ID  |       |
+|  `daid`   | `string` |   DAID   |       |
+| `jumpUrl` | `string` | 跳转 URL |       |
 
 ::: code-group
 
