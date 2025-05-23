@@ -147,6 +147,9 @@ npm -v   # 查看 npm 版本
 目前 你无需安装`Git` 在已知的所有插件中 并无任何`Git`相关的插件
 :::
 
+<details>
+<summary>Git 安装方法</summary>
+
 ### Windows 安装
 
 1. 下载安装包:
@@ -190,6 +193,106 @@ sudo yum install git
 ```bash
 git --version  # 显示版本号即为安装成功
 ```
+</details>
+
+## Redis <Badge type="warning" text="可选项" />
+
+::: warning 友情提示
+Redis 目前使用 sqlite3 内置模拟了大部分常用的函数使用，在与真实 redis 上可能会有一定的差异，但这部分非常小。如果追求完美请按照下面的教程自行安装 redis-server。
+:::
+
+<details>
+<summary>Windows 系统安装方法</summary>
+
+1. 推荐使用：
+   - [Redis-Windows](https://github.com/redis-windows/redis-windows)
+   - 如果无法访问，请在 [GitHub加速源](https://github.akams.cn/) 下载 [Redis-8.0.1-Windows-x64-msys2-with-Service.zip](https://github.com/redis-windows/redis-windows/releases/download/8.0.1/Redis-8.0.1-Windows-x64-msys2-with-Service.zip)
+
+2. 下载后解压到任意目录
+
+3. 运行方式（三选一）：
+
+   **方式一：直接运行脚本**
+   ```bash
+   # 直接运行项目中的 start.bat 脚本，一键启动
+   双击 start.bat
+   ```
+
+   **方式二：命令行启动**
+   ```bash
+   # CMD 启动
+   redis-server.exe redis.conf
+
+   # PowerShell 启动
+   ./redis-server.exe redis.conf
+   ```
+
+   **方式三：安装为系统服务（开机自启）**
+   ```bash
+   # 安装服务（以管理员身份运行）
+   sc.exe create Redis binpath=C:\Software\Redis\RedisService.exe start= auto
+   
+   # 启动服务
+   net start Redis
+   
+   # 停止服务
+   net stop Redis
+   
+   # 卸载服务
+   sc.exe delete Redis
+   ```
+   > 注意：安装服务时请将 `C:\Software\Redis\RedisService.exe` 改为您实际存放的路径
+
+</details>
+
+<details>
+<summary>macOS 系统安装方法</summary>
+
+使用 Homebrew 安装：
+
+```bash
+brew install redis
+
+# 启动服务
+brew services start redis
+```
+
+</details>
+
+<details>
+<summary>Linux 系统安装方法</summary>
+
+::: code-tabs
+@tab Ubuntu/Debian
+
+```bash
+sudo apt update
+sudo apt install redis-server
+
+# 启动服务
+sudo systemctl start redis-server
+```
+
+@tab CentOS/RHEL
+
+```bash
+sudo yum install redis
+
+# 启动服务
+sudo systemctl start redis
+```
+
+:::
+
+</details>
+
+### 验证安装
+
+```bash
+redis-cli ping
+```
+
+如果返回 `PONG`，说明安装成功啦！
 
 ## 包管理器 pnpm <Badge type="tip" text="更快更好用！" />
 
