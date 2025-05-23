@@ -72,6 +72,10 @@ export default defineUserConfig({
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({
+    copyCode: {
+      showInMobile: true,
+      inline: true
+    },
     plugins: {
       // 如果您在此处直接声明为 true，则表示开发环境和生产环境都启用该功能
       git: true,
@@ -83,9 +87,9 @@ export default defineUserConfig({
     hostname: 'https://karin.fun',
 
     /* 文档仓库配置，用于 editLink */
-    docsRepo: 'KarinJS/Karin',
+    docsRepo: 'KarinJS/Karin-docs',
     docsDir: 'docs',
-    // docsBranch: '',
+    docsBranch: 'docs',
 
     /* 页内信息 */
     editLink: true,
@@ -98,6 +102,14 @@ export default defineUserConfig({
         {
           username: 'ikenxuan', // github username
           alias: ['炫炫'], // 别名，本地 git 配置中的用户名
+        },
+        {
+          username: 'sj817',
+          alias: ['CakmLexi', '时瑾', 'shijinn520', 'Lain.', 'Lain'],
+        },
+        {
+          username: 'yusheng929',
+          alias: ['瑜笙'],
         }
       ]
     },
