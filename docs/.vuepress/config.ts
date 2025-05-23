@@ -8,6 +8,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
 import { pwaPlugin } from '@vuepress/plugin-pwa'
 import { pwaPopupPlugin } from '@vuepress/plugin-pwa-popup'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineUserConfig({
   base: '/',
@@ -56,6 +57,7 @@ export default defineUserConfig({
   bundler: viteBundler({
     viteOptions: {
       plugins: [
+        vueDevTools(),
         tailwindcss(),
         AutoImport({
           resolvers: [ElementPlusResolver()],
