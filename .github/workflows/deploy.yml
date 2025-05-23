@@ -61,23 +61,6 @@ jobs:
       - name: Remove CNAME
         run: rm -f docs/.vuepress/dist/CNAME
 
-      - name: Install Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
-        with:
-          project: "karin"
-          entrypoint: "https://deno.land/std@0.217.0/http/file_server.ts"
-          root: "docs/.vuepress/dist"
-
       # # cp vercel.json
       # - name: cp vercel.json
       #   run: cp vercel.json docs/.vuepress/dist/vercel.json
