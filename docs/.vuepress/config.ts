@@ -39,7 +39,7 @@ export default defineUserConfig({
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
   ],
   plugins: [
-    pwaPlugin(),
+    pwaPlugin({ update: 'hint' }),
     pwaPopupPlugin({
       locales: {
         '/': {

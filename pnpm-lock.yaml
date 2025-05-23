@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       node-karin:
-        specifier: ^1.9.4
-        version: 1.9.4
+        specifier: ^1.9.7
+        version: 1.9.7
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.340
@@ -901,8 +901,8 @@ packages:
     resolution: {integrity: sha512-OKf0WZ61SAs9J/K19nzx1XtmLQKc+lbbxiP7AH34TLIM46L3/wSUybV2hcFl001B3zwRcUlrCOZgDlcxyVcScA==}
     engines: {node: '>= 16.0.0'}
 
-  '@karinjs/axios@1.1.8':
-    resolution: {integrity: sha512-xFeSp1LmpyIi+oy9g5+OwbdP4zn5/vkA6P1TXUkA6jhTHqtR552E8SR8J5CTS/I+HybvR4O590bb743DumqsmA==}
+  '@karinjs/axios@1.2.0':
+    resolution: {integrity: sha512-cZg82sP9A7WdtuXv7KutuGqHmXLEKcow7iviFO1nlEh2l6Wplr522iDWiv2D+p+t6nE+RzAvCICw5JjwD/aSYQ==}
     engines: {node: '>=18'}
 
   '@karinjs/express@1.0.3':
@@ -3405,8 +3405,8 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
-  node-karin@1.9.4:
-    resolution: {integrity: sha512-bwh377OaUPkEgX1li2wbHv3iepKe5+3K9t0ArDPnCOuJ/4M2UcVyahiftICr7ijZpcBTC+SbLySgv+Io4qKrjw==}
+  node-karin@1.9.7:
+    resolution: {integrity: sha512-gjfWZA3txiA9Roo+Iav958bmqZbHowdpOs6mDQ7pJCZaVu3XX2AWIsK9tff44ZlISwtFJcLOOUWri+rkHbHnGQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -5614,7 +5614,7 @@ snapshots:
 
   '@karinjs/art-template@1.1.0': {}
 
-  '@karinjs/axios@1.1.8':
+  '@karinjs/axios@1.2.0':
     dependencies:
       form-data: '@karinjs/form-data@1.1.0'
 
@@ -8520,10 +8520,10 @@ snapshots:
   node-addon-api@7.1.1:
     optional: true
 
-  node-karin@1.9.4:
+  node-karin@1.9.7:
     dependencies:
       art-template: '@karinjs/art-template@1.1.0'
-      axios: '@karinjs/axios@1.1.8'
+      axios: '@karinjs/axios@1.2.0'
       chalk: 5.4.1
       chokidar: 4.0.3
       express: '@karinjs/express@1.0.3'

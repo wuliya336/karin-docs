@@ -42,6 +42,6 @@
     "vuepress-theme-plume": "1.0.0-rc.151"
   },
   "dependencies": {
-    "node-karin": "^1.9.4"
+    "node-karin": "^1.9.7"
   }
 }
