@@ -29,17 +29,19 @@ jobs:
           # 选择要使用的 node 版本
           node-version: 22
 
-
       # 安装依赖
       # Install dependencies
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-
       # 运行构建脚本
       # Run the build script
       - name: Build VuePress site
         run: pnpm run build
+
+      # 将docs/CNAME文件复制到docs/.vuepress/dist目录下
+      - name: Copy CNAME
+        run: cp docs/CNAME docs/.vuepress/dist/CNAME
 
 
       # 查看 workflow 的文档来获取更多信息
@@ -54,3 +56,68 @@ jobs:
         env:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # rm CNAME
+      - name: Remove CNAME
+        run: rm -f docs/.vuepress/dist/CNAME
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "karin"
+          entrypoint: "https://deno.land/std@0.217.0/http/file_server.ts"
+          root: "docs/.vuepress/dist"
+
+      # # cp vercel.json
+      # - name: cp vercel.json
+      #   run: cp vercel.json docs/.vuepress/dist/vercel.json
+
+      - name: Push to hanhan0258/karin-docs
+        id: push-to-hanhan
+        uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
+        with:
+          personal_token: ${{ secrets.HANHAN_PUSH }}
+          external_repository: hanhan0258/karin-docs
+          publish_branch: gh-pages
+          publish_dir: docs/.vuepress/dist
+          force: true
+          force_orphan: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check hanhan0258/karin-docs push status
+        if: steps.push-to-hanhan.outcome == 'failure'
+        run: |
+          echo "::error::推送到 hanhan0258/karin-docs 仓库失败"
+          echo "错误信息: ${{ steps.push-to-hanhan.outputs.error }}"
+
+      - name: Push to yusheng929/karin-docs
+        id: push-to-yusheng
+        uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
+        with:
+          personal_token: ${{ secrets.YUSHENG }}
+          external_repository: yusheng929/karin-docs
+          publish_branch: gh-pages
+          publish_dir: docs/.vuepress/dist
+          force: true
+          force_orphan: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check yusheng929/karin-docs push status
+        if: steps.push-to-yusheng.outcome == 'failure'
+        run: |
+          echo "::error::推送到 yusheng929/karin-docs 仓库失败"
+          echo "错误信息: ${{ steps.push-to-yusheng.outputs.error }}"
