@@ -141,10 +141,10 @@ npm -v   # 查看 npm 版本
 
 如果能正确显示版本号，说明安装成功啦！
 
-## Git <Badge type="warning" text="可选，但强烈推荐！" />
+## Git <Badge type="warning" text="可选项" />
 
 ::: warning 友情提示
-`Git` 是一个分布式版本控制系统，在 Karin 中主要用于 `Git` 插件的安装和更新
+目前 你无需安装`Git` 在已知的所有插件中 并无任何`Git`相关的插件
 :::
 
 ### Windows 安装
