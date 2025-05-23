@@ -6,3 +6,6 @@ docs/.vuepress/dist
 
 .DS_Store
 *.log
+
+docs/auto-imports.d.ts
+docs/components.d.ts

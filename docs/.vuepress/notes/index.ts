@@ -69,6 +69,7 @@ export const guide: ThemeNote = defineNoteConfig({
         { text: 'Server', link: 'server', icon: 'mdi:server' },
         { text: 'Handler', link: 'handler', icon: 'material-symbols:router' },
         { text: 'Bot', link: 'bot', icon: 'ri:robot-fill' },
+        { text: 'Adapter', link: 'adapter', icon: 'mdi:connection' },
         {
           text: 'Utils', link: 'utils', prefix: 'utils', collapsed: true, icon: 'icon-park-outline:tool', items: [
             { text: 'Button', link: 'button', icon: 'mdi:button-cursor' },
