@@ -29,7 +29,7 @@ export default defineThemeConfig({
 
   /* 站点页脚 */
   footer: {
-    message: `© 2023-${new Date().getFullYear()} <a target="_blank" href="https://github.com/KarinJS/Karin">Karin</a> Released under the MIT License.`,
+    message: '',
     copyright: '',
   },
 

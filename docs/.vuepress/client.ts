@@ -11,14 +11,10 @@ import NodeDownloads from './theme/components/NodeDownloads.vue'
 import PluginList from './theme/components/PluginList.vue'
 /** 侧边栏引导 */
 import AsideNav from './theme/components/AsideNav.vue'
-// import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
-// import NpmBadge from 'vuepress-theme-plume/features/NpmBadge.vue'
-// import NpmBadgeGroup from 'vuepress-theme-plume/features/NpmBadgeGroup.vue'
-// import Swiper from 'vuepress-theme-plume/features/Swiper.vue'
-
-// import CustomComponent from './theme/components/Custom.vue'
-
-// import './theme/styles/custom.css'
+/** 检测web服务商 */
+import SmartDeployBadge from './components/SmartDeployBadge.vue'
+/** 页脚和徽章组合组件 */
+import FooterWithBadge from './components/FooterWithBadge.vue'
 
 export default defineClientConfig({
   enhance ({ app }) {
@@ -26,17 +22,13 @@ export default defineClientConfig({
     app.component('RepoCard', RepoCard)
     app.component('NodeDownloads', NodeDownloads)
     app.component('PluginList', PluginList)
-    // app.component('RepoCard', RepoCard)
-    // app.component('NpmBadge', NpmBadge)
-    // app.component('NpmBadgeGroup', NpmBadgeGroup)
-    // app.component('Swiper', Swiper) // you should install `swiper`
-
-    // your custom components
-    // app.component('CustomComponent', CustomComponent)
+    app.component('SmartDeployBadge', SmartDeployBadge)
+    app.component('FooterWithBadge', FooterWithBadge)
   },
   layouts: {
     Layout: h(Layout, null, {
       'aside-outline-after': () => h(AsideNav),
+      'footer-content': () => h(FooterWithBadge),
     }),
   },
 })
