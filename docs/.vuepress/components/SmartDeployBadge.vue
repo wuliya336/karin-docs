@@ -98,8 +98,9 @@ function detectDeploymentPlatform () {
     return 'deno-deploy'
   }
 
+  // 修复：pages.dev 应该返回 cloudflare
   if (hostname.includes('pages.dev')) {
-    return 'github-pages'
+    return 'cloudflare'
   }
 
   // 2. 基于HTTP响应头检测（需要在客户端运行时检测）
@@ -137,8 +138,8 @@ function detectDeploymentPlatform () {
     console.log('检测部署平台时出错:', error)
   }
 
-  // 3. 默认返回GitHub Pages
-  return 'github-pages'
+  // 3. 如果都检测不到，返回 null 进行网络检测
+  return null
 }
 
 // 异步检测网络特征
@@ -182,12 +183,17 @@ onMounted(async () => {
   // 首先进行基本检测
   let platform = detectDeploymentPlatform()
 
-  // 如果基本检测结果是GitHub Pages，尝试网络检测
-  if (platform === 'github-pages') {
+  // 如果基本检测无结果或结果不确定，尝试网络检测
+  if (!platform || platform === 'github-pages') {
     const networkDetected = await detectNetworkFeatures()
     if (networkDetected) {
       platform = networkDetected
     }
+  }
+
+  // 如果仍然没有检测到，默认使用 github-pages
+  if (!platform) {
+    platform = 'github-pages'
   }
 
   detectedPlatform.value = platforms[platform]
