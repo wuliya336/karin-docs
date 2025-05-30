@@ -138,7 +138,7 @@ function detectDeploymentPlatform () {
   }
 
   // 3. 默认返回GitHub Pages
-  return 'cloudflare'
+  return 'github-pages'
 }
 
 // 异步检测网络特征
