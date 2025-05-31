@@ -5,22 +5,22 @@
       <!-- 如果是 Deno Deploy，使用本地 SVG -->
       <div v-if="detectedPlatform.type === 'deno-deploy'" class="h-8 flex items-center">
         <img :src="denoSvgPath" alt="Deno Deploy Logo" class="h-30 w-30" />
-        <span class="ml-2 text-sm font-medium text-default">Built witch Deno</span>
+        <span class="ml-2 text-sm font-medium text-default">Built with Deno</span>
       </div>
       <!-- GitHub Pages 使用本地 SVG -->
       <div v-else-if="detectedPlatform.type === 'github-pages'" class="h-8 flex items-center">
         <img :src="githubPagesSvgPath" alt="GitHub Pages Logo" class="h-40 w-40" />
-        <span class="ml-2 text-sm font-medium text-default">Built witch GitHub Pages</span>
+        <span class="ml-2 text-sm font-medium text-default">Built with GitHub Pages</span>
       </div>
       <!-- Cloudflare Pages 使用本地 SVG -->
       <div v-else-if="detectedPlatform.type === 'cloudflare'" class="h-8 flex items-center">
         <img :src="cloudflarePagesSvgPath" alt="Cloudflare Pages Logo" class="h-8 w-8" />
-        <span class="ml-2 text-sm font-medium text-default">Built witch Cloudflare Pages</span>
+        <span class="ml-2 text-sm font-medium text-default">Built with Cloudflare Pages</span>
       </div>
       <!-- Vercel 使用本地 SVG -->
       <div v-else-if="detectedPlatform.type === 'vercel'" class="h-8 flex items-center">
         <img :src="vercelSvgPath" alt="Vercel Logo" class="h-30 w-30" />
-        <span class="ml-2 text-sm font-medium text-default">Built witch Vercel</span>
+        <span class="ml-2 text-sm font-medium text-default">Built with Vercel</span>
       </div>
       <!-- 其他平台使用图片徽章 -->
       <img v-else :src="detectedPlatform.badge" :alt="detectedPlatform.alt" class="h-5 block" />
