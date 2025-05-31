@@ -3,6 +3,10 @@ import { defineClientConfig } from 'vuepress/client'
 import { Layout } from 'vuepress-theme-plume/client'
 import './theme/styles/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+/** 平滑滚动 */
+import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
+
 /** Repo 卡片 */
 import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
 /** node下载地址 */
@@ -30,5 +34,24 @@ export default defineClientConfig({
       'aside-outline-after': () => h(AsideNav),
       'footer-content': () => h(FooterWithBadge),
     }),
+  },
+  setup () {
+    if (typeof window !== 'undefined') {
+      const lenis = new Lenis({
+        autoRaf: true,
+        smoothWheel: true,
+        lerp: 0.1,
+        duration: 1.2,
+        easing: (x) => {
+          return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
+        },
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        wheelMultiplier: 1,
+        touchMultiplier: 1,
+        infinite: false,
+        autoResize: true,
+      })
+    }
   },
 })
