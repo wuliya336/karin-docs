@@ -1,6 +1,7 @@
 import { h } from 'vue'
 import { defineClientConfig } from 'vuepress/client'
 import { Layout } from 'vuepress-theme-plume/client'
+import { useRoute } from 'vue-router'
 import './theme/styles/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 /** 平滑滚动 */
@@ -32,7 +33,11 @@ export default defineClientConfig({
   layouts: {
     Layout: h(Layout, null, {
       'aside-outline-after': () => h(AsideNav),
-      'footer-content': () => h(FooterWithBadge),
+      'footer-content': () => {
+        const route = useRoute()
+        const isHomePage = route.path === '/' || route.path === '/index.html'
+        return isHomePage ? h(FooterWithBadge) : null
+      }
     }),
   },
   setup () {
