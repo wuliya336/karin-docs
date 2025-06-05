@@ -182,26 +182,27 @@ permalink: /guide/p13zmecw/
 }
 ```
 
-#### 字段说明
+### 字段说明
 
 > [!IMPORTANT]
+> 下面的所有的字段都处于`karin`字段下
 > 这里所有的字段都不是必须的  
 > 但建议根据需要进行配置  
 > 所有路径相关的字段，都是**相对路径**，相对于 `package.json` 文件所在的目录
 
-| key             | 示例                 | 类型                   | 备注                                                           |
-| --------------- | -------------------- | ---------------------- | -------------------------------------------------------------- |
-| `apps`          | `[src/apps]`         | `string` \| `string[]` | js 环境下的 apps 目录                                          |
-| `web`           | `dist/web.config.js` | `string`               | web 配置文件的路径                                             |
-| `static`        | `[src/static]`       | `string` \| `string[]` | 静态资源目录                                                   |
-| `files`         | `[src]`              | `string` \| `string[]` | 基本文件夹结构，会自动在`@karinjs/{plugin_name}`下创建的文件夹 |
-| `env`           | `看下方详细说明`     | `PkgEnv[]`             | 环境变量配置，会自动写入`.env`、`process.env`中                |
-| `engines`       | `{}`                 | `object`               | 引擎兼容性配置                                                 |
-| `engines.karin` | `>=1.8.0`            | `string`               | karin 版本要求，支持 `^`、`>=`、`<=`、`>`、`<`、`=`等语法      |
-|                 |                      |                        |                                                                |
-| `main`          | `src/index.ts`       | `string`               | ts 环境下的入口，仅在 ts 下生效                                |
-| `ts-apps`       | `[src/apps]`         | `string` \| `string[]` | ts 环境下的 apps 目录，仅在 ts 下生效                          |
-| `ts-web`        | `dist/web.config.js` | `string`               | ts 环境下的 web 配置文件的路径                                 |
+| key                 | 示例                 | 类型                   | 备注                                                           |
+| ------------------- | -------------------- | ---------------------- | -------------------------------------------------------------- |
+| `apps`              | `[src/apps]`         | `string` \| `string[]` | js 环境下的 apps 目录                                          |
+| `web`               | `dist/web.config.js` | `string`               | web 配置文件的路径                                             |
+| `static`            | `[src/static]`       | `string` \| `string[]` | 静态资源目录                                                   |
+| `files`             | `[src]`              | `string` \| `string[]` | 基本文件夹结构，会自动在`@karinjs/{plugin_name}`下创建的文件夹 |
+| `env`               | `看下方详细说明`     | `PkgEnv[]`             | 环境变量配置，会自动写入`.env`、`process.env`中                |
+| ~~`engines`~~       | `{}`                 | `object`               | 引擎兼容性配置                                                 |
+| ~~`engines.karin`~~ | `>=1.8.0`            | `string`               | karin 版本要求，支持 `^`、`>=`、`<=`、`>`、`<`、`=`等语法      |
+|                     |                      |                        |                                                                |
+| `main`              | `src/index.ts`       | `string`               | ts 环境下的入口，仅在 ts 下生效                                |
+| `ts-apps`           | `[src/apps]`         | `string` \| `string[]` | ts 环境下的 apps 目录，仅在 ts 下生效                          |
+| `ts-web`            | `dist/web.config.js` | `string`               | ts 环境下的 web 配置文件的路径                                 |
 
 - `static`:
 
@@ -257,6 +258,28 @@ permalink: /guide/p13zmecw/
     - 如果字段存在并且为空，则不会创建任何文件夹
     - 对于 `App插件` 来说，`karin`的处理方式是**默认字段不存在**
     - 也就是说，`App插件` 也可以在`@karinjs`下统一管理配置啦
+
+> [!note]
+> 在`1.9.10`版本开始，`karin.engines.karin`将迁移到根字段中，`engines.karin`
+
+```json
+// 迁移之前 会保留一段时间的兼容性 此字段依旧有效
+{
+  "karin": {
+    "engines": {
+      "karin": ">=1.9.10"
+    }
+  }
+}
+
+// 迁移之后
+{
+  "engines": {
+    "node": ">=18.0.0",
+    "karin": ">=1.9.10"
+  }
+}
+```
 
 ### Npm 插件
 
