@@ -596,4 +596,19 @@ const tempPath = path.join(karinPathTemp, pluginName)
   - 不要携带 `data:image/png;base64,`等前缀
   - 如：`base64://iVBORw0KGAYAAR42mL8//8/AyUYw ...`
 
-[ts-template]: https://github.com/KarinJS/karin-plugin-template-ts
+## 插件加载顺序
+
+### 1.9.10版本之前
+
+插件包被加载的顺序是：
+
+1. `Promise.all` 加载 `apps` 字段下的所有文件
+2. 加载 `main` 字段的入口文件
+
+### 1.9.10版本之后
+
+插件包被加载的顺序是：
+
+1. 加载 `main` 字段的入口文件
+2. 如果 `main` 文件中导出了 `KARIN_PLUGIN_INIT` 函数 则会执行该函数
+3. 加载 `apps` 字段的入口文件 
