@@ -93,30 +93,6 @@ if (handler.has('permission.check')) {
 1. `args`：调用处理器时传递的参数对象
 2. `next`：一个函数，调用它表示当前处理器不处理此事件，允许继续执行链中的下一个处理器
 
-```ts twoslash
-// @noErrorValidation
-// 插件中注册处理器的示例
-ctx.on('handler', {
-  key: 'user.get',
-  fn: async (args, next) => {
-    const { userId } = args
-
-    // 如果不是我们负责的用户ID范围，就跳过
-    if (!userId.startsWith('user_')) {
-      next()
-      return
-    }
-
-    // 处理并返回结果
-    return {
-      id: userId,
-      name: 'User Name',
-      // ...其他用户信息
-    }
-  },
-})
-```
-
 ### 处理流程
 
 当调用`handler`函数时，它会按照注册顺序遍历所有匹配指定键的处理器：
@@ -163,75 +139,37 @@ async function editUserProfile (userId: string, newData: any) {
 
 ```ts twoslash
 // @noErrorValidation
-import { Event } from 'node-karin'
-import { handler } from 'node-karin'
+import karin, { handler } from 'node-karin'
 
-// 在消息处理中使用
-async function onMessageReceived (e: Event) {
-  // 解析消息内容，检查是否是命令
-  if (e.message.startsWith('/translate ')) {
-    const text = e.message.slice(11) // 去掉"/translate "前缀
+// 使用 karin.command 处理消息命令
+export const translateCommand = karin.command(/^\/translate (.+)$/, async (e, next) => {
+  // 从正则匹配中获取要翻译的文本
+  const text = e.msg.match(/^\/translate (.+)$/)?.[1]
+  
+  if (!text) {
+    await e.reply('请提供要翻译的文本')
+    return
+  }
 
-    // 检查是否有翻译处理器
-    if (handler.has('translate.text')) {
-      // 调用翻译处理器
-      const translated = await handler('translate.text', {
-        text,
-        from: 'auto',
-        to: 'zh-CN',
-        e,
-      })
+  // 检查是否有翻译处理器
+  if (handler.has('translate.text')) {
+    // 调用翻译处理器
+    const translated = await handler('translate.text', {
+      text,
+      from: 'auto',
+      to: 'zh-CN',
+      e,
+    })
 
-      // 将翻译结果发送回去
-      if (translated) {
-        await e.reply(`翻译结果: ${translated}`)
-        return true // 表示消息已处理
-      }
+    // 将翻译结果发送回去
+    if (translated) {
+      await e.reply(`翻译结果: ${translated}`)
+      return // 处理完成，不继续匹配
     }
   }
-
-  return false // 消息未处理，继续传递给其他处理器
-}
-```
-
-### 实现插件间服务调用
-
-```ts twoslash
-// @noErrorValidation
-import { handler } from 'node-karin'
-
-// 插件A：提供天气查询服务
-// 在插件初始化时注册处理器
-function initWeatherPlugin(ctx) {
-  ctx.on('handler', {
-    key: 'weather.get',
-    fn: async (args) => {
-      const { city } = args
-      // 实际实现会调用天气API获取数据
-      return {
-        city,
-        temperature: '25°C',
-        condition: '晴',
-        humidity: '40%',
-      }
-    },
-  })
-}
-
-// 插件B：使用天气服务实现功能
-async function createWeatherReport(city) {
-  if (!handler.has('weather.get')) {
-    return '天气服务不可用，请确认天气插件已启用'
-  }
-
-  const weather = await handler.call('weather.get', { city })
-
-  if (!weather) {
-    return `无法获取${city}的天气信息`
-  }
-
-  return `${city}天气：${weather.temperature}，${weather.condition}，湿度${weather.humidity}`
-}
+  
+  await e.reply('翻译服务暂不可用')
+})
 ```
 
 ## 注意事项

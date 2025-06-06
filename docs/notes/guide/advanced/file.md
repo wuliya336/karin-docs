@@ -48,7 +48,7 @@ permalink: /guide/t0xrpxol/
 <details>
 <summary>点击展开默认配置</summary>
 
-```ini
+```ini title=".env"
 # 是否启用HTTP
 HTTP_ENABLE=true
 # HTTP监听端口
@@ -92,7 +92,7 @@ RUNTIME=node
 <details>
 <summary>点击展开示例配置</summary>
 
-```ini
+```ini title=".env"
 # 启用HTTP服务并监听所有地址的7777端口
 HTTP_ENABLE=true
 HTTP_PORT=7777
@@ -186,7 +186,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="adapter.json"
 {
   "console": {
     "isLocal": true,
@@ -224,7 +224,7 @@ RUNTIME=node
 <details>
 <summary>点击展开示例配置</summary>
 
-```json
+```json title="adapter.json"
 {
   "console": {
     "isLocal": false, // 允许远程访问
@@ -326,7 +326,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="config.json"
 {
   "master": ["console"],
   "admin": [],
@@ -379,7 +379,7 @@ RUNTIME=node
 <details>
 <summary>点击展开示例配置</summary>
 
-```json
+```json title="config.json"
 {
   "master": [
     "console", // 默认控制台用户
@@ -505,7 +505,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="privates.json"
 {
   "default": {
     "cd": 0,
@@ -538,7 +538,7 @@ RUNTIME=node
 <details>
 <summary>点击展开示例配置</summary>
 
-```json
+```json title="privates.json"
 {
   "default": {
     "cd": 1, // 全局消息冷却时间1秒
@@ -610,7 +610,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="groups.json"
 {
   "default": {
     "cd": 0,
@@ -672,7 +672,7 @@ RUNTIME=node
 <details>
 <summary>点击展开示例配置</summary>
 
-```json
+```json title="groups.json"
 {
   "default": {
     "cd": 1, // 全局消息冷却时间1秒
@@ -760,7 +760,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="pm2.json"
 {
   "lines": 1000,
   "apps": [
@@ -809,7 +809,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="redis.json"
 {
   "url": "redis://127.0.0.1:6379",
   "socket": {
@@ -854,7 +854,7 @@ RUNTIME=node
 <details>
 <summary>点击展开默认配置</summary>
 
-```json
+```json title="render.json"
 {
   "ws_server": {
     "enable": true
@@ -883,7 +883,7 @@ RUNTIME=node
 <details>
 <summary>点击展开示例配置</summary>
 
-```json
+```json title="render.json"
 {
   "ws_server": {
     "enable": true // 启用WebSocket服务器(反向ws)

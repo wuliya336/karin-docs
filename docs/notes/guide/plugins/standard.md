@@ -101,7 +101,7 @@ permalink: /guide/p13zmecw/
 
 我们先来看一个标准的 `package.json`
 
-```json
+```json title='package.json'
 {
   "name": "@karinjs/project", // npm包的名称
   "version": "1.0.0", // npm包的版本号
@@ -137,7 +137,7 @@ permalink: /guide/p13zmecw/
 
 而 `karin` 对于 `npm、git` 两种插件包，都需要存在以下字段
 
-```json
+```json title='package.json'
 {
   // ...
   "karin": {
@@ -174,7 +174,7 @@ permalink: /guide/p13zmecw/
 
 当前，并未所有字段都是必须的，严格意义来说，只有 `karin` 字段是必须的。
 
-```json
+```json title='package.json'
 {
   // ...
   "main": "dist/index.js", // 插件的入口文件
@@ -230,7 +230,7 @@ permalink: /guide/p13zmecw/
 
   - 示例:
 
-  ```json
+  ```json title='package.json'
   {
     "karin": {
       "env": [
@@ -247,7 +247,7 @@ permalink: /guide/p13zmecw/
   - 此时可以通过 `process.env.KARIN_TEST` 来获取变量值 `test`
   - 而在 `.env` 中会自动生成 `KARIN_TEST=test` 的变量
 
-  ```ini
+  ```ini title='.env'
   # ...
   # 测试环境变量
   KARIN_TEST=test
@@ -262,7 +262,7 @@ permalink: /guide/p13zmecw/
 > [!note]
 > 在`1.9.10`版本开始，`karin.engines.karin`将迁移到根字段中，`engines.karin`
 
-```json
+```json title='package.json'
 // 迁移之前 会保留一段时间的兼容性 此字段依旧有效
 {
   "karin": {
@@ -411,7 +411,7 @@ permalink: /guide/p13zmecw/
 - 建议查看[exports](../api//exports.md)
 - 示例:
 
-```ts twoslash
+```ts twoslash title='root.ts'
 // @noErrorValidation
 import { karinPathBase } from 'node-karin/root' // @karinjs
 

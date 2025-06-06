@@ -217,7 +217,7 @@ common 模块同样重新导出了按钮和消息处理相关的函数：
 // @noErrorValidation
 import { common } from 'node-karin'
 
-async function processUserData(userId) {
+async function processUserData(userId: string) {
   // 创建用户目录
   const userDir = `/data/users/${userId}`
   await common.mkdir(userDir)

@@ -37,7 +37,7 @@ import karin from 'node-karin'
 
 - `command` 的第一种使用方法，直接回复字符串
 
-```ts twoslash
+```ts twoslash title='command-demo-1.ts'
 // @noErrorValidation
 import karin from 'node-karin'
 export const test = karin.command('^文本$', '这是一段文本消息')
@@ -45,7 +45,7 @@ export const test = karin.command('^文本$', '这是一段文本消息')
 
 - `command` 的第二种使用方法，传入`segment`元素
 
-```ts twoslash
+```ts twoslash title='command-demo-2.ts'
 // @noErrorValidation
 import karin, { segment } from 'node-karin'
 export const text = karin.command(
@@ -56,7 +56,7 @@ export const text = karin.command(
 
 - `command` 的第三种使用方法，回调函数
 
-```ts twoslash
+```ts twoslash title='command-demo-3.ts'
 // @noErrorValidation
 import { karin, segment } from 'node-karin'
 // 参数二支持同步和异步函数
@@ -83,7 +83,7 @@ export const callback = karin.command(/^#回调测试$/, async (e, next) => {
 > 强烈建议设置`name`属性，也就是插件的名称，方便后续查找和管理插件  
 > 参数的配置项请查看更下方
 
-```ts twoslash
+```ts twoslash title='command-demo-4.ts'
 // @noErrorValidation
 import karin from 'node-karin'
 // ---cut-before---
@@ -116,7 +116,7 @@ export const test = karin.command('^文本$', '这是一段文本消息', {
 监听入群通知事件插件示例
 
 <!-- prettier-ignore -->
-```ts twoslash
+```ts twoslash title='accept-demo-1.ts'
 // @noErrorValidation
 import karin from 'node-karin'
 export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
@@ -134,7 +134,7 @@ export const accept = karin.accept('notice.groupMemberAdd', async (e) => {
 调用 `karin.task` 注册一个定时任务插件
 
 <!-- prettier-ignore -->
-```ts twoslash
+```ts twoslash title='task-demo-1.ts'
 // @noErrorValidation
 import { logger } from 'node-karin'
 // ---cut-before---
@@ -151,7 +151,7 @@ const task = karin.task('打印 Hello World', '*/10 * * * *', async () => {
 > 将下面的代码复制到 `index-demo.js` 中，保存  
 > 对机器人发送 `#你好` ，机器人会回复 `你好` 、图片、语音、视频、@某人
 
-```ts twoslash
+```ts twoslash title='class-demo-1.ts'
 // @noErrorValidation
 import { Plugin, segment } from 'node-karin'
 
@@ -185,7 +185,7 @@ export class hello extends Plugin {
 
 ## 更复杂的类语法糖示例
 
-```ts twoslash
+```ts twoslash title='class-demo-2.ts'
 // @noErrorValidation
 import { Plugin, segment } from 'node-karin'
 

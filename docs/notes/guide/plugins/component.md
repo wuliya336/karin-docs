@@ -22,7 +22,7 @@ permalink: /guide/wmhiz1s1/
 - 文件位置: 通过`package.json`定义
 - value 编写: 以`package.json`为相对路径进行编写
 
-```json
+```json title='package.json'
 {
   "karin": {
     "web": "./lib/web.config.js", // 在ts环境下不会读取这个 只有在js环境下才会读取
@@ -44,7 +44,7 @@ permalink: /guide/wmhiz1s1/
 
 ## 配置组件
 
-```ts twoslash
+```ts twoslash title='web.config.ts'
 // @noErrorValidation
 import { defineConfig } from 'node-karin'
 
@@ -912,7 +912,7 @@ components.input.group('group-key', {
 
 ## 下面是一个我写的示例文件
 
-```ts twoslash
+```ts twoslash title='web.config.ts'
 // @noErrors
 import { defineConfig, components } from 'node-karin'
 

@@ -154,7 +154,7 @@ npx k
 
 `karin-puppeteer` 初次启动之后，会在 `跟目录` 下生成 `config.json` 配置文件。
 
-```json
+```json title='config.json'
 {
   "logLevel": "info", // 日志级别
   "headless": true, // 是否无头启动
