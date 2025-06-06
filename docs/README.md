@@ -95,3 +95,5 @@ config:
    npx karin pm2  # 后台运行
    ```
 :::
+
+<Confetti />

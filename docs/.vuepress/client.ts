@@ -20,6 +20,8 @@ import AsideNav from './theme/components/AsideNav.vue'
 import SmartDeployBadge from './components/SmartDeployBadge.vue'
 /** 页脚和徽章组合组件 */
 import FooterWithBadge from './components/FooterWithBadge.vue'
+/** 纸屑 */
+import Confetti from './theme/components/Confetti.vue'
 
 export default defineClientConfig({
   enhance ({ app }) {
@@ -29,6 +31,7 @@ export default defineClientConfig({
     app.component('PluginList', PluginList)
     app.component('SmartDeployBadge', SmartDeployBadge)
     app.component('FooterWithBadge', FooterWithBadge)
+    app.component('Confetti', Confetti)
   },
   layouts: {
     Layout: h(Layout, null, {
