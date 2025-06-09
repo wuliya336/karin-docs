@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       node-karin:
-        specifier: ^1.10.1
-        version: 1.10.1
+        specifier: ^1.10.4
+        version: 1.10.4
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.346
@@ -3608,8 +3608,8 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
-  node-karin@1.10.1:
-    resolution: {integrity: sha512-auc5M2vcQDpyCpF0gVi4ScmLD3TfU02naEDYr7bfIWKYZ7wM/qVeMkf25moTLKOHC7LpvEwQmUfkPcEoJ+0C0w==}
+  node-karin@1.10.4:
+    resolution: {integrity: sha512-6SLiumiWYekyayCWHXxFeGh7bJ1kXNIu39UjtJTfWXg7H6A58p6w5fsXc8rewSgogvCUThz3X+Hi8m2qVcvaYA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -8985,7 +8985,7 @@ snapshots:
   node-addon-api@7.1.1:
     optional: true
 
-  node-karin@1.10.1:
+  node-karin@1.10.4:
     dependencies:
       art-template: '@karinjs/art-template@1.1.0'
       axios: '@karinjs/axios@1.2.0'
