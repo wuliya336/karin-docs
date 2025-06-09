@@ -5,10 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import path from 'path'
 import { pwaPlugin } from '@vuepress/plugin-pwa'
 import { pwaPopupPlugin } from '@vuepress/plugin-pwa-popup'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { ModuleKind, ModuleResolutionKind, ScriptTarget } from 'typescript'
 
 export default defineUserConfig({
   base: '/',
@@ -70,7 +70,7 @@ export default defineUserConfig({
         noExternal: process.env.NODE_ENV === 'production' ? [/element-plus/, /lenis/] : []
       },
       optimizeDeps: {
-        include: ['lenis']
+        // include: ['lenis']
       }
     }
   }),
@@ -178,9 +178,9 @@ export default defineUserConfig({
       twoslash: {
         twoslashOptions: {
           compilerOptions: {
-            paths: {
-              'node-karin/root': [path.resolve(process.cwd(), './node_modules/node-karin/dist/root')],
-            }
+            moduleResolution: ModuleResolutionKind.NodeNext,
+            target: ScriptTarget.ESNext,
+            module: ModuleKind.ESNext,
           }
         }
       },

@@ -20,10 +20,11 @@ permalink: /guide/utils/1ususf67/
 
 通过 `node-karin/root` 或 `node-karin/dir` 导出，提供了框架中常用的路径和状态信息。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import * as KarinRoot from 'node-karin/root'
 // 或
-import KarinRoot from 'node-karin/root'
+// import KarinRoot from 'node-karin/root'
 // 或
 import { karinPathRoot } from 'node-karin/root'
 ```
@@ -97,10 +98,9 @@ node-karin 框架将多个常用的第三方模块重新打包并导出，方便
 
 Web 应用框架，用于构建 API 和 Web 应用。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import express from 'node-karin/express'
-// 或
-import { Router } from 'node-karin/express'
 ```
 
 > [!note] 
@@ -113,10 +113,9 @@ import { Router } from 'node-karin/express'
 
 实用工具库，提供函数式编程辅助函数。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import _ from 'node-karin/lodash'
-// 或
-import { merge } from 'node-karin/lodash'
 ```
 
 > [!note] 
@@ -129,7 +128,8 @@ import { merge } from 'node-karin/lodash'
 
 基于 Promise 的 HTTP 客户端。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import axios from 'node-karin/axios'
 ```
 
@@ -139,7 +139,8 @@ import axios from 'node-karin/axios'
 
 终端字符串样式库。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import chalk from 'node-karin/chalk'
 ```
 
@@ -149,7 +150,8 @@ import chalk from 'node-karin/chalk'
 
 高性能文件监控库。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import chokidar from 'node-karin/chokidar'
 ```
 
@@ -159,10 +161,9 @@ import chokidar from 'node-karin/chokidar'
 
 高性能 JavaScript 模板引擎。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import template from 'node-karin/art-template'
-// 或
-import template from 'node-karin/template'
 ```
 
 详细文档请参考 [art-template 文档](https://aui.github.io/art-template/)
@@ -171,7 +172,8 @@ import template from 'node-karin/template'
 
 日期处理库。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import moment from 'node-karin/moment'
 ```
 
@@ -181,10 +183,9 @@ import moment from 'node-karin/moment'
 
 定时任务调度库。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import schedule from 'node-karin/schedule'
-// 或
-import schedule from 'node-karin/node-schedule'
 ```
 
 详细文档请参考 [node-schedule 文档](https://github.com/node-schedule/node-schedule)
@@ -193,7 +194,8 @@ import schedule from 'node-karin/node-schedule'
 
 Redis 客户端库。
 
-```typescript
+```ts twoslash
+// @noErrorValidation
 import redis from 'node-karin/redis'
 ```
 
@@ -203,7 +205,7 @@ import redis from 'node-karin/redis'
 
 SQLite 数据库客户端。
 
-```typescript
+```ts twoslash
 import sqlite3 from 'node-karin/sqlite3'
 ```
 
@@ -216,7 +218,7 @@ import sqlite3 from 'node-karin/sqlite3'
 
 WebSocket 客户端和服务器实现。
 
-```typescript
+```ts twoslash
 import WebSocket from 'node-karin/ws'
 ```
 
@@ -226,7 +228,7 @@ import WebSocket from 'node-karin/ws'
 
 YAML 解析和序列化库。
 
-```typescript
+```ts twoslash
 import yaml from 'node-karin/yaml'
 ```
 

@@ -45,21 +45,23 @@ export default defineClientConfig({
   },
   setup () {
     if (typeof window !== 'undefined') {
-      const lenis = new Lenis({
-        autoRaf: true,
-        smoothWheel: true,
-        lerp: 0.1,
-        duration: 1.2,
-        easing: (x) => {
-          return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
-        },
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        wheelMultiplier: 1,
-        touchMultiplier: 1,
-        infinite: false,
-        autoResize: true,
-      })
+      // 有BUG，暂时注释掉
+      // 平滑滚动
+      // const lenis = new Lenis({
+      //   autoRaf: true,
+      //   smoothWheel: true,
+      //   lerp: 0.1,
+      //   duration: 1.2,
+      //   easing: (x) => {
+      //     return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
+      //   },
+      //   orientation: 'vertical',
+      //   gestureOrientation: 'vertical',
+      //   wheelMultiplier: 1,
+      //   touchMultiplier: 1,
+      //   infinite: false,
+      //   autoResize: true,
+      // })
     }
   },
 })
