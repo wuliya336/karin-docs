@@ -1,11 +1,8 @@
 ---
-title: message
+title: 💬 message 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/tnaf8j8v/
 ---
-
-# message 模块
-
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。
 
@@ -59,7 +56,7 @@ const elements2 = makeMessage(['你好', { type: 'at', targetId: '123456' }])
 制作简单转发消息。
 
 ```ts twoslash
-// @noErrorValidation
+import { segment } from 'node-karin'
 import { makeForward } from 'node-karin'
 
 /**
@@ -69,19 +66,29 @@ import { makeForward } from 'node-karin'
  * @param fakeName 转发用户显示的昵称
  * @returns 转发节点元素数组
  */
-const forwardMsg = makeForward([['第一条消息'], [{ type: 'text', text: '第二条消息' }]], '123456', '用户昵称')
+const forwardMsg = makeForward(
+  [[segment.text('第一条消息')], [{ type: 'text', text: '第二条消息' }]],
+  '123456',
+  '用户昵称'
+)
 ```
 
 ## 消息段构造函数
 
 message 模块通过`segment`子模块提供了丰富的消息段构造器：
+你需要先导入`segment`子模块才能使用这些构造器。
+
+```ts twoslash
+// @noErrorValidation
+import { segment } from 'node-karin'
+```
 
 ### 基础消息段
 
 ```ts twoslash
 // @noErrorValidation
 import { segment } from 'node-karin'
-
+// ---cut---
 // 文本消息
 const textMsg = segment.text('这是一段文本')
 
@@ -100,6 +107,8 @@ const replyMsg = segment.reply('message-id-123')
 
 ```ts twoslash
 // @noErrorValidation
+import { segment } from 'node-karin'
+// ---cut---
 // 图片消息
 const imgMsg = segment.image('https://example.com/image.jpg')
 const imgMsg2 = segment.image('/path/to/image.jpg', {
@@ -120,6 +129,8 @@ const magicRecordMsg = segment.record('https://example.com/audio.mp3', true) // 
 
 ```ts twoslash
 // @noErrorValidation
+import { segment } from 'node-karin'
+// ---cut---
 // JSON消息
 const jsonMsg = segment.json('{"type":"LightApp","data":{}}')
 
@@ -130,13 +141,16 @@ const xmlMsg = segment.xml('<xml></xml>')
 const mdMsg = segment.markdown('# 标题\n内容')
 
 // Markdown模板
-const mdTplMsg = segment.markdownTpl('template-id', { key: 'value' })
+const mdTplMsg = segment.markdownTpl('template-id', [{ key: 'value', values: ['value0', 'value1'] }])
+
 ```
 
 ### 交互消息段
 
 ```ts twoslash
 // @noErrorValidation
+import { segment } from 'node-karin'
+// ---cut---
 // 按钮
 const btnMsg = segment.button({ text: '点击按钮', data: 'button-data' })
 
@@ -170,6 +184,8 @@ const customMusicMsg = segment.customMusic(
 
 ```ts twoslash
 // @noErrorValidation
+import { segment } from 'node-karin'
+// ---cut---
 // 骰子
 const diceMsg = segment.dice(3) // 点数为3的骰子
 
@@ -184,25 +200,105 @@ const basketballMsg = segment.basketball(1) // 0-未知 1-进了 2-没进
 
 ```ts twoslash
 // @noErrorValidation
-// @noErrorValidation
 import { segment } from 'node-karin'
-
-// 自定义转发节点
+// ---cut---
+// 自定义转发节点（基础用法）
 const nodeMsg = segment.node(
   '123456', // 用户ID
   '用户昵称', // 用户昵称
   [
     // 消息内容
     segment.text('这是转发的消息内容'),
-  ],
-  {
-    // 可选配置
-    time: Math.floor(Date.now() / 1000),
-  }
+  ]
 )
 
 // 已有转发消息节点
 const directNodeMsg = segment.nodeDirect('forward-id-123')
+```
+
+#### 重要提示
+
+::: warning **协议兼容性警告**
+第四个参数 `options`（外显配置）目前 **仅在 [NapCat](https://napcat.napneko.icu/) 和 [Lagrange](https://lagrangedev.github.io/Lagrange.Doc/v1/) 的 `QQNT` 协议实现中有效**。  
+在其他协议实现中，此参数将被忽略。  
+**正常使用时不需要填写第四个参数**，使用前三个参数即可。
+:::
+
+
+#### 个性化转发外显配置 (options)
+
+**目前仅适用于 [NapCat](https://napcat.napneko.icu/) 和 [Lagrange](https://lagrangedev.github.io/Lagrange.Doc/v1/)协议**
+
+第四个参数 `options` 用于自定义转发消息的外观显示，让转发消息更加个性化和直观。
+
+**配置属性详解：**
+
+- **`news`** - 小卡片中间的内容预览
+  - 类型：`Array<{text: string}>`
+  - 作用：显示转发消息的内容摘要
+  - 示例：`[{text: '[图片]'}, {text: '今天天气不错'}]`
+
+- **`prompt`** - 消息列表的标题描述
+  - 类型：`string`
+  - 作用：描述这组转发消息的来源或性质
+  - 示例：`'群聊的聊天记录'`、`'与张三的私聊'`
+
+- **`summary`** - 底部统计信息
+  - 类型：`string`
+  - 作用：显示转发消息的数量统计
+  - 示例：`'查看5条转发消息'`
+
+- **`source`** - 小卡片顶部标题
+  - 类型：`string`
+  - 作用：标识转发消息的来源或类别
+  - 示例：`'聊天记录'`、`'群消息'`
+
+#### 高级示例（仅 NapCat/Lagrange协议）
+
+```ts twoslash
+// @noErrorValidation
+import { segment } from 'node-karin'
+// ---cut---
+// ⚠️ 注意：以下示例目前仅在 NapCat 和 Lagrange 协议中有效
+
+// 示例1
+const workDiscussion = segment.node(
+  'manager001',
+  '项目经理',
+  [
+    segment.text('明天的会议改到下午3点'),
+    segment.file('/path/to/meeting-agenda.pdf'),
+    segment.text('请大家提前准备')
+  ],
+  {
+    news: [
+      { text: '明天的会议改到下午3点' },
+      { text: '[文件] meeting-agenda.pdf' }
+    ],
+    prompt: '工作群的重要通知',
+    summary: '查看3条转发消息',
+    source: '工作通知'
+  }
+)
+
+// 示例2
+const lifeSharing = segment.node(
+  'friend123',
+  '小明',
+  [
+    segment.image('/path/to/food.jpg'),
+    segment.text('今天做的菜，味道不错！')
+  ],
+  {
+    news: [
+      { text: '[图片]' },
+      { text: '今天做的菜，味道不错！' }
+    ],
+    prompt: '朋友圈动态分享',
+    summary: '查看2条转发消息',
+    source: '生活分享'
+  }
+)
 ```
 
 可以通过以上构造函数灵活组合各种复杂消息。

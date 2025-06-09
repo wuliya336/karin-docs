@@ -1,10 +1,8 @@
 ---
-title: changelog
+title: 📝 changelog 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/2gr1l6k8/
 ---
-
-# changelog 模块
 
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。

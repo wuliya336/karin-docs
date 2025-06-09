@@ -1,10 +1,8 @@
 ---
-title: request
+title: 📡 request 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/61b00fe9/
 ---
-
-# request 模块
 
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。
@@ -148,9 +146,7 @@ console.log('最快的URL详情:', fastestDetail)
 
 - `urls`: 字符串数组，包含多个要测试的 URL
 - `config`: 扩展的 Axios 请求配置对象，支持以下特殊选项:
-  ```ts twoslash
-  // @noErrorValidation
-  // @noErrorValidation
+  ```ts
   {
     method: 'HEAD',     // 默认使用HEAD请求
     timeout: 10000,     // 默认超时时间10秒

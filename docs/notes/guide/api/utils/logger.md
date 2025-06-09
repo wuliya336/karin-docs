@@ -1,10 +1,8 @@
 ---
-title: logger
+title: 📋 logger 日志模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/dx7y8w93/
 ---
-
-# logger 模块
 
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。
@@ -34,6 +32,8 @@ logger 对象扩展了 chalk，提供了多种颜色方法：
 
 ```ts twoslash
 // @noErrorValidation
+import { logger } from 'node-karin'
+
 logger.info(logger.red('这是红色文本'))
 logger.info(logger.green('这是绿色文本'))
 logger.info(logger.yellow('这是黄色文本'))
@@ -70,18 +70,6 @@ logger.bot('error', '123456789', '连接失败', error)
 - `LOG_MAX_LOG_SIZE`: 日志文件最大大小(MB)，默认为 0(不限制)
 - `LOG_FNC_COLOR`: 函数高亮颜色，默认为'#E1D919'
 
-## 创建自定义日志器
-
-可以创建自定义的日志记录器：
-
-```ts twoslash
-// @noErrorValidation
-// 这是内部接口，请勿使用
-import { createInnerLogger } from 'node-karin'
-
-// 创建一个新的日志记录器，指定日志存储目录
-const customLogger = createInnerLogger('/path/to/logs')
-```
 
 ## Logger 接口
 

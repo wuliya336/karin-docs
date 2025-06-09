@@ -1,11 +1,8 @@
 ---
-title: system
+title: ⚙️ system 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/ulw3vz9u/
 ---
-
-# system 模块
-
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。
 

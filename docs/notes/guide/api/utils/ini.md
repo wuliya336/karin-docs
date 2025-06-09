@@ -1,10 +1,8 @@
 ---
-title: ini
+title: 📝 ini 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/bnvigc6e/
 ---
-
-# ini 模块
 
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。
@@ -80,6 +78,8 @@ interface INIParser {
 
 ```ts twoslash
 // @noErrorValidation
+import { ini } from 'node-karin'
+// ---cut---
 /**
  * 从指定路径读取并解析INI文件
  * @param filePath - 文件路径

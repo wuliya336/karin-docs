@@ -1,9 +1,8 @@
 ---
-title: config
+title: ⚙️ config 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/gxzoi2nc/
 ---
-
 # config 模块
 
 > [!note]
@@ -74,40 +73,6 @@ const formatted = config.formatObject(obj)
 // }
 ```
 
-### mergeDegAndCfg
-
-合并默认配置和用户配置，专用于处理 privates 和 groups 配置。
-
-```ts twoslash
-// @noErrorValidation
-import { config } from 'node-karin'
-
-/**
- * 合并配置对象
- * @param def - 默认配置，类型为 Record<string, any>
- * @param cfg - 用户配置，类型为 Record<string, any>
- * @returns 合并后的配置，类型为 Record<string, any>
- */
-const defaultConfig = {
-  maxConnections: 10,
-  timeout: 30000,
-  allowedTypes: ['image', 'video'],
-}
-
-const userConfig = {
-  timeout: 60000,
-  allowedTypes: ['image', 'audio'],
-}
-
-const merged = config.mergeDegAndCfg(defaultConfig, userConfig)
-// 结果:
-// {
-//   maxConnections: 10,
-//   timeout: 60000,
-//   allowedTypes: ['image', 'audio']
-// }
-```
-
 ## 管理员配置 (admin)
 
 处理框架层面的管理员配置操作。
@@ -148,30 +113,35 @@ import { config } from 'node-karin'
  * @returns 是否修改成功，布尔值
  */
 // 两个函数功能相同
-const success = config.setYaml('groups', {
-  // 配置内容
-  default: {
-    cd: 0,
-    userCD: 0,
-    mode: 0,
-    alias: [],
-    enable: ['plugin1', 'plugin2'],
-    disable: [],
-    member_enable: [],
-    member_disable: [],
-  },
-})
+const success = config.setYaml(
+  'groups',
+  [
+    {
+      // 配置内容
+      key: 'Bot:selfId:groupId',
+      inherit: true,
+      cd: 0,
+      userCD: 0,
+      mode: 0,
+      alias: [],
+      enable: ['plugin1', 'plugin2'],
+      disable: [],
+      member_enable: [],
+      member_disable: [],
+    }
+  ]
+)
 
-const success2 = config.setConfig('privates', {
+const success2 = config.setConfig('privates', [{
   // 配置内容
-  default: {
-    cd: 0,
-    mode: 0,
-    alias: [],
-    enable: ['plugin1', 'plugin2'],
-    disable: [],
-  },
-})
+  key: 'Bot:selfId:privateId',
+  inherit: true,
+  cd: 0,
+  mode: 0,
+  alias: [],
+  enable: ['plugin1', 'plugin2'],
+  disable: [],
+}])
 ```
 
 ### clearFiles
@@ -417,45 +387,6 @@ const authKeyValue = config.authKey()
 const ffmpeg = config.ffmpegPath()
 const ffprobe = config.ffprobePath()
 const ffplay = config.ffplayPath()
-```
-
-```ts twoslash
-// @noErrorValidation
-// @noErrorValidation
-import { config } from 'node-karin'
-import { karinPathConfig } from 'node-karin/root'
-
-// 初始化配置
-await config.initConfig(karinPathConfig)
-
-// 读取现有配置
-const groupConfig = config.getYaml('groups', 'user')
-const globalConfig = config.file.config()
-
-// 创建配置缓存系统
-const configCache = {}
-const accessCount = config.createCount()
-
-// 获取用户配置
-function getUserConfig(userId) {
-  return config.getCacheCfg(configCache, accessCount, [`user.${userId}`, 'default.user'])
-}
-
-// 设置用户配置
-function setUserConfig(userId, configData) {
-  configCache[`user.${userId}`] = config.formatObject(configData)
-
-  // 如果需要持久化
-  if (configData.shouldPersist) {
-    config.setConfig('users', {
-      ...config.getYaml('users', 'user'),
-      [userId]: configData,
-    })
-  }
-}
-
-// 定期清理缓存
-config.clearCache(accessCount, configCache)
 ```
 
 ---

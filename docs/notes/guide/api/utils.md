@@ -13,21 +13,21 @@ node-karin 提供了丰富的工具库函数，涵盖了文件操作、网络请
 
 以下是 node-karin 工具库中最常用的模块：
 
-| 模块名称                 | 说明         | 功能简介                                                  |
-| ------------------------ | ------------ | --------------------------------------------------------- |
-| [root](../exports.md)    | 路径管理     | 框架中常用的路径和状态信息                                |
-| [config](./config.md)    | 配置管理     | 配置文件的初始化、读取和缓存                              |
-| [context](./context.md)  | 上下文       | 提供事件上下文管理，包括事件监听、触发                    |
-| [common](./common.md)    | 通用工具集合 | 提供各种常用工具函数的集合                                |
-| [button](./button.md)    | 按钮工具     | 处理交互按钮的创建、转换和渲染                            |
-| [fs](./fs.md)            | 文件系统     | 文件系统操作的核心模块，包含多个子模块                    |
-| [logger](./logger.md)    | 日志工具     | 提供格式化日志输出和日志级别控制                          |
-| [message](./message.md)  | 消息工具     | 创建、解析和格式化各种消息类型                            |
-| [system](./system.md)    | 系统工具     | 系统级操作和进程管理函数                                  |
-| [git](./git.md)          | Git 工具     | Git 仓库操作和管理                                        |
-| [ini](./ini.md)          | INI 解析     | INI 格式配置文件解析和生成                                |
-| [request](./request.md)  | 请求处理     | HTTP 请求处理和格式化                                     |
-| [changelog](./changelog) | changelog    | changelog 相关的工具，通常用于解析标准化的 npm 包更新日志 |
+| 模块名称                       | 说明         | 功能简介                                                  |
+| ------------------------------ | ------------ | --------------------------------------------------------- |
+| [config](./utils/config.md)    | 配置管理     | 配置文件的初始化、读取和缓存                              |
+| [context](./utils/context.md)  | 上下文       | 提供事件上下文管理，包括事件监听、触发                    |
+| [common](./utils/common.md)    | 通用工具集合 | 提供各种常用工具函数的集合                                |
+| [button](./utils/button.md)    | 按钮工具     | 处理交互按钮的创建、转换和渲染                            |
+| [fs](./utils/fs.md)            | 文件系统     | 文件系统操作的核心模块，包含多个子模块                    |
+| [logger](./utils/logger.md)    | 日志工具     | 提供格式化日志输出和日志级别控制                          |
+| [message](./utils/message.md)  | 消息工具     | 创建、解析和格式化各种消息类型                            |
+| [system](./utils/system.md)    | 系统工具     | 系统级操作和进程管理函数                                  |
+| [git](./utils/git.md)          | Git 工具     | Git 仓库操作和管理                                        |
+| [ini](./utils/ini.md)          | INI 解析     | INI 格式配置文件解析和生成                                |
+| [request](./utils/request.md)  | 请求处理     | HTTP 请求处理和格式化                                     |
+| [changelog](./utils/changelog) | changelog    | changelog 相关的工具，通常用于解析标准化的 npm 包更新日志 |
+| [hook](./utils/hooks.md)       | Hook 工具    | 提供钩子机制，用于在特定时机执行自定义逻辑                |
 
 ## 使用方式
 

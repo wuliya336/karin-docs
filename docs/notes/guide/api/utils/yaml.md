@@ -1,10 +1,8 @@
 ---
-title: yaml
+title: 📄 yaml 模块
 createTime: 2025/05/15 00:12:24
 permalink: /guide/37u0i3zq/
 ---
-
-# yaml 模块
 
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。
@@ -56,19 +54,19 @@ writeYaml('/path/to/config.yaml', data)
 ```ts twoslash
 // @noErrorValidation
 import { save } from 'node-karin'
+// ---cut-start---
+const data = {} as any
+// ---cut-end---
 
 // 方式1: 使用JSON配置文件中的注释
 save('/path/to/config.yaml', data, '/path/to/comments.json')
-
 // 方式2: 使用键值对格式的注释
-save('/path/to/config.yaml', data, {
-  'server.port': '服务器端口',
+save('/path/to/config.yaml', data, {  'server.port': '服务器端口',
   debug: '是否开启调试模式',
 })
 
 // 方式3: 使用对象格式的注释，指定注释位置
-save('/path/to/config.yaml', data, {
-  'server.port': { comment: '服务器端口', type: 'top' },
+save('/path/to/config.yaml', data, {  'server.port': { comment: '服务器端口', type: 'top' },
   debug: { comment: '是否开启调试模式', type: 'end' },
 })
 ```
@@ -107,7 +105,6 @@ const editor = new YamlEditor('/path/to/config.yaml')
 
 // 读取值
 const port = editor.get('server.port')
-const config = editor.get() // 获取整个文档
 
 // 设置值
 editor.set('server.port', 4000)
@@ -204,6 +201,11 @@ editor.del('server.temp_dir')
 
 ```ts twoslash
 // @noErrorValidation
+import { YamlEditor } from 'node-karin'
+
+// 创建编辑器实例
+const editor = new YamlEditor('/path/to/config.yaml')
+// ---cut---
 /**
  * 向指定路径的数组添加新值
  * @param path 路径，多个路径使用`.`连接

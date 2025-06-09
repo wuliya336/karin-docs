@@ -1,5 +1,5 @@
 ---
-title: 适配器 API 接口
+title: 🔌 适配器 API 接口
 createTime: 2025/05/24 00:03:09
 permalink: /guide/09gep1ot/
 ---

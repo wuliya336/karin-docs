@@ -1,5 +1,5 @@
 ---
-title: Hook 钩子系统
+title: 🪝 Hook 钩子系统
 createTime: 2025/06/09 19:19:45
 permalink: /guide/caqx4uh5/
 ---
