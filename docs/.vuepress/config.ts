@@ -180,7 +180,7 @@ export default defineUserConfig({
           compilerOptions: {
             moduleResolution: ModuleResolutionKind.NodeNext,
             target: ScriptTarget.ESNext,
-            module: ModuleKind.ESNext,
+            module: ModuleKind.NodeNext,
           }
         }
       },
