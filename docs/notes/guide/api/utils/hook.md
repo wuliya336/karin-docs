@@ -2,6 +2,7 @@
 title: 🪝 Hook 钩子系统
 createTime: 2025/06/09 19:19:45
 permalink: /guide/caqx4uh5/
+badge: 新
 ---
 
 > Hook 钩子系统允许开发者在特定操作执行前后插入自定义逻辑，实现功能扩展和行为修改。

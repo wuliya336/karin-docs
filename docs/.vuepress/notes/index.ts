@@ -79,7 +79,7 @@ export const guide: ThemeNote = defineNoteConfig({
             { text: 'Context', link: 'context', icon: 'mdi:code-brackets' },
             { text: 'Fs', link: 'fs', icon: 'mdi:folder' },
             { text: 'Git', link: 'git', icon: 'mdi:git' },
-            { text: 'Hooks', link: 'hooks', icon: 'mdi:hook' },
+            { text: 'Hook', link: 'hook', icon: 'mdi:hook' },
             { text: 'Ini', link: 'ini', icon: 'mdi:file-document-outline' },
             { text: 'Logger', link: 'logger', icon: 'mdi:console' },
             { text: 'Message', link: 'message', icon: 'mdi:message-text' },
