@@ -232,11 +232,7 @@ export const demo = karin.command('demo', async (ctx) => {
   ctx.srcReply([
     segment.text('你好'),
     segment.image('https://example.com/image.png'),
-    segment.video('https://example.com/video.mp4'),
-    segment.audio('https://example.com/audio.mp3'),
-    segment.file('https://example.com/file.txt'),
-    segment.music('https://example.com/music.mp3'),
-    segment.share('https://example.com/share.html'),
+    segment.video('https://example.com/video.mp4'),    
   ])
 })
 ```
