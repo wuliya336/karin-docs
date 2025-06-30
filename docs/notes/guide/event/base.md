@@ -398,10 +398,12 @@ export const demo2 = karin.command('demo', async (ctx) => {
 :::
 
 ```ts twoslash
-import { karin } from 'node-karin'
+import { karin, segment } from 'node-karin'
 
 export const demo = karin.command('demo', async (ctx) => {
-  ctx.bot.sendMsg(ctx.contact, '你好')
+  ctx.bot.sendMsg(ctx.contact, [
+    segment.text('你好')
+  ])
 })
 ```
 

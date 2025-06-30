@@ -141,7 +141,7 @@ export const highPriorityHandler = karin.accept(
 
 // 低优先级处理器，后执行
 export const lowPriorityHandler = karin.accept(
-  'groupMemberAdd',
+  'notice.groupMemberAdd',
   (ctx, next) => {
     console.log('低优先级处理器执行')
     // 不调用 next()，事件处理到此结束
@@ -160,12 +160,12 @@ import { karin } from 'node-karin'
 
 // 仅在 QQ 适配器上生效
 export const qqOnlyHandler = karin.accept(
-  'notice.friendApply',
+  'request.friendApply',
   (ctx, next) => {
     console.log('仅处理 QQ 好友申请')
     return next()
   },
-  { adapter: ['QQBot'] }
+  { adapter: ['qqbot'] }
 )
 ```
 

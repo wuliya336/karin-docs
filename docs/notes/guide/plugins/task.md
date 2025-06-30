@@ -81,20 +81,15 @@ cron 表达式由 5 个字段组成，从左到右分别表示：
 ### 在执行函数中访问日志工具
 
 ```ts twoslash
-import { karin } from 'node-karin'
+import { karin, logger } from 'node-karin'
 
 export const task3 = karin.task(
   '带日志的任务',
   '0 12 * * *',
-  async (task) => {
-    // 使用任务内置的日志工具
-    task.log('开始执行任务')
-    
-    // 执行任务逻辑
-    
-    task.log('任务执行完成')
+  async () => {
+    logger.info('定时任务')
   },
-  { log: true } // 开启执行日志 默认开启
+  { log: true } // 显式开启执行日志 默认开启
 )
 ```
 
