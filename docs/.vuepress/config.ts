@@ -16,6 +16,20 @@ export default defineUserConfig({
   title: 'Karin',
   description: '让插件开发变得简单有趣',
 
+  /* 本地化配置 */
+  locales: {
+    '/': {
+      lang: 'zh-CN',
+      title: 'Karin',
+      description: '让插件开发变得简单有趣'
+    },
+    '/en/': {
+      lang: 'en-US',
+      title: 'Karin',
+      description: 'Make plugin development simple and fun'
+    }
+  },
+
   head: [
     // pwa
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon/favicon-96x96.png', sizes: '96x96' }],

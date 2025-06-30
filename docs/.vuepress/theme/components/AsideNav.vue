@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { VPLink } from 'vuepress-theme-plume/client'
 import { useRouteLocale } from 'vuepress/client'
 
 interface Locale {
@@ -14,21 +13,21 @@ const locales: Record<string, Locale> = {
 }
 
 const lang = useRouteLocale()
-const locale = computed(() => locales[lang.value])
+const locale = computed(() => locales[lang.value] || locales['/'])
 </script>
 
 <template>
   <div class="aside-nav-wrapper">
-    <VPLink class="link" no-icon href="https://github.com/KarinJS/Karin">
+    <a class="link" href="https://github.com/KarinJS/Karin" target="_blank">
       <span class="vpi-github-star" />
       <span class="link-text">{{ locale.star }}</span>
       <span class="vpi-arrow-right" />
-    </VPLink>
-    <VPLink class="link" no-icon href="https://github.com/KarinJS/Karin/issues/new/choose">
+    </a>
+    <a class="link" href="https://github.com/KarinJS/Karin/issues/new/choose" target="_blank">
       <span class="vpi-github-issue" />
       <span class="link-text">{{ locale.issue }}</span>
       <span class="vpi-arrow-right" />
-    </VPLink>
+    </a>
   </div>
 </template>
 

@@ -13,7 +13,7 @@ export const navbar = defineNavbarConfig([
     icon: 'mdi:rocket-launch',
     items: [
       { text: '进阶使用', icon: 'mdi:speedometer', link: '/notes/guide/advanced/render' },
-      { text: '插件开发', icon: 'mdi:puzzle', link: '/notes/guide/plugins/standard' },
+      { text: '插件开发', icon: 'mdi:puzzle', link: '/notes/guide/plugins/index' },
       { text: '事件信息', icon: 'mdi:webhook', link: '/notes/guide/event/index' },
       { text: 'API 文档', icon: 'fluent-mdl2:edit-create', link: '/notes/guide/api/exports' },
     ],

@@ -41,8 +41,15 @@ export const guide: ThemeNote = defineNoteConfig({
       icon: 'mdi:puzzle',
       prefix: 'plugins',
       items: [
+        { text: '目录', link: 'index', icon: 'mdi:table-of-contents' },
+        { text: '快速上手', link: 'start', icon: 'mdi:rocket-launch' },
         { text: '开发规范', link: 'standard', icon: 'mdi:ruler-square' },
-        { text: '插件示例', link: 'demo', icon: 'mdi:code-braces' },
+        { text: '插件结构', link: 'folders', icon: 'mdi:folder-outline' },
+        { text: '插件加载', link: 'load', icon: 'mdi:download-outline' },
+        { text: 'package', link: 'package', icon: 'mdi:package-variant' },
+        { text: '消息命令', link: 'command', icon: 'mdi:console-line' },
+        { text: '通知请求', link: 'accept', icon: 'mdi:bell-outline' },
+        { text: '定时任务', link: 'task', icon: 'mdi:clock-outline' },
         { text: '网页配置组件', link: 'component', icon: 'mdi:view-dashboard-outline' },
         { text: '插件商店', link: 'list', icon: 'mdi:store' }
       ]
@@ -54,6 +61,7 @@ export const guide: ThemeNote = defineNoteConfig({
       prefix: 'event',
       items: [
         { text: '目录', link: 'index', icon: 'mdi:table-of-contents' },
+        { text: '事件父类', link: 'base', icon: 'mdi:format-font' },
         { text: '消息事件', link: 'message', icon: 'mdi:message-text-outline' },
         { text: '通知事件', link: 'notice', icon: 'mdi:bell-outline' },
         { text: '请求事件', link: 'request', icon: 'mdi:arrow-decision-outline' }

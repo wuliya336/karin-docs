@@ -1,7 +1,7 @@
 ---
 title: list
 createTime: 2025/05/14 03:50:59
-permalink: /guide/n61lc73c/
+permalink: /guide/list/
 ---
 
 # 📜 用户须知

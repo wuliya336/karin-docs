@@ -4,189 +4,565 @@ createTime: 2025/05/15 00:40:00
 permalink: /guide/49w0mt5c/
 ---
 
-::: danger
-当前页面正在施工中 🚧
-:::
+通知事件在 [事件基类](./base.md) 中进行拓展，基本属性不再过多赘述。
 
-## 事件类型
+## 通知事件基本属性
 
-通知事件分为私聊（好友）通知和群聊通知。
+> 以下是通知事件的基本属性，所有通知事件都会包含这些属性。
 
-#### 私聊通知事件
+| 属性      | 类型      | 说明                                     |
+| --------- | --------- | ---------------------------------------- |
+| `event`   | `notice`  | 在通知事件中，`event` 永远都是 `notice`  |
+| `tips`    | `string`  | 通知内容文本                             |
+| `content` | `unknown` | 事件内容，根据不同的通知类型有不同的结构 |
 
-| 事件名称                       | 描述                           |
-| ------------------------------ | ------------------------------ |
-| **notice.receiveLike**         | 收到点赞时触发。               |
-| **notice.friendDecrease**      | 好友减少时触发（好友被删除）。 |
-| **notice.friendIncrease**      | 好友增加时触发（新好友添加）。 |
-| **notice.privatePoke**         | 在私聊中收到戳一戳时触发。     |
-| **notice.privateRecall**       | 在私聊中消息被撤回时触发。     |
-| **notice.privateFileUploaded** | 在私聊中文件上传时触发。       |
+## 收到点赞事件
 
-```ts twoslash
-// @noErrorValidation
-import { ReceiveLikeNotice, FriendDecreaseNotice, FriendIncreaseNotice, PrivatePokeNotice, PrivateRecallNotice, PrivateFileUploadedNotice } from 'node-karin'
-// ---cut-before---
-/** 私聊通知事件对应的对象类型 */
-interface FriendNoticeEventMap {
-  'notice.receiveLike': ReceiveLikeNotice
-  'notice.friendDecrease': FriendDecreaseNotice
-  'notice.friendIncrease': FriendIncreaseNotice
-  'notice.privatePoke': PrivatePokeNotice
-  'notice.privateRecall': PrivateRecallNotice
-  'notice.privateFileUploaded': PrivateFileUploadedNotice
+| 属性        | 类型                                | 说明                                                   |
+| ----------- | ----------------------------------- | ------------------------------------------------------ |
+| `subEvent`  | `receiveLike`                       | 在收到点赞事件中，`subEvent` 永远都是 `receiveLike`    |
+| `contact`   | `FriendContact`                     | 在收到点赞事件中，`contact` 永远都是 `FriendContact`   |
+| `sender`    | `Sender<'friend'>`                  | 在收到点赞事件中，`sender` 永远都是 `Sender<'friend'>` |
+| `isPrivate` | `true`                              | 在收到点赞事件中，`isPrivate` 永远都是 `true`          |
+| `isFriend`  | `true`                              | 在收到点赞事件中，`isFriend` 永远都是 `true`           |
+| `content`   | [ReceiveLikeType](#receiveliketype) |                                                        |
+
+### ReceiveLikeType
+
+```ts
+/** 通知事件: 收到点赞 */
+export interface ReceiveLikeType {
+  /** 点赞者id */
+  operatorId: string
+  /** 点赞者数量 */
+  count: number
 }
 ```
 
-#### 群聊通知事件
+## 好友增加事件
 
-| 事件名称                           | 描述                       |
-| ---------------------------------- | -------------------------- |
-| **notice.groupPoke**               | 在群聊中收到戳一戳时触发。 |
-| **notice.groupRecall**             | 在群聊中消息被撤回时触发。 |
-| **notice.groupFileUploaded**       | 在群聊中文件上传时触发。   |
-| **notice.groupCardChanged**        | 群成员名片变更时触发。     |
-| **notice.groupMemberTitleUpdated** | 群成员头衔更新时触发。     |
-| **notice.groupHighlightsChanged**  | 群精华消息变更时触发。     |
-| **notice.groupMemberIncrease**     | 新成员加入群聊时触发。     |
-| **notice.groupMemberDecrease**     | 群成员离开时触发。         |
-| **notice.groupAdminChanged**       | 群管理员变更时触发。       |
-| **notice.groupSignIn**             | 群签到事件触发。           |
-| **notice.groupMemberBan**          | 群成员被禁言时触发。       |
-| **notice.groupWholeBan**           | 群全员禁言时触发。         |
-| **notice.groupMessageReaction**    | 群消息表情反应时触发。     |
-| **notice.groupLuckKing**           | 群运气王事件触发。         |
-| **notice.groupHonorChanged**       | 群荣誉变更时触发。         |
+| 属性        | 类型                                      | 说明                                                   |
+| ----------- | ----------------------------------------- | ------------------------------------------------------ |
+| `subEvent`  | `friendIncrease`                          | 在好友增加事件中，`subEvent` 永远都是 `friendIncrease` |
+| `contact`   | `FriendContact`                           | 在好友增加事件中，`contact` 永远都是 `FriendContact`   |
+| `sender`    | `Sender<'friend'>`                        | 在好友增加事件中，`sender` 永远都是 `Sender<'friend'>` |
+| `isPrivate` | `true`                                    | 在好友增加事件中，`isPrivate` 永远都是 `true`          |
+| `isFriend`  | `true`                                    | 在好友增加事件中，`isFriend` 永远都是 `true`           |
+| `content`   | [FriendIncreaseType](#friendincreasetype) |                                                        |
 
-```ts twoslash
-// @noErrorValidation
-import {
-  GroupPokeNotice,
-  GroupRecallNotice,
-  GroupFileUploadedNotice,
-  GroupCardChangedNotice,
-  GroupMemberTitleUpdatedNotice,
-  GroupHlightsChangedNotice,
-  GroupMemberIncreaseNotice,
-  GroupMemberDecreaseNotice,
-  GroupAdminChangedNotice,
-  GroupSignInNotice,
-  GroupMemberBanNotice,
-  GroupWholeBanNotice,
-  GroupMessageReactionNotice,
-  GroupLuckKingNotice,
-  GroupHonorChangedNotice,
-} from 'node-karin'
-// ---cut-before---
+### FriendIncreaseType
 
-/** 群聊通知事件对应的对象类型 */
-export interface GroupNoticeEventMap {
-  'notice.groupPoke': GroupPokeNotice
-  'notice.groupRecall': GroupRecallNotice
-  'notice.groupFileUploaded': GroupFileUploadedNotice
-  'notice.groupCardChanged': GroupCardChangedNotice
-  'notice.groupMemberTitleUpdate': GroupMemberTitleUpdatedNotice
-  'notice.groupHighlightsChange': GroupHlightsChangedNotice
-  'notice.groupMemberAdd': GroupMemberIncreaseNotice
-  'notice.groupMemberRemove': GroupMemberDecreaseNotice
-  'notice.groupAdminChanged': GroupAdminChangedNotice
-  'notice.groupSignIn': GroupSignInNotice
-  'notice.groupMemberBan': GroupMemberBanNotice
-  'notice.groupWholeBan': GroupWholeBanNotice
-  'notice.groupMessageReaction': GroupMessageReactionNotice
-  'notice.groupLuckyKing': GroupLuckKingNotice
-  'notice.groupHonorChange': GroupHonorChangedNotice
+```ts
+/** 通知事件: 新增好友 */
+export interface FriendIncreaseType {
+  /** 新好友id */
+  targetId: string
 }
 ```
 
-<!-- ### 请求事件
+## 好友减少事件
 
-请求事件分为好友请求和群聊请求。
+| 属性        | 类型                                      | 说明                                                   |
+| ----------- | ----------------------------------------- | ------------------------------------------------------ |
+| `subEvent`  | `friendDecrease`                          | 在好友减少事件中，`subEvent` 永远都是 `friendDecrease` |
+| `contact`   | `FriendContact`                           | 在好友减少事件中，`contact` 永远都是 `FriendContact`   |
+| `sender`    | `Sender<'friend'>`                        | 在好友减少事件中，`sender` 永远都是 `Sender<'friend'>` |
+| `isPrivate` | `true`                                    | 在好友减少事件中，`isPrivate` 永远都是 `true`          |
+| `isFriend`  | `true`                                    | 在好友减少事件中，`isFriend` 永远都是 `true`           |
+| `content`   | [FriendDecreaseType](#frienddecreasetype) |                                                        |
 
-#### 好友请求事件
+### FriendDecreaseType
 
-| 事件类型                | 描述               |
-| ----------------------- | ------------------ |
-| **PrivateApplyRequest** | 表示好友申请请求。 |
-
-```typescript
-export interface FriendRequestEventMap {
-  'request.friendApply': PrivateApplyRequest
+```ts
+/** 通知事件: 好友减少 */
+export interface FriendDecreaseType {
+  /** 减少的好友id */
+  targetId: string
 }
 ```
 
-#### 群聊请求事件
+## 收到私聊戳一戳事件
 
-| 事件类型               | 描述               |
-| ---------------------- | ------------------ |
-| **GroupApplyRequest**  | 表示群聊申请请求。 |
-| **GroupInviteRequest** | 表示群聊邀请请求。 |
+| 属性        | 类型                                | 说明                                                     |
+| ----------- | ----------------------------------- | -------------------------------------------------------- |
+| `subEvent`  | `friendPoke`                        | 在私聊戳一戳事件中，`subEvent` 永远都是 `friendPoke`     |
+| `contact`   | `FriendContact`                     | 在私聊戳一戳事件中，`contact` 永远都是 `FriendContact`   |
+| `sender`    | `Sender<'friend'>`                  | 在私聊戳一戳事件中，`sender` 永远都是 `Sender<'friend'>` |
+| `isPrivate` | `true`                              | 在私聊戳一戳事件中，`isPrivate` 永远都是 `true`          |
+| `isFriend`  | `true`                              | 在私聊戳一戳事件中，`isFriend` 永远都是 `true`           |
+| `content`   | [PrivatePokeType](#privatepoketype) |                                                          |
 
-```typescript
-export interface GroupRequestEventMap {
-  'request.groupApply': GroupApplyRequest
-  'request.groupInvite': GroupInviteRequest
+### PrivatePokeType
+
+```ts
+/** 通知事件: 私聊戳一戳 */
+export interface PrivatePokeType {
+  /** 操作者id */
+  operatorId: string
+  /** 被戳者id */
+  targetId: string
+  /** 操作名称，如"戳了戳" */
+  action: string
+  /** 后缀，未设置则未空字符串 */
+  suffix: string
+  /** 操作图标url */
+  actionImage: string
 }
 ```
 
-### 组合事件映射
+## 收到私聊撤回事件
 
-组合事件映射包括所有消息、通知和请求事件。
+| 属性        | 类型                                    | 说明                                                   |
+| ----------- | --------------------------------------- | ------------------------------------------------------ |
+| `subEvent`  | `friendRecall`                          | 在私聊撤回事件中，`subEvent` 永远都是 `friendRecall`   |
+| `contact`   | `FriendContact`                         | 在私聊撤回事件中，`contact` 永远都是 `FriendContact`   |
+| `sender`    | `Sender<'friend'>`                      | 在私聊撤回事件中，`sender` 永远都是 `Sender<'friend'>` |
+| `isPrivate` | `true`                                  | 在私聊撤回事件中，`isPrivate` 永远都是 `true`          |
+| `isFriend`  | `true`                                  | 在私聊撤回事件中，`isFriend` 永远都是 `true`           |
+| `content`   | [PrivateRecallType](#privaterecalltype) |                                                        |
 
-```typescript
-export interface NoticeEventMap extends FriendNoticeEventMap, GroupNoticeEventMap {
-  notice: Notice
-}
+### PrivateRecallType
 
-export interface RequestEventMap extends FriendRequestEventMap, GroupRequestEventMap {
-  request: Request
+```ts
+/** 通知事件: 私聊撤回消息 */
+export interface PrivateRecallType {
+  /** 操作者id */
+  operatorId: string
+  /** 撤回的消息id */
+  messageId: string
+  /** 操作提示，如"撤回了一条消息"  一般此项为空字符串 */
+  tips: string
 }
 ```
 
-## 通知类型
+## 收到私聊文件上传事件
 
-`notice.ts` 文件定义了各种通知类型，每个类型都继承自 `NoticeBase` 类。这些类型包括：
+| 属性        | 类型                                                | 说明                                                            |
+| ----------- | --------------------------------------------------- | --------------------------------------------------------------- |
+| `subEvent`  | `privateFileUploaded`                               | 在私聊文件上传事件中，`subEvent` 永远都是 `privateFileUploaded` |
+| `contact`   | `FriendContact`                                     | 在私聊文件上传事件中，`contact` 永远都是 `FriendContact`        |
+| `sender`    | `Sender<'friend'>`                                  | 在私聊文件上传事件中，`sender` 永远都是 `Sender<'friend'>`      |
+| `isPrivate` | `true`                                              | 在私聊文件上传事件中，`isPrivate` 永远都是 `true`               |
+| `isFriend`  | `true`                                              | 在私聊文件上传事件中，`isFriend` 永远都是 `true`                |
+| `content`   | [PrivateFileUploadedType](#privatefileuploadedtype) |                                                                 |
 
-- **ReceiveLikeNotice**
-- **FriendIncreaseNotice**
-- **FriendDecreaseNotice**
-- **PrivatePokeNotice**
-- **PrivateRecallNotice**
-- **PrivateFileUploadedNotice**
-- **GroupPokeNotice**
-- **GroupRecallNotice**
-- **GroupFileUploadedNotice**
-- **GroupCardChangedNotice**
-- **GroupMemberTitleUpdatedNotice**
-- **GroupHlightsChangedNotice**
-- **GroupMemberIncreaseNotice**
-- **GroupMemberDecreaseNotice**
-- **GroupAdminChangedNotice**
-- **GroupSignInNotice**
-- **GroupMemberBanNotice**
-- **GroupWholeBanNotice**
-- **GroupMessageReactionNotice**
-- **GroupLuckKingNotice**
-- **GroupHonorChangedNotice**
+### PrivateFileUploadedType
 
-每个通知类型都有 `subEvent`、`contact`、`sender` 和 `content` 等属性，以及用于确定上下文的方法（例如 `isPrivate`、`isFriend`、`isGroup`）。
-
-```typescript
-export class ReceiveLikeNotice extends NoticeBase {
-  #subEvent: 'receiveLike'
-  #contact: ReceiveLikeOptions['contact']
-  #sender: ReceiveLikeOptions['sender']
-  content: ReceiveLikeOptions['content']
-
-  constructor(options: ReceiveLikeOptions) {
-    super(Object.assign(options, { subEvent: 'receiveLike' as const }))
-
-    this.#subEvent = 'receiveLike'
-    this.#contact = options.contact
-    this.#sender = options.sender
-    this.content = options.content
-  }
-
-  // Getters and other methods...
+```ts
+/**
+ * 通知事件: 私聊文件上传
+ * 文件信息最少需要提供一个url
+ */
+export interface PrivateFileUploadedType {
+  /** 操作者id */
+  operatorId: string
+  /** 文件ID 此项没有则为空字符串 */
+  fid: string
+  /** 文件子ID 此项没有则为0 */
+  subId: number
+  /** 文件名 此项没有则为空字符串 */
+  name: string
+  /** 文件大小 此项没有则为0 */
+  size: number
+  /** 过期时间 此项没有则为0 */
+  expireTime: number
+  /** 文件URL */
+  url: () => Promise<string>
 }
-``` -->
+```
+
+## 群聊类通知事件
+
+> 所有群聊类通知事件都继承自 `GroupNotice` 类，包含以下通用属性
+
+| 属性      | 类型     | 事件特有字段 | 说明                          |
+| --------- | -------- | ------------ | ----------------------------- |
+| `groupId` | `string` |              | 当前群聊ID，同 `contact.peer` |
+
+## 收到群聊戳一戳事件
+
+| 属性       | 类型                            | 说明                                                    |
+| ---------- | ------------------------------- | ------------------------------------------------------- |
+| `subEvent` | `groupPoke`                     | 在群聊戳一戳事件中，`subEvent` 永远都是 `groupPoke`     |
+| `contact`  | `GroupContact`                  | 在群聊戳一戳事件中，`contact` 永远都是 `GroupContact`   |
+| `sender`   | `Sender<'group'>`               | 在群聊戳一戳事件中，`sender` 永远都是 `Sender<'group'>` |
+| `isGroup`  | `true`                          | 在群聊戳一戳事件中，`isGroup` 永远都是 `true`           |
+| `groupId`  | `string`                        | 当前群聊ID，同 `contact.peer`                           |
+| `content`  | [GroupPokeType](#grouppoketype) |                                                         |
+
+### GroupPokeType
+
+```ts
+/** 通知事件: 群聊戳一戳 */
+export interface GroupPokeType {
+  /** 操作者id */
+  operatorId: string
+  /** 操作名称，如"戳了戳" */
+  action: string
+  /** 后缀，未设置则未空字符串 */
+  suffix: string
+  /** 操作图标url */
+  actionImage: string
+  /** 被戳目标id */
+  targetId: string
+}
+```
+
+## 收到群聊撤回事件
+
+| 属性       | 类型                                | 说明                                                  |
+| ---------- | ----------------------------------- | ----------------------------------------------------- |
+| `subEvent` | `groupRecall`                       | 在群聊撤回事件中，`subEvent` 永远都是 `groupRecall`   |
+| `contact`  | `GroupContact`                      | 在群聊撤回事件中，`contact` 永远都是 `GroupContact`   |
+| `sender`   | `Sender<'group'>`                   | 在群聊撤回事件中，`sender` 永远都是 `Sender<'group'>` |
+| `isGroup`  | `true`                              | 在群聊撤回事件中，`isGroup` 永远都是 `true`           |
+| `groupId`  | `string`                            | 当前群聊ID，同 `contact.peer`                         |
+| `content`  | [GroupRecallType](#grouprecalltype) |                                                       |
+
+### GroupRecallType
+
+```ts
+/**
+ * 通知事件: 群聊撤回
+ * 撤回自己消息时，operator和target为自己
+ * 撤回别人消息时，operator为操作者，target为被撤回者
+ */
+export interface GroupRecallType {
+  /** 操作者id */
+  operatorId: string
+  /** 目标id 撤回自己消息为自己 否则是被撤回者 */
+  targetId: string
+  /** 撤回的消息id */
+  messageId: string
+  /** 操作提示，如"撤回了一条消息"  一般此项为空字符串 */
+  tip: string
+}
+```
+
+## 收到群聊文件上传事件
+
+| 属性       | 类型                                            | 说明                                                          |
+| ---------- | ----------------------------------------------- | ------------------------------------------------------------- |
+| `subEvent` | `groupFileUploaded`                             | 在群聊文件上传事件中，`subEvent` 永远都是 `groupFileUploaded` |
+| `contact`  | `GroupContact`                                  | 在群聊文件上传事件中，`contact` 永远都是 `GroupContact`       |
+| `sender`   | `Sender<'group'>`                               | 在群聊文件上传事件中，`sender` 永远都是 `Sender<'group'>`     |
+| `isGroup`  | `true`                                          | 在群聊文件上传事件中，`isGroup` 永远都是 `true`               |
+| `groupId`  | `string`                                        | 当前群聊ID，同 `contact.peer`                                 |
+| `content`  | [GroupFileUploadedType](#groupfileuploadedtype) |                                                               |
+
+### GroupFileUploadedType
+
+```ts
+/**
+ * 通知事件: 群文件上传
+ * 文件信息最少需要提供一个url
+ */
+export interface GroupFileUploadedType {
+  /** 文件ID */
+  fid: string
+  /** 文件子ID */
+  subId: number
+  /** 文件名 */
+  name: string
+  /** 文件大小 */
+  size: number
+  /** 过期时间 */
+  expireTime?: number
+  /** 文件URL */
+  url: () => Promise<string>
+}
+```
+
+## 群名片变动事件
+
+| 属性       | 类型                                          | 说明                                                       |
+| ---------- | --------------------------------------------- | ---------------------------------------------------------- |
+| `subEvent` | `groupCardChanged`                            | 在群名片变动事件中，`subEvent` 永远都是 `groupCardChanged` |
+| `contact`  | `GroupContact`                                | 在群名片变动事件中，`contact` 永远都是 `GroupContact`      |
+| `sender`   | `Sender<'group'>`                             | 在群名片变动事件中，`sender` 永远都是 `Sender<'group'>`    |
+| `isGroup`  | `true`                                        | 在群名片变动事件中，`isGroup` 永远都是 `true`              |
+| `groupId`  | `string`                                      | 当前群聊ID，同 `contact.peer`                              |
+| `content`  | [GroupCardChangedType](#groupcardchangedtype) |                                                            |
+
+### GroupCardChangedType
+
+```ts
+/** 通知事件: 群名片变动 */
+export interface GroupCardChangedType {
+  /** 操作者id */
+  operatorId: string
+  /** 目标id */
+  targetId: string
+  /** 新名片 */
+  newCard: string
+}
+```
+
+## 群成员头衔变动事件
+
+| 属性       | 类型                                                                    | 说明                                                                 |
+| ---------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `subEvent` | `groupMemberTitleUpdate`                                                | 在群成员头衔变动事件中，`subEvent` 永远都是 `groupMemberTitleUpdate` |
+| `contact`  | `GroupContact`                                                          | 在群成员头衔变动事件中，`contact` 永远都是 `GroupContact`            |
+| `sender`   | `Sender<'group'>`                                                       | 在群成员头衔变动事件中，`sender` 永远都是 `Sender<'group'>`          |
+| `isGroup`  | `true`                                                                  | 在群成员头衔变动事件中，`isGroup` 永远都是 `true`                    |
+| `groupId`  | `string`                                                                | 当前群聊ID，同 `contact.peer`                                        |
+| `content`  | [GroupMemberUniqueTitleChangedType](#groupmemberuniquetitlechangedtype) |                                                                      |
+
+### GroupMemberUniqueTitleChangedType
+
+```ts
+/** 通知事件: 群成员头衔变动 */
+export interface GroupMemberUniqueTitleChangedType {
+  /** 目标id */
+  targetId: string
+  /** 新头衔 */
+  title: string
+}
+```
+
+## 群精华消息变动事件
+
+| 属性       | 类型                                                | 说明                                                                |
+| ---------- | --------------------------------------------------- | ------------------------------------------------------------------- |
+| `subEvent` | `groupHighlightsChange`                             | 在群精华消息变动事件中，`subEvent` 永远都是 `groupHighlightsChange` |
+| `contact`  | `GroupContact`                                      | 在群精华消息变动事件中，`contact` 永远都是 `GroupContact`           |
+| `sender`   | `Sender<'group'>`                                   | 在群精华消息变动事件中，`sender` 永远都是 `Sender<'group'>`         |
+| `isGroup`  | `true`                                              | 在群精华消息变动事件中，`isGroup` 永远都是 `true`                   |
+| `groupId`  | `string`                                            | 当前群聊ID，同 `contact.peer`                                       |
+| `content`  | [GroupHlightsChangedType](#grouphlightschangedtype) |                                                                     |
+
+### GroupHlightsChangedType
+
+```ts
+/** 通知事件: 群精华消息变动 */
+export interface GroupHlightsChangedType {
+  /** 操作者id */
+  operatorId: string
+  /** 发送者id */
+  senderId: string
+  /** 被操作的消息id */
+  messageId: string
+  /** 设置、取消精华 */
+  isSet: boolean
+}
+```
+
+## 群成员增加事件
+
+| 属性       | 类型                                                | 说明                                                     |
+| ---------- | --------------------------------------------------- | -------------------------------------------------------- |
+| `subEvent` | `groupMemberAdd`                                    | 在群成员增加事件中，`subEvent` 永远都是 `groupMemberAdd` |
+| `contact`  | `GroupContact`                                      | 在群成员增加事件中，`contact` 永远都是 `GroupContact`    |
+| `sender`   | `Sender<'group'>`                                   | 在群成员增加事件中，`sender` 永远都是 `Sender<'group'>`  |
+| `isGroup`  | `true`                                              | 在群成员增加事件中，`isGroup` 永远都是 `true`            |
+| `groupId`  | `string`                                            | 当前群聊ID，同 `contact.peer`                            |
+| `content`  | [GroupMemberIncreaseType](#groupmemberincreasetype) |                                                          |
+
+### GroupMemberIncreaseType
+
+```ts
+/** 通知事件: 群成员增加 */
+export interface GroupMemberIncreaseType {
+  /** 操作者id */
+  operatorId: string
+  /** 加入者id */
+  targetId: string
+  /** 加入方式 APPROVE:管理员批准 INVITE:管理员邀请 */
+  type: 'invite' | 'approve'
+}
+```
+
+## 群成员减少事件
+
+| 属性       | 类型                                                | 说明                                                        |
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------- |
+| `subEvent` | `groupMemberRemove`                                 | 在群成员减少事件中，`subEvent` 永远都是 `groupMemberRemove` |
+| `contact`  | `GroupContact`                                      | 在群成员减少事件中，`contact` 永远都是 `GroupContact`       |
+| `sender`   | `Sender<'group'>`                                   | 在群成员减少事件中，`sender` 永远都是 `Sender<'group'>`     |
+| `isGroup`  | `true`                                              | 在群成员减少事件中，`isGroup` 永远都是 `true`               |
+| `groupId`  | `string`                                            | 当前群聊ID，同 `contact.peer`                               |
+| `content`  | [GroupMemberDecreaseType](#groupmemberdecreasetype) |                                                             |
+
+### GroupMemberDecreaseType
+
+```ts
+/** 通知事件: 群成员减少 */
+export interface GroupMemberDecreaseType {
+  /** 操作者id */
+  operatorId: string
+  /** 目标id */
+  targetId: string
+  /** 减少方式 leave:主动退群 kick:成员被踢 kickBot:机器人自身被踢 */
+  type: 'leave' | 'kick' | 'kickBot'
+}
+```
+
+## 群管理员变动事件
+
+| 属性       | 类型                                            | 说明                                                          |
+| ---------- | ----------------------------------------------- | ------------------------------------------------------------- |
+| `subEvent` | `groupAdminChanged`                             | 在群管理员变动事件中，`subEvent` 永远都是 `groupAdminChanged` |
+| `contact`  | `GroupContact`                                  | 在群管理员变动事件中，`contact` 永远都是 `GroupContact`       |
+| `sender`   | `Sender<'group'>`                               | 在群管理员变动事件中，`sender` 永远都是 `Sender<'group'>`     |
+| `isGroup`  | `true`                                          | 在群管理员变动事件中，`isGroup` 永远都是 `true`               |
+| `groupId`  | `string`                                        | 当前群聊ID，同 `contact.peer`                                 |
+| `content`  | [GroupAdminChangedType](#groupadminchangedtype) |                                                               |
+
+### GroupAdminChangedType
+
+```ts
+/** 通知事件: 群管理员变动 */
+export interface GroupAdminChangedType {
+  /** 目标id */
+  targetId: string
+  /** 设置、取消管理员 */
+  isAdmin: boolean
+}
+```
+
+## 群打卡事件
+
+| 属性       | 类型                                | 说明                                                |
+| ---------- | ----------------------------------- | --------------------------------------------------- |
+| `subEvent` | `groupSignIn`                       | 在群打卡事件中，`subEvent` 永远都是 `groupSignIn`   |
+| `contact`  | `GroupContact`                      | 在群打卡事件中，`contact` 永远都是 `GroupContact`   |
+| `sender`   | `Sender<'group'>`                   | 在群打卡事件中，`sender` 永远都是 `Sender<'group'>` |
+| `isGroup`  | `true`                              | 在群打卡事件中，`isGroup` 永远都是 `true`           |
+| `groupId`  | `string`                            | 当前群聊ID，同 `contact.peer`                       |
+| `content`  | [GroupSignInType](#groupsignintype) |                                                     |
+
+### GroupSignInType
+
+```ts
+/** 通知事件: 群打卡 */
+export interface GroupSignInType {
+  /** 目标id */
+  targetId: string
+  /** 操作名称，如"打卡了" */
+  action: string
+  /** 打卡图标url */
+  rankImage: string
+}
+```
+
+## 群成员被禁言事件
+
+| 属性       | 类型                                      | 说明                                                     |
+| ---------- | ----------------------------------------- | -------------------------------------------------------- |
+| `subEvent` | `groupMemberBan`                          | 在群成员禁言事件中，`subEvent` 永远都是 `groupMemberBan` |
+| `contact`  | `GroupContact`                            | 在群成员禁言事件中，`contact` 永远都是 `GroupContact`    |
+| `sender`   | `Sender<'group'>`                         | 在群成员禁言事件中，`sender` 永远都是 `Sender<'group'>`  |
+| `isGroup`  | `true`                                    | 在群成员禁言事件中，`isGroup` 永远都是 `true`            |
+| `groupId`  | `string`                                  | 当前群聊ID，同 `contact.peer`                            |
+| `content`  | [GroupMemberBanType](#groupmemberbantype) |                                                          |
+
+### GroupMemberBanType
+
+```ts
+/** 通知事件: 群成员被禁言 */
+export interface GroupMemberBanType {
+  /** 操作者id */
+  operatorId: string
+  /** 目标id */
+  targetId: string
+  /** 禁言时长，单位秒 */
+  duration: number
+  /** 是否为禁言 */
+  isBan: boolean
+}
+```
+
+## 群全员禁言事件
+
+| 属性       | 类型                                    | 说明                                                    |
+| ---------- | --------------------------------------- | ------------------------------------------------------- |
+| `subEvent` | `groupWholeBan`                         | 在群全员禁言事件中，`subEvent` 永远都是 `groupWholeBan` |
+| `contact`  | `GroupContact`                          | 在群全员禁言事件中，`contact` 永远都是 `GroupContact`   |
+| `sender`   | `Sender<'group'>`                       | 在群全员禁言事件中，`sender` 永远都是 `Sender<'group'>` |
+| `isGroup`  | `true`                                  | 在群全员禁言事件中，`isGroup` 永远都是 `true`           |
+| `groupId`  | `string`                                | 当前群聊ID，同 `contact.peer`                           |
+| `content`  | [GroupWholeBanType](#groupwholebantype) |                                                         |
+
+### GroupWholeBanType
+
+```ts
+/** 通知事件: 群全员禁言 */
+export interface GroupWholeBanType {
+  /** 操作者id */
+  operatorId: string
+  /** 是否开启全体禁言 */
+  isBan: boolean
+}
+```
+
+## 群表情动态事件
+
+| 属性       | 类型                                                  | 说明                                                           |
+| ---------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| `subEvent` | `groupMessageReaction`                                | 在群表情动态事件中，`subEvent` 永远都是 `groupMessageReaction` |
+| `contact`  | `GroupContact`                                        | 在群表情动态事件中，`contact` 永远都是 `GroupContact`          |
+| `sender`   | `Sender<'group'>`                                     | 在群表情动态事件中，`sender` 永远都是 `Sender<'group'>`        |
+| `isGroup`  | `true`                                                | 在群表情动态事件中，`isGroup` 永远都是 `true`                  |
+| `groupId`  | `string`                                              | 当前群聊ID，同 `contact.peer`                                  |
+| `content`  | [GroupMessageReactionType](#groupmessagereactiontype) |                                                                |
+
+### GroupMessageReactionType
+
+```ts
+/** 通知事件: 群表情动态 */
+export interface GroupMessageReactionType {
+  /** 消息ID */
+  messageId: string
+  /** 表情ID 参考: https://bot.q.qq.com/wiki/develop/api-v2/openapi/emoji/model.html#EmojiType */
+  faceId: number
+  /** 数量 */
+  count: number
+  /** 添加、取消回应 */
+  isSet: boolean
+}
+```
+
+## 群聊运气王事件
+
+| 属性       | 类型                                    | 说明                                                   |
+| ---------- | --------------------------------------- | ------------------------------------------------------ |
+| `subEvent` | `groupLuckyKing`                        | 在群运气王事件中，`subEvent` 永远都是 `groupLuckyKing` |
+| `contact`  | `GroupContact`                          | 在群运气王事件中，`contact` 永远都是 `GroupContact`    |
+| `sender`   | `Sender<'group'>`                       | 在群运气王事件中，`sender` 永远都是 `Sender<'group'>`  |
+| `isGroup`  | `true`                                  | 在群运气王事件中，`isGroup` 永远都是 `true`            |
+| `groupId`  | `string`                                | 当前群聊ID，同 `contact.peer`                          |
+| `content`  | [GroupLuckKingType](#groupluckkingtype) |                                                        |
+
+### GroupLuckKingType
+
+```ts
+/** 通知事件: 群聊运气王 */
+export interface GroupLuckKingType {
+  /** 红包发送者id */
+  userId: string
+  /** 运气王id */
+  targetId: string
+}
+```
+
+## 群聊荣誉变更事件
+
+| 属性       | 类型                                            | 说明                                                       |
+| ---------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| `subEvent` | `groupHonorChange`                              | 在群荣誉变更事件中，`subEvent` 永远都是 `groupHonorChange` |
+| `contact`  | `GroupContact`                                  | 在群荣誉变更事件中，`contact` 永远都是 `GroupContact`      |
+| `sender`   | `Sender<'group'>`                               | 在群荣誉变更事件中，`sender` 永远都是 `Sender<'group'>`    |
+| `isGroup`  | `true`                                          | 在群荣誉变更事件中，`isGroup` 永远都是 `true`              |
+| `groupId`  | `string`                                        | 当前群聊ID，同 `contact.peer`                              |
+| `content`  | [GroupHonorChangedType](#grouphonorchangedtype) |                                                            |
+
+### GroupHonorChangedType
+
+```ts
+/** 通知事件: 群聊荣誉变更事件 */
+export interface GroupHonorChangedType {
+  /** 荣誉类型，分别表示龙王、群聊之火、快乐源泉 */
+  honorType: 'talkative' | 'performer' | 'emotion'
+}
+```
