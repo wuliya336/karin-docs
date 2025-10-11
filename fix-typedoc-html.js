@@ -88,7 +88,7 @@ function fixMarkdownFile(filePath) {
 
 // 主函数
 function main() {
-  const docsDir = './docs/guide/api/Types'  // 修正路径
+  const docsDir = './docs/guide/api/types'
   let fixedCount = 0
 
   try {
