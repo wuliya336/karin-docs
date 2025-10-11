@@ -1,6 +1,6 @@
 import { defineThemeConfig } from 'vuepress-theme-plume'
 import { navbar } from './navbar'
-import { collections } from './collections'
+import { collections } from './collections/guide'
 
 /**
  * @see https://theme-plume.vuejs.press/config/basic/

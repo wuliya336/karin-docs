@@ -19,9 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
+          # "最近更新时间" 等 git 日志相关信息，需要拉取全部提交记录
           # "Last updated time" and other git log-related information require fetching all commit records.
           fetch-depth: 0
+
+      # 克隆 Karin 源码仓库
+      # Clone Karin source repository
+      - name: Checkout Karin source
+        uses: actions/checkout@v4
+        with:
+          repository: KarinJS/Karin
+          path: karin-source
+          fetch-depth: 1
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -31,6 +40,28 @@ jobs:
         with:
           # 选择要使用的 node 版本
           node-version: 22
+
+      # 安装 Karin 源码依赖并生成 TypeDoc
+      # Install Karin source dependencies and generate TypeDoc
+      - name: Install Karin dependencies and generate docs
+        run: |
+          cd karin-source
+          pnpm install --frozen-lockfile
+          cd packages/core
+          pnpm run docs:build
+
+      # 复制生成的 TypeDoc 到文档项目
+      # Copy generated TypeDoc to docs project
+      - name: Copy TypeDoc to docs project
+        run: |
+          # 删除旧的 types 目录
+          rm -rf docs/guide/api/types
+          # 复制新生成的文档
+          cp -r karin-source/packages/core/docs/guide/api/types docs/guide/api/
+          # 复制 typedoc-sidebar.json 到 VuePress collections 目录
+          cp karin-source/packages/core/docs/guide/api/types/typedoc-sidebar.json docs/.vuepress/collections/typedoc-sidebar.json
+          # 清理源码目录
+          rm -rf karin-source
 
       # 安装依赖
       # Install dependencies

@@ -1,6 +1,7 @@
 
 import type { ThemeCollectionItem } from 'vuepress-theme-plume'
 import { defineCollection } from 'vuepress-theme-plume'
+import typedocSidebar from './typedoc-sidebar.json'
 
 /**
  * 快速开始
@@ -76,6 +77,7 @@ const guideCollection: ThemeCollectionItem = defineCollection({
       icon: 'fluent-mdl2:edit-create',
       prefix: 'api',
       items: [
+        { text: 'Types', link: 'types/globals', items: typedocSidebar },
         { text: 'Adapter', link: 'adapter', icon: 'mdi:connection' },
         { text: 'Bot', link: 'bot', icon: 'ri:robot-fill' },
         { text: 'Exports', link: 'exports', icon: 'carbon:export' },

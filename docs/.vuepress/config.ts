@@ -77,14 +77,32 @@ export default defineUserConfig({
           resolvers: [ElementPlusResolver()],
         }),
         Components({
-          resolvers: [ElementPlusResolver()],
+          resolvers: [ElementPlusResolver({
+            importStyle: 'sass'
+          })],
         }),
       ],
       ssr: {
-        noExternal: process.env.NODE_ENV === 'production' ? [/element-plus/, /lenis/] : []
+        noExternal: [
+          'element-plus',
+          /element-plus/,
+          'lenis',
+          '@element-plus/icons-vue'
+        ]
       },
       optimizeDeps: {
-        // include: ['lenis']
+        include: ['element-plus/es', 'element-plus/es/components/*/style/css']
+      },
+      build: {
+        rollupOptions: {
+          external: (id) => {
+            // 在 SSR 构建时排除 CSS 文件
+            if (id.includes('.css') && process.env.NODE_ENV === 'production') {
+              return false
+            }
+            return false
+          }
+        }
       }
     }
   }),
@@ -129,24 +147,14 @@ export default defineUserConfig({
         {
           username: 'yusheng929',
           alias: ['瑜笙'],
+        },
+        {
+          username: 'shiwuliya',
+          alias: ['wuliya'],
         }
       ]
     },
-    changelog: false,
-
-    /**
-     * 博客
-     * @see https://theme-plume.vuejs.press/config/basic/#blog
-     */
-    blog: false, // 禁用博客
-    // blog: {
-    //   postList: true, // 是否启用文章列表页
-    //   tags: true, // 是否启用标签页
-    //   archives: true, // 是否启用归档页
-    //   categories: true, // 是否启用分类页
-    //   postCover: 'right', // 文章封面位置
-    //   pagination: 15, // 每页显示文章数量
-    // },
+    changelog: true,
 
     /* 博客文章页面链接前缀 */
     // article: '/article/',

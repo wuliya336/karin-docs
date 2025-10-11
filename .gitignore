@@ -9,3 +9,5 @@ docs/.vuepress/dist
 
 docs/auto-imports.d.ts
 docs/components.d.ts
+
+docs/guide/api/types
