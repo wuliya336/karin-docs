@@ -77,7 +77,7 @@ const guideCollection: ThemeCollectionItem = defineCollection({
       icon: 'fluent-mdl2:edit-create',
       prefix: 'api',
       items: [
-        { text: 'Types', link: 'types/globals', items: typedocSidebar },
+        { text: 'Types', link: 'types/globals', items: typedocSidebar, icon: 'mdi:code-braces' },
         { text: 'Adapter', link: 'adapter', icon: 'mdi:connection' },
         { text: 'Bot', link: 'bot', icon: 'ri:robot-fill' },
         { text: 'Exports', link: 'exports', icon: 'carbon:export' },
