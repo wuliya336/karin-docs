@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs'
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'fs'
 import { join } from 'path'
 
 function walkDir(dir, callback) {
@@ -90,6 +90,12 @@ function fixMarkdownFile(filePath) {
 function main() {
   const docsDir = './docs/guide/api/types'
   let fixedCount = 0
+
+  // 检查目录是否存在
+  if (!existsSync(docsDir)) {
+    console.log(`目录 ${docsDir} 不存在，跳过修复过程`)
+    return
+  }
 
   try {
     walkDir(docsDir, (filePath) => {
