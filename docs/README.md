@@ -22,7 +22,7 @@ config:
       actions:
         - theme: brand
           text: 🚀 从这里开始
-          link: /notes/guide/install/start
+          link: /guide/install/start
         - theme: alt
           text: 📦 Github →
           link: https://github.com/KarinJS/Karin
@@ -40,7 +40,7 @@ config:
         description: 支持多种即时通讯平台，一次开发，多处运行。
       - title: ⚡ 性能优先
         description: 高效处理大量消息，保证机器人的稳定运行。
-    link: /notes/guide/intro/why
+    link: /guide/intro/why
     linkText: 了解更多 →
 
   - type: custom

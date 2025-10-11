@@ -1,15 +1,14 @@
-import type { ThemeNoteListOptions } from 'vuepress-theme-plume'
-import { defineNotesConfig } from 'vuepress-theme-plume'
 
-import type { ThemeNote } from 'vuepress-theme-plume'
-import { defineNoteConfig } from 'vuepress-theme-plume'
+import type { ThemeCollectionItem } from 'vuepress-theme-plume'
+import { defineCollection } from 'vuepress-theme-plume'
 
 /**
  * 快速开始
  */
-export const guide: ThemeNote = defineNoteConfig({
+const guideCollection: ThemeCollectionItem = defineCollection({
+  type: 'doc',
   dir: 'guide',
-  link: '/guide',
+  title: '快速开始',
   sidebar: [
     {
       text: '从这里开始',
@@ -32,7 +31,11 @@ export const guide: ThemeNote = defineNoteConfig({
         { text: '渲染器', link: 'render', icon: 'mdi:monitor-eye' },
         { text: '配置文件', link: 'file', icon: 'mdi:file-cog-outline' },
         { text: '网页控制台', link: 'web', icon: 'mdi:web' },
-        { text: '疑难杂症', link: 'problems', icon: 'mdi:help-circle', items: [{ text: '常见问题解答', link: 'faq', icon: 'mdi:frequently-asked-questions' }] }
+        {
+          text: '疑难杂症', link: 'problems', icon: 'mdi:help-circle', items: [
+            { text: '常见问题解答', link: 'faq', icon: 'mdi:frequently-asked-questions' }
+          ]
+        }
       ]
     },
     {
@@ -101,11 +104,4 @@ export const guide: ThemeNote = defineNoteConfig({
   ],
 })
 
-
-export const notes: ThemeNoteListOptions = defineNotesConfig({
-  dir: 'notes',
-  link: '/',
-  notes: [
-    guide,
-  ],
-})
+export const collections = [guideCollection]
