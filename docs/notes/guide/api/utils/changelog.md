@@ -1,7 +1,6 @@
 ---
 title: 📝 changelog 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/2gr1l6k8/
 ---
 
 > [!note]

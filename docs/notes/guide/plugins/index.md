@@ -1,7 +1,6 @@
 ---
 title: 插件开发目录
 createTime: 2025/06/30 21:25:43
-permalink: /guide/index/
 ---
 
 # 插件开发指南

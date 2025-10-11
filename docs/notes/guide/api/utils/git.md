@@ -1,7 +1,6 @@
 ---
 title: 🔄 git 操作
 createTime: 2025/05/15 00:12:24
-permalink: /guide/vwjw5294/
 ---
 
 

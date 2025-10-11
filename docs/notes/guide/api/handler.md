@@ -1,7 +1,6 @@
 ---
 title: 🎯 Handler 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/utils/yjpu7n0t/
 ---
 
 > [!note]

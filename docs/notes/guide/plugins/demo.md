@@ -1,7 +1,6 @@
 ---
 title: 🚀 插件示例
 createTime: 2025/05/14 03:50:59
-permalink: /guide/demo/
 ---
 
 > 一个简单的 `demo` 示例，直接代码展示了。

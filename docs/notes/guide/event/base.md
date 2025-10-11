@@ -1,7 +1,6 @@
 ---
 title: 📚 事件基类
 createTime: 2025/05/15 00:40:00
-permalink: /guide/jtjfmd30/
 ---
 
 ## 事件基类

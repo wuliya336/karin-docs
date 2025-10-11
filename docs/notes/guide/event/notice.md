@@ -1,7 +1,6 @@
 ---
 title: 📢 通知事件
 createTime: 2025/05/15 00:40:00
-permalink: /guide/49w0mt5c/
 ---
 
 通知事件在 [事件基类](./base.md) 中进行拓展，基本属性不再过多赘述。

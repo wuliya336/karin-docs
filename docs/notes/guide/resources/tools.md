@@ -1,7 +1,6 @@
 ---
 title: 🛠️ 开发工具集
 createTime: 2025/05/23 10:00:00
-permalink: /guide/uli6m842/
 ---
 
 KarinJS团队开发了一系列高质量的辅助工具和插件，帮助开发者更高效地构建机器人应用。

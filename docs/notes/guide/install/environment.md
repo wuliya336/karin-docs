@@ -1,7 +1,6 @@
 ---
 title: 🛠️ 环境安装
 createTime: 2025/05/14 02:39:47
-permalink: /guide/j6ksgvd6/
 ---
 
 ## Node.js <Badge type="danger" text="铛铛铛！必需品" />

@@ -1,7 +1,6 @@
 ---
 title: 🕒 上下文事件处理 (Context)
 createTime: 2025/05/15 10:30:00
-permalink: /guide/gv44q6ds/
 ---
 
 > [!NOTE]

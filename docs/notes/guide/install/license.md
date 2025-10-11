@@ -1,7 +1,6 @@
 ---
 title: license
 createTime: 2025/05/15 01:10:43
-permalink: /guide/s3ottvo4/
 ---
 
 MIT License

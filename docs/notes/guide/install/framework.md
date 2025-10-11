@@ -1,7 +1,6 @@
 ---
 title: 🏗️ 框架安装
 createTime: 2025/05/14 02:39:47
-permalink: /guide/a8s4nkjq/
 ---
 
 # 框架安装

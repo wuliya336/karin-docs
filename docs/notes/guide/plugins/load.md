@@ -1,7 +1,6 @@
 ---
 title: 插件加载
 createTime: 2025/06/30 19:52:28
-permalink: /guide/load/
 ---
 
 # 插件加载机制

@@ -1,7 +1,6 @@
 ---
 title: list
 createTime: 2025/05/14 03:50:59
-permalink: /guide/list/
 ---
 
 # 📜 用户须知

@@ -1,7 +1,6 @@
 ---
 title: 🎨 渲染器安装
 createTime: 2025/05/14 01:01:55
-permalink: /guide/9e95pid5/
 ---
 
 ## 渲染器类型

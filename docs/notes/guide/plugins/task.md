@@ -1,7 +1,6 @@
 ---
 title: 定时任务插件
 createTime: 2025/06/30 21:28:37
-permalink: /guide/task/
 ---
 
 ## 基本用法

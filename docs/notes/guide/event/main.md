@@ -1,7 +1,6 @@
 ---
 title: 🔧 通用属性
 createTime: 2025/05/15 00:40:00
-permalink: /guide/ffhltark/
 ---
 
 以下是事件的通用属性。

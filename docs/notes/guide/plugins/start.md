@@ -1,7 +1,6 @@
 ---
 title: 快速入门指南
 createTime: 2025/06/30 21:15:29
-permalink: /guide/start/
 ---
 
 # 插件开发快速入门

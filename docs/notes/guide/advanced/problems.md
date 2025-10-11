@@ -1,7 +1,6 @@
 ---
 title: 🎯 提问准则
 createTime: 2025/05/14 01:01:55
-permalink: /guide/o2zidcaz/
 ---
 
 > 任何事物都不可能尽善尽美，Karin 也是如此。

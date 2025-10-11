@@ -1,7 +1,6 @@
 ---
 title: ✨ 快速上手
 createTime: 2025/05/14 02:39:47
-permalink: /guide/9kgsi6ub/
 ---
 
 欢迎使用 Karin! 这是一个充满魔力的现代化机器人开发框架，让我们开始这段奇妙的开发之旅吧

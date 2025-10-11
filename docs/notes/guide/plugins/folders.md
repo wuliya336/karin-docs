@@ -1,7 +1,6 @@
 ---
 title: 插件包目录结构
 createTime: 2025/06/30 19:53:28
-permalink: /guide/folders/
 ---
 
 ## 了解项目结构

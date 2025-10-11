@@ -1,7 +1,6 @@
 ---
 title: 📦 node-karin 导出模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/utils/1ususf67/
 ---
 
 > [!note]

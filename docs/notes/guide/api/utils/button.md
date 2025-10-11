@@ -1,7 +1,6 @@
 ---
 title: 🔘 button 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/2m6z62a9/
 ---
 
 > [!note]

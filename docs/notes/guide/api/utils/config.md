@@ -1,7 +1,6 @@
 ---
 title: ⚙️ config 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/gxzoi2nc/
 ---
 # config 模块
 

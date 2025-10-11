@@ -1,7 +1,6 @@
 ---
 title: 🎮 网页控制台
 createTime: 2025/05/14 01:01:55
-permalink: /guide/rvm4n8jd/
 ---
 
 ## 🎯 快速访问

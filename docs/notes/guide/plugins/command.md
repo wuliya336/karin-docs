@@ -1,7 +1,6 @@
 ---
 title: 消息插件开发
 createTime: 2025/06/30 16:11:47
-permalink: /guide/command/
 ---
 
 # 消息插件开发完全指南

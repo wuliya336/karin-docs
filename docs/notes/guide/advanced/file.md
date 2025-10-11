@@ -1,7 +1,6 @@
 ---
 title: 📝 配置文件
 createTime: 2025/05/14 01:01:55
-permalink: /guide/t0xrpxol/
 ---
 
 > [!IMPORTANT]

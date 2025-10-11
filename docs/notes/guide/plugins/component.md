@@ -1,7 +1,6 @@
 ---
 title: ⚙️ 网页配置组件
 createTime: 2025/05/14 03:50:59
-permalink: /guide/component/
 ---
 
 网页配置组件是 Karin 插件系统的核心功能，通过简单的 `web.config` 文件配置，开发者可以：

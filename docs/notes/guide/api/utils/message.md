@@ -1,7 +1,6 @@
 ---
 title: 💬 message 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/tnaf8j8v/
 ---
 > [!note]
 > 本文由 AI 辅助生成，可能存在不准确性。

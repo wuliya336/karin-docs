@@ -1,7 +1,6 @@
 ---
 title: 📋 logger 日志模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/dx7y8w93/
 ---
 
 > [!note]

@@ -1,7 +1,6 @@
 ---
 title: 📡 request 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/61b00fe9/
 ---
 
 > [!note]

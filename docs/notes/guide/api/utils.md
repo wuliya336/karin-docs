@@ -1,7 +1,6 @@
 ---
 title: 🛠️ 工具库
 createTime: 2025/05/15 00:12:24
-permalink: /guide/omb4d38v/
 ---
 
 > [!note]

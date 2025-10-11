@@ -1,7 +1,6 @@
 ---
 title: package.json 配置
 createTime: 2025/06/30 20:52:12
-permalink: /guide/package/
 ---
 
 先看一个 `package.json` 文件

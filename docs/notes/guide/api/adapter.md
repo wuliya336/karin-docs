@@ -1,7 +1,6 @@
 ---
 title: 🔌 适配器 API 接口
 createTime: 2025/05/24 00:03:09
-permalink: /guide/09gep1ot/
 ---
 
 此篇介绍了适配器API的基本接口，所有适配器都会实现 `AdapterType` 基类中定义的这些方法。开发者可以通过这些统一的接口，实现跨平台的机器人功能开发。

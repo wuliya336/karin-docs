@@ -1,7 +1,6 @@
 ---
 title: 🤖 Bot 模块
 createTime: 2025/05/15 00:12:24
-permalink: /guide/utils/8ksyrjkv/
 ---
 
 > [!note]

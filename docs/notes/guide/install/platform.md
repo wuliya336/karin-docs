@@ -1,7 +1,6 @@
 ---
 title: 🔌 接入平台
 createTime: 2025/05/14 02:39:47
-permalink: /guide/8qzackqe/
 ---
 
 # 目录

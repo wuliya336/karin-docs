@@ -1,7 +1,6 @@
 ---
 title: 通知与请求事件插件
 createTime: 2025/06/30 21:39:58
-permalink: /guide/accept/
 ---
 
 ## 基本用法
