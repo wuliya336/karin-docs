@@ -52,7 +52,7 @@ export default defineUserConfig({
     ['meta', { name: 'description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
     ['meta', { name: 'keywords', content: 'Bot frame, Robot frame, TypeScript' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
-    ['meta', { name: 'algolia-site-verification', content: '1A940B3512FC0E5A' }],
+    ['meta', { name: 'algolia-site-verification', content: 'A230317028B8E77F' }],
   ],
   plugins: [
     pwaPlugin({ update: 'hint' }),
@@ -185,19 +185,19 @@ export default defineUserConfig({
     // autoFrontmatter: false,
 
     /* 本地搜索, 默认启用 */
-    search: { provider: 'local' },
+    // search: { provider: 'local' },
 
     /**
      * Algolia DocSearch
      * 启用此搜索需要将 本地搜索 search 设置为 false
      * @see https://theme-plume.vuejs.press/config/plugins/search/#algolia-docsearch
      */
-    // search: {
-    //   provider: 'algolia',
-    //   appId: '',
-    //   apiKey: '',
-    //   indexName: '',
-    // },
+    search: {
+      provider: 'algolia',
+      appId: '2GOWVCRJVA',
+      apiKey: 'a2ca7a02032058746e0114803061aa89',
+      indexName: 'karin-docs',
+    },
 
     /**
      * Shiki 代码高亮
