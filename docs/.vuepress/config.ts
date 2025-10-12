@@ -52,7 +52,7 @@ export default defineUserConfig({
     ['meta', { name: 'description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
     ['meta', { name: 'keywords', content: 'Bot frame, Robot frame, TypeScript' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
-    ['meta', { name: 'algolia-site-verification', content: 'A230317028B8E77F' }],
+    ['meta', { name: 'algolia-site-verification', content: 'BAA4037FD16E8A1B' }],
   ],
   plugins: [
     pwaPlugin({ update: 'hint' }),
@@ -194,8 +194,8 @@ export default defineUserConfig({
      */
     search: {
       provider: 'algolia',
-      appId: '2GOWVCRJVA',
-      apiKey: 'a2ca7a02032058746e0114803061aa89',
+      appId: 'UUPCES9FAH',
+      apiKey: 'bcb3d971e0c60242b9fb8c88c7864efd',
       indexName: 'karin-docs',
     },
 
