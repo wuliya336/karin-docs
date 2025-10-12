@@ -196,7 +196,7 @@ export default defineUserConfig({
       provider: 'algolia',
       appId: 'TOACHGMVZ4',
       apiKey: '33a23176c12a0b5b28c116fa33e047c6',
-      indexName: 'karin',
+      indexName: 'docs',
     },
 
     /**
