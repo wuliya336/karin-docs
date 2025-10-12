@@ -13,6 +13,9 @@ importers:
       node-karin:
         specifier: ^1.11.5
         version: 1.11.5
+      tailwindcss:
+        specifier: ^4.1.14
+        version: 4.1.14
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.394

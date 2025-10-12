@@ -43,15 +43,16 @@ export default defineUserConfig({
     ['meta', { name: 'google-site-verification', content: '--V9ZVVBfakHdqwR54bgY6jnFPXz8XFBWhwsPEiBb5Q' }],
     ['meta', { property: 'og:title', content: 'Karin' }],
     ['meta', { property: 'og:description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
-    ['meta', { property: 'og:image', content: 'https://karin.fun/logo.png' }],
+    ['meta', { property: 'og:image', content: 'https://karin.deno.dev/logo.png' }],
     ['meta', { property: 'og:image:width', content: '582' }],
     ['meta', { property: 'og:image:height', content: '648' }],
-    ['meta', { property: 'og:url', content: 'https://karin.fun/' }],
-    ['meta', { property: 'og:license', content: 'https://karin.fun/docs/license' }],
+    ['meta', { property: 'og:url', content: 'https://karin.deno.dev/' }],
+    ['meta', { property: 'og:license', content: 'https://karin.deno.dev/docs/license' }],
     ['meta', { name: 'author', content: 'KarinJS Team' }],
     ['meta', { name: 'description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
     ['meta', { name: 'keywords', content: 'Bot frame, Robot frame, TypeScript' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
+    ['meta', { name: 'algolia-site-verification', content: '1A940B3512FC0E5A' }],
   ],
   plugins: [
     pwaPlugin({ update: 'hint' }),
@@ -121,7 +122,7 @@ export default defineUserConfig({
       },
     },
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
-    hostname: 'https://karin.fun',
+    hostname: 'https://karin.deno.dev',
 
     /* 文档仓库配置，用于 editLink */
     docsRepo: 'KarinJS/Karin-docs',
@@ -130,7 +131,7 @@ export default defineUserConfig({
 
     /* 页内信息 */
     editLink: true,
-    // lastUpdated: true,
+    lastUpdated: { formatOptions: { dateStyle: 'short', timeStyle: 'short' } },
     contributors: {
       mode: 'block',
       avatar: true,
