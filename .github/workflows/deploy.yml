@@ -57,9 +57,9 @@ jobs:
           # 删除旧的 types 目录
           rm -rf docs/guide/api/types
           # 复制新生成的文档
-          cp -r karin-source/packages/core/docs/guide/api/types docs/guide/api/
+          cp -r karin-source/packages/core/guide/api/types docs/guide/api/
           # 复制 typedoc-sidebar.json 到 VuePress collections 目录
-          cp karin-source/packages/core/docs/guide/api/types/typedoc-sidebar.json docs/.vuepress/collections/typedoc-sidebar.json
+          cp karin-source/packages/core/guide/api/types/typedoc-sidebar.json docs/.vuepress/collections/typedoc-sidebar.json
           # 清理源码目录
           rm -rf karin-source
 
