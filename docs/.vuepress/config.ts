@@ -40,14 +40,14 @@ export default defineUserConfig({
     ['link', { rel: 'manifest', href: '/favicon/site.webmanifest' }],
     // 1
     ['meta', { name: 'msvalidate.01', content: '8D5DDEA97F72740B73499AA520B67A1A' }],
-    ['meta', { name: 'google-site-verification', content: '--V9ZVVBfakHdqwR54bgY6jnFPXz8XFBWhwsPEiBb5Q' }],
+    ['meta', { name: 'google-site-verification', content: 'w-mIffst27-HZgRWHkWv7HnqgoWozVm8Lt45N50EmYg' }],
     ['meta', { property: 'og:title', content: 'Karin' }],
     ['meta', { property: 'og:description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
-    ['meta', { property: 'og:image', content: 'https://karin.deno.dev/logo.png' }],
+    ['meta', { property: 'og:image', content: 'https://karinjs.com/logo.png' }],
     ['meta', { property: 'og:image:width', content: '582' }],
     ['meta', { property: 'og:image:height', content: '648' }],
-    ['meta', { property: 'og:url', content: 'https://karin.deno.dev/' }],
-    ['meta', { property: 'og:license', content: 'https://karin.deno.dev/docs/license' }],
+    ['meta', { property: 'og:url', content: 'https://karinjs.com/' }],
+    ['meta', { property: 'og:license', content: 'https://karinjs.com/docs/license' }],
     ['meta', { name: 'author', content: 'KarinJS Team' }],
     ['meta', { name: 'description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
     ['meta', { name: 'keywords', content: 'Bot frame, Robot frame, TypeScript' }],
@@ -122,7 +122,7 @@ export default defineUserConfig({
       },
     },
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
-    hostname: 'https://karin.deno.dev',
+    hostname: 'https://karinjs.com',
 
     /* 文档仓库配置，用于 editLink */
     docsRepo: 'KarinJS/Karin-docs',
