@@ -286,10 +286,11 @@ export default defineUserConfig({
     comment: {
       provider: 'Giscus', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
       comment: true,
-      repo: 'KarinJS/Karin',
-      repoId: 'R_kgDOLcebnw',
+      repo: 'KarinJS/karin-docs',
+      repoId: 'R_kgDOMxTHFg',
       category: 'Announcements',
-      categoryId: 'DIC_kwDOLcebn84CeJZH',
+      categoryId: 'DIC_kwDOMxTHFs4Cwia1',
+      lazyLoading: true,
       mapping: 'pathname',
       reactionsEnabled: true,
       inputPosition: 'bottom',
