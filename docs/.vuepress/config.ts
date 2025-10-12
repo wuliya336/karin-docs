@@ -41,7 +41,7 @@ export default defineUserConfig({
     // 1
     ['meta', { name: 'msvalidate.01', content: '8D5DDEA97F72740B73499AA520B67A1A' }],
     ['meta', { name: 'google-site-verification', content: 'w-mIffst27-HZgRWHkWv7HnqgoWozVm8Lt45N50EmYg' }],
-    ['meta', { property: 'og:title', content: 'Karin' }],
+    ['meta', { property: 'og:title', content: 'Karin - 轻量、高效、简洁的 NodeJS 即时通讯机器人框架' }],
     ['meta', { property: 'og:description', content: 'An open source high-performance bot framework built with TypeScript. Supports functions such as multi-adapter, multi-platform access and custom renderer.' }],
     ['meta', { property: 'og:image', content: 'https://karinjs.com/logo.png' }],
     ['meta', { property: 'og:image:width', content: '582' }],
@@ -116,6 +116,12 @@ export default defineUserConfig({
     },
     plugins: {
       // 如果您在此处直接声明为 true，则表示开发环境和生产环境都启用该功能
+      seo: {
+        hostname: 'https://karinjs.com',
+        author: 'KarinJS Team',
+        restrictions: '6+',
+        autoDescription: true,
+      },
       git: true,
       markdownPower: {
         imageSize: 'all', // 'local' | 'all'
