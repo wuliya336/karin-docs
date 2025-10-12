@@ -194,9 +194,9 @@ export default defineUserConfig({
      */
     search: {
       provider: 'algolia',
-      appId: 'UUPCES9FAH',
-      apiKey: 'bcb3d971e0c60242b9fb8c88c7864efd',
-      indexName: 'karin-docs',
+      appId: 'TOACHGMVZ4',
+      apiKey: '33a23176c12a0b5b28c116fa33e047c6',
+      indexName: 'karin',
     },
 
     /**
