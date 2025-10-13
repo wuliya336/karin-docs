@@ -46,54 +46,45 @@ config:
   - type: custom
 ---
 
-### 使用脚手架创建
+![GitHub Repo stars](https://img.shields.io/github/stars/KarinJS/Karin)
+![GitHub forks](https://img.shields.io/github/forks/KarinJS/Karin)
+![NPM Version](https://img.shields.io/npm/v/node-karin)
+![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/node-karin)
+![NPM Downloads](https://img.shields.io/npm/dm/node-karin)
+![NPM Downloads](https://img.shields.io/npm/d18m/node-karin)
+![NPM License](https://img.shields.io/npm/l/node-karin)
 
-::: steps
-1. **准备环境**
-   - 确保已安装 Node.js 20+ 和 pnpm 9+
-   ```bash
-   node -v
-   pnpm -v
-   ```
-   - 创建一个干净的目录
-   ```bash
-   mkdir karin-project && cd karin-project
-   ```
+<!-- 代码质量和活跃度 -->
+![GitHub last commit](https://img.shields.io/github/last-commit/KarinJS/Karin)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/KarinJS/Karin)
+![GitHub contributors](https://img.shields.io/github/contributors/KarinJS/Karin)
 
-2. **执行创建命令**
-   ```bash
-   pnpm create karin
-   ```
-   - 自动检测环境并选择最佳镜像源
-   - 检查PM2和PNPM安装状态
+<!-- 技术栈和兼容性 -->
+![Node.js Version](https://img.shields.io/node/v/node-karin)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
-3. **交互式选择**
-   - 使用方向键选择选项
-   - 按回车确认选择
-   - 可选项包括：
-     - 项目类型（插件/完整项目）
-     - 模板选择（TypeScript/JavaScript）
-     - Puppeteer安装（图片生成功能）
-     - 镜像源切换
+<!-- 项目状态 -->
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/KarinJS/Karin/release.yml)
+![GitHub issues](https://img.shields.io/github/issues/KarinJS/Karin)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/KarinJS/Karin)
 
-4. **等待安装完成**
-   - 自动下载所需依赖
-   - 初始化项目结构
-   - 配置基础环境
-   ```bash
-   # 安装过程示例输出
-   ✔ 检查环境完成
-   ✔ 下载依赖中...
-   ✔ 初始化项目结构
-   ```
+<!-- 社区和支持 -->
+![](https://img.shields.io/badge/QQ群-967068507-blue?logo=tencentqq)
 
-5. **启动项目**
-   ```bash
-   cd 项目名称
-   npx karin .  # 前台启动
-   # 或
-   npx karin pm2  # 后台运行
-   ```
+
+
+
+
+## **快速开始**
+
+:::code-tabs
+@tab pnpm
+```sh
+pnpm create karin
+```
 :::
+
+
 
 <Confetti />
