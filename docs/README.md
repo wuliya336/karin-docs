@@ -17,7 +17,7 @@ config:
         offset: 19
     hero:
       name: Karin
-      tagline: 简洁、高效的机器人开发框架
+      tagline: 简洁、高效的即时通讯机器人开发框架
       text: A high-performance framework for building efficient instant messaging bots
       actions:
         - theme: brand
