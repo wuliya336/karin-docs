@@ -49,6 +49,17 @@ export default defineThemeConfig({
   collections,
 
   /**
+   * 404 页面
+   */
+  notFound: {
+    code: '404',
+    title: '哎呀，页面走丢了',
+    quote: '迷路了吗？别担心，即使方向不对，只要坚持寻找，终会找到属于你的那条路。',
+    linkLabel: '返回导航',
+    linkText: '带我回家',
+  },
+
+  /**
    * 公告板
    * @see https://theme-plume.vuejs.press/guide/features/bulletin/
    */

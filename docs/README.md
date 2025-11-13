@@ -20,12 +20,15 @@ config:
       tagline: 简洁、高效的即时通讯机器人开发框架
       text: A high-performance framework for building efficient instant messaging bots
       actions:
-        - theme: brand
-          text: 🚀 从这里开始
-          link: /guide/install/start
         - theme: alt
           text: 📦 Github →
           link: https://github.com/KarinJS/Karin
+        - theme: brand
+          text: 🚀 快速开始
+          link: /guide/install/start
+        - theme: alt
+          text: ⏳ v2 (敬请期待)
+          link: /v2-coming-soon
   
   - type: text-image
     title: 🤔 为什么选择 Karin？
@@ -72,19 +75,15 @@ config:
 <!-- 社区和支持 -->
 ![](https://img.shields.io/badge/QQ群-967068507-blue?logo=tencentqq)
 
-
-
-
-
 ## **快速开始**
 
 :::code-tabs
 @tab pnpm
+
 ```sh
 pnpm create karin
 ```
+
 :::
-
-
 
 <Confetti />

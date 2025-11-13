@@ -33,10 +33,31 @@ export const navbar = defineNavbarConfig([
     icon: 'codicon:versions',
     badge: '新',
     items: [
+      {
+        text: `v1 (${version})`,
+        icon: 'mdi:check-circle',
+        link: '/',
+        badge: '稳定',
+      },
+      {
+        text: 'v2 (敬请期待)',
+        icon: 'mdi:clock-outline',
+        link: '/v2-coming-soon',
+      },
       { text: 'NPM', icon: 'logos:npm-icon', link: 'https://www.npmjs.com/package/node-karin' },
       { text: '最近更新', icon: 'mdi:update', link: '/guide/updates' },
       { text: '更新日志', icon: 'octicon:log-16', link: '/changelog/' },
       { text: '参与贡献', icon: 'octicon:people-16', link: '/contributing/' },
+    ],
+  },
+  {
+    text: '镜像站',
+    icon: 'mdi:web',
+    items: [
+      { text: 'Vercel 镜像(瑜笙)', icon: 'mdi:web', link: 'https://docs.karinjs.com' },
+      { text: 'Vercel 镜像(憨憨)', icon: 'mdi:web', link: 'https://karin.hanhanz.top' },
+      { text: 'Deno 镜像', icon: 'mdi:web', link: 'https://karin.deno.dev' },
+      { text: '私有 CDN 镜像(ikechan8370)', icon: 'mdi:web', link: 'https://karin.chaite.cloud' },
     ],
   },
 ])
