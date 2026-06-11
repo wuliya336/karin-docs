@@ -32,9 +32,10 @@ createTime: 2025/05/14 03:50:59
 
 ## 编写示例
 
-- 需要默认导出一个`object`对象
-- 对象中需要包含`components`函数 `save`函数
-- 后续适配`info`配置
+- 需要默认导出一个 `object` 对象
+- 内置组件模式使用 `components` 和 `save`
+- 自定义页面模式使用 `page`
+- 后续适配 `info` 配置
 
 > ⚠️ **重要提示**
 > 每个组件的`key`必须全局唯一，包括嵌套组件的 key 也不能重复
@@ -1051,3 +1052,62 @@ export default defineConfig({
   ]
 }
 ```
+
+
+## 自定义配置页面
+
+除了使用 `components` 生成 Karin 内置配置表单，也可以在 `defineConfig` 中声明 `page`，让插件配置入口加载一个完整的自定义 Web 页面。
+
+```ts twoslash
+import { defineConfig } from 'node-karin'
+
+export default defineConfig({
+  info: {
+    id: 'plugin-id',
+    name: '插件名称',
+  },
+  page: {
+    url: '/your-page/',
+    title: '配置页面',
+    description: '使用插件提供的自定义页面',
+  },
+})
+```
+
+### page 参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `url` | `string` | 是 | 自定义页面地址。可以是同源绝对路径，也可以是 `http://` 或 `https://` 外部地址。PS: 如何给你的web应用注册同源路径请看[Server 模块](../api/server.md#router) |
+| `title` | `string` | 否 | 页面标题，会展示在 Karin 插件配置页容器中 |
+| `description` | `string` | 否 | 页面描述，会作为辅助说明文本展示 |
+
+### 异步返回 page
+
+如果页面地址需要运行时计算，`page` 也可以写成函数：
+
+```ts twoslash
+import { defineConfig } from 'node-karin'
+
+export default defineConfig({
+  info: {
+    id: 'plugin-id',
+    name: '插件名称',
+  },
+  page: async () => {
+    return {
+      url: '/your-page/',
+      title: '配置页面',
+      description: '使用运行时生成的页面地址',
+    }
+  },
+})
+```
+
+### 与 components 的关系
+
+`page` 和 `components` 是两种不同的配置页模式：
+
+- 使用 `components` 时，Karin 负责渲染配置表单，并通过 `save` 处理保存。
+- 使用 `page` 时，Karin 只负责在插件配置入口加载该页面。
+- 使用 `page` 时不能再配置 `components` 和 `save`，页面内部的读取、保存、校验、鉴权等逻辑由自定义 Web 应用自行处理。
