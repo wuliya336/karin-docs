@@ -80,8 +80,8 @@ createTime: 2025/05/14 01:01:55
 
 <p style="margin-bottom: 2em"></p>
 
-<LinkCard title="🙋 获取即时支持" href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=kDN3vwVj8Qozw94TWX69r24vxrWqkgMy&authKey=NxnqHYmo8037jCeDkO9yIFPOdQxkKa4JlxC%2FAV6UNxwGc%2FwKEVoogi44syB3BWuC&noverify=0&group_code=967068507" >
-你可以加入我们的官方用户交流群 967068507 来提问
+<LinkCard title="🙋 获取即时支持" href="https://qm.qq.com/q/SgP7WaLTag" >
+你可以加入我们的官方用户交流群 850541480 来提问
 </LinkCard>
 <LinkCard title="📬️ 通过 GitHub issue" href="https://github.com/KarinJS/Karin/issues/new/choose" >
 也可以给通过创建新的 GitHub issue 工单

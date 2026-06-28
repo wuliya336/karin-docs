@@ -73,7 +73,7 @@ config:
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/KarinJS/Karin)
 
 <!-- 社区和支持 -->
-![](https://img.shields.io/badge/QQ群-967068507-blue?logo=tencentqq)
+![](https://img.shields.io/badge/QQ群-850541480-blue?logo=tencentqq)
 
 ## **快速开始**
 

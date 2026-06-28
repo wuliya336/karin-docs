@@ -75,7 +75,7 @@ npx create-karin
 
 如果你在开发过程中遇到问题，可以通过以下方式获取帮助：
 
-- 加入官方用户交流群：967068507
+- 加入官方用户交流群：850541480
 - 通过 [GitHub Issues](https://github.com/KarinJS/Karin/issues/new/choose) 提问
 
 ## 贡献流程
